@@ -6,4 +6,8 @@ class Response
 
   field :ip, type: String
   field :answers, type: Hash
+
+  attr_accessible :answers
+
+  validates_presence_of :ip
 end

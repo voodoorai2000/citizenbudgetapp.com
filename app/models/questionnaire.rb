@@ -1,22 +1,27 @@
 class Questionnaire
   include Mongoid::Document
+  include Mongoid::Paranoia
 
-  belongs_to :organization
+  belongs_to :organization, index: true
   embeds_many :sections
   embeds_many :responses
 
   field :starts_at, type: Time
   field :ends_at, type: Time
 
+  def scheduled?
+    starts_at? && ends_at?
+  end
+
   def active?
-    starts_at < Time.now && Time.now < ends_at
+    scheduled? && starts_at < Time.now && Time.now < ends_at
   end
 
   def future?
-    Time.now < starts_at
+    scheduled? && Time.now < starts_at
   end
 
   def past?
-    ends_at < Time.now
+    scheduled? && ends_at < Time.now
   end
 end
