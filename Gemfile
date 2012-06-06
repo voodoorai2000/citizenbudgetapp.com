@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 
+gem 'girl_friday'
 gem 'mongoid'
 gem 'carrierwave-mongoid'
 gem 'activeadmin-mongoid'
@@ -20,3 +21,5 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'rspec-rails', '~> 2.6'
 end
+
+gem 'unicorn'
