@@ -49,6 +49,8 @@ GEM
     bourbon (2.1.0)
       sass (>= 3.1)
     bson (1.6.4)
+    bson_ext (1.6.2)
+      bson (~> 1.6.2)
     builder (3.0.0)
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
@@ -186,6 +188,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin-mongoid
+  bson_ext
   carrierwave-mongoid
   coffee-rails (~> 3.2.1)
   devise

@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.1'
 
 gem 'girl_friday'
+gem 'bson_ext'
 gem 'mongoid'
 gem 'carrierwave-mongoid'
 gem 'activeadmin-mongoid'
