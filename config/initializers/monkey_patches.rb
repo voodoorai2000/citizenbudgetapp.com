@@ -6,19 +6,6 @@ module ActiveAdmin
         def build_footer
         end
       end
-
-      class Show
-        # @ note From HEAD.
-        def default_title
-          title = display_name(resource)
-
-          if title.nil? || title.empty? || title == resource.to_s
-            title = "#{active_admin_config.resource_label} ##{resource.id}"
-          end
-
-          title
-        end
-      end
     end
   end
 
@@ -32,14 +19,15 @@ module ActiveAdmin
         crumbs = []
         parts.each_with_index do |part, index|
           name = ""
-          if part =~ /^(\d+|[a-f0-9]{24})$/ && parent = parts[index - 1]
+          if part =~ /^\d|^[a-f0-9]{24}$/ && parent = parts[index - 1]
             begin
               parent_class = parent.singularize.camelcase.constantize
-              obj = parent_class.find(part)
+              obj = parent_class.find(part[/^[a-f0-9]{24}$/] ? part : part.to_i)
               name = obj.display_name if obj.respond_to?(:display_name)
             rescue
             end
           end
+
           name = part.titlecase if name == ""
           begin
             crumbs << link_to( I18n.translate!("activerecord.models.#{part.singularize}", :count => 2), "/" + parts[0..index].join('/'))
@@ -53,24 +41,6 @@ module ActiveAdmin
   end
 
   class FormBuilder
-    # @note From HEAD.
-    def actions(*args, &block)
-      content = with_new_form_buffer do
-        block_given? ? super : super { commit_action_with_cancel_link }
-      end
-      form_buffers.last << content.html_safe
-    end
-
-    def action(*args)
-      content = with_new_form_buffer { super }
-      form_buffers.last << content.html_safe
-    end
-
-    def commit_action_with_cancel_link
-      content = action(:submit)
-      content << cancel_link
-    end
-
     # @note Added +has_many_form.object && +
     def has_many(association, options = {}, &block)
       options = { :for => association }.merge(options)

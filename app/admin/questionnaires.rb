@@ -45,7 +45,7 @@ ActiveAdmin.register Questionnaire do
     else
       ul do
         resource.sections.each do |s|
-          li auto_link s.name, s
+          li link_to s.title, [:admin, resource, s]
         end
       end
     end

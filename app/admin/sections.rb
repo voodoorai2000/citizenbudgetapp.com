@@ -4,7 +4,7 @@ ActiveAdmin.register Section do
   index do
     column :title
     column :questions do |s|
-      link_to s.questions.count, [:admin, parent, s, :questions]
+      s.questions.count
     end
     default_actions
   end
@@ -24,14 +24,6 @@ ActiveAdmin.register Section do
     attributes_table do
       row :title
     end
-    if resource.questions.empty?
-      span link_to t(:new_question), [:new, :admin, resource, :question], class: 'button'
-    else
-      ul do
-        resource.questions.each do |q|
-          li auto_link q.title, q
-        end
-      end
-    end
+    # @todo show questions
   end
 end
