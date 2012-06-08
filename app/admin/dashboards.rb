@@ -1,12 +1,27 @@
 ActiveAdmin::Dashboards.build do
-  section I18n.t(:active_consultations) do
+  section I18n.t(:active_consultations), if: ->{display? :active} do
     ul do
       Questionnaire.includes(:organization).active.each do |q|
-        li auto_link q
+        li auto_link(q.organization) + ': ' + auto_link(q)
       end
     end
   end
 
+  section I18n.t(:future_consultations), if: ->{display? :future} do
+    ul do
+      Questionnaire.includes(:organization).future.each do |q|
+        li auto_link(q.organization) + ': ' + auto_link(q)
+      end
+    end
+  end
+
+  section I18n.t(:past_consultations), if: ->{display? :past} do
+    ul do
+      Questionnaire.includes(:organization).past.each do |q|
+        li auto_link(q.organization) + ': ' + auto_link(q)
+      end
+    end
+  end
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.
@@ -48,4 +63,10 @@ ActiveAdmin::Dashboards.build do
   # section "Membership Summary", :if => :memberships_enabled?
   # section "Membership Summary", :if => Proc.new { current_admin_user.account.memberships.any? }
 
+end
+
+class Admin::DashboardController
+  def display?(meth)
+    Questionnaire.send(meth).count.nonzero?
+  end
 end

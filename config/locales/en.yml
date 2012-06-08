@@ -4,11 +4,13 @@
 en:
   # Active Admin dashboard
   active_consultations: 'Active consultations'
+  future_consultations: 'Future consultations'
+  past_consultations: 'Past consultations'
 
   # Active Admin columns
   name: Name
-  starts: Starts
-  ends: Ends
+  starts_at: Start date
+  ends_at: End date
   consultations: Consultations
 
   # Active Admin forms
@@ -28,7 +30,8 @@ en:
 
   time:
     formats:
-      short: '%B %e, %Y at %H:%M'
+      short: '%B %e, %Y'
+      long: '%B %e, %Y at %H:%M'
 
   errors:
     messages:

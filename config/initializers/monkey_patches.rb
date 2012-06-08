@@ -1,6 +1,12 @@
 module ActiveAdmin
   module Views
     module Pages
+      class Base
+        def build_footer
+          # Hide "Powered by"
+        end
+      end
+
       class Show
         def default_title
           title = display_name(resource)

@@ -1,13 +1,17 @@
 ActiveAdmin.register Questionnaire do
+  scope :active
+  scope :future
+  scope :past
+
   index do
     column :organization do |q|
       auto_link q.organization
     end
-    column t(:starts) do |q|
-      l(q.starts_at, format: :short) if q.starts_at?
+    column t(:starts_at) do |q|
+      l(q.starts_at, format: :long) if q.starts_at?
     end
-    column t(:ends) do |q|
-      l(q.ends_at, format: :short) if q.ends_at?
+    column t(:ends_at) do |q|
+      l(q.ends_at, format: :long) if q.ends_at?
     end
     default_actions
   end
@@ -26,11 +30,11 @@ ActiveAdmin.register Questionnaire do
       row :organization do |q|
         auto_link q.organization
       end
-      row t(:starts) do |q|
-        l(q.starts_at, format: :short) if q.starts_at?
+      row t(:starts_at) do |q|
+        l(q.starts_at, format: :long) if q.starts_at?
       end
-      row t(:ends) do |q|
-        l(q.ends_at, format: :short) if q.ends_at?
+      row t(:ends_at) do |q|
+        l(q.ends_at, format: :long) if q.ends_at?
       end
     end
   end
