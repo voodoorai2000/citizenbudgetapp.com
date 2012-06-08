@@ -2,7 +2,7 @@ ActiveAdmin::Dashboards.build do
   section I18n.t(:active_consultations) do
     ul do
       Questionnaire.includes(:organization).active.each do |q|
-        li admin_link q.title, q
+        li auto_link q
       end
     end
   end

@@ -4,7 +4,6 @@
 # @see http://api.drupal.org/api/drupal/developer!topics!forms_api_reference.html/7
 class Question
   include Mongoid::Document
-  include Mongoid::Paranoia
 
   embedded_in :section
 

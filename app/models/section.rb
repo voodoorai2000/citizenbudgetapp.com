@@ -1,6 +1,5 @@
 class Section
   include Mongoid::Document
-  include Mongoid::Paranoia
 
   embedded_in :questionnaire
   embeds_many :questions

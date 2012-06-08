@@ -46,4 +46,8 @@ class AdminUser
   def password_required?
     new_record? ? false : super
   end
+
+  def display_name
+    "#{self.class.model_name.human.titleize}: #{email}"
+  end
 end

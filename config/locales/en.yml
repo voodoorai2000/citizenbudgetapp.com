@@ -5,11 +5,31 @@ en:
   # Active Admin dashboard
   active_consultations: 'Active consultations'
 
+  # Active Admin columns
+  name: Name
+  starts: Starts
+  ends: Ends
+  consultations: Consultations
+
   # Active Admin forms
   inputs: "%{type} details"
+
+  # Translations in models
+  untitled: Untitled
+  period: "%{starts_at} to %{ends_at}"
+  starting: "starting %{date}"
+  ending: "ending %{date}"
 
   activerecord:
     models: &models
       admin_user: Admin user
   mongoid:
     models: *models
+
+  time:
+    formats:
+      short: '%B %e, %Y at %H:%M'
+
+  errors:
+    messages:
+      ends_at_must_be_greater_than_starts_at: 'The end time must be after the start time'

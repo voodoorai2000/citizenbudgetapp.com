@@ -4,3 +4,33 @@
 
 // To customize the Active Admin interfaces, add your
 // styles here:
+form {
+  .actions {
+    margin-top: 15px;
+    input[type=submit] { margin-right: 10px; }
+  }
+
+  fieldset.actions li {
+    float:left;
+    padding: 0;
+
+    &.cancel {
+      a {
+        @include light-button; @include icon(#777, 9px);
+      }
+    }
+  }
+  fieldset > ol > li {
+    p.inline-errors {
+      text-transform:none;
+      color: $error-color;
+      font-weight: bold;
+      margin:0.3em 0 0 20%;
+    }
+  }
+}
+
+.block-errors {
+  color: $error-color;
+  font-weight: bold;
+}
