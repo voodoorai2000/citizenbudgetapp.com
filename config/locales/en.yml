@@ -7,13 +7,17 @@ en:
   future_consultations: 'Future consultations'
   past_consultations: 'Past consultations'
 
-  # Active Admin columns
+  # Active Admin index
   name: Name
   starts_at: Start date
   ends_at: End date
   consultations: Consultations
 
-  # Active Admin forms
+  # Active Admin show
+  new_section: 'Next: Add the first section to your consultation'
+  new_question: 'Next: Add the first service or activity to this section'
+
+  # Active Admin form
   inputs: "%{type} details"
 
   # Translations in models

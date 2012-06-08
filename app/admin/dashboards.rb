@@ -15,13 +15,6 @@ ActiveAdmin::Dashboards.build do
     end
   end
 
-  section I18n.t(:past_consultations), if: ->{display? :past} do
-    ul do
-      Questionnaire.includes(:organization).past.each do |q|
-        li auto_link(q.organization) + ': ' + auto_link(q)
-      end
-    end
-  end
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.

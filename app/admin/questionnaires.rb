@@ -13,6 +13,9 @@ ActiveAdmin.register Questionnaire do
     column t(:ends_at) do |q|
       l(q.ends_at, format: :long) if q.ends_at?
     end
+    column :sections do |q|
+      link_to q.sections.count, [:admin, q, :sections]
+    end
     default_actions
   end
 
@@ -35,6 +38,15 @@ ActiveAdmin.register Questionnaire do
       end
       row t(:ends_at) do |q|
         l(q.ends_at, format: :long) if q.ends_at?
+      end
+    end
+    if resource.sections.empty?
+      span link_to t(:new_section), [:new, :admin, resource, :section], class: 'button'
+    else
+      ul do
+        resource.sections.each do |s|
+          li auto_link s.name, s
+        end
       end
     end
   end

@@ -4,6 +4,7 @@
 
 // To customize the Active Admin interfaces, add your
 // styles here:
+
 form {
   .actions {
     margin-top: 15px;
@@ -33,4 +34,15 @@ form {
 .block-errors {
   color: $error-color;
   font-weight: bold;
+}
+
+// .section is an Active Admin class, which we need to reset in this case.
+form.section,
+.attributes_table.section {
+  margin-bottom: inherit;
+  background: inherit;
+  @include rounded(0);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
