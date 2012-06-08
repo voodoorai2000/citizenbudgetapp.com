@@ -9,6 +9,18 @@ class Questionnaire
   field :starts_at, type: Time
   field :ends_at, type: Time
 
+  validates_presence_of :organization_id
+
+  scope :active, where(:starts_at.ne => nil, :ends_at.ne => nil, :starts_at.lte => Time.now, :ends_at.gte => Time.now)
+
+  def title
+    if scheduled?
+      "#{organization.name}: #{starts_at.to_s(:short)} to #{ends_at.to_s(:short)}"
+    else
+      organization.name
+    end
+  end
+
   def scheduled?
     starts_at? && ends_at?
   end

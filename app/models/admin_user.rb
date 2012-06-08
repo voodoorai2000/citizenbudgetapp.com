@@ -37,4 +37,13 @@ class AdminUser
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  # https://github.com/gregbell/active_admin/wiki/Your-First-Admin-Resource%3A-AdminUser
+  after_create do |admin|
+    admin.send_reset_password_instructions
+  end
+
+  def password_required?
+    new_record? ? false : super
+  end
 end

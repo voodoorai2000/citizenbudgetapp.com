@@ -1,4 +1,11 @@
 ActiveAdmin::Dashboards.build do
+  section I18n.t(:active_consultations) do
+    ul do
+      Questionnaire.includes(:organization).active.each do |q|
+        li admin_link q.title, q
+      end
+    end
+  end
 
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just

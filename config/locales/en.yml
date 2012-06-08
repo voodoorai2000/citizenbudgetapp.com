@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  # Active Admin dashboard
+  active_consultations: 'Active consultations'
+
+  # Active Admin forms
+  inputs: "%{type} details"
+
+  activerecord:
+    models: &models
+      admin_user: Admin user
+  mongoid:
+    models: *models
