@@ -47,7 +47,8 @@ class AdminUser
     new_record? ? false : super
   end
 
+  # @todo BreadcrumbHelper should respect :display_name_methods
   def display_name
-    "#{self.class.model_name.human.titleize}: #{email}"
+    email
   end
 end

@@ -27,6 +27,23 @@ en:
   starting: "starting %{date}"
   ending: "ending %{date}"
 
+  widgets:
+    # Boolean
+    checkbox: Check box
+    onoff: On/off switch
+    # Options
+    radio: Radio buttons
+    select: Select list
+    slider: Slider
+    # String
+    text: Text box
+    textarea: Text area
+
+  formtastic:
+    hints:
+      question:
+        options: 'Separate options by commas.'
+
   activerecord:
     models: &models
       admin_user: Admin user
@@ -41,3 +58,4 @@ en:
   errors:
     messages:
       ends_at_must_be_greater_than_starts_at: 'The end time must be after the start time'
+      maximum_units_must_be_greater_than_minimum_units: 'Maximum units must be greater than minimum units'

@@ -10,6 +10,7 @@ class Section
 
   accepts_nested_attributes_for :questions, allow_destroy: true
 
+  # @todo BreadcrumbHelper should respect :display_name_methods
   def display_name
     title
   end

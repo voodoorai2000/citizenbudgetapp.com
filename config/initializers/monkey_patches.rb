@@ -61,12 +61,14 @@ module Mongoid::Document
   def column_for_attribute(attribute)
     name = attribute.to_s
     field = self.class.fields[name]
-    if Mongoid::Fields::Internal::ForeignKeys::Object === field
-      type = 'select'
-    else
-      type = field.type
+    if field
+      if Mongoid::Fields::Internal::ForeignKeys::Object === field
+        type = 'select'
+      else
+        type = field.type
+      end
+      Column.new(name, COLUMN_TYPE_MAP[type] || type.to_s.downcase.to_sym)
     end
-    Column.new(name, COLUMN_TYPE_MAP[type] || type.to_s.downcase.to_sym)
   end
 end
 
