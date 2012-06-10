@@ -21,9 +21,9 @@ ActiveAdmin.register Questionnaire do
 
   form do |f|
     f.inputs t(:inputs, type: resource_class.model_name.human) do
-      f.input :organization_id, as: :select, collection: Organization.all.map{|o| [o.name, o.id]}
-      f.input :starts_at, as: :datetime, end_year: Time.now.year + 1, prompt: true, include_blank: false
-      f.input :ends_at, as: :datetime, end_year: Time.now.year + 1, prompt: true, include_blank: false
+      f.input :organization_id, collection: Organization.all.map{|o| [o.name, o.id]}
+      f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
+      f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
     end
     f.actions
   end

@@ -1,3 +1,4 @@
+# @see https://gist.github.com/2903748
 module Mongoid::Document
   # Targets:
   # :date (:date_select)
@@ -30,7 +31,7 @@ module Mongoid::Document
     Float        => :number,
     Integer      => :number,
     Range        => :range,
-    TimeWithZone => :time,
+    Time         => :datetime,
 
     # These don't map well (or even transform well):
     # Array
@@ -51,17 +52,22 @@ module Mongoid::Document
     # In Formtastic 2.2, uncomment:
     # Date     => :date_select,
     # DateTime => :datetime_select,
-    # Time     => :time_select,
+    # Time     => :datetime_select,
+
+    # Rails defines TimeWithZone:
+    # TimeWithZone => :time,
   }
 
   Column = Struct.new :name, :type
   def column_for_attribute(attribute)
     name = attribute.to_s
-    type = self.class.fields[name].type
-    Column.new({
-      name: name,
-      type: COLUMN_TYPE_MAP[type] || type.to_s.downcase.to_sym,
-    })
+    field = self.class.fields[name]
+    if Mongoid::Fields::Internal::ForeignKeys::Object === field
+      type = 'select'
+    else
+      type = field.type
+    end
+    Column.new(name, COLUMN_TYPE_MAP[type] || type.to_s.downcase.to_sym)
   end
 end
 
