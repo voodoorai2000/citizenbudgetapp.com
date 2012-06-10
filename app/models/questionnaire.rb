@@ -19,13 +19,13 @@ class Questionnaire
 
   def display_name
     if starts_at? && ends_at?
-      I18n.t(:period, starts_at: I18n.l(starts_at, format: :short), ends_at: I18n.l(ends_at, format: :short))
+      I18n.t('questionnaire.period', starts_at: I18n.l(starts_at, format: :short), ends_at: I18n.l(ends_at, format: :short))
     elsif starts_at?
-      I18n.t(:starting, date: I18n.l(starts_at, format: :short))
+      I18n.t('questionnaire.starting', date: I18n.l(starts_at, format: :short))
     elsif ends_at?
-      I18n.t(:ending, date: I18n.l(ends_at, format: :short))
+      I18n.t('questionnaire.ending', date: I18n.l(ends_at, format: :short))
     else
-      I18n.t(:untitled)
+      I18n.t('questionnaire.untitled')
     end
   end
 

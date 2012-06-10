@@ -8,7 +8,7 @@ class Section
 
   validates_presence_of :title
 
-  accepts_nested_attributes_for :questions, allow_destroy: true
+  accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 
   # @todo BreadcrumbHelper should respect :display_name_methods
   def display_name

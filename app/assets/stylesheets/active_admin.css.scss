@@ -5,6 +5,10 @@
 // To customize the Active Admin interfaces, add your
 // styles here:
 
+#batch_actions_selector {
+  display: none;
+}
+
 body.active_admin {
   form {
     .has_many {

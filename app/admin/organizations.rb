@@ -5,7 +5,7 @@ ActiveAdmin.register Organization do
   end
 
   form do |f|
-    f.inputs t(:inputs, type: resource_class.model_name.human) do
+    f.inputs do
       f.input :name
     end
     f.actions
@@ -14,12 +14,13 @@ ActiveAdmin.register Organization do
   show do
     attributes_table do
       row :name
-      row t(:consultations) do |o|
+      row :questionnaires do |o|
         ul do
           o.questionnaires.each do |q|
             li auto_link q
           end
         end
+        div link_to t(:new_questionnaire), new_admin_questionnaire_path(organization_id: resource.id), class: 'button'
       end
     end
   end

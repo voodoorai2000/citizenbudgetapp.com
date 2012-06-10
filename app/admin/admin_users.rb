@@ -5,7 +5,7 @@ ActiveAdmin.register AdminUser do
   end
 
   form do |f|
-    f.inputs t(:inputs, type: resource_class.model_name.human) do
+    f.inputs do
       f.input :email
     end
     f.actions

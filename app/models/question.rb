@@ -17,39 +17,51 @@ class Question
   field :required, type: Boolean
 
   field :widget, type: String
+  field :extra, type: String
   field :unit_amount, type: Float
   field :unit_name, type: String
 
-  attr_accessor :minimum_units, :maximum_units, :step
+  attr_accessor :minimum_units, :maximum_units, :step, :options_as_list
 
   validates_presence_of :title, :widget
   validates_inclusion_of :widget, in: WIDGETS, allow_blank: true
   validates_numericality_of :unit_amount, allow_blank: true
 
-  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(checkbox onoff radio select slider).include? q.widget}
+  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(checkbox onoff slider).include? q.widget}
   validates_presence_of :options, if: ->(q){%w(radio select slider).include? q.widget}
 
   # Slider validations.
-  validates_presence_of :maximum_units, :minimum_units, :step, if: ->(q){q.widget == 'slider'}
-  validates_numericality_of :maximum_units, :minimum_units, if: ->(q){q.widget == 'slider'}
-  validates_numericality_of :step, greater_than: 0, if: ->(q){q.widget == 'slider'}
+  validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){q.widget == 'slider'}
+  validates_numericality_of :minimum_units, :maximum_units, only_integer: true, if: ->(q){q.widget == 'slider'}
+  validates_numericality_of :step, greater_than: 0, only_integer: true, if: ->(q){q.widget == 'slider'}
   validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){q.widget == 'slider'}
 
-  before_save :set_options
+  after_initialize :get_options
+  before_validation :set_options
 
 private
-  def maximum_units_must_be_greater_than_minimum_units
-    if widget == 'slider' && minimum_units.present? && maximum_units.present? && minimum_units >= maximum_units
-      errors.add :maximum_units, I18n.t('errors.messages.maximum_units_must_be_greater_than_minimum_units')
+  def get_options
+    if widget == 'slider' && options.present?
+      @minimum_units = options.first
+      @maximum_units = options.last
+      @step = options[1] - options[0]
+    elsif %w(radio select).include?(widget) && options.present?
+      @options_as_list = options.join ','
     end
   end
 
   def set_options
-    if widget == 'slider' && minimum_units.present? && maximum_units.present?
-      self.options = (minimum_units..maximum_units).step(step || 1).to_a
-      self.options << maximum_units unless options.last == maximum_units
-    elsif String === options
-      self.options = options.split(',').map(&:strip)
+    if widget == 'slider' && minimum_units.present? && maximum_units.present? && step.present?
+      self.options = (minimum_units.to_i..maximum_units.to_i).step(step.to_i).to_a
+      self.options << maximum_units.to_i unless options.last == maximum_units.to_i
+    elsif %w(radio select).include?(widget) && options_as_list.present?
+      self.options = options_as_list.split(',').map(&:strip)
+    end
+  end
+
+  def maximum_units_must_be_greater_than_minimum_units
+    if widget == 'slider' && minimum_units.present? && maximum_units.present? && minimum_units >= maximum_units
+      errors.add :maximum_units, I18n.t('errors.messages.maximum_units_must_be_greater_than_minimum_units')
     end
   end
 end

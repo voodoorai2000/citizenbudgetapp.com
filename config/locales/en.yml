@@ -3,31 +3,22 @@
 
 en:
   # Active Admin dashboard
-  active_consultations: 'Active consultations'
-  future_consultations: 'Future consultations'
-  past_consultations: 'Past consultations'
-
-  # Active Admin index
-  name: Name
-  starts_at: Start date
-  ends_at: End date
-  consultations: Consultations
+  active_consultations: Active consultations
+  future_consultations: Future consultations
+  past_consultations: Past consultations
 
   # Active Admin show
-  new_section: 'Next: Add the first section to your consultation'
-  new_question: 'Next: Add the first service or activity to this section'
+  new_questionnaire: Add a new consultation
+  new_section: Add a section to your consultation
+  new_question: Add a question to this section
 
-  # Active Admin form
-  inputs: "%{type} details"
-  destroy: Delete
+  questionnaire:
+    untitled: Untitled
+    period: "%{starts_at} to %{ends_at}"
+    starting: "starting %{date}"
+    ending: "ending %{date}"
 
-  # Translations in models
-  untitled: Untitled
-  period: "%{starts_at} to %{ends_at}"
-  starting: "starting %{date}"
-  ending: "ending %{date}"
-
-  widgets:
+  widget:
     # Boolean
     checkbox: Check box
     onoff: On/off switch
@@ -39,23 +30,95 @@ en:
     text: Text box
     textarea: Text area
 
+  active_admin:
+    dashboard: Dashboard
+    view: View
+    edit: Edit
+    delete: Delete
+    delete_confirmation: Are you sure you want to delete this?
+    new_model: "New %{model}"
+    create_model: "New %{model}"
+    edit_model: "Edit %{model}"
+    update_model: "Edit %{model}"
+    delete_model: "Delete %{model}"
+    details: "%{model} Details"
+    cancel: Cancel
+    download: "Download:"
+    has_many_new: "Add New %{model}"
+    has_many_delete: Remove
+    logout: Logout
+    pagination:
+      empty: "No %{model} found"
+      one: ""
+      one_page: "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}-%{to}</b> of <b>%{total}</b>"
+      entry:
+        one: "entry"
+        other: "entries"
+
   formtastic:
+    labels:
+      question:
+        _destroy: Delete question
+        extra: Additional information
     hints:
       question:
-        options: 'Separate options by commas.'
+        extra: This text will appear in a small overlay when people click for more information.
+        unit_name: Use the plural form.
+        options_as_list: Separate options by commas.
+        step: You can usually set this to 1.
+        default_value: If this is a check box, 1 is checked, 0 is unchecked.
+    actions:
+      create: "Save %{model}"
+      update: "Save %{model}"
+      cancel: Cancel
 
-  activerecord:
-    models: &models
-      admin_user: Admin user
-  mongoid:
-    models: *models
+  activerecord: &activerecord
+    models: 
+      admin_user:
+        one: Admin user
+        other: Admin users
+      organization:
+        one: Organization
+        other: Organizations
+      questionnaire:
+        one: Consultation
+        other: Consultations
+      section:
+        one: Section
+        other: Sections
+      question:
+        one: question
+        other: Questions
+    attributes:
+      admin_user:
+        email: Email
+      organization:
+        name: Name
+        questionnaires: Consultations
+      questionnaire:
+        starts_at: Start date
+        ends_at: End date
+      section:
+        title: Title
+      question:
+        title: Title
+        description: Description
+        options: Options
+        default_value: Default value
+        required: Required
+        widget: Widget
+        unit_amount: Unit amount
+        unit_name: Unit name
+
+  mongoid: *activerecord
 
   time:
     formats:
-      short: '%B %e, %Y'
-      long: '%B %e, %Y at %H:%M'
+      short: "%B %e, %Y"
+      long: "%B %e, %Y at %H:%M"
 
   errors:
     messages:
-      ends_at_must_be_greater_than_starts_at: 'The end time must be after the start time'
-      maximum_units_must_be_greater_than_minimum_units: 'Maximum units must be greater than minimum units'
+      ends_at_must_be_greater_than_starts_at: The end time must be after the start time
+      maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
