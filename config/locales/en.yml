@@ -19,6 +19,7 @@ en:
 
   # Active Admin form
   inputs: "%{type} details"
+  destroy: Delete
 
   # Translations in models
   untitled: Untitled
