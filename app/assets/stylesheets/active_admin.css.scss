@@ -1,20 +1,22 @@
-// Active Admin CSS Styles
 @import "active_admin/mixins";
 @import "active_admin/base";
 
 // To customize the Active Admin interfaces, add your
 // styles here:
 
+// Hide
 #batch_actions_selector {
   display: none;
 }
 
 body.active_admin {
   form {
+    // Override
     .has_many {
       padding: 0;
     }
 
+    // Override
     input[type="text"],
     input[type="password"],
     input[type="email"],
@@ -26,27 +28,13 @@ body.active_admin {
       font-size: 1em;
     }
 
+    // Reset
     input[type="text"][size],
     input[type="number"][size] {
       width: auto;
     }
 
-    .actions {
-      margin-top: 15px;
-      input[type=submit] { margin-right: 10px; }
-    }
-
-    fieldset.actions li {
-      float:left;
-      padding: 0;
-
-      &.cancel {
-        a {
-          @include light-button; @include icon(#777, 9px);
-        }
-      }
-    }
-
+    // Override
     fieldset > ol > li {
       p.inline-errors {
         text-transform:none;
@@ -57,12 +45,7 @@ body.active_admin {
     }
   }
 
-  .block-errors {
-    color: $error-color;
-    font-weight: bold;
-  }
-
-  // .section is an Active Admin class, which we need to reset in this case.
+  // Reset
   form.section,
   .attributes_table.section {
     margin-bottom: inherit;
@@ -72,4 +55,9 @@ body.active_admin {
     -moz-box-shadow: none;
     box-shadow: none;
   }
+}
+
+.block-errors {
+  color: $error-color;
+  font-weight: bold;
 }

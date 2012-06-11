@@ -12,6 +12,8 @@ ActiveAdmin.register Section do
   form do |f|
     f.inputs do
       f.input :title
+      f.input :description, as: :text, input_html: {rows: 3}
+      f.input :extra, as: :text, input_html: {rows: 3}
     end
 
     f.has_many :questions, header: 'Services and activities' do |g|
@@ -20,7 +22,7 @@ ActiveAdmin.register Section do
       end
       g.input :title
       g.input :description, as: :text, input_html: {rows: 3}
-      g.input :extra, as: :text, input_html: {rows: 3}, wrapper_html: {class: 'bootstrap-popover'}
+      g.input :extra, as: :text, input_html: {rows: 3}
       g.input :widget, collection: Question::WIDGETS.map{|w| [t(w, scope: :widget), w]}
       g.input :options_as_list
       g.input :unit_amount, as: :string, input_html: {size: 8}

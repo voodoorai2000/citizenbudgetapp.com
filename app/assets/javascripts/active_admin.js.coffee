@@ -1,4 +1,20 @@
 //= require active_admin/base
+//= require bootstrap.min
+
+I18n =
+  en:
+    overlay_title: 'Sample overlay'
+    overlay_text: 'This is where the explanatory text would appear.'
+  fr:
+    overlay_title: 'Échantillon de bulle'
+    overlay_text: 'Votre texte apparaîtrait ici.'
+
+window.t = (string, args = {}) ->
+  current_locale = args.locale or window.locale or 'en'
+  string = I18n[current_locale][string] or string
+  string = string.replace ///%\{#{key}\}///g, value for key, value of args
+  string
+
 $ ->
   setup_fieldset = (i) ->
     widget = $("#section_questions_attributes_#{i}_widget")

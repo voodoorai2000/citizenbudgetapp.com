@@ -60,8 +60,9 @@ en:
     labels:
       question:
         _destroy: Delete question
-        extra: Additional information
     hints:
+      section:
+        extra: This text will appear in a small overlay when people click for more information.
       question:
         extra: This text will appear in a small overlay when people click for more information.
         unit_name: Use the plural form.
@@ -101,9 +102,11 @@ en:
         ends_at: End date
       section:
         title: Title
+        extra: Additional information
       question:
         title: Title
         description: Description
+        extra: Additional information
         options: Options
         default_value: Default value
         required: Required

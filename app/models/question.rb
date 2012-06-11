@@ -20,6 +20,8 @@ class Question
   field :extra, type: String
   field :unit_amount, type: Float
   field :unit_name, type: String
+  field :position, type: Integer
+  index position: 1
 
   attr_accessor :minimum_units, :maximum_units, :step, :options_as_list
 
@@ -33,11 +35,17 @@ class Question
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){q.widget == 'slider'}
   validates_numericality_of :minimum_units, :maximum_units, only_integer: true, if: ->(q){q.widget == 'slider'}
-  validates_numericality_of :step, greater_than: 0, only_integer: true, if: ->(q){q.widget == 'slider'}
+  validates_numericality_of :step, greater_than: 0, if: ->(q){q.widget == 'slider'}
   validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){q.widget == 'slider'}
 
   after_initialize :get_options
   before_validation :set_options
+
+  default_scope asc(:position)
+
+  def position
+    read_attribute(:position) || _index
+  end
 
 private
   def get_options
@@ -52,7 +60,7 @@ private
 
   def set_options
     if widget == 'slider' && minimum_units.present? && maximum_units.present? && step.present?
-      self.options = (minimum_units.to_i..maximum_units.to_i).step(step.to_i).to_a
+      self.options = (minimum_units.to_i..maximum_units.to_i).step(step.to_f).to_a
       self.options << maximum_units.to_i unless options.last == maximum_units.to_i
     elsif %w(radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split(',').map(&:strip)
