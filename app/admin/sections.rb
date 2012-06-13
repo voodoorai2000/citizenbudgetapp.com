@@ -32,6 +32,7 @@ ActiveAdmin.register Section do
       g.input :step, input_html: {size: 8}
       g.input :default_value, input_html: {size: 8}
       g.input :required
+      g.input :position, as: :hidden
     end
     f.actions
   end

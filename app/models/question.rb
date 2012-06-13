@@ -68,7 +68,7 @@ private
   end
 
   def maximum_units_must_be_greater_than_minimum_units
-    if widget == 'slider' && minimum_units.present? && maximum_units.present? && minimum_units >= maximum_units
+    if widget == 'slider' && minimum_units.present? && maximum_units.present? && minimum_units.to_i >= maximum_units.to_i
       errors.add :maximum_units, I18n.t('errors.messages.maximum_units_must_be_greater_than_minimum_units')
     end
   end

@@ -16,6 +16,19 @@ window.t = (string, args = {}) ->
   string
 
 $ ->
+  $('.sortable').sortable
+    axis: 'y'
+    cursor: 'move'
+    handle: 'i'
+    update: (event, ui) ->
+      $target = $ event.target
+      $.ajax
+        type: 'POST'
+        url: location.href + '/sort'
+        data: $target.sortable 'serialize'
+      .done (request) ->
+        $target.effect 'highlight'
+
   setup_fieldset = (i) ->
     widget = $("#section_questions_attributes_#{i}_widget")
 
