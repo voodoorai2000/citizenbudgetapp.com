@@ -21,7 +21,9 @@ ActiveAdmin.register Organization do
   show do
     attributes_table do
       row :name
-      row :locale
+      row :locale do |o|
+        t(o.locale, scope: :locale)
+      end
       row :questionnaires do |o|
         ul do
           o.questionnaires.each do |q|

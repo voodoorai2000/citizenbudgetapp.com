@@ -5,13 +5,19 @@ gem 'rails', '3.2.1'
 # Background jobs
 gem 'girl_friday'
 
-# Models/Controllers
+# Database
 gem 'bson_ext'
 gem 'mongoid'
+
+# Admin
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
-gem 'carrierwave-mongoid'
 gem 'activeadmin-mongoid'
 gem 'devise'
+
+# Image uploads
+gem 'fog'
+gem 'rmagick'
+gem 'carrierwave-mongoid'
 
 # Views
 gem 'haml-rails'

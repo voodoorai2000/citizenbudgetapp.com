@@ -20,28 +20,16 @@ ActiveAdmin.register Questionnaire do
     default_actions
   end
 
-  form do |f|
-    if params[:organization_id]
-      resource.organization_id ||= params[:organization_id]
-    end
-    f.inputs do
-      f.input :title
-      f.input :organization_id, collection: Organization.all.map{|o| [o.name, o.id]}
-      f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
-      f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
-      f.input :domain, input_html: {size: 20}
-      f.input :google_analytics, input_html: {size: 15}
-      f.input :facebook_app_id, input_html: {size: 20}
-    end
-    f.actions
-    # @todo Include instructions page on setting A records and CNAMEs
-  end
+  form partial: 'form'
 
   show do
     attributes_table do
       row :title
       row :organization do |q|
         auto_link q.organization
+      end
+      row :logo do |q|
+        link_to(image_tag(q.logo.url(:medium)), q.logo_url) if q.logo?
       end
       row :starts_at do |q|
         l(q.starts_at, format: :long) if q.starts_at?
@@ -50,7 +38,7 @@ ActiveAdmin.register Questionnaire do
         l(q.ends_at, format: :long) if q.ends_at?
       end
       row :domain do |q|
-        link_to q.domain, "http://#{q.domain}"
+        link_to(q.domain, "http://#{q.domain}") if q.domain?
       end
       row :google_analytics
       row :facebook_app_id
@@ -65,7 +53,6 @@ ActiveAdmin.register Questionnaire do
         div link_to t(:new_section), [:new, :admin, resource, :section], class: 'button'
       end
     end
-    # @todo Include instructions page on setting A records and CNAMEs if host records not yet set
   end
 
   member_action :sort, method: :post do

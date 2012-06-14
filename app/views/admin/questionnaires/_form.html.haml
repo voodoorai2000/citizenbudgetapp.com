@@ -1,0 +1,15 @@
+- @questionnaire.organization_id ||= params[:organization_id] if params[:organization_id]
+= semantic_form_for [:admin, @questionnaire] do |f|
+  = f.inputs do
+    = f.input :title
+    = f.input :organization_id, collection: Organization.all.map{|o| [o.name, o.id]}
+    - if resource.logo?
+      = f.input :remove_logo, as: :boolean, hint: link_to(image_tag(@questionnaire.logo.url(:medium)), @questionnaire.logo.url)
+    = f.input :logo, as: :file
+    = f.input :logo_cache, as: :hidden
+    = f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
+    = f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
+    = f.input :domain, input_html: {size: 20}
+    = f.input :google_analytics, input_html: {size: 15}
+    = f.input :facebook_app_id, input_html: {size: 20}
+  = f.actions

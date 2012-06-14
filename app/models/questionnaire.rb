@@ -6,10 +6,12 @@ class Questionnaire
   belongs_to :organization, index: true
   embeds_many :sections
   embeds_many :responses
+  mount_uploader :logo, LogoUploader
 
   field :title, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
+  field :logo, type: String
   field :domain, type: String
   field :facebook_app_id, type: String
   field :google_analytics, type: String
@@ -29,17 +31,9 @@ class Questionnaire
     any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
-  #def display_name
-  #  if starts_at? && ends_at?
-  #    I18n.t('questionnaire.period', starts_at: I18n.l(starts_at, format: :short), ends_at: I18n.l(ends_at, format: :short))
-  #  elsif starts_at?
-  #    I18n.t('questionnaire.starting', date: I18n.l(starts_at, format: :short))
-  #  elsif ends_at?
-  #    I18n.t('questionnaire.ending', date: I18n.l(ends_at, format: :short))
-  #  else
-  #    I18n.t('questionnaire.untitled')
-  #  end
-  #end
+  def display_name
+    title
+  end
 
   def active?
     starts_at? && ends_at? && starts_at < Time.now && Time.now < ends_at

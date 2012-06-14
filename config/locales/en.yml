@@ -121,6 +121,9 @@ en:
         questionnaires: Consultations
       questionnaire:
         title: Title
+        organization: Organization
+        logo: Logo
+        remove_logo: Remove logo
         starts_at: Start date
         ends_at: End date
         domain: Domain name

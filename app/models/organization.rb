@@ -11,4 +11,8 @@ class Organization
 
   validates_presence_of :name
   validates_inclusion_of :locale, in: LOCALES, allow_blank: true
+
+  def display_name
+    name
+  end
 end
