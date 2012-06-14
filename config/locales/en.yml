@@ -18,6 +18,10 @@ en:
     starting: "starting %{date}"
     ending: "ending %{date}"
 
+  locale:
+    en_US: English (United States)
+    fr_CA: Français (Canada)
+
   widget:
     # Boolean
     checkbox: Check box
@@ -29,6 +33,14 @@ en:
     # String
     text: Text box
     textarea: Text area
+
+  layouts:
+    application:
+      title: Citizen Budget
+      author: Open North
+      facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
+      facebook_app_id: "277137665689429" # @todo what account is this under?
+      google_analytics: UA-21866813-6 # citizenbudget.com
 
   active_admin:
     dashboard: Dashboard
@@ -96,13 +108,19 @@ en:
         email: Email
       organization:
         name: Name
+        locale: Locale
         questionnaires: Consultations
       questionnaire:
+        title: Title
         starts_at: Start date
         ends_at: End date
+        domain: Custom domain
+        google_analytics: Google Analytics tracking code
+        sections: Sections
       section:
         title: Title
         extra: Additional information
+        questions: Questions
       question:
         title: Title
         description: Description
@@ -125,3 +143,4 @@ en:
     messages:
       ends_at_must_be_greater_than_starts_at: The end time must be after the start time
       maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
+      domain_must_be_active: The domain name must be active

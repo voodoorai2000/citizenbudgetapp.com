@@ -2,15 +2,25 @@
 
 gem 'rails', '3.2.1'
 
+# Background jobs
 gem 'girl_friday'
+
+# Models/Controllers
 gem 'bson_ext'
 gem 'mongoid'
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'carrierwave-mongoid'
 gem 'activeadmin-mongoid'
 gem 'devise'
+
+# Views
 gem 'haml-rails'
 gem 'rdiscount'
+
+# Heroku API
+gem 'oj'
+gem 'multi_json'
+gem 'faraday'
 
 # Gems used only for assets and not required
 # in production environments by default.

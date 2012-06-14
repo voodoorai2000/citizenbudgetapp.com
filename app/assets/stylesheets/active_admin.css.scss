@@ -56,6 +56,10 @@ body.active_admin {
     box-shadow: none;
   }
 
+  .choices-group label {
+    font-weight: normal;
+  }
+
   .sortable {
     cursor: move;
     margin-left: 0;

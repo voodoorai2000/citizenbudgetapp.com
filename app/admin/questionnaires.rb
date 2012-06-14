@@ -4,6 +4,7 @@ ActiveAdmin.register Questionnaire do
   scope :past
 
   index do
+    column :title
     column :organization do |q|
       auto_link q.organization
     end
@@ -13,6 +14,8 @@ ActiveAdmin.register Questionnaire do
     column :ends_at do |q|
       l(q.ends_at, format: :long) if q.ends_at?
     end
+    column :domain
+    column :google_analytics
     column :sections do |q|
       link_to q.sections.count, [:admin, q, :sections]
     end
@@ -24,15 +27,19 @@ ActiveAdmin.register Questionnaire do
       resource.organization_id ||= params[:organization_id]
     end
     f.inputs do
+      f.input :title
       f.input :organization_id, collection: Organization.all.map{|o| [o.name, o.id]}
       f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
       f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
+      f.input :domain, input_html: {size: 20}
+      f.input :google_analytics, input_html: {size: 15}
     end
     f.actions
   end
 
   show do
     attributes_table do
+      row :title
       row :organization do |q|
         auto_link q.organization
       end
@@ -42,6 +49,8 @@ ActiveAdmin.register Questionnaire do
       row :ends_at do |q|
         l(q.ends_at, format: :long) if q.ends_at?
       end
+      row :domain
+      row :google_analytics
       row :sections do |q|
         ul(class: 'sortable') do
           q.sections.each do |s|

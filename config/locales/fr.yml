@@ -1,0 +1,11 @@
+fr:
+  locale:
+    en_US: English (United States)
+    fr_CA: Français (Canada)
+
+  layouts:
+    application:
+      title: Budget Citoyen
+      author: Nord Ouvert
+      facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
+      google_analytics: UA-21866813-7 # budgetcitoyen.com
