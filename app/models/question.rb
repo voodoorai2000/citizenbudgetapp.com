@@ -5,6 +5,8 @@
 class Question
   include Mongoid::Document
 
+  # @todo Need to be able to map an amount to each radio and select option, in
+  #   which case we need a new :amounts array field?
   WIDGETS = %w(checkbox onoff radio select slider text textarea)
 
   embedded_in :section
@@ -50,8 +52,8 @@ class Question
 private
   def get_options
     if widget == 'slider' && options.present?
-      @minimum_units = options.first
-      @maximum_units = options.last
+      @minimum_units = options.first.to_i
+      @maximum_units = options.last.to_i
       @step = options[1] - options[0]
     elsif %w(radio select).include?(widget) && options.present?
       @options_as_list = options.join ','

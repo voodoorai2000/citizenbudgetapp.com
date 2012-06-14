@@ -7,6 +7,7 @@ class Questionnaire
   embeds_many :sections
   embeds_many :responses
 
+  field :pre, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
 

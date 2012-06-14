@@ -53,7 +53,6 @@ ActiveAdmin.register Questionnaire do
         div link_to t(:new_section), [:new, :admin, resource, :section], class: 'button'
       end
     end
-    # @todo update to display preview of questionnaire
   end
 
   member_action :sort, method: :post do
