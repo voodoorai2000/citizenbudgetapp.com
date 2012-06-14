@@ -13,28 +13,54 @@
   <meta name="description" content="<%= meta_description %>">
   <meta name="author" content="<%= author %>">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <meta property="og:title" content="<%= title %>">
-  <meta property="og:site_name" content="<%= title %>">
-  <meta property="og:description" content="<%= meta_description %>">
+  <meta property="og:title" content="<%= og_title %>">
+  <meta property="og:description" content="<%= og_description %>">
+  <meta property="og:site_name" content="<%= og_site_name %>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<%= request.url %>">
   <meta property="og:image" content="<%= og_image %>">
   <meta property="og:locale" content="<%= facebook_locale %>">
   <meta property="fb:admins" content="<%=t '.facebook_admins' %>">
-  <meta property="fb:app_id" content="<%=t '.facebook_app_id' %>">
-
+<% if facebook_app_id %>
+  <meta property="fb:app_id" content="<%= facebook_app_id %>">
+<% end %>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'modernizr-2.5.3.min.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+  FB.init({
+<% if facebook_app_id %>
+    appId  : <%= facebook_app_id %>,
+<% end %>
+    cookie : true,
+    xfbml  : true,
+    channelUrl  : <%= channel_url %>
+  });
+};
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/<%= facebook_locale %>/all.js#<% if facebook_app_id %>appId=<%= facebook_app_id %>&amp;<% end %>xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+window.twttr = (function (d,s,id) {
+  var t, js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+  js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+  return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+}(document, "script", "twitter-wjs"));
+</script>
 
 <%= yield %>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 <script>window.jQuery || document.write("<%=j javascript_include_tag 'jquery.min.js' %>")</script>
-<script>var facebook_locale = "<%= facebook_locale %>", locale = "<%= locale %>"</script>
+<script>var locale = "<%= locale %>"</script>
 <%= javascript_include_tag 'application' %>
 
 <% if Rails.env.production? && google_analytics_tracking_code %>

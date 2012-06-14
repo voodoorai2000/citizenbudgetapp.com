@@ -1,2 +1,8 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+.container
+  %header
+    /= image_tag
+    %h1= @questionnaire.title
+
+  %footer
+    =t '.attribution'
+    = link_to t('.product_name'), t('.product_url')

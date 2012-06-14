@@ -39,8 +39,13 @@ en:
       title: Citizen Budget
       author: Open North
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
-      facebook_app_id: "277137665689429" # @todo what account is this under?
       google_analytics: UA-21866813-6 # citizenbudget.com
+
+  pages:
+    index:
+      attribution: Get your own budget consultation from
+      product_name: Citizen Budget
+      product_url: http://citizenbudget.com/
 
   active_admin:
     dashboard: Dashboard
@@ -73,6 +78,10 @@ en:
       question:
         _destroy: Delete question
     hints:
+      questionnaire:
+        domain: You must set your domain's DNS to point to our servers.
+        google_analytics: If you use Google Analytics.
+        facebook_app_id: If you have a Facebook app for this domain name.
       section:
         extra: This text will appear in a small overlay when people click for more information.
       question:
@@ -114,8 +123,9 @@ en:
         title: Title
         starts_at: Start date
         ends_at: End date
-        domain: Custom domain
+        domain: Domain name
         google_analytics: Google Analytics tracking code
+        facebook_app_id: Facebook App ID
         sections: Sections
       section:
         title: Title

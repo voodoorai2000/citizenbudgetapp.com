@@ -9,13 +9,11 @@ ActiveAdmin.register Questionnaire do
       auto_link q.organization
     end
     column :starts_at do |q|
-      l(q.starts_at, format: :long) if q.starts_at?
+      l(q.starts_at, format: :short) if q.starts_at?
     end
     column :ends_at do |q|
-      l(q.ends_at, format: :long) if q.ends_at?
+      l(q.ends_at, format: :short) if q.ends_at?
     end
-    column :domain
-    column :google_analytics
     column :sections do |q|
       link_to q.sections.count, [:admin, q, :sections]
     end
@@ -33,8 +31,10 @@ ActiveAdmin.register Questionnaire do
       f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
       f.input :domain, input_html: {size: 20}
       f.input :google_analytics, input_html: {size: 15}
+      f.input :facebook_app_id, input_html: {size: 20}
     end
     f.actions
+    # @todo Include instructions page on setting A records and CNAMEs
   end
 
   show do
@@ -49,8 +49,11 @@ ActiveAdmin.register Questionnaire do
       row :ends_at do |q|
         l(q.ends_at, format: :long) if q.ends_at?
       end
-      row :domain
+      row :domain do |q|
+        link_to q.domain, "http://#{q.domain}"
+      end
       row :google_analytics
+      row :facebook_app_id
       row :sections do |q|
         ul(class: 'sortable') do
           q.sections.each do |s|
@@ -62,6 +65,7 @@ ActiveAdmin.register Questionnaire do
         div link_to t(:new_section), [:new, :admin, resource, :section], class: 'button'
       end
     end
+    # @todo Include instructions page on setting A records and CNAMEs if host records not yet set
   end
 
   member_action :sort, method: :post do

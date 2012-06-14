@@ -3,6 +3,7 @@ CitizenBudget::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+  match 'channel' => 'pages#channel', as: :channel
   root to: 'pages#index'
 
   # The priority is based upon order of creation:

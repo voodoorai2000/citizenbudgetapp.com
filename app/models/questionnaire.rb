@@ -11,6 +11,7 @@ class Questionnaire
   field :starts_at, type: Time
   field :ends_at, type: Time
   field :domain, type: String
+  field :facebook_app_id, type: String
   field :google_analytics, type: String
 
   validates_presence_of :title, :organization_id
@@ -23,6 +24,10 @@ class Questionnaire
   scope :active, where(:starts_at.ne => nil, :ends_at.ne => nil, :starts_at.lte => Time.now, :ends_at.gte => Time.now)
   scope :future, where(:starts_at.ne => nil, :starts_at.gt => Time.now)
   scope :past, where(:ends_at.ne => nil, :ends_at.lt => Time.now)
+
+  def self.find_by_domain(domain)
+    any_in(domain: [domain, sanitize_domain(domain)]).first
+  end
 
   #def display_name
   #  if starts_at? && ends_at?
@@ -51,9 +56,15 @@ class Questionnaire
 private
 
   # Removes the protocol and trailing slash, if present.
+  # @param [String] domain a domain name
+  # @return [String] the domain without the protocol or trailing slash
+  def self.sanitize_domain(domain)
+    domain.sub(%r{\A(https?://)?(www\.)?}, '').sub(%r{/\z}, '')
+  end
+
   def sanitize_domain
     if domain?
-      self.domain = domain.sub(%r{\Ahttps?://(www\.)?}, '').sub(%r{/\z}, '')
+      self.domain = self.class.sanitize_domain domain
     end
   end
 
@@ -73,33 +84,32 @@ private
     end
   end
 
-  # @return [Faraday::Connection] an HTTP client
-  def client
-    @client ||= Faraday.new 'https://api.heroku.com', headers: {'Accept' => 'application/json'} do |builder|
-      builder.request :url_encoded
-      builder.request :basic_auth, nil, ENV['HEROKU_API_KEY']
-      builder.response :json
-      builder.adapter :net_http
-    end
-  end
-
-  # @return [Array<String>] a list of domain names
-  def heroku_list_domains
-    client.get("/apps/#{ENV['HEROKU_APP']}/domains").body.map{|domain| domain['domain']}
-  end
-
-  # @param [String] domain a domain name
-  # @return [Boolean] whether domain was added
-  def heroku_add_domain(domain)
-    client.post("/apps/#{ENV['HEROKU_APP']}/domains", domain_name: {domain: domain}).body['domain'] == domain
-  end
-
   def add_domain
     if domain_changed?
-      # @todo check if domain in list, add domain
-      if domain.split('.').size == 2
-        # @todo check if domain in list
-        client.add_domain app_name, "www.#{domain}"
+      domains = Heroku.list_domains
+
+      if domain_was.present?
+        queue = [domain_was]
+        if domain_was.split('.').size == 2
+          queue << "www.#{domain_was}"
+        end
+        queue.each do |d|
+          if domains.include? d
+            Heroku.remove_domain d
+          end
+        end
+      end
+
+      if domain.present?
+        queue = [domain]
+        if domain.split('.').size == 2
+          queue << "www.#{domain}"
+        end
+        queue.each do |d|
+          unless domains.include? d
+            Heroku.add_domain d
+          end
+        end
       end
     end
   end

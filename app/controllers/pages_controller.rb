@@ -5,9 +5,13 @@ class PagesController < ApplicationController
     # @todo
   end
 
+  def channel
+    render layout: false
+  end
+
 private
 
   def find_questionnaire
-    # @todo
+    @questionnaire = Questionnaire.find_by_domain(request.domain) || Questionnaire.first # @todo
   end
 end
