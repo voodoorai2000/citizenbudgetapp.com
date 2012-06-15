@@ -3,20 +3,30 @@ class Questionnaire
   include Mongoid::Paranoia
   include Mongoid::MultiParameterAttributes
 
+  LOCALES = %w(en_US fr_CA)
+
   belongs_to :organization, index: true
   embeds_many :sections
   embeds_many :responses
   mount_uploader :logo, LogoUploader
 
   field :title, type: String
+  field :locale, type: String
+  field :logo, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
-  field :logo, type: String
+  field :introduction, type: String
   field :domain, type: String
-  field :facebook_app_id, type: String
+
+  # Third-party integration.
   field :google_analytics, type: String
+  field :twitter_screen_name, type: String
+  field :twitter_text, type: String
+  field :facebook_app_id, type: String
 
   validates_presence_of :title, :organization_id
+  validates_inclusion_of :locale, in: LOCALES, allow_blank: true
+  validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
   validate :domain_must_be_active
 
@@ -33,6 +43,10 @@ class Questionnaire
 
   def display_name
     title
+  end
+
+  def domain_url
+    domain? && "http://#{domain}"
   end
 
   def active?

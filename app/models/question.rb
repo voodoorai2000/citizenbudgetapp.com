@@ -55,6 +55,10 @@ private
       @minimum_units = options.first.to_i
       @maximum_units = options.last.to_i
       @step = options[1] - options[0]
+    elsif %w(checkbox onoff).include?(widget)
+      @minimum_units = 0
+      @maximum_units = 1
+      @step = 1
     elsif %w(radio select).include?(widget) && options.present?
       @options_as_list = options.join ','
     end
@@ -64,6 +68,8 @@ private
     if widget == 'slider' && minimum_units.present? && maximum_units.present? && step.present?
       self.options = (minimum_units.to_i..maximum_units.to_i).step(step.to_f).to_a
       self.options << maximum_units.to_i unless options.last == maximum_units.to_i
+    elsif %w(checkbox onoff).include?(widget)
+      self.options = [0, 1]
     elsif %w(radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split(',').map(&:strip)
     end

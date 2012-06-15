@@ -5,6 +5,7 @@ class Response
   embedded_in :questionnaire
 
   field :ip, type: String
+  field :initialized_at, type: Time
   field :answers, type: Hash
 
   attr_accessible :answers

@@ -28,6 +28,9 @@ ActiveAdmin.register Questionnaire do
       row :organization do |q|
         auto_link q.organization
       end
+      row :locale do |q|
+        t(q.locale, scope: :locale) if q.locale?
+      end
       row :logo do |q|
         link_to(image_tag(q.logo.medium.url), q.logo_url) if q.logo?
       end
@@ -37,10 +40,15 @@ ActiveAdmin.register Questionnaire do
       row :ends_at do |q|
         l(q.ends_at, format: :long) if q.ends_at?
       end
+      row :introduction do |q|
+        RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
+      end
       row :domain do |q|
-        link_to(q.domain, "http://#{q.domain}") if q.domain?
+        link_to(q.domain, q.domain_url) if q.domain?
       end
       row :google_analytics
+      row :twitter_screen_name
+      row :twitter_text
       row :facebook_app_id
       row :sections do |q|
         ul(class: 'sortable') do

@@ -1,0 +1,111 @@
+.container
+  %header
+    - if @questionnaire.logo?
+      = image_tag @questionnaire.logo.large.url, alt: ''
+    %h1= @questionnaire.title
+    #facebook
+      = facebook_button
+    #twitter
+      = twitter_button
+
+  %section#introduction
+    .row
+      .span8
+        :markdown
+          #{@questionnaire.introduction}
+      .span4
+        <script async class="speakerdeck-embed" data-id="4fda9e192657d10022003cd1" data-ratio="1.2945638432364097" src="//speakerdeck.com/assets/embed.js"></script>
+
+  %section#questionnaire
+    %nav
+      %ul.nav.nav-pills
+        - @groups.each do |group,sections|
+          - if sections.size == 1
+            = render sections
+          - else
+            %li.dropdown
+              = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
+                = t(group, scope: :group)
+                %span.caret
+              %ul.dropdown-menu
+                = render sections
+        - @groups.each do |group,_|
+          %li.group(id="#{group}")
+            .inner
+              .chart
+                .title=t group, scope: :group
+                .bar
+                .zero
+                .amount= number_to_currency 0, precision: 0
+        %li#balance
+        %li#message
+          .inner
+            =t '.instructions'
+
+    = form_for @response do |f|
+      - @questionnaire.sections.each do |section|
+        - if section.extra?
+          .modal.hide.fade(id="#{section.title.parameterize}_modal")
+            .modal-header
+              %button.close(type="button" data-dismiss="modal")×
+            .modal-body
+              :markdown
+                #{section.extra}
+        %table(id="#{section.title.parameterize}")
+          %thead
+            %tr
+              %th.category
+                = section.title
+                - if section.extra?
+                  = link_to t('.read_more'), "##{section.title.parameterize}_modal", 'data-toggle' => 'modal'
+                  /= link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-placement' => 'bottom', 'data-content' => escape_attribute(markdown(section.extra))
+              /@todo add popover
+              %th.column.highlight
+                =t '.your_choice'
+          %tbody
+            - section.questions.each do |q|
+              %tr
+                %td.description
+                  %h3
+                    = q.title
+                  /@todo add popover
+                  - if q.description?
+                    :markdown
+                      #{q.description}
+                %td.highlight
+                  /@todo use form helpers
+                  %div(class="widget widget-#{q.widget}")
+                    - if %w(onoff slider).include? q.widget
+                      .cost
+                        %span.label= t '.costs'
+                        %span.value 0 $
+                      - if q.maximum_units != 1
+                        .meta.maximum= q.maximum_units
+                        .meta.minimum= [q.minimum_units, q.unit_name].compact.join(' ')
+                      .clear
+                      - if q.maximum_units == 1
+                        .control.toggle
+                          - if q.default_value.to_i == 1
+                            %input(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" type="checkbox" name="#{q.id}" id="#{q.id}" value="1" checked="checked")
+                          - else
+                            %input(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" type="checkbox" name="#{q.id}" id="#{q.id}" value="1")
+                      - else
+                        .control.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}")
+                          %input(type="hidden" name="#{q.id}" id="#{q.id}" value="#{q.default_value}")
+                          .tick.lowest
+                          .tick.initial
+                          .tick.highest
+                      %div(class="meta maximum#{' changed' if q.maximum_units == 1 && q.default_value.to_i == 0}")
+                        = number_to_currency((q.maximum_units - q.default_value.to_i) * q.unit_amount, precision: 0)
+                      %div(class="meta minimum#{' changed' if q.maximum_units == 1 && q.default_value.to_i == 1}")
+                        = number_to_currency((q.minimum_units - q.default_value.to_i) * q.unit_amount, precision: 0)
+                    - else
+                      /@todo sondage
+                    .clear
+
+  %section#identification
+  /@todo questions
+
+  %footer
+    =t '.attribution'
+    = link_to t('.product_name'), t('.product_url')

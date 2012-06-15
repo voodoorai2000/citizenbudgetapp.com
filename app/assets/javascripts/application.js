@@ -12,4 +12,7 @@
 //
 //= require jquery_ujs
 //= require bootstrap.min
+//= require jquery.easing.1.3
+//= require jquery.scrollTo-1.4.2-min
+//= require jquery.localscroll-1.2.7-min
 //= require scripts

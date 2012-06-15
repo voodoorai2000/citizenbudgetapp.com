@@ -3,8 +3,9 @@ CitizenBudget::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  match 'channel' => 'pages#channel', as: :channel
-  root to: 'pages#index'
+  resources :responses, only: [:new, :create, :show]
+  match 'channel' => 'pages#channel', as: :channel, via: :get
+  root to: 'responses#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

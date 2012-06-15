@@ -21,6 +21,13 @@ en:
   locale:
     en_US: English (United States)
     fr_CA: Français (Canada)
+  twitter_locale:
+    en_US: en
+    fr_CA: fr
+
+  group:
+    revenue: Revenues
+    expense: Expenses
 
   widget:
     # Boolean
@@ -38,11 +45,17 @@ en:
     application:
       title: Citizen Budget
       author: Open North
+      og_url: http://citizenbudget.com/
+      facebook_locale: 'en_US'
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-6 # citizenbudget.com
 
-  pages:
-    index:
+  responses:
+    new:
+      instructions: Change an activity to start
+      read_more: Learn more
+      your_choice: Your choice
+      costs: "Costs:"
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
@@ -128,6 +141,8 @@ en:
         ends_at: End date
         domain: Domain name
         google_analytics: Google Analytics tracking code
+        twitter_screen_name: Twitter screen name
+        twitter_text: Tweet text
         facebook_app_id: Facebook App ID
         sections: Sections
       section:

@@ -3,6 +3,9 @@ ActiveAdmin.register Section do
 
   index do
     column :title
+    column :group do |s|
+      t(s.group, scope: :group) if s.group?
+    end
     column :questions do |s|
       s.questions.count
     end
@@ -12,6 +15,7 @@ ActiveAdmin.register Section do
   form do |f|
     f.inputs do
       f.input :title
+      f.input :group, collection: Section::GROUPS.map{|g| [t(g, scope: :group), g]}
       f.input :description, as: :text, input_html: {rows: 3}
       f.input :extra, as: :text, input_html: {rows: 3}
     end
@@ -40,6 +44,15 @@ ActiveAdmin.register Section do
   show do
     attributes_table do
       row :title
+      row :group do |s|
+        t(s.group, scope: :group) if s.group?
+      end
+      row :description do |s|
+        RDiscount.new(s.description).to_html.html_safe if s.description?
+      end
+      row :extra do |s|
+        RDiscount.new(s.extra).to_html.html_safe if s.extra?
+      end
       row :questions do |s|
         ul(class: 'sortable') do
           s.questions.each do |q|

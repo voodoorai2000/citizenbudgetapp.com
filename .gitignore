@@ -14,5 +14,5 @@
 /log/*.log
 /tmp
 
-config/initializers/_heroku.rb
-public/uploads
+/config/initializers/_heroku.rb
+/public/uploads

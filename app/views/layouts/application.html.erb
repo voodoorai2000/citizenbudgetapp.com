@@ -17,7 +17,7 @@
   <meta property="og:description" content="<%= og_description %>">
   <meta property="og:site_name" content="<%= og_site_name %>">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= request.url %>">
+  <meta property="og:url" content="<%= og_url %>">
   <meta property="og:image" content="<%= og_image %>">
   <meta property="og:locale" content="<%= facebook_locale %>">
   <meta property="fb:admins" content="<%=t '.facebook_admins' %>">
@@ -37,8 +37,9 @@ window.fbAsyncInit = function() {
     appId  : <%= facebook_app_id %>,
 <% end %>
     cookie : true,
+    logging: false,
     xfbml  : true,
-    channelUrl  : <%= channel_url %>
+    channelUrl  : '<%= channel_url %>'
   });
 };
 (function(d, s, id) {
