@@ -25,7 +25,13 @@ module ApplicationHelper
     end
   end
   def og_image
-    # @todo
+    if @questionnaire && @questionnaire.logo?
+      if Rails.env.production?
+        'http:' + @questionnaire.logo_url
+      else
+        root_url.chomp('/') + @questionnaire.logo_url
+      end
+    end
   end
 
   def author

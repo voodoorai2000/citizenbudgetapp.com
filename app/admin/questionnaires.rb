@@ -29,7 +29,7 @@ ActiveAdmin.register Questionnaire do
         auto_link q.organization
       end
       row :logo do |q|
-        link_to(image_tag(q.logo.url(:medium)), q.logo_url) if q.logo?
+        link_to(image_tag(q.logo.medium.url), q.logo_url) if q.logo?
       end
       row :starts_at do |q|
         l(q.starts_at, format: :long) if q.starts_at?
