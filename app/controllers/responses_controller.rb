@@ -29,7 +29,7 @@ class ResponsesController < ApplicationController
 private
 
   def find_questionnaire
-    @questionnaire = Questionnaire.find_by_domain(request.domain) || Questionnaire.first # @todo
+    @questionnaire = Questionnaire.find_by_domain(request.domain) || Questionnaire.first # @todo Remove default
   end
 
   def set_locale

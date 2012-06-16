@@ -76,30 +76,74 @@ $ ->
   updateBalance = ->
     balance = 0
     changed = false
+
+    $.each ['revenue', 'expense'], (i, group) ->
+      group_balance = 0
+      amount = $ "##{group} .amount"
+      bar = $ "##{group} .bar"
+
+      # Calculate balance.
+      # @todo
+      #$('.slider').each ->
+      #  $this = $ this
+      #  difference = $this.slider('value') - parseFloat($this.attr('data-initial'))
+      #  group_balance -= difference * parseFloat($this.attr('data-value'))
+      #  if difference > 0
+      #    changed = true
+      $("""table[rel="#{group}"] :checkbox""").each ->
+        $this = $ this
+        difference = +$this.prop('checked') - parseFloat($this.attr('data-initial'))
+        group_balance -= difference * parseFloat($this.attr('data-value'))
+        if difference > 0
+          changed = true
+
+      balance += group_balance
+
+      # Update balance.
+      currency = number_to_currency group_balance
+      amount.html(currency).toggleClass 'negative', group_balance < 0
+
+      # Move bar and balance.
+      pixels = -Math.round(tanh(3 * group_balance / maximumDifference) * 150)
+      width = Math.abs pixels
+
+      # If at zero.
+      if bar.width() == 0
+        amount.animate left: amountLeft - pixels
+        bar.css('background-color', if group_balance < 0 then '#f00' else '#000').animate
+          left: Math.min(barLeft, barLeft - pixels)
+          width: width
+      # If going from negative to positive.
+      else if group_balance > 0 && bar.position().left < barLeft
+        amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
+        bar.animate
+          left: barLeft,
+          width: 0
+        ,
+          complete: ->
+            $(this).css('background-color', '#000')
+        .animate
+          width: width
+      # If going from positive to negative.
+      else if group_balance < 0 && bar.position().left == barLeft
+        amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
+        bar.animate
+          width: 0
+        ,
+          complete: ->
+            $(this).css('background-color', '#f00')
+        .animate
+          left: barLeft - pixels
+          width: width
+      # If not crossing zero.
+      else
+        amount.animate left: amountLeft - pixels
+        bar.animate
+          left: Math.min(barLeft, barLeft - pixels)
+          width: width
+
     submittable = false
-    # @todo operate on correct charts
-    amount = $ '.chart .amount'
-    bar = $ '.chart .bar'
     message = $ '#message'
-
-    # Calculate balance.
-    # @todo
-    #$('.slider').each ->
-    #  $this = $ this
-    #  difference = $this.slider('value') - parseFloat($this.attr('data-initial'))
-    #  balance -= difference * parseFloat($this.attr('data-value'))
-    #  if difference > 0
-    #    changed = true
-    $('table :checkbox').each ->
-      $this = $ this
-      difference = +$this.prop('checked') - parseFloat($this.attr('data-initial'))
-      balance -= difference * parseFloat($this.attr('data-value'))
-      if difference > 0
-        changed = true
-
-    # Update balance.
-    currency = number_to_currency balance
-    amount.html(currency).toggleClass 'negative', balance < 0
 
     # Update message.
     if balance < 0
@@ -118,6 +162,8 @@ $ ->
         message.html t('nearly_balanced')
       else
         message.html t('surplus')
+    message.animate {'background-color': if balance == 0 then '#666' else (if balance < 0 then '#f00' else '#000')}, 'slow'
+
     # @todo
     #$('#submit').animate({height: action, opacity: action}, 'slow')
 
@@ -126,48 +172,6 @@ $ ->
       enableForm()
     else
       disableForm()
-
-    # Move bar and balance.
-    pixels = -Math.round(tanh(3 * balance / maximumDifference) * 150)
-    width = Math.abs pixels
-
-    # If at zero.
-    if bar.width() == 0
-      amount.animate left: amountLeft - pixels
-      bar.css('background-color', if balance < 0 then '#f00' else '#000').animate
-        left: Math.min(barLeft, barLeft - pixels)
-        width: width
-    # If going from negative to positive.
-    else if balance > 0 && bar.position().left < barLeft
-      amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
-      bar.animate
-        left: barLeft,
-        width: 0
-      ,
-        complete: ->
-          $(this).css('background-color', '#000')
-      .animate
-        width: width
-    # If going from positive to negative.
-    else if balance < 0 && bar.position().left == barLeft
-      amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
-      bar.animate
-        width: 0
-      ,
-        complete: ->
-          $(this).css('background-color', '#f00')
-      .animate
-        left: barLeft - pixels
-        width: width
-    # If not crossing zero.
-    else
-      amount.animate left: amountLeft - pixels
-      bar.animate
-        left: Math.min(barLeft, barLeft - pixels)
-        width: width
-
-    # Change color of message.
-    message.animate {'background-color': if balance == 0 then '#666' else (if balance < 0 then '#f00' else '#000')}, 'slow'
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'

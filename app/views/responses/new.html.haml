@@ -45,7 +45,7 @@
               =t '.instructions'
 
       - @questionnaire.sections.each do |section|
-        %table(id="#{section.title.parameterize}")
+        %table(id="#{section.title.parameterize}" rel="#{section.group}")
           %thead
             %tr
               %th.category
