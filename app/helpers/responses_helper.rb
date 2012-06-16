@@ -14,7 +14,7 @@ module ResponsesHelper
     }
     if @questionnaire
       html_options['data-url']  = @questionnaire.domain_url
-      html_options['data-lang'] = t(@questionnaire.locale, scope: :twitter_locale)
+      html_options['data-lang'] = t :twitter_locale
       html_options['data-text'] = @questionnaire.twitter_text if @questionnaire.twitter_text?
       html_options['data-via']  = @questionnaire.twitter_screen_name if @questionnaire.twitter_screen_name?
     end

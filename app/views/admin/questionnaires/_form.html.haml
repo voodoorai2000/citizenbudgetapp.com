@@ -3,7 +3,7 @@
   = f.inputs do
     = f.input :title
     = f.input :organization_id, collection: Organization.all.map{|o| [o.name, o.id]}
-    = f.input :locale, as: :radio, collection: Questionnaire::LOCALES.map{|l| [t(l, scope: :locale), l]}
+    = f.input :locale, as: :radio, collection: Questionnaire::LOCALES.map{|k,v| [v, k]}
     - if resource.logo?
       = f.input :remove_logo, as: :boolean, hint: link_to(image_tag(@questionnaire.logo.medium.url), @questionnaire.logo_url)
     = f.input :logo, as: :file

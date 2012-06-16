@@ -9,6 +9,7 @@ class Section
   field :title, type: String
   field :description, type: String
   field :extra, type: String
+  field :embed, type: String
   field :group, type: String
   field :position, type: Integer
   index position: 1

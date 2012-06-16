@@ -9,6 +9,11 @@
   display: none;
 }
 
+.speakerdeck-iframe {
+  width: 350px !important;
+  height: 332px !important; // 11x8.5 aspect ratio plus 62
+}
+
 body.active_admin {
   form {
     // Override

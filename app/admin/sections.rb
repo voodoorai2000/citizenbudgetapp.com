@@ -18,6 +18,7 @@ ActiveAdmin.register Section do
       f.input :group, collection: Section::GROUPS.map{|g| [t(g, scope: :group), g]}
       f.input :description, as: :text, input_html: {rows: 3}
       f.input :extra, as: :text, input_html: {rows: 3}
+      f.input :embed, as: :text, input_html: {rows: 3}
     end
 
     f.has_many :questions, header: 'Services and activities' do |g|
@@ -52,6 +53,9 @@ ActiveAdmin.register Section do
       end
       row :extra do |s|
         RDiscount.new(s.extra).to_html.html_safe if s.extra?
+      end
+      row :embed do |s|
+        s.embed.html_safe if s.embed?
       end
       row :questions do |s|
         ul(class: 'sortable') do

@@ -1,11 +1,35 @@
 fr:
-  locale:
-    en_US: English (United States)
-    fr_CA: Français (Canada)
+  twitter_locale: fr
+
+  group:
+    revenue: Revenus
+    expense: Dépenses
 
   layouts:
     application:
       title: Budget Citoyen
       author: Nord Ouvert
+      og_url: http://budgetcitoyen.com/
+      facebook_locale: 'fr_CA'
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-7 # budgetcitoyen.com
+
+  responses:
+    new:
+      instructions: Modifiez une activité pour commencer.
+      read_more: En savoir plus
+      read_more_tip: Cliquez pour en savoir plus
+      view_media: Consultez le contenu média
+      view_media_tip: Cliquez pour consulter le contenu média
+      your_choice: Votre choix
+      costs: "Coûts :"
+      attribution: Tenez votre propre consultation en ligne avec
+      product_name: Budget Citoyen
+      product_url: http://budgetcitoyen.com/
+
+  number:
+    currency:
+      format:
+        precision: 0
+
+# @todo Active Admin translations

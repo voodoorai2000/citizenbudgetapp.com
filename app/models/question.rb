@@ -15,6 +15,7 @@ class Question
   field :title, type: String
   field :description, type: String
   field :options, type: Array
+  # @note default_value needs to be cast before use
   field :default_value
   field :required, type: Boolean
 
@@ -32,18 +33,41 @@ class Question
   validates_numericality_of :unit_amount, allow_blank: true
 
   validates_presence_of :unit_amount, :default_value, if: ->(q){%w(checkbox onoff slider).include? q.widget}
+  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(checkbox onoff slider).include? q.widget}
   validates_presence_of :options, if: ->(q){%w(radio select slider).include? q.widget}
 
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){q.widget == 'slider'}
-  validates_numericality_of :minimum_units, :maximum_units, only_integer: true, if: ->(q){q.widget == 'slider'}
-  validates_numericality_of :step, greater_than: 0, if: ->(q){q.widget == 'slider'}
+  validates_numericality_of :minimum_units, :maximum_units, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'slider'}
+  validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){q.widget == 'slider'}
   validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){q.widget == 'slider'}
 
   after_initialize :get_options
   before_validation :set_options
 
   default_scope asc(:position)
+
+  # @return [Boolean] whether the widget is checked by default
+  def checked?
+    %w(checkbox onoff).include?(widget) && default_value.to_f == 1
+  end
+
+  # @return [Boolean] whether the widget is unchecked by default
+  def unchecked?
+    %w(checkbox onoff).include?(widget) && default_value.to_f == 0
+  end
+
+  def maximum_amount
+    if %w(checkbox onoff slider).include? widget
+      (maximum_units - default_value.to_f) * unit_amount
+    end
+  end
+
+  def minimum_amount
+    if %w(checkbox onoff slider).include? widget
+      (minimum_units - default_value.to_f) * unit_amount
+    end
+  end
 
   def position
     read_attribute(:position) || _index

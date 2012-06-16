@@ -29,7 +29,7 @@ ActiveAdmin.register Questionnaire do
         auto_link q.organization
       end
       row :locale do |q|
-        t(q.locale, scope: :locale) if q.locale?
+        q.locale_name if q.locale?
       end
       row :logo do |q|
         link_to(image_tag(q.logo.medium.url), q.logo_url) if q.logo?

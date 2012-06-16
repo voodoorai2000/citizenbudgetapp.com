@@ -2,6 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  twitter_locale: en
+
   # Active Admin dashboard
   active_consultations: Active consultations
   future_consultations: Future consultations
@@ -17,13 +19,6 @@ en:
     period: "%{starts_at} to %{ends_at}"
     starting: "starting %{date}"
     ending: "ending %{date}"
-
-  locale:
-    en_US: English (United States)
-    fr_CA: Français (Canada)
-  twitter_locale:
-    en_US: en
-    fr_CA: fr
 
   group:
     revenue: Revenues
@@ -54,6 +49,9 @@ en:
     new:
       instructions: Change an activity to start
       read_more: Learn more
+      read_more_tip: Click for more info
+      view_media: View media
+      view_media_tip: Click to view media
       your_choice: Your choice
       costs: "Costs:"
       attribution: Get your own budget consultation from
@@ -130,15 +128,16 @@ en:
         email: Email
       organization:
         name: Name
-        locale: Locale
         questionnaires: Consultations
       questionnaire:
         title: Title
         organization: Organization
+        locale: Locale
         logo: Logo
         remove_logo: Remove logo
         starts_at: Start date
         ends_at: End date
+        introduction: Introductory text
         domain: Domain name
         google_analytics: Google Analytics tracking code
         twitter_screen_name: Twitter screen name
@@ -147,7 +146,9 @@ en:
         sections: Sections
       section:
         title: Title
+        description: Description
         extra: Additional information
+        embed: Embed
         questions: Questions
       question:
         title: Title
@@ -161,6 +162,11 @@ en:
         unit_name: Unit name
 
   mongoid: *activerecord
+
+  number:
+    currency:
+      format:
+        precision: 0
 
   time:
     formats:

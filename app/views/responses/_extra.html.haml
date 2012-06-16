@@ -1,0 +1,7 @@
+.modal.hide.fade(id="#{extra.title.parameterize}_extra")
+  .modal-header
+    %button.close(type="button" data-dismiss="modal")×
+    %h3= extra.title
+  .modal-body
+    :markdown
+      #{extra.extra}
