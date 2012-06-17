@@ -4,8 +4,8 @@ $ ->
 
   # Bootstrap plugins
   $('.dropdown-toggle').dropdown()
-  $('.popover-toggle').popover().click (e) ->
-    e.preventDefault()
+  $('.popover-toggle').popover().click (event) ->
+    event.preventDefault()
   $('a[rel="tooltip"]').tooltip()
 
   # Navigation
@@ -38,6 +38,16 @@ $ ->
 
     $window.on 'scroll', processScroll
     processScroll()
+
+  # Smooth scroll "submit your choices" link.
+  $('#message').on 'click', 'a[href="#identification"]', (event) ->
+    console.log 'foo'
+    $.scrollTo '#identification',
+      axis: 'y'
+      duration: 500
+      easing: 'easeInOutExpo'
+      offset: -50
+    event.preventDefault()
 
   # http://www.musicdsp.org/showone.php?id=238
   tanh = (x) ->
@@ -307,7 +317,6 @@ $ ->
     $slider = $widget.find '.slider'
     $slider.slider 'value', $slider.attr('data-maximum')
 
-  # @todo smooth scroll submission link?
   # @todo
   #$('#survey').validationEngine()
   disableForm()
