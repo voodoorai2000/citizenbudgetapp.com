@@ -6,14 +6,17 @@ I18n =
     no: 'NO'
     currency_delimiter: ','
     currency_format: '{{unit}}{{number}}'
+    currency_separator: '.'
     currency_unit: '$'
+    gains: 'Gains:'
+    losses: 'Losses:'
     savings: 'Savings:'
     costs: 'Costs:'
     instructions: 'Change an activity to start.'
-    surplus: 'Your budget has a surplus of %{number}. <b>Add more activities to approach a balanced budget.</b>'
-    nearly_balanced: 'Your budget has a surplus of %{number}.'
-    balanced: 'Your budget is balanced.'
-    deficit: 'Your budget is in deficit (%{number}). <b>Cut activities to balance the budget.</b>'
+    surplus: 'Your budget has a surplus of %{number}. <b>Add activities or cut revenues to balance the budget.</b>'
+    nearly_balanced: """Your budget has a surplus of %{number}. If you're finished <a href="#identification">submit your choices</a>."""
+    balanced: """<b>Your budget is balanced!</b> If you're finished <a href="#identification">submit your choices</a>."""
+    deficit: 'Your budget is in deficit (%{number}). <b>Cut activities or add revenues to balance the budget.</b>'
   fr_CA:
     overlay_title: 'Échantillon de bulle'
     overlay_text: 'Votre texte apparaîtrait ici.'
@@ -21,14 +24,17 @@ I18n =
     no: 'NON'
     currency_delimiter: ' '
     currency_format: '{{number}} {{unit}}'
+    currency_separator: ','
     currency_unit: '$'
+    gains: 'Gains :'
+    losses: 'Pertes :'
     savings: 'Épargnes :'
     costs: 'Coûts :'
     instructions: 'Modifiez une activité pour commencer.'
-    surplus: 'Votre budget montre un surplus de %{number}. <b>Ajouter des activités pour équilibrer le budget.</b>'
-    nearly_balanced: "Votre budget montre un surplus de %{number}."
-    balanced: "Votre budget est équilibré."
-    deficit: 'Votre budget est en déficit (%{number}). <b>Renoncez à des activités pour équilibrer le budget.</b>'
+    surplus: 'Votre budget montre un surplus de %{number}. <b>Ajoutez des activités ou reduisez les revenus pour équilibrer le budget.</b>'
+    nearly_balanced: """Votre budget montre un surplus de %{number}. Si vous avez fini, <a href="#identification">soumettez vos choix</a>."""
+    balanced: """<b>Vous avez atteint l'équilibre!</b> Si vous avez fini, <a href="#identification">soumettez vos choix</a>."""
+    deficit: 'Votre budget est en déficit (%{number}). <b>Renoncez à des activités ou augmentez les revenus pour équilibrer le budget.</b>'
 
 window.t = (string, args = {}) ->
   current_locale = args.locale or window.locale or 'en'

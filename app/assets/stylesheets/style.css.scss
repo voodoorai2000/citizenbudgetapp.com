@@ -294,21 +294,9 @@ label.iOSCheckLabelOff.reverse {
 }
 
 #message {
-  width: 310px;
-
-  .inner {
-    color: #666;
-    padding: 5px;
-    height: 40px;
-    line-height: 1.5em;
-  }
-}
-
-#done {
-  display: none;
   padding: 10px;
-  background-color: #ffff00;
-  color: #000;
+  background-color: #666;
+  color: #fff;
   font-size: 1.08em;
   text-align: center;
 }
@@ -456,6 +444,7 @@ nav {
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
     border-color: #d5d5d5;
     border-width: 0 0 1px; /* drop the border on the fixed edges */
@@ -474,7 +463,7 @@ nav {
     }
   }
 
-  .done-fixed {
+  .message-fixed {
     position: fixed;
     z-index: 1020;
     top: 51px;

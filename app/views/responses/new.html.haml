@@ -38,13 +38,9 @@
                   .bar
                   .zero
                   .amount= number_to_currency 0
-          %li#message
-            .inner
-              =t '.instructions'
 
-      #done
-        %strong=t '.done'
-        =t('.done_link').html_safe
+      #message
+        =t '.instructions'
 
       #whitespace
 
@@ -81,10 +77,10 @@
                   %div(class="widget widget-#{q.widget}")
                     - if q.widget == 'slider'
                       .impact
-                        %span.key= t '.costs'
+                        %span.key
                         %span.value 0 $
-                      .meta.maximum=  q.maximum_units
-                      .meta.minimum= [q.minimum_units, q.unit_name].compact.join ' '
+                      .meta.maximum=  number_with_delimiter(q.maximum_units)
+                      .meta.minimum= [number_with_delimiter(q.minimum_units), q.unit_name].compact.join ' '
                       .control.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}")
                         = hidden_field_tag q.id, q.default_value
                         .tick.lowest
@@ -96,7 +92,7 @@
                         = number_to_currency q.minimum_amount
                     - elsif q.widget == 'onoff'
                       .impact
-                        %span.key= t '.costs'
+                        %span.key
                         %span.value 0 $
                       .control.onoff
                         = check_box_tag q.id, '1', q.checked?, 'data-value' => q.unit_amount, 'data-initial' => q.default_value

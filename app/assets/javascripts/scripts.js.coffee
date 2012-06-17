@@ -4,14 +4,15 @@ $ ->
 
   # Bootstrap plugins
   $('.dropdown-toggle').dropdown()
-  $('.popover-toggle').popover()
+  $('.popover-toggle').popover().click (e) ->
+    e.preventDefault()
   $('a[rel="tooltip"]').tooltip()
 
   # Navigation
   if $('nav').length
     $window     = $ window
     $nav        = $ 'nav'
-    $done       = $ '#done'
+    $message    = $ '#message'
     $whitespace = $ '#whitespace'
     offset      = $nav.length and $nav.offset().top
 
@@ -31,12 +32,9 @@ $ ->
     # Fixed menu.
     processScroll = ->
       boolean = $window.scrollTop() >= offset
-      height = $nav.outerHeight()
-      if $done.is ':visible'
-        height += $done.outerHeight()
       $nav.toggleClass 'nav-fixed', boolean
-      $done.toggleClass 'done-fixed', boolean
-      $whitespace.css(height: height).toggle boolean
+      $message.toggleClass 'message-fixed', boolean
+      $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
 
     $window.on 'scroll', processScroll
     processScroll()
@@ -50,11 +48,25 @@ $ ->
     else
       x * (27 + x * x) / (27 + 9 * x * x)
 
+  # https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L231
+  # @note rounds the number
+  number_with_delimiter = (number) ->
+    parts = Math.round(parseFloat(number)).toString().split '.'
+    parts[0] = parts[0].replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'
+    parts.join t('currency_separator')
+
   # Converts a number to a currency.
   number_to_currency = (number) ->
     Mustache.render t('currency_format'),
-      number: number.toString().replace(/\..*/, '').replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'
+      number: number_with_delimiter number
       unit: t 'currency_unit'
+
+  number_to_human = (number) ->
+    number = parseFloat(number)
+    if number > 1000
+      number /= 1000
+      number = "#{number} k"
+    number
 
   # Enables the identification form.
   enableForm = ->
@@ -106,6 +118,11 @@ $ ->
         if difference > 0
           changed = true
 
+      # Revenue cuts remove money, whereas expenses custs add money.
+      if group == 'revenue'
+        group_balance = -group_balance
+
+      # Tally.
       balance += group_balance
 
       # Update group balance.
@@ -152,45 +169,45 @@ $ ->
           width: width
 
     submittable = false
-    message = $ '#message .inner'
+    $message = $ '#message'
     currency = number_to_currency balance
 
     # Update message.
     if balance < 0
-      message.html t('deficit', number: currency)
+      $message.html t('deficit', number: currency)
     else if balance == 0
       if changed
         submittable = true
-        message.html t('balanced')
+        $message.html t('balanced')
       else
-        message.html t('instructions')
+        $message.html t('instructions')
     else
       if balance <= 50000 and changed
         submittable = true
-        message.html t('nearly_balanced', number: currency)
+        $message.html t('nearly_balanced', number: currency)
       else
-        message.html t('surplus', number: currency)
+        $message.html t('surplus', number: currency)
 
-    if balance < 0
-      message.css 'color', '#f00'
+    if submittable
+      $message.animate 'background-color': '#ff0', 'color': '#000'
+    else if balance < 0
+      $message.animate 'background-color': '#f00', 'color': '#fff'
     else if balance == 0
-      message.css 'color', '#666'
+      $message.animate 'background-color': '#666', 'color': '#fff'
     else
-      message.css 'color', '#000'
-
+      $message.animate 'background-color': '#000', 'color': '#fff'
 
     # Enable or disable identification form.
     if submittable
       enableForm()
-      $('#done').animate({height: 'show', opacity: 'show'}, 'slow')
     else
       disableForm()
-      $('#done').animate({height: 'hide', opacity: 'hide'}, 'slow')
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'
     initial = parseFloat $control.attr('data-initial')
     value = parseFloat $control.attr('data-value')
+    group = $control.parents('table').attr 'rel'
 
     if current == initial
       $tr.find('.impact').css 'visibility', 'hidden'
@@ -199,8 +216,13 @@ $ ->
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
         $tr.find('td.highlight').animate 'background-color': '#ff9', 'slow'
     else
+      if group == 'revenue'
+        key = if current - initial < 0 then t('losses') else t('gains')
+      else
+        key = if current - initial < 0 then t('savings') else t('costs')
+
+      $tr.find('.key').html key
       $tr.find('.value').html number_to_currency(Math.abs(current - initial) * value)
-      $tr.find('.key').html if current - initial < 0 then t('savings') else t('costs')
       $tr.find('.impact').css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
         $tr.addClass 'selected'
@@ -208,7 +230,7 @@ $ ->
 
   slide = (event, ui) ->
     $this = $ this
-    $this.find('.tip-content').html ui.value
+    $this.find('.tip-content').html number_to_human(ui.value)
     # Display tooltip unless value is both zero and the minimum value.
     $this.find('.tip').toggle ui.value != 0 || ui.value != parseFloat($this.attr('data-minimum'))
     highlight $this, ui.value
