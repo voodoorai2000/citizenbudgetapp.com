@@ -21,10 +21,13 @@ fr-CA:
       read_more_tip: Cliquez pour en savoir plus
       view_media: Consultez le contenu média
       view_media_tip: Cliquez pour consulter le contenu média
+      close: Fermer
       your_choice: Votre choix
       attribution: Tenez votre propre consultation en ligne avec
       product_name: Budget Citoyen
       product_url: http://budgetcitoyen.com/
+    extra:
+      close: Fermer
 
   # @todo Active Admin translations
 

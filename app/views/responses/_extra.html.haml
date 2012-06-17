@@ -5,3 +5,5 @@
   .modal-body
     :markdown
       #{extra.extra}
+  .modal-footer
+    = link_to t('.close'), '#', 'data-dismiss' => 'modal', 'class' => 'btn btn-primary'

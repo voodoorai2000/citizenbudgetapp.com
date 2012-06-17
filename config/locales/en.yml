@@ -52,10 +52,13 @@ en:
       read_more_tip: Click for more info
       view_media: View media
       view_media_tip: Click to view media
+      close: Close
       your_choice: Your choice
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
+    extra:
+      close: Close
 
   active_admin:
     dashboard: Dashboard
