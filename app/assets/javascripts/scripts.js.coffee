@@ -11,7 +11,7 @@ $ ->
   if $('nav').length
     $window = $ window
     $nav    = $ 'nav'
-    offset  = $nav.length && $nav.offset().top
+    offset  = $nav.length and $nav.offset().top
 
     # Set active menu item.
     $('body').scrollspy
@@ -44,7 +44,7 @@ $ ->
   # Converts a number to a currency.
   number_to_currency = (number) ->
     Mustache.render t('currency_format'),
-      number: number.toString().replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'
+      number: number.toString().replace(/\..*/, '').replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'
       unit: t 'currency_unit'
 
   # Enables the identification form.
@@ -60,17 +60,18 @@ $ ->
   # Updates within-category balance.
   updateCategoryBalance = ($control) ->
     $table = $control.parents 'table'
-    balance = 0
 
-    # @todo
-    #$table.find('.slider').each ->
-    #  var $this = $(this);
-    #  balance -= ($this.slider('value') - parseInt($this.attr('data-initial'))) * parseInt($this.attr('data-value'));
+    balance = 0
+    $table.find('.slider').each ->
+      $this = $ this
+      balance -= ($this.slider('value') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
     $table.find(':checkbox').each ->
       $this = $ this
       balance -= (+$this.prop('checked') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
 
-    $('#' + $table.attr('id') + '_link span').html(number_to_currency(balance)).css('color', balance < 0 ? '#f00' : '#000').toggle(balance != 0)
+    $span = $ '#' + $table.attr('id') + '_link span'
+    if $span.parents('.dropdown-menu').length
+      $span.html(number_to_currency(balance)).css('color', if balance < 0 then '#f00' else '#000').toggle(balance != 0)
 
   # Updates within-group balance.
   updateBalance = ->
@@ -83,13 +84,12 @@ $ ->
       bar = $ "##{group} .bar"
 
       # Calculate balance.
-      # @todo
-      #$('.slider').each ->
-      #  $this = $ this
-      #  difference = $this.slider('value') - parseFloat($this.attr('data-initial'))
-      #  group_balance -= difference * parseFloat($this.attr('data-value'))
-      #  if difference > 0
-      #    changed = true
+      $("""table[rel="#{group}"] .slider""").each ->
+        $this = $ this
+        difference = $this.slider('value') - parseFloat($this.attr('data-initial'))
+        group_balance -= difference * parseFloat($this.attr('data-value'))
+        if difference > 0
+          changed = true
       $("""table[rel="#{group}"] :checkbox""").each ->
         $this = $ this
         difference = +$this.prop('checked') - parseFloat($this.attr('data-initial'))
@@ -114,7 +114,7 @@ $ ->
           left: Math.min(barLeft, barLeft - pixels)
           width: width
       # If going from negative to positive.
-      else if group_balance > 0 && bar.position().left < barLeft
+      else if group_balance > 0 and bar.position().left < barLeft
         amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
         bar.animate
           left: barLeft,
@@ -125,7 +125,7 @@ $ ->
         .animate
           width: width
       # If going from positive to negative.
-      else if group_balance < 0 && bar.position().left == barLeft
+      else if group_balance < 0 and bar.position().left == barLeft
         amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
         bar.animate
           width: 0
@@ -192,8 +192,50 @@ $ ->
         $tr.addClass 'selected'
         $tr.find('td').animate 'background-color': '#add5f7', 'fast'
 
+  slide = (event, ui) ->
+    $this = $ this
+    $this.find('.tip-content').html ui.value
+    # Display tooltip unless value is both zero and the minimum value.
+    $this.find('.tip').toggle ui.value != 0 || ui.value != parseFloat($this.attr('data-minimum'))
+    highlight $this, ui.value
+
+  change = (event, ui) ->
+    $this = $ this
+    # Perform same operations as if sliding.
+    slide.call this, event, ui
+    # Update form element.
+    $this.find('input').val ui.value
+    highlight $this, ui.value
+    # Updating balance during slide is too expensive.
+    updateCategoryBalance $this
+    updateBalance()
+
   # Slider widget
-  # @todo
+  $('table .slider').each ->
+    $this = $ this
+    initial = parseFloat $this.attr('data-initial')
+    minimum = parseFloat $this.attr('data-minimum')
+    maximum = parseFloat $this.attr('data-maximum')
+
+    $this.slider
+      animate: true
+      max: maximum
+      min: minimum
+      range: 'min'
+      step: parseFloat $this.attr('data-step')
+      value: initial
+      create: (event, ui) ->
+        $(this).find('a').append '<div class="tip"><div class="tip-content">' + initial + '</div><div class="tip-arrow"></div></div>'
+        $(this).find('.tip').toggle initial != minimum
+      slide: slide
+      change: change
+
+    # Place initial tick.
+    if initial != maximum and initial != minimum
+      $this.find('.tick.initial').width($this.find('a').position().left + 1).show()
+
+  # Keyboard input can be confusing if slider is not visible.
+  $('.ui-slider-handle').unbind 'keydown'
 
   # On/off widget
   $('table :checkbox').each ->
@@ -219,14 +261,17 @@ $ ->
     $this = $ this
     $widget = $this.parents '.widget'
     $widget.find(':checkbox').prop('checked', false).trigger 'change'
-    # @todo
-    #$slider = $widget.find '.slider'
-    #$slider.slider 'value', $slider.attr('data-minimum')
+    $slider = $widget.find('.slider')
+    $slider.slider 'value', $slider.attr('data-minimum')
 
   $('.maximum').click ->
     $this = $ this
     $widget = $this.parents '.widget'
     $widget.find(':checkbox').prop('checked', true).trigger 'change'
-    # @todo
-    #$slider = $widget.find '.slider'
-    #$slider.slider 'value', $slider.attr('data-maximum')
+    $slider = $widget.find '.slider'
+    $slider.slider 'value', $slider.attr('data-maximum')
+
+  # @todo smooth scroll submission link?
+  # @todo
+  #$('#survey').validationEngine()
+  disableForm()

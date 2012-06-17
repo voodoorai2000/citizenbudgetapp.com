@@ -5,8 +5,8 @@ class Questionnaire
   include Mongoid::MultiParameterAttributes
 
   LOCALES = {
-    'en_US' => 'English (United States)',
-    'fr_CA' => 'Français (Canada)',
+    'en-US' => 'English (United States)',
+    'fr-CA' => 'Français (Canada)',
   }
 
   belongs_to :organization, index: true
@@ -51,6 +51,10 @@ class Questionnaire
 
   def locale_name
     LOCALES[locale]
+  end
+
+  def system_locale
+    locale.sub '-', '_'
   end
 
   def domain_url

@@ -24,7 +24,7 @@
 <% if facebook_app_id %>
   <meta property="fb:app_id" content="<%= facebook_app_id %>">
 <% end %>
-  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_link_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css', 'application' %>
   <%= javascript_include_tag 'modernizr-2.5.3.min.js' %>
   <%= csrf_meta_tags %>
 </head>
@@ -63,7 +63,7 @@ window.twttr = (function (d,s,id) {
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <script>window.jQuery || document.write("<%=j javascript_include_tag 'jquery.min.js' %>")</script>
 <script>window.jQuery || document.write("<%=j javascript_include_tag 'jquery-ui.min.js' %>")</script>
-<script>var locale = "<%= locale %>"</script>
+<script>var locale = '<%= locale.to_s.sub '-', '_' %>';</script>
 <%= javascript_include_tag 'application' %>
 
 <% if Rails.env.production? && google_analytics_tracking_code %>

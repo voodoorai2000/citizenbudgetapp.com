@@ -44,7 +44,7 @@ module ApplicationHelper
 
   # Facebook tags
   def facebook_locale
-    @questionnaire && @questionnaire.locale || t('.facebook_locale')
+    @questionnaire && @questionnaire.system_locale || t('.facebook_locale')
   end
 
   def facebook_app_id

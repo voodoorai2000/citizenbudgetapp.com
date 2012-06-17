@@ -15,7 +15,7 @@ I18n =
     nearly_balanced: 'Your budget has a surplus of %{number}. You may <a href="#identification">submit</a> your choices or continue making changes.'
     balanced: 'Your budget is balanced. You may <a href="#identification">submit</a> your choices or continue making changes.'
     deficit: 'Your budget is in deficit (%{number}). Cut activities to balance the budget.'
-  fr:
+  fr_CA:
     overlay_title: 'Échantillon de bulle'
     overlay_text: 'Votre texte apparaîtrait ici.'
     yes: 'OUI'

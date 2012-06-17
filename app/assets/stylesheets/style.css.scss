@@ -60,7 +60,7 @@
   background-color: #ff9;
 }
 
-$column-width: 235px;
+$column-width: 250px;
 
 table {
   margin: 50px 0;
@@ -154,10 +154,12 @@ $widget-margin: 50px;
 
 /* Slider widget -------------------------------------------------------------*/
 
-$control-height: 24px;
+$control-height: 25px;
 
 .control {
   width: 100%;
+}
+.onoff {
   height: $control-height;
 }
 
@@ -165,7 +167,8 @@ $control-height: 24px;
   position: absolute;
   z-index: 10;
   height: $control-height;
-  margin-left: -1px;
+  margin-top: -7px;
+  margin-left: -1px; // room for border
   border-right: 1px solid #999;
 }
 .tick.lowest {
@@ -175,7 +178,7 @@ $control-height: 24px;
   width: $column-width - $widget-margin * 2 + 1;
 }
 .tick.initial {
-  display: none; // chose not to display
+  display: none; // hide until positioned
   border-right: 1px solid #666;
 }
 
@@ -189,7 +192,7 @@ $control-height: 24px;
   z-index: 100;
   cursor: pointer;
   outline: none;
-  top: -4px;
+  top: -3px;
   width: 16px;
   height: 16px;
   margin-left: -8px;
@@ -215,13 +218,13 @@ $control-height: 24px;
   background: #fff;
 }
 
-.ui-slider a.ui-state-hover .tooltip {
+.ui-slider a.ui-state-hover .tip {
   display: block;
 }
-.ui-slider a.ui-state-active .tooltip {
+.ui-slider a.ui-state-active .tip {
   display: block;
 }
-.ui-slider .ui-slider-handle .tooltip {
+.ui-slider .ui-slider-handle .tip {
   position: absolute;
   top: -30px;
   left: -10px;
@@ -234,7 +237,7 @@ $control-height: 24px;
   background-color: #fff;
   text-align: center;
 }
-.ui-slider .tooltip-arrow {
+.ui-slider .tip-arrow {
   position: absolute;
   top: 100%;
   left: 50%;
@@ -261,7 +264,6 @@ label.iOSCheckLabelOff.reverse {
 }
 
 /* Popovers ------------------------------------------------------------------*/
-
 
 .popover-title {
   display: none;

@@ -14,7 +14,7 @@
         :markdown
           #{@questionnaire.introduction}
       .span4
-        /@todo PDF
+        -#@todo PDF
 
   = form_tag responses_path do
     %section#questionnaire
@@ -39,7 +39,7 @@
                   .zero
                   .amount= number_to_currency 0
           %li#balance
-            /@todo
+            -#@todo
           %li#message
             .inner
               =t '.instructions'
@@ -101,11 +101,11 @@
                       %div(class="meta minimum#{' changed' if q.checked?}")
                         = number_to_currency q.minimum_amount
                     - elsif q.widget == 'radio'
-                      /@todo sondage
+                      -#@todo sondage
 
     %section#identification
-      /@todo questions
-      /input type: tel number email
+      -#@todo questions
+      -#input type: tel number email
 
   %footer
     =t '.attribution'
@@ -117,9 +117,9 @@
   - if section.embed?
     .modal.hide.fade.embed(id="#{section.title.parameterize}_embed")
       = section.embed.html_safe
-  /- section.questions.each do |q|
-  /  - if q.extra?
-  /    = render partial: 'extra', object: q
+  -#- section.questions.each do |q|
+  -#  - if q.extra?
+  -#    = render partial: 'extra', object: q
 
 :javascript
   var maximumDifference = #{@maximum_difference};
