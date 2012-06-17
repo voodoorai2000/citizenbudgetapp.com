@@ -3,17 +3,10 @@ class ResponsesController < ApplicationController
   before_filter :set_locale
 
   def new
-    maximum = @questionnaire.sections.reduce(0) do |sum,section|
-      sum + section.questions.reduce(0) do |sum,q|
-        sum + (q.maximum_amount || 0)
-      end
-    end
-    minimum = @questionnaire.sections.reduce(0) do |sum,section|
-      sum + section.questions.reduce(0) do |sum,q|
-        sum + (q.minimum_amount || 0)
-      end
-    end
-    @maximum_difference = [maximum, -minimum].max
+    @maximum_difference = [
+      @questionnaire.maximum_amount.abs,
+      -@questionnaire.minimum_amount.abs,
+    ].max
     @groups = @questionnaire.sections.group_by(&:group)
     @response = Response.new initialized_at: Time.now
   end

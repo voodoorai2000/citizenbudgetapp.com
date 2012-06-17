@@ -73,6 +73,30 @@ class Questionnaire
     ends_at? && ends_at < Time.now
   end
 
+  def maximum_amount
+    sections.reduce(0) do |sum,section|
+      sum + section.questions.reduce(0) do |sum,q|
+        if section.group == 'revenue'
+          sum + (q.maximum_amount || 0)
+        else
+          sum - (q.minimum_amount || 0)
+        end
+      end
+    end
+  end
+
+  def minimum_amount
+    sections.reduce(0) do |sum,section|
+      sum + section.questions.reduce(0) do |sum,q|
+        if section.group == 'revenue'
+          sum + (q.minimum_amount || 0)
+        else
+          sum - (q.maximum_amount || 0)
+        end
+      end
+    end
+  end
+
 private
 
   # Removes the protocol and trailing slash, if present.

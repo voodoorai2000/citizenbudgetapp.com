@@ -117,9 +117,6 @@
   - if section.embed?
     .modal.hide.fade.embed(id="#{section.title.parameterize}_embed")
       = section.embed.html_safe
-  -#- section.questions.each do |q|
-  -#  - if q.extra?
-  -#    = render partial: 'extra', object: q
 
 :javascript
   var maximumDifference = #{@maximum_difference};
