@@ -1,5 +1,5 @@
 .container {
-  margin-top: 1em;
+  margin-top: 2em;
 }
 
 /* Header --------------------------------------------------------------------*/
@@ -15,43 +15,31 @@
   right: 87px;
 }
 
-/* Charts --------------------------------------------------------------------*/
+// @todo we should set the height attribute on the image, so that the nav
+// element can determine its distance from the top. For now, we hardcode.
+#logo {
+  height: 50px;
+}
 
-.chart {
-  position: relative;
-  width: 199px;
-  font-size: 0.85em;
-  line-height: 1.5em;
-  text-align: center;
-}
-.bar {
-  position: absolute;
-  left: 100px;
-  width: 0;
-  height: 16px;
-  margin-top: 2px;
-  background-color: #000;
-}
-.zero {
-  position: absolute;
-  left: 99px;
-  width: 1px;
-  height: 20px;
-  background-color: #000;
-}
-.amount {
-  position: absolute;
-  width: 199px;
-  top: 36px;
-  left: 0;
+h1,
+h2 {
   color: #000;
-  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: normal;
 }
-.positive {
-  color: #000;
+h1 {
+  margin-bottom: 0.433em;
 }
-.negative {
-  color: #f00;
+
+#introduction {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin-bottom: 50px;
+
+  p {
+    font-size: 1.08em;
+    line-height: 1.5em;
+    margin-bottom: 1em;
+  }
 }
 
 /* Questionnaire -------------------------------------------------------------*/
@@ -129,8 +117,11 @@ $widget-margin: 50px;
   color: #000;
   font-size: 1.08em;
   font-weight: bold;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   visibility: hidden;
+}
+.widget-slider .impact {
+  padding-top: 10px;
 }
 .meta {
   cursor: pointer;
@@ -199,7 +190,7 @@ $control-height: 25px;
   border: none;
   background: url(/assets/slider_16.png) no-repeat 0 0;
   color: #000;
-  font: bold 12px arial, helvetica, sans-serif;
+  font: bold 12px helvetica, sans-serif;
   text-decoration: none;
 }
 .ui-slider .ui-slider-handle.ui-state-default {
@@ -295,13 +286,78 @@ label.iOSCheckLabelOff.reverse {
   }
 }
 
-/* Navigation ----------------------------------------------------------------*/
-/* http://twitter.github.com/bootstrap/assets/css/docs.css */
+/* Dashboard -----------------------------------------------------------------*/
 
 #questionnaire .inner {
-  padding: 0 12px 0;
+  padding: 0 10px 0;
   height: 50px;
 }
+
+#message {
+  width: 310px;
+
+  .inner {
+    color: #666;
+    padding: 5px;
+    height: 40px;
+    line-height: 1.5em;
+  }
+}
+
+#done {
+  display: none;
+  padding: 10px;
+  background-color: #ffff00;
+  color: #000;
+  font-size: 1.08em;
+  text-align: center;
+}
+
+#whitespace {
+  display: none;
+}
+
+/* Charts --------------------------------------------------------------------*/
+
+.chart {
+  position: relative;
+  width: 199px;
+  font-size: 0.85em;
+  line-height: 1.5em;
+  text-align: center;
+}
+.bar {
+  position: absolute;
+  left: 100px;
+  width: 0;
+  height: 16px;
+  margin-top: 2px;
+  background-color: #000;
+}
+.zero {
+  position: absolute;
+  left: 99px;
+  width: 1px;
+  height: 20px;
+  background-color: #000;
+}
+.amount {
+  position: absolute;
+  width: 199px;
+  top: 36px;
+  left: 0;
+  color: #000;
+  text-align: center;
+}
+.positive {
+  color: #000;
+}
+.negative {
+  color: #f00;
+}
+
+/* Navigation ----------------------------------------------------------------*/
+/* http://twitter.github.com/bootstrap/assets/css/docs.css */
 
 .dropdown-menu {
   span {
@@ -313,7 +369,7 @@ label.iOSCheckLabelOff.reverse {
 }
 
 nav {
-  width: 100%;
+  width: 938px;
   height: 50px;
   background-color: #eeeeee; /* Old browsers */
   background-repeat: repeat-x; /* Repeat the gradient */
@@ -417,6 +473,15 @@ nav {
       padding: 0 1px;
     }
   }
+
+  .done-fixed {
+    position: fixed;
+    z-index: 1020;
+    top: 51px;
+    left: 0;
+    right: 0;
+  }
+
   nav .nav > li:first-child {
     & > a,
     & > a:hover,

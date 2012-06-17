@@ -54,6 +54,8 @@ en:
       view_media_tip: Click to view media
       your_choice: Your choice
       costs: "Costs:"
+      done: Your budget is balanced!
+      done_link: If you're finished <a href="#identification">submit your choices</a>.
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/

@@ -9,9 +9,11 @@ $ ->
 
   # Navigation
   if $('nav').length
-    $window = $ window
-    $nav    = $ 'nav'
-    offset  = $nav.length and $nav.offset().top
+    $window     = $ window
+    $nav        = $ 'nav'
+    $done       = $ '#done'
+    $whitespace = $ '#whitespace'
+    offset      = $nav.length and $nav.offset().top
 
     # Set active menu item.
     $('body').scrollspy
@@ -28,7 +30,14 @@ $ ->
 
     # Fixed menu.
     processScroll = ->
-      $nav.toggleClass 'nav-fixed', $window.scrollTop() >= offset
+      boolean = $window.scrollTop() >= offset
+      height = $nav.outerHeight()
+      if $done.is ':visible'
+        height += $done.outerHeight()
+      $nav.toggleClass 'nav-fixed', boolean
+      $done.toggleClass 'done-fixed', boolean
+      $whitespace.css(height: height).toggle boolean
+
     $window.on 'scroll', processScroll
     processScroll()
 
@@ -99,12 +108,12 @@ $ ->
 
       balance += group_balance
 
-      # Update balance.
+      # Update group balance.
       currency = number_to_currency group_balance
       amount.html(currency).toggleClass 'negative', group_balance < 0
 
       # Move bar and balance.
-      pixels = -Math.round(tanh(3 * group_balance / maximumDifference) * 150)
+      pixels = -Math.round(tanh(3 * group_balance / maximumDifference) * 100)
       width = Math.abs pixels
 
       # If at zero.
@@ -143,11 +152,12 @@ $ ->
           width: width
 
     submittable = false
-    message = $ '#message'
+    message = $ '#message .inner'
+    currency = number_to_currency balance
 
     # Update message.
     if balance < 0
-      message.html t('deficit')
+      message.html t('deficit', number: currency)
     else if balance == 0
       if changed
         submittable = true
@@ -155,23 +165,27 @@ $ ->
       else
         message.html t('instructions')
     else
-      if balance > 50000
-        message.html t('big_surplus')
-      else if changed
+      if balance <= 50000 and changed
         submittable = true
-        message.html t('nearly_balanced')
+        message.html t('nearly_balanced', number: currency)
       else
-        message.html t('surplus')
-    message.animate {'background-color': if balance == 0 then '#666' else (if balance < 0 then '#f00' else '#000')}, 'slow'
+        message.html t('surplus', number: currency)
 
-    # @todo
-    #$('#submit').animate({height: action, opacity: action}, 'slow')
+    if balance < 0
+      message.css 'color', '#f00'
+    else if balance == 0
+      message.css 'color', '#666'
+    else
+      message.css 'color', '#000'
+
 
     # Enable or disable identification form.
     if submittable
       enableForm()
+      $('#done').animate({height: 'show', opacity: 'show'}, 'slow')
     else
       disableForm()
+      $('#done').animate({height: 'hide', opacity: 'hide'}, 'slow')
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'
