@@ -121,6 +121,10 @@
                 },
                 "validate2fields": {
                     "alertText": "Veuillez taper le mot HELLO"
+                },
+                "postalCode": {
+                  "regex": /^H[0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$/i,
+                  "alertText": "* Code postal invalide (ex. : H0H 0H0)",
                 }
             };
         }

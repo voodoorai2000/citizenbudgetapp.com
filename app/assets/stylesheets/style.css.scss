@@ -7,12 +7,12 @@
 #facebook {
   position: absolute;
   top: 37px;
-  right: 217px;
+  right: 250px;
 }
 #twitter {
   position: absolute;
   top: 37px;
-  right: 87px;
+  right: 120px;
 }
 
 // @todo we should set the height attribute on the image, so that the nav
@@ -306,6 +306,9 @@ label.iOSCheckLabelOff.reverse {
 legend span {
   padding-left: 160px;
 }
+.formError .formErrorContent {
+  width: 200px;
+}
 
 /* Footer --------------------------------------------------------------------*/
 
@@ -316,12 +319,19 @@ footer {
   margin-bottom: 1em;
 }
 
-/* Dashboard -----------------------------------------------------------------*/
+/* Disabled ------------------------------------------------------------------*/
 
-#questionnaire .inner {
-  padding: 0 10px 0;
-  height: 50px;
+.disabled {
+  .meta {
+    cursor: auto;
+  }
+  .ui-slider-horizontal .ui-slider-handle,
+  .ui-slider .ui-slider-handle {
+    cursor: default;
+  }
 }
+
+/* Dashboard -----------------------------------------------------------------*/
 
 .message {
   padding: 10px 0;
@@ -419,6 +429,11 @@ nav {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0;
+    }
+
+    .inner {
+      padding: 0 10px 0;
+      height: 50px;
     }
 
     & > .active {
