@@ -62,6 +62,10 @@ en:
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
+      # Show
+      share: We encourage you to share and discuss your budget choices. <b><a href="%{url}">Click here to participate.</a></b>
+      invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
+      comments: Comments
     show: *new
     extra:
       close: Close

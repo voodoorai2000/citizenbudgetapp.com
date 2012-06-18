@@ -13,13 +13,26 @@
       = link_to '×', '#', 'data-dismiss' => 'alert', 'class' => 'close'
       = flash[:notice]
 
+  %p=t '.share'
+  -# @todo paragraph explaining sharing (Alex will provide)
+
+  - unless flash[:notice]
+    .alert#invitation
+      =t('.invitation', url: root_path).html_safe
+
   -# @todo
-  -# add facebook comments
+  =# add big yellow arrow pointing to "add a comment" button
   -# sharing: email, new twitter button, facebook open graph actions?
-  -# paragraph explaining sharing (Alex will provide)
 
   %nav
     %ul.nav.nav-pills
+      %li.dropdown
+        = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
+          = t('.comments')
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            .fb-comments(data-href="#{response_url(@response)}" data-num-posts="2" data-width="470")
       - @groups.each do |group,sections|
         - if sections.size == 1
           = render sections

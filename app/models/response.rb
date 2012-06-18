@@ -50,7 +50,7 @@ class Response
 
 private
 
-  # @todo Make this localizable.
+  # @todo Make this localizable. See also validation engine rule.
   def sanitize_postal_code
     if postal_code?
       self.postal_code = postal_code.upcase.gsub(/[^A-Z0-9]/, '')

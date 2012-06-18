@@ -31,6 +31,10 @@ fr-CA:
       attribution: Tenez votre propre consultation en ligne avec
       product_name: Budget Citoyen
       product_url: http://budgetcitoyen.com/
+      # Show
+      share: Nous vous encourageons de partager et de discuter de vos choix budgétaires.
+      invitation: Est-ce que vous n'avez pas encore soumis votre propre proposition de budget? <b><a href="%{url}">Cliquez ici pour participer.</a></b>
+      comments: Commentaires
     show: *new
     extra:
       close: Fermer
