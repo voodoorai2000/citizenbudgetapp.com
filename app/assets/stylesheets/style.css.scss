@@ -326,7 +326,10 @@ footer {
     cursor: auto;
   }
   .ui-slider-horizontal .ui-slider-handle,
-  .ui-slider .ui-slider-handle {
+  .ui-slider .ui-slider-handle,
+  .iPhoneCheckContainer,
+  .iPhoneCheckContainer label,
+  .iPhoneCheckHandle {
     cursor: default;
   }
 }

@@ -252,7 +252,6 @@ $ ->
     slide.call this, event, ui
     # Update form element.
     $this.find('input').val ui.value
-    highlight $this, ui.value
     # Updating balance during slide is too expensive.
     updateCategoryBalance $this
     updateBalance()
@@ -263,6 +262,7 @@ $ ->
     initial = parseFloat $this.attr('data-initial')
     minimum = parseFloat $this.attr('data-minimum')
     maximum = parseFloat $this.attr('data-maximum')
+    actual = parseFloat $this.attr('data-actual')
 
     $this.slider
       animate: true
@@ -274,12 +274,18 @@ $ ->
       create: (event, ui) ->
         $(this).find('a').append '<div class="tip"><div class="tip-content">' + initial + '</div><div class="tip-arrow"></div></div>'
         $(this).find('.tip').toggle initial != minimum
-      slide: slide
-      change: change
+      slide: !disabled? && slide
+      change: !disabled? && change
+      disabled: disabled?
 
     # Place initial tick.
     if initial != maximum and initial != minimum
       $this.find('.tick.initial').width($this.find('a').position().left + 1).show()
+
+    # We place the initial tick according to the handle's position, so we can't
+    # set the value during slider initialization.
+    unless isNaN actual
+      $this.slider 'value', actual
 
   # Keyboard input can be confusing if slider is not visible.
   $('.ui-slider-handle').unbind 'keydown'
@@ -287,13 +293,16 @@ $ ->
   # On/off widget
   $('table :checkbox').each ->
     $this = $ this
+    initial = parseFloat $this.attr('data-initial')
+
     options =
       resizeContainer: false
       onChange: (input, checked) ->
         highlight input, +checked
         updateCategoryBalance input
         updateBalance()
-    if $this.is ':checked'
+
+    if initial == 1
       options.checkedLabel = t 'no'
       options.uncheckedLabel = t 'yes'
       options.labelOffClass = 'iPhoneCheckLabelOff reverse'
@@ -304,20 +313,33 @@ $ ->
       options.uncheckedLabel = t 'no'
     $this.iphoneStyle options
 
-  $('.minimum').click ->
-    $this = $ this
-    $widget = $this.parents '.widget'
-    $widget.find(':checkbox').prop('checked', false).trigger 'change'
-    $slider = $widget.find('.slider')
-    $slider.slider 'value', $slider.attr('data-minimum')
+  if disabled?
+    updateBalance()
+    $('table').find('input:first').each ->
+      updateCategoryBalance $(this)
+    $('table .slider').each ->
+      $this = $ this
+      value = $this.slider 'value'
+      $this.find('.tip-content').html number_to_human(value)
+      $this.find('.tip').toggle value != 0 || value != parseFloat($this.attr('data-minimum'))
+      highlight $this, value
+    $('table :checkbox').each ->
+      $this = $ this
+      highlight $this, +$this.prop('checked')
+  else
+    $('.minimum').click ->
+      $this = $ this
+      $widget = $this.parents '.widget'
+      $widget.find(':checkbox').prop('checked', false).trigger 'change'
+      $slider = $widget.find('.slider')
+      $slider.slider 'value', $slider.attr('data-minimum')
 
-  $('.maximum').click ->
-    $this = $ this
-    $widget = $this.parents '.widget'
-    $widget.find(':checkbox').prop('checked', true).trigger 'change'
-    $slider = $widget.find '.slider'
-    $slider.slider 'value', $slider.attr('data-maximum')
+    $('.maximum').click ->
+      $this = $ this
+      $widget = $this.parents '.widget'
+      $widget.find(':checkbox').prop('checked', true).trigger 'change'
+      $slider = $widget.find '.slider'
+      $slider.slider 'value', $slider.attr('data-maximum')
 
-  # @todo
-  #$('#survey').validationEngine()
-  disableForm()
+    $('#new_response').validationEngine()
+    disableForm()

@@ -3,12 +3,13 @@ class ResponsesController < ApplicationController
   before_filter :set_locale
 
   def new
+    @response = @questionnaire.responses.build initialized_at: Time.now.utc, subscribe: true
+
+    @groups = @questionnaire.sections.group_by(&:group)
     @maximum_difference = [
       @questionnaire.maximum_amount.abs,
       -@questionnaire.minimum_amount.abs,
     ].max
-    @groups = @questionnaire.sections.group_by(&:group)
-    @response = @questionnaire.responses.build initialized_at: Time.now.utc, subscribe: true
   end
 
   def create
@@ -16,11 +17,18 @@ class ResponsesController < ApplicationController
     @response.answers = params.select{|k,_| k[/\A[a-f0-9]{24}\z/]}
     @response.ip      = request.ip
     @response.save! # There shouldn't be errors.
+    # @todo send the person an email thanking them and asking them to forward to friends
     redirect_to @response, notice: t(:create_response)
   end
 
   def show
     @response = @questionnaire.responses.find params[:id]
+
+    @groups = @questionnaire.sections.group_by(&:group)
+    @maximum_difference = [
+      @questionnaire.maximum_amount.abs,
+      -@questionnaire.minimum_amount.abs,
+    ].max
   end
 
 private
