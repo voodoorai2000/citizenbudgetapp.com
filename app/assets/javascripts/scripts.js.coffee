@@ -9,38 +9,40 @@ $ ->
   $('a[rel="tooltip"]').tooltip()
 
   # Navigation
-  if $('nav').length
-    $window     = $ window
-    $nav        = $ 'nav'
-    $message    = $ '#message'
-    $whitespace = $ '#whitespace'
-    offset      = $nav.length and $nav.offset().top
+  (->
+    if $('nav').length
+      $window     = $ window
+      $nav        = $ 'nav'
+      $message    = $ '#message'
+      $whitespace = $ '#whitespace'
+      offset      = $nav.length and $nav.offset().top
 
-    # Set active menu item.
-    $('body').scrollspy
-      target: 'nav'
-      offset: 50
+      # Set active menu item.
+      $('body').scrollspy
+        target: 'nav'
+        offset: 50
 
-    # Smooth scrolling.
-    $nav.localScroll
-      axis: 'y'
-      duration: 500
-      easing: 'easeInOutExpo'
-      offset: -50
-      hash: true
+      # Smooth scrolling.
+      $nav.localScroll
+        axis: 'y'
+        duration: 500
+        easing: 'easeInOutExpo'
+        offset: -50
+        hash: true
 
-    # Fixed menu.
-    processScroll = ->
-      boolean = $window.scrollTop() >= offset
-      $nav.toggleClass 'nav-fixed', boolean
-      $message.toggleClass 'message-fixed', boolean
-      $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
+      # Fixed menu.
+      processScroll = ->
+        boolean = $window.scrollTop() >= offset
+        $nav.toggleClass 'nav-fixed', boolean
+        $message.toggleClass 'message-fixed', boolean
+        $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
 
-    $window.on 'scroll', processScroll
-    processScroll()
+      $window.on 'scroll', processScroll
+      processScroll()
+  )()
 
   # Smooth scroll "submit your choices" link.
-  $('#message').on 'click', 'a[href="#identification"]', (event) ->
+  $('.message').on 'click', 'a[href="#identification"]', (event) ->
     $.scrollTo '#identification',
       axis: 'y'
       duration: 500
@@ -178,7 +180,7 @@ $ ->
           width: width
 
     submittable = false
-    $message = $ '#message'
+    $message = $ '.message'
     currency = number_to_currency balance
 
     # Update message.
@@ -223,7 +225,7 @@ $ ->
       if $tr.hasClass 'selected'
         $tr.removeClass 'selected'
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
-        $tr.find('td.highlight').animate 'background-color': '#ff9', 'slow'
+        $tr.find('td.highlight').animate {'background-color': if group == 'revenue' then '#ddf' else '#ff9'}, 'slow'
     else
       if group == 'revenue'
         key = if current - initial < 0 then t('losses') else t('gains')

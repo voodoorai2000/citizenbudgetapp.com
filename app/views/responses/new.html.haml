@@ -39,13 +39,12 @@
                   .zero
                   .amount= number_to_currency 0
 
-      #message
-        =t '.instructions'
+      #message.message=t '.instructions'
 
       #whitespace
 
       - @questionnaire.sections.each do |section|
-        %table(id="#{section.title.parameterize}" rel="#{section.group}")
+        %table(id="#{section.title.parameterize}" rel="#{section.group}" class="#{section.group}")
           %thead
             %tr
               %th.category
@@ -102,6 +101,8 @@
                         = number_to_currency q.minimum_amount
                     - elsif q.widget == 'radio'
                       -#@todo sondage
+
+      /#reminder.message=t '.instructions'
 
     %section#identification
       = f.inputs name: t('.submit_your_choices') do

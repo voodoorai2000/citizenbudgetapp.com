@@ -40,6 +40,8 @@ fr-CA:
     hints:
       response:
         email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.
+    actions:
+      create: Envoyer
 
   # @todo Active Admin translations
 
