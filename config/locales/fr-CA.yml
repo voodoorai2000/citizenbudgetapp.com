@@ -1,5 +1,4 @@
 fr-CA:
-  twitter_locale: fr
   create_response: Merci pour votre participation!
 
   gender:
@@ -16,12 +15,11 @@ fr-CA:
       title: Budget Citoyen
       author: Nord Ouvert
       og_url: http://budgetcitoyen.com/
-      facebook_locale: 'fr_CA'
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-7 # budgetcitoyen.com
 
   responses:
-    new:
+    new: &new
       instructions: Modifiez une activité pour commencer.
       read_more: En savoir plus
       read_more_tip: Cliquez pour en savoir plus
@@ -33,6 +31,7 @@ fr-CA:
       attribution: Tenez votre propre consultation en ligne avec
       product_name: Budget Citoyen
       product_url: http://budgetcitoyen.com/
+    show: *new
     extra:
       close: Fermer
 
@@ -40,6 +39,7 @@ fr-CA:
     required: requis
     placeholders:
       response:
+        # @todo Placeholders need to be customizable.
         email: nom@exemple.com
         postal_code: H0H 0H0
     hints:

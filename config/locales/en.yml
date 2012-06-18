@@ -2,7 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  twitter_locale: en
   create_response: Thank you for your participation!
 
   # Active Admin dashboard
@@ -47,12 +46,11 @@ en:
       title: Citizen Budget
       author: Open North
       og_url: http://citizenbudget.com/
-      facebook_locale: 'en_US'
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-6 # citizenbudget.com
 
   responses:
-    new:
+    new: &new
       instructions: Change an activity to start
       read_more: Learn more
       read_more_tip: Click for more info
@@ -64,6 +62,7 @@ en:
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
+    show: *new
     extra:
       close: Close
 
@@ -96,6 +95,7 @@ en:
   formtastic:
     required: required
     placeholders:
+      # @todo Placeholders need to be customizable.
       response:
         email: name@example.com
         postal_code: H0H 0H0

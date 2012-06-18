@@ -21,7 +21,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="<%= og_url %>">
   <meta property="og:image" content="<%= og_image %>">
-  <meta property="og:locale" content="<%= facebook_locale %>">
+  <meta property="og:locale" content="<%= system_locale %>">
   <meta property="fb:admins" content="<%=t '.facebook_admins' %>">
 <% if facebook_app_id %>
   <meta property="fb:app_id" content="<%= facebook_app_id %>">
@@ -48,7 +48,7 @@ window.fbAsyncInit = function() {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/<%= facebook_locale %>/all.js#<% if facebook_app_id %>appId=<%= facebook_app_id %>&amp;<% end %>xfbml=1";
+  js.src = "//connect.facebook.net/<%= system_locale %>/all.js#<% if facebook_app_id %>appId=<%= facebook_app_id %>&amp;<% end %>xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 window.twttr = (function (d,s,id) {
@@ -67,6 +67,7 @@ window.twttr = (function (d,s,id) {
 <script>window.jQuery || document.write("<%=j javascript_include_tag 'jquery-ui.min.js' %>")</script>
 <script>var locale = '<%= locale.to_s.sub '-', '_' %>';</script>
 <%= javascript_include_tag 'application' %>
+<%= javascript_include_tag "jquery.validationEngine-#{iso639_locale}" %>
 
 <% if Rails.env.production? && google_analytics_tracking_code %>
 <script>

@@ -57,13 +57,7 @@ class Questionnaire
   end
 
   def locale_name
-    LOCALES[locale]
-  end
-
-  # Facebook uses underscore, not hyphen. Also, JavaScript object keys with
-  # hyphens must be quoted.
-  def system_locale
-    locale.sub '-', '_'
+    locale && LOCALES[locale]
   end
 
   def domain_url

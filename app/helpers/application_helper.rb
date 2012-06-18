@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def system_locale
+    locale.to_s.sub('-', '_')
+  end
+
+  def iso639_locale
+    locale.to_s.split('-', 2).first
+  end
+
   def title
     if @questionnaire
       "#{@questionnaire.organization.name} - #{@questionnaire.title}"
@@ -43,10 +51,6 @@ module ApplicationHelper
   end
 
   # Facebook tags
-  def facebook_locale
-    @questionnaire && @questionnaire.system_locale || t('.facebook_locale')
-  end
-
   def facebook_app_id
     @questionnaire && @questionnaire.facebook_app_id
   end
