@@ -89,10 +89,8 @@ $ ->
     $('#identification').css 'opacity', 0.5
     $('#identification input,#identification textarea').prop 'disabled', true
 
-  # Updates within-category balance.
-  updateCategoryBalance = ($control) ->
-    $table = $control.parents 'table'
-
+  # Calculates within-group or within-category balance.
+  calculateBalance = ($table) ->
     balance = 0
     $table.find('.slider').each ->
       $this = $ this
@@ -100,40 +98,27 @@ $ ->
     $table.find(':checkbox').each ->
       $this = $ this
       balance -= (+$this.prop('checked') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
+    balance
 
-    $span = $ '#' + $table.attr('id') + '_link span'
+  # Updates within-category balance.
+  updateCategoryBalance = ($control) ->
+    $table  = $control.parents 'table'
+    $span   = $ '#' + $table.attr('id') + '_link span'
     if $span.parents('.dropdown-menu').length
+      balance = calculateBalance $table
       $span.html(number_to_currency(balance)).css('color', if balance < 0 then '#f00' else '#000').toggle(balance != 0)
 
   # Updates within-group balance.
   updateBalance = ->
     balance = 0
-    changed = false
 
     $.each ['revenue', 'expense'], (i, group) ->
-      group_balance = 0
       amount = $ "##{group} .amount"
       bar = $ "##{group} .bar"
 
-      # Calculate balance.
-      $("""table[rel="#{group}"] .slider""").each ->
-        $this = $ this
-        difference = $this.slider('value') - parseFloat($this.attr('data-initial'))
-        group_balance -= difference * parseFloat($this.attr('data-value'))
-        if difference > 0
-          changed = true
-      $("""table[rel="#{group}"] :checkbox""").each ->
-        $this = $ this
-        difference = +$this.prop('checked') - parseFloat($this.attr('data-initial'))
-        group_balance -= difference * parseFloat($this.attr('data-value'))
-        if difference > 0
-          changed = true
-
       # Revenue cuts remove money, whereas expenses custs add money.
-      if group == 'revenue'
-        group_balance = -group_balance
-
-      # Tally.
+      group_balance = calculateBalance $("""table[rel="#{group}"]""")
+      group_balance = -group_balance if group == 'revenue'
       balance += group_balance
 
       # Update group balance.
@@ -184,29 +169,23 @@ $ ->
     currency = number_to_currency balance
 
     # Update message.
+    changed = $('.selected').length
     if balance < 0
       $message.html t('deficit', number: currency)
     else if balance == 0
       if changed
-        submittable = true
         $message.html t('balanced')
       else
         $message.html t('instructions')
     else
-      if balance <= 50000 and changed
-        submittable = true
-        $message.html t('nearly_balanced', number: currency)
-      else
-        $message.html t('surplus', number: currency)
+      $message.html t('surplus', number: currency)
 
-    if submittable
+    if balance >= 0 and changed
       $message.animate 'background-color': '#ff0', 'color': '#000'
     else if balance < 0
       $message.animate 'background-color': '#f00', 'color': '#fff'
     else if balance == 0
       $message.animate 'background-color': '#666', 'color': '#fff'
-    else
-      $message.animate 'background-color': '#000', 'color': '#fff'
 
     # Enable or disable identification form.
     if submittable

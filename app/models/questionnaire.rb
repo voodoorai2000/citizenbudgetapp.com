@@ -43,7 +43,7 @@ class Questionnaire
   scope :past, where(:ends_at.ne => nil, :ends_at.lt => Time.now)
 
   def self.find_by_domain(domain)
-    any_in(domain: [domain, sanitize_domain(domain)]).first
+    domain && any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
   def questions

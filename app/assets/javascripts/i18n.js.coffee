@@ -13,8 +13,7 @@ I18n =
     savings: 'Savings:'
     costs: 'Costs:'
     instructions: 'Change an activity to start.'
-    surplus: 'Your budget has a surplus of %{number}. <b>Add activities or cut revenues to balance the budget.</b>'
-    nearly_balanced: """Your budget has a surplus of %{number}. If you're finished <a href="#identification">submit your choices</a>."""
+    surplus: """Your budget has a surplus of %{number}. If you're finished <a href="#identification">submit your choices</a>. Otherwise, <b>add activities or cut revenues to balance the budget</b>."""
     balanced: """<b>Your budget is balanced!</b> If you're finished <a href="#identification">submit your choices</a>."""
     deficit: 'Your budget is in deficit (%{number}). <b>Cut activities or add revenues to balance the budget.</b>'
   fr_CA:
@@ -31,8 +30,7 @@ I18n =
     savings: 'Épargnes :'
     costs: 'Coûts :'
     instructions: 'Modifiez une activité pour commencer.'
-    surplus: 'Votre budget montre un surplus de %{number}. <b>Ajoutez des activités ou reduisez les revenus pour équilibrer le budget.</b>'
-    nearly_balanced: """Votre budget montre un surplus de %{number}. Si vous avez fini, <a href="#identification">soumettez vos choix</a>."""
+    surplus: """Votre budget montre un surplus de %{number}. Vous pouvez <a href="#identification">soumettre vos choix</a>. Sinon, <b>ajoutez des activités ou reduisez les revenus pour équilibrer le budget</b>."""
     balanced: """<b>Vous avez atteint l'équilibre!</b> Si vous avez fini, <a href="#identification">soumettez vos choix</a>."""
     deficit: 'Votre budget est en déficit (%{number}). <b>Renoncez à des activités ou augmentez les revenus pour équilibrer le budget.</b>'
 
