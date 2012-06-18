@@ -4,7 +4,8 @@ class Response
 
   GENDERS = %w(male female)
 
-  embedded_in :questionnaire
+  # Don't embed, as a popular questionnaire may be over 16MB in size.
+  belongs_to :questionnaire
 
   field :ip, type: String
   field :initialized_at, type: Time
@@ -30,6 +31,10 @@ class Response
   validates_inclusion_of :gender, in: GENDERS, allow_blank: true
   validates_numericality_of :age, only_integer: true, greater_than: 0, allow_blank: true
 =end
+
+  def time_to_complete
+    persisted? && created_at - initialized_at
+  end
 
 private
 

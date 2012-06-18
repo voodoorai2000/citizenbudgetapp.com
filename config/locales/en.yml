@@ -3,6 +3,7 @@
 
 en:
   twitter_locale: en
+  create_response: Thank you for your participation!
 
   # Active Admin dashboard
   active_consultations: Active consultations
@@ -94,6 +95,10 @@ en:
 
   formtastic:
     required: required
+    placeholders:
+      response:
+        email: name@example.com
+        postal_code: H0H 0H0
     labels:
       question:
         _destroy: Delete question

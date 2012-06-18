@@ -1,5 +1,6 @@
 fr-CA:
   twitter_locale: fr
+  create_response: Merci pour votre participation!
 
   gender:
     male: Masculin
@@ -37,6 +38,10 @@ fr-CA:
 
   formtastic:
     required: requis
+    placeholders:
+      response:
+        email: nom@exemple.com
+        postal_code: H0H 0H0
     hints:
       response:
         email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.

@@ -303,7 +303,7 @@ label.iOSCheckLabelOff.reverse {
 
 /* Identification ------------------------------------------------------------*/
 
-legend {
+legend span {
   padding-left: 160px;
 }
 
@@ -324,7 +324,7 @@ footer {
 }
 
 .message {
-  padding: 10px;
+  padding: 10px 0;
   background-color: #666;
   color: #fff;
   font-size: 1.08em;

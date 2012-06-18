@@ -190,6 +190,14 @@ module Formtastic
       end
     end
 
+    class HiddenInput
+      # Remove:
+      #     input_wrapping do ... end
+      def to_html
+        builder.hidden_field(method, input_html_options)
+      end
+    end
+
     class RadioInput
       # Cut most of the wrappers.
       def to_html
@@ -240,15 +248,6 @@ end
 class CustomBuilder < Formtastic::FormBuilder
   default_hint_class = 'help-inline'
   default_inline_error_class = 'help-inline'
-
-  # Remove:
-  #     template.content_tag(:span, ...)
-  def field_set_legend(html_options)
-    legend  = (html_options[:name] || '').to_s
-    legend %= parent_child_index(html_options[:parent]) if html_options[:parent]
-    legend  = template.content_tag(:legend, Formtastic::Util.html_safe(legend)) unless legend.blank?
-    legend
-  end
 
   # Remove:
   #     template.content_tag(:ol, ...)

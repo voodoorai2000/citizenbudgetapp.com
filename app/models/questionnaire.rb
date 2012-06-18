@@ -11,7 +11,7 @@ class Questionnaire
 
   belongs_to :organization, index: true
   embeds_many :sections
-  embeds_many :responses
+  has_many :responses
   mount_uploader :logo, LogoUploader
 
   field :title, type: String
@@ -46,6 +46,12 @@ class Questionnaire
     any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
+  def questions
+    sections.reduce([]) do |memo,section|
+      memo + section.questions
+    end
+  end
+
   def display_name
     title
   end
@@ -54,6 +60,8 @@ class Questionnaire
     LOCALES[locale]
   end
 
+  # Facebook uses underscore, not hyphen. Also, JavaScript object keys with
+  # hyphens must be quoted.
   def system_locale
     locale.sub '-', '_'
   end

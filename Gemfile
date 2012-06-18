@@ -1,6 +1,8 @@
  source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
+# Sentry docs use :git.
+gem 'sentry-raven', :git => 'git://github.com/coderanger/raven-ruby.git'
 
 # Background jobs
 gem 'girl_friday'

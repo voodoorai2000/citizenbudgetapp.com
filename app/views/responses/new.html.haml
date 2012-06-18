@@ -107,12 +107,13 @@
     %section#identification
       = f.inputs name: t('.submit_your_choices') do
         = f.input :email, required: true
-        = f.input :postal_code, required: true
-        = f.input :name
-        = f.input :age, as: :number
+        = f.input :postal_code, required: true, input_html: {class: 'span2'}
+        = f.input :age, as: :number, input_html: {class: 'span1'}
         = f.input :gender, as: :radio, collection: t(:gender).map{|k,v| [v, k]}
+        = f.input :name
         = f.input :comments, as: :text, input_html: {rows: 4, class: 'span6'}
         = f.input :subscribe
+        = f.input :initialized_at, as: :hidden
       = f.actions do
         = f.action :submit
 

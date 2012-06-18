@@ -8,15 +8,19 @@ class ResponsesController < ApplicationController
       -@questionnaire.minimum_amount.abs,
     ].max
     @groups = @questionnaire.sections.group_by(&:group)
-    @response = Response.new initialized_at: Time.now, subscribe: true
+    @response = @questionnaire.responses.build initialized_at: Time.now.utc, subscribe: true
   end
 
   def create
-    # @todo
+    @response = @questionnaire.responses.build params[:response]
+    @response.answers = params.select{|k,_| k[/\A[a-f0-9]{24}\z/]}
+    @response.ip      = request.ip
+    @response.save! # There shouldn't be errors.
+    redirect_to @response, notice: t(:create_response)
   end
 
   def show
-    # @todo
+    @response = @questionnaire.responses.find params[:id]
   end
 
 private
