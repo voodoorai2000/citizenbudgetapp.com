@@ -1,6 +1,11 @@
 fr-CA:
   twitter_locale: fr
 
+  gender:
+    male: Masculin
+    female: Féminin
+    no_answer: S.O.
+
   group:
     revenue: Revenus
     expense: Dépenses
@@ -23,11 +28,18 @@ fr-CA:
       view_media_tip: Cliquez pour consulter le contenu média
       close: Fermer
       your_choice: Votre choix
+      submit_your_choices: Soumettez vos choix
       attribution: Tenez votre propre consultation en ligne avec
       product_name: Budget Citoyen
       product_url: http://budgetcitoyen.com/
     extra:
       close: Fermer
+
+  formtastic:
+    required: requis
+    hints:
+      response:
+        email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.
 
   # @todo Active Admin translations
 
@@ -234,6 +246,17 @@ fr-CA:
   activemodel:
     errors:
       <<: *errors
-  activerecord:
+  activerecord: &activerecord
     errors:
       <<: *errors
+    attributes:
+      response:
+        email: Courriel
+        postal_code: Code postal
+        gender: Genre
+        age: Âge
+        name: Nom
+        comments: Commentaires?
+        subscribe: Inscrivez-moi à votre bulletin
+
+  mongoid: *activerecord

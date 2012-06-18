@@ -20,6 +20,11 @@ en:
     starting: "starting %{date}"
     ending: "ending %{date}"
 
+  gender:
+    male: Male
+    female: Female
+    no_answer: N/A
+
   group:
     revenue: Revenues
     expense: Expenses
@@ -54,6 +59,7 @@ en:
       view_media_tip: Click to view media
       close: Close
       your_choice: Your choice
+      submit_your_choices: Submit your choices
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
@@ -87,10 +93,13 @@ en:
         other: "entries"
 
   formtastic:
+    required: required
     labels:
       question:
         _destroy: Delete question
     hints:
+      response:
+        email: We will not share your e-mail address or other contact information with any third-parties.
       questionnaire:
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
@@ -123,8 +132,11 @@ en:
         one: Section
         other: Sections
       question:
-        one: question
+        one: Question
         other: Questions
+      response:
+        one: Response
+        other: Responses
     attributes:
       admin_user:
         email: Email
@@ -162,6 +174,14 @@ en:
         widget: Widget
         unit_amount: Unit amount
         unit_name: Unit name
+      response:
+        email: Email
+        postal_code: Postal code
+        gender: Gender
+        age: Age
+        name: Name
+        comments: Comments?
+        subscribe: Add me to your newsletter
 
   mongoid: *activerecord
 

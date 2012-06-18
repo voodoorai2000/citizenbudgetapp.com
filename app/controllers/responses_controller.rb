@@ -8,7 +8,7 @@ class ResponsesController < ApplicationController
       -@questionnaire.minimum_amount.abs,
     ].max
     @groups = @questionnaire.sections.group_by(&:group)
-    @response = Response.new initialized_at: Time.now
+    @response = Response.new initialized_at: Time.now, subscribe: true
   end
 
   def create

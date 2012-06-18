@@ -41,7 +41,6 @@ $ ->
 
   # Smooth scroll "submit your choices" link.
   $('#message').on 'click', 'a[href="#identification"]', (event) ->
-    console.log 'foo'
     $.scrollTo '#identification',
       axis: 'y'
       duration: 500
