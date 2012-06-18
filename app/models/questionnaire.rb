@@ -17,6 +17,7 @@ class Questionnaire
   field :title, type: String
   field :locale, type: String
   field :logo, type: String
+  field :description, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
   field :introduction, type: String

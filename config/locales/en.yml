@@ -101,6 +101,7 @@ en:
       response:
         email: We will not share your e-mail address or other contact information with any third-parties.
       questionnaire:
+        description: This will be displayed on search engine results pages.
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
         facebook_app_id: If you have a Facebook app for this domain name.
@@ -149,6 +150,7 @@ en:
         locale: Locale
         logo: Logo
         remove_logo: Remove logo
+        description: Description
         starts_at: Start date
         ends_at: End date
         introduction: Introductory text

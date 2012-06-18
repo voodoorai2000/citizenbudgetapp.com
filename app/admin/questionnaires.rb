@@ -34,6 +34,7 @@ ActiveAdmin.register Questionnaire do
       row :logo do |q|
         link_to(image_tag(q.logo.medium.url), q.logo_url) if q.logo?
       end
+      row :description
       row :starts_at do |q|
         l(q.starts_at, format: :long) if q.starts_at?
       end

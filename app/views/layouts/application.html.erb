@@ -10,7 +10,9 @@
   <link rel="dns-prefetch" href="//ajax.googleapis.com">
   <link rel="dns-prefetch" href="//platform.twitter.com">
   <title><%= title %></title>
+<% if meta_description %>
   <meta name="description" content="<%= meta_description %>">
+<% end %>
   <meta name="author" content="<%= author %>">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta property="og:title" content="<%= og_title %>">

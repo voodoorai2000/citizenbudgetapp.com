@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def meta_description
-    '' # @todo add another field to Questionnaire?
+    @questionnaire && @questionnaire.description
   end
 
   def author

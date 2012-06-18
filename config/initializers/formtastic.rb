@@ -267,7 +267,7 @@ class CustomBuilder < Formtastic::FormBuilder
     # Ruby 1.9: String#to_s behavior changed, need to make an explicit join.
     contents = contents.join if contents.respond_to?(:join)
 
-    legend = field_set_legend(html_options) # @todo
+    legend = field_set_legend(html_options)
     fieldset = template.content_tag(:fieldset,
       Formtastic::Util.html_safe(legend) << Formtastic::Util.html_safe(contents),
       html_options.except(:builder, :parent, :name)
