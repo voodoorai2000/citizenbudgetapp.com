@@ -3,7 +3,11 @@ class ResponsesController < ApplicationController
   before_filter :set_locale
 
   def new
-    @response = @questionnaire.responses.build initialized_at: Time.now.utc, subscribe: true
+    @response = @questionnaire.responses.build({
+      initialized_at: Time.now.utc,
+      newsletter: true,
+      subscribe: true,
+    })
 
     @groups = @questionnaire.sections.group_by(&:group)
     @maximum_difference = [

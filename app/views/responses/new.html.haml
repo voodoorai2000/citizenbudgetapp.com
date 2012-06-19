@@ -117,6 +117,7 @@
         = f.input :gender, as: :radio, collection: t(:gender).map{|k,v| [v, k]}
         = f.input :name
         = f.input :comments, as: :text, input_html: {rows: 4, class: 'span6'}
+        = f.input :newsletter
         = f.input :subscribe
         = f.input :initialized_at, as: :hidden
       = f.actions do

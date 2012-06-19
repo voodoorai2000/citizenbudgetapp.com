@@ -18,6 +18,7 @@ class Response
   field :gender, type: String
   field :age, type: Integer
   field :comments, type: String
+  field :newsletter, type: Boolean
   field :subscribe, type: Boolean
 
   # @todo Rely on JavaScript validation for now, to avoid losing responses, as

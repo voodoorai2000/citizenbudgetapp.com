@@ -16,18 +16,19 @@ $ ->
       $message    = $ '#message'
       $whitespace = $ '#whitespace'
       offset      = $nav.length and $nav.offset().top
+      height      = $nav.outerHeight() + $message.outerHeight()
 
       # Set active menu item.
       $('body').scrollspy
         target: 'nav'
-        offset: 50
+        offset: height
 
       # Smooth scrolling.
       $nav.localScroll
         axis: 'y'
         duration: 500
         easing: 'easeInOutExpo'
-        offset: -50
+        offset: -height
         hash: true
 
       # Fixed menu.
@@ -35,7 +36,7 @@ $ ->
         boolean = $window.scrollTop() >= offset
         $nav.toggleClass 'nav-fixed', boolean
         $message.toggleClass 'message-fixed', boolean
-        $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
+        $whitespace.css(height: height).toggle boolean
 
       $window.on 'scroll', processScroll
       processScroll()

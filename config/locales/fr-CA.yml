@@ -329,6 +329,7 @@ fr-CA:
         age: Âge
         name: Nom
         comments: Commentaires?
-        subscribe: Inscrivez-moi à votre bulletin
+        newsletter: Inscrivez-moi à votre bulletin
+        subscribe: J'aimerais participer à vos prochaines consultations et sondages
 
   mongoid: *activerecord
