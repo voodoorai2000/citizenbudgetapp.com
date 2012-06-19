@@ -77,9 +77,13 @@
                     - if q.widget == 'slider'
                       .impact
                         %span.key
-                        %span.value 0 $
-                      .meta.maximum=  number_with_delimiter(q.maximum_units)
-                      .meta.minimum= [number_with_delimiter(q.minimum_units), q.unit_name].compact.join ' '
+                        %span.value= number_to_currency 0
+                      - if q.unit_name == '$' && q.unit_amount == 1
+                        .meta.maximum &nbsp;
+                        .meta.minimum &nbsp;
+                      - else
+                        .meta.maximum=  number_with_delimiter(q.maximum_units)
+                        .meta.minimum= [number_with_delimiter(q.minimum_units), q.unit_name].compact.join ' '
                       .control.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}")
                         = hidden_field_tag q.id, q.default_value
                         .tick.lowest
@@ -92,7 +96,7 @@
                     - elsif q.widget == 'onoff'
                       .impact
                         %span.key
-                        %span.value 0 $
+                        %span.value= number_to_currency 0
                       .control.onoff
                         = hidden_field_tag q.id, '0' # Mimic an unchecked box.
                         = check_box_tag q.id, '1', q.checked?, 'data-value' => q.unit_amount, 'data-initial' => q.default_value

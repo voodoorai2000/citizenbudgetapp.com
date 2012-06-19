@@ -30,12 +30,12 @@ ActiveAdmin.register Section do
       g.input :extra, as: :text, input_html: {rows: 3}
       g.input :widget, collection: Question::WIDGETS.map{|w| [t(w, scope: :widget), w]}
       g.input :options_as_list#, as: :text, input_html: {rows: 5}
-      g.input :unit_amount, as: :string, input_html: {size: 8}
-      g.input :unit_name, input_html: {size: 20}
+      g.input :default_value, input_html: {size: 8}
       g.input :minimum_units, input_html: {size: 8}
       g.input :maximum_units, input_html: {size: 8}
       g.input :step, input_html: {size: 8}
-      g.input :default_value, input_html: {size: 8}
+      g.input :unit_name, input_html: {size: 20}
+      g.input :unit_amount, as: :string, input_html: {size: 8}
       g.input :required
       g.input :position, as: :hidden
     end
