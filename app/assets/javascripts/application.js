@@ -16,6 +16,7 @@
 //= require jquery.scrollTo-1.4.2-min
 //= require jquery.localscroll-1.2.7-min
 //= require jquery.validationEngine.js
+//= require jquery.ui.touch-punch.min.js
 //= require iphone-style-checkboxes
 //= require mustache
 //= require i18n
