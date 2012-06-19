@@ -37,7 +37,7 @@ fr-CA:
     show: *new
     modals:
       close: Fermer
-    extra:
+    modal:
       close: Fermer
     footer:
       attribution: Tenez votre propre consultation en ligne avec

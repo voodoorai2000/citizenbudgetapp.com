@@ -68,7 +68,7 @@ en:
     show: *new
     modals:
       close: Close
-    extra:
+    modal:
       close: Close
     footer:
       attribution: Get your own budget consultation from
