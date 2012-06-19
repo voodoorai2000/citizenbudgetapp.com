@@ -1,5 +1,7 @@
 module FormtasticBootstrap
   class FormBuilder < Formtastic::FormBuilder
+    use_required_attribute = true
+    perform_browser_validations = true
     default_hint_class = 'help-inline'
     default_inline_error_class = 'help-inline'
 

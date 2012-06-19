@@ -8,7 +8,7 @@
       = f.input :remove_logo, as: :boolean, hint: link_to(image_tag(@questionnaire.logo.medium.url), @questionnaire.logo_url)
     = f.input :logo, as: :file
     = f.input :logo_cache, as: :hidden
-    = f.input :description, as: :text
+    = f.input :description, as: :text, input_html: {rows: 3}
     = f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
     = f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false
     = f.input :introduction, as: :text
