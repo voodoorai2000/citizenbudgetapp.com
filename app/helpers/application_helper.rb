@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def bootstrap_form_for(record_or_name_or_array, *args, &proc)
+    options = args.extract_options!
+    options[:builder] ||= FormtasticBootstrap::FormBuilder
+    semantic_form_for record_or_name_or_array, options, &proc
+  end
+
   def system_locale
     locale.to_s.sub('-', '_')
   end
