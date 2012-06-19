@@ -29,4 +29,10 @@ class Section
   def display_name
     title
   end
+
+  def survey?
+    questions.all? do |question|
+      question.widget == 'radio'
+    end
+  end
 end

@@ -12,18 +12,19 @@
             %span
               %i.icon-facetime-video
               = link_to t('.view_media'), "##{section.title.parameterize}_embed", 'data-toggle' => 'modal', 'rel' => 'tooltip', 'title' => t('.view_media_tip')
-        %th.column.highlight
-          =t '.your_choice'
+        - unless section.survey?
+          %th.column.highlight
+            =t '.your_choice'
       - if section.description?
         %tr
-          %td.description(colspan="2")
+          %td.description(colspan="#{colspan(section)}")
             :markdown
               #{section.description}
     %tbody
       - section.questions.each do |q|
         %tr
           - if q.widget == 'radio'
-            %td.description(colspan="2")
+            %td.description(colspan="#{colspan(section)}")
               %h3
                 = q.title
                 - if q.extra?

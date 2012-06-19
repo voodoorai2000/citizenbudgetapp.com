@@ -33,4 +33,8 @@ module ResponsesHelper
     end
     content_tag(:div, nil, html_options)
   end
+
+  def colspan(section)
+    section.survey? && 1 || 2
+  end
 end
