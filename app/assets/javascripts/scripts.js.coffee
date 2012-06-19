@@ -207,14 +207,25 @@ $ ->
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
         $tr.find('td.highlight').animate {'background-color': if group == 'revenue' then '#ddf' else '#ff9'}, 'slow'
     else
+      lower = current - initial < 0
       if group == 'revenue'
-        key = if current - initial < 0 then t('losses') else t('gains')
+        if lower
+          key = t('losses')
+          color = '#d00'
+        else
+          key = t('gains')
+          color = '#000'
       else
-        key = if current - initial < 0 then t('savings') else t('costs')
+        if lower
+          key = t('savings')
+          color = '#000'
+        else
+          key = t('costs')
+          color = '#d00'
 
       $tr.find('.key').html key
       $tr.find('.value').html number_to_currency(Math.abs(current - initial) * value)
-      $tr.find('.impact').css 'visibility', 'visible'
+      $tr.find('.impact').css('color', color).css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
         $tr.addClass 'selected'
         $tr.find('td').animate 'background-color': '#add5f7', 'fast'
