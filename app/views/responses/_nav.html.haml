@@ -1,0 +1,18 @@
+- @groups.each do |group,sections|
+  - if sections.size == 1
+    = render sections
+  - else
+    %li.dropdown
+      = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
+        = t(group, scope: :group)
+        %span.caret
+      %ul.dropdown-menu
+        = render sections
+- @groups.each do |group,_|
+  %li.group(id="#{group}")
+    .inner
+      .chart
+        .title=t group, scope: :group
+        .bar
+        .zero
+        .amount= number_to_currency 0

@@ -46,6 +46,18 @@ class Questionnaire
     domain && any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
+  def find_question(question)
+    questions.find do |q|
+      q.id.to_s == question.id.to_s
+    end
+  end
+
+  def find_question_by_id(id)
+    questions.find do |q|
+      q.id.to_s == id
+    end
+  end
+
   def questions
     sections.reduce([]) do |memo,section|
       memo + section.questions

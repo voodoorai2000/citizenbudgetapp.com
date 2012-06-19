@@ -92,8 +92,16 @@ th.column {
 
 td {
   border-bottom: 1px solid #ccc;
+
+  p {
+    margin: 0 0 1em;
+    color: #333;
+  }
 }
 td.description {
+  padding: 15px 10px;
+}
+td.question {
   padding: 15px 10px 15px 0;
 
   h3 {
@@ -108,11 +116,6 @@ td.description {
       font-size: 0.93em;
       font-weight: normal;
     }
-  }
-
-  p {
-    margin: 0 0 1em;
-    color: #333;
   }
 }
 
@@ -156,10 +159,6 @@ $widget-margin: 50px;
 .selected .changed {
   color: #000;
   font-weight: bold;
-}
-
-#reminder {
-  margin-bottom: 50px;
 }
 
 /* Slider widget -------------------------------------------------------------*/

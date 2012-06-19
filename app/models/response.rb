@@ -38,7 +38,7 @@ class Response
   end
 
   def answer(question)
-    answers[question.id.to_s]
+    answers[question.id.to_s] || question.default_value
   end
 
   def checked?(question)

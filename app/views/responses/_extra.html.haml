@@ -1,9 +1,9 @@
-.modal.hide.fade(id="#{extra.title.parameterize}_extra")
+.modal.hide.fade(id="#{section.title.parameterize}_extra")
   .modal-header
     = link_to '×', '#', 'data-dismiss' => 'modal', 'class' => 'close'
-    %h3= extra.title
+    %h3= section.title
   .modal-body
     :markdown
-      #{extra.extra}
+      #{section.extra}
   .modal-footer
     = link_to t('.close'), '#', 'data-dismiss' => 'modal', 'class' => 'btn btn-primary'

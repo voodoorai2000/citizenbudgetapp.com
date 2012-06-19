@@ -1,0 +1,7 @@
+- @questionnaire.sections.each do |section|
+  - if section.extra?
+    = render partial: 'extra', locals: {section: section}
+  - if section.embed?
+    .modal.hide.fade.embed(id="#{section.title.parameterize}_embed")
+      = section.embed.html_safe
+      = link_to t('.close'), '#', 'data-dismiss' => 'modal', 'class' => 'btn btn-primary'

@@ -1,12 +1,5 @@
 .container.disabled
-  %header
-    - if @questionnaire.logo?
-      #logo= image_tag @questionnaire.logo.large.url, alt: ''
-    %h1= @questionnaire.title
-    #facebook
-      = facebook_button
-    #twitter
-      = twitter_button
+  = render partial: 'header'
 
   - if flash[:notice]
     .alert.alert-success.fade.in
@@ -33,97 +26,15 @@
         %ul.dropdown-menu
           %li
             .fb-comments(data-href="#{response_url(@response)}" data-num-posts="2" data-width="470")
-      - @groups.each do |group,sections|
-        - if sections.size == 1
-          = render sections
-        - else
-          %li.dropdown
-            = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
-              = t(group, scope: :group)
-              %span.caret
-            %ul.dropdown-menu
-              = render sections
-      - @groups.each do |group,_|
-        %li.group(id="#{group}")
-          .inner
-            .chart
-              .title=t group, scope: :group
-              .bar
-              .zero
-              .amount= number_to_currency 0
+      - render partial: 'nav'
 
   #whitespace
 
-  - @questionnaire.sections.each do |section|
-    %table(id="#{section.title.parameterize}" rel="#{section.group}" class="#{section.group}")
-      %thead
-        %tr
-          %th.category
-            = section.title
-            - if section.extra?
-              %span
-                %i.icon-info-sign
-                = link_to t('.read_more'), "##{section.title.parameterize}_extra", 'data-toggle' => 'modal', 'rel' => 'tooltip', 'title' => t('.read_more_tip')
-            - if section.embed?
-              %span
-                %i.icon-facetime-video
-                = link_to t('.view_media'), "##{section.title.parameterize}_embed", 'data-toggle' => 'modal', 'rel' => 'tooltip', 'title' => t('.view_media_tip')
-          %th.column.highlight
-            =t '.your_choice'
-      %tbody
-        - section.questions.each do |q|
-          %tr
-            %td.description
-              %h3
-                = q.title
-                - if q.extra?
-                  %span
-                    %i.icon-info-sign
-                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra))
-              - if q.description?
-                :markdown
-                  #{q.description}
-            %td.highlight
-              %div(class="widget widget-#{q.widget}")
-                - if q.widget == 'slider'
-                  .impact
-                    %span.key
-                    %span.value= number_to_currency 0
-                  - if q.unit_name == '$' && q.unit_amount == 1
-                    .meta.maximum &nbsp;
-                    .meta.minimum &nbsp;
-                  - else
-                    .meta.maximum=  number_with_delimiter(q.maximum_units)
-                    .meta.minimum= [number_with_delimiter(q.minimum_units), q.unit_name].compact.join ' '
-                  .control.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled")
-                    = hidden_field_tag q.id, @response.answer(q)
-                    .tick.lowest
-                    .tick.initial
-                    .tick.highest
-                  .meta.maximum
-                    = number_to_currency q.maximum_amount
-                  .meta.minimum
-                    = number_to_currency q.minimum_amount
-                - elsif q.widget == 'onoff'
-                  .impact
-                    %span.key
-                    %span.value= number_to_currency 0
-                  .control.onoff
-                    = check_box_tag q.id, '1', @response.checked?(q), 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
-                  %div(class="meta maximum#{' changed' if q.unchecked?}")
-                    = number_to_currency q.maximum_amount
-                  %div(class="meta minimum#{' changed' if q.checked?}")
-                    = number_to_currency q.minimum_amount
-                - elsif q.widget == 'radio'
-                  -#@todo sondage
+  = render @questionnaire
 
-- @questionnaire.sections.each do |section|
-  - if section.extra?
-    = render partial: 'extra', object: section
-  - if section.embed?
-    .modal.hide.fade.embed(id="#{section.title.parameterize}_embed")
-      = section.embed.html_safe
-      = link_to t('.close'), '#', 'data-dismiss' => 'modal', 'class' => 'btn btn-primary'
+  = render 'footer'
+
+= render partial: 'modals'
 
 :javascript
   var maximumDifference = #{@maximum_difference};

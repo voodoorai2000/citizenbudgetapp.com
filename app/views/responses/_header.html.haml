@@ -1,0 +1,8 @@
+%header
+  - if @questionnaire.logo?
+    #logo= image_tag @questionnaire.logo.large.url, alt: ''
+  %h1= @questionnaire.title
+  #facebook
+    = facebook_button
+  #twitter
+    = twitter_button
