@@ -32,7 +32,7 @@ class Section
 
   def survey?
     questions.all? do |question|
-      question.widget == 'radio'
+      question.survey?
     end
   end
 end

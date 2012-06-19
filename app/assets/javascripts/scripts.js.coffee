@@ -1,14 +1,33 @@
 $ ->
+  # Local globals.
   amountLeft = 0
   barLeft = 100
 
-  # Bootstrap plugins
+  # Open non-Bootstrap links in new windows.
+  $('.description a:not([class])').attr 'target', '_blank'
+
+  # Bootstrap plugins.
   $('.dropdown-toggle').dropdown()
   $('.popover-toggle').popover().click (event) ->
     event.preventDefault()
   $('a[rel="tooltip"]').tooltip()
 
-  # Navigation
+  # iPad-compatibility for Bootstrap.
+  $('body').on('click.alert.data-api', dismiss, Alert.prototype.close)
+
+  $('html').on('click.dropdown.data-api', clearMenus)
+  $('body')
+    .on('click.dropdown', '.dropdown form', (e) -> e.stopPropagation())
+    .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+
+  $('body').on('click.modal.data-api', '[data-toggle="modal"]', (e) ->
+    $this = $(this)
+    $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, ''))
+    option = if $target.data('modal') then 'toggle' else $.extend({}, $target.data(), $this.data())
+    e.preventDefault()
+    $target.modal(option)
+
+  # Navigation.
   (->
     if $('nav').length
       $window     = $ window
@@ -38,7 +57,7 @@ $ ->
         $message.toggleClass 'message-fixed', boolean
         $whitespace.css(height: height).toggle boolean
 
-      $window.on 'scroll', processScroll
+      $window.on 'scroll touchmove', processScroll
       processScroll()
   )()
 
@@ -96,7 +115,7 @@ $ ->
     $table.find('.slider').each ->
       $this = $ this
       balance -= ($this.slider('value') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
-    $table.find(':checkbox').each ->
+    $table.find('.onoff').each ->
       $this = $ this
       balance -= (+$this.prop('checked') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
     balance
@@ -165,7 +184,6 @@ $ ->
           left: Math.min(barLeft, barLeft - pixels)
           width: width
 
-    submittable = false
     $message = $ '.message'
     currency = number_to_currency balance
 
@@ -189,7 +207,7 @@ $ ->
       $message.animate 'background-color': '#666', 'color': '#fff'
 
     # Enable or disable identification form.
-    if submittable
+    if balance >= 0 and changed
       enableForm()
     else
       disableForm()
@@ -282,7 +300,7 @@ $ ->
   $('.ui-slider-handle').unbind 'keydown'
 
   # On/off widget
-  $('table :checkbox').each ->
+  $('table .onoff').each ->
     $this = $ this
     initial = parseFloat $this.attr('data-initial')
 
@@ -314,21 +332,21 @@ $ ->
       $this.find('.tip-content').html number_to_human(value)
       $this.find('.tip').toggle value != 0 || value != parseFloat($this.attr('data-minimum'))
       highlight $this, value
-    $('table :checkbox').each ->
+    $('table .onoff').each ->
       $this = $ this
       highlight $this, +$this.prop('checked')
   else
     $('.minimum').click ->
       $this = $ this
       $widget = $this.parents '.widget'
-      $widget.find(':checkbox').prop('checked', false).trigger 'change'
+      $widget.find('.onoff').prop('checked', false).trigger 'change'
       $slider = $widget.find('.slider')
       $slider.slider 'value', $slider.attr('data-minimum')
 
     $('.maximum').click ->
       $this = $ this
       $widget = $this.parents '.widget'
-      $widget.find(':checkbox').prop('checked', true).trigger 'change'
+      $widget.find('.onoff').prop('checked', true).trigger 'change'
       $slider = $widget.find '.slider'
       $slider.slider 'value', $slider.attr('data-maximum')
 

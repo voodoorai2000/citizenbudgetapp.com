@@ -5,8 +5,8 @@
 class Question
   include Mongoid::Document
 
-  # @todo Need to be able to map an amount to each radio and select option, in
-  #   which case we need a new :amounts array field?
+  # @todo Need to be able to map an amount to each option for checkboxes, radio
+  # and select widgets, in which case we need a new :amounts array field?
   WIDGETS = %w(checkbox checkboxes onoff radio select slider text textarea)
 
   embedded_in :section
@@ -46,6 +46,10 @@ class Question
   before_validation :set_options
 
   default_scope asc(:position)
+
+  def survey?
+    %w(checkboxes radio).include? widget
+  end
 
   # @return [Boolean] whether the widget is checked by default
   def checked?

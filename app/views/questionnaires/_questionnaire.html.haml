@@ -23,7 +23,7 @@
     %tbody
       - section.questions.each do |q|
         %tr
-          - if q.widget == 'radio'
+          - if q.survey?
             %td.description(colspan="#{colspan(section)}")
               %h3
                 = q.title
@@ -38,12 +38,21 @@
                 .control-group
                   .controls
                     - q.options.each do |option|
-                      = label_tag nil, class: 'radio' do
-                        - if @response.persisted?
-                          = radio_button_tag q.id, option, @response.answer(q) == option
-                        - else
-                          = radio_button_tag q.id, option
-                        = option
+                      - if q.widget == 'checkboxes'
+                        = label_tag nil, class: 'checkbox' do
+                          - if @response.persisted?
+                            = check_box_tag q.id, '1', @response.answer(q) == option
+                          - else
+                            = check_box_tag q.id
+                          = option
+                          -# @todo this won't save properly
+                      - elsif q.widget == 'radio'
+                        = label_tag nil, class: 'radio' do
+                          - if @response.persisted?
+                            = radio_button_tag q.id, option, @response.answer(q) == option
+                          - else
+                            = radio_button_tag q.id, option
+                          = option
           - else
             %td.description
               %h3
@@ -68,7 +77,7 @@
                     .meta.maximum=  number_with_delimiter(q.maximum_units)
                     .meta.minimum= [number_with_delimiter(q.minimum_units), q.unit_name].compact.join ' '
                   - if @response.persisted?
-                    .control.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled")
+                    .control.control-slider.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled")
                       = hidden_field_tag q.id, @response.answer(q)
                       .tick.lowest
                       .tick.initial
@@ -87,12 +96,12 @@
                   .impact
                     %span.key
                     %span.value= number_to_currency 0
-                  .control.onoff
+                  .control.control-onoff
                     = hidden_field_tag q.id, '0' # Mimic an unchecked box.
                     - if @response.persisted?
-                      = check_box_tag q.id, '1', @response.answer(q) == '1', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                      = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
                     - else
-                      = check_box_tag q.id, '1', q.checked?, 'data-value' => q.unit_amount, 'data-initial' => q.default_value
+                      = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value
                   %div(class="meta maximum#{' changed' if q.unchecked?}")
                     = number_to_currency q.maximum_amount
                   %div(class="meta minimum#{' changed' if q.checked?}")
