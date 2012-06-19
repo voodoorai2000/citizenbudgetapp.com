@@ -204,7 +204,7 @@ $ ->
       $tr.find('.impact').css 'visibility', 'hidden'
       if $tr.hasClass 'selected'
         $tr.removeClass 'selected'
-        $tr.find('td.question').animate 'background-color': '#fff', 'slow'
+        $tr.find('td.description').animate 'background-color': '#fff', 'slow'
         $tr.find('td.highlight').animate {'background-color': if group == 'revenue' then '#ddf' else '#ff9'}, 'slow'
     else
       lower = current - initial < 0

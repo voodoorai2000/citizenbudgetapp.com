@@ -23,9 +23,28 @@
       - section.questions.each do |q|
         %tr
           - if q.widget == 'radio'
-            -#@todo sondage
+            %td.description(colspan="2")
+              %h3
+                = q.title
+                - if q.extra?
+                  %span
+                    %i.icon-info-sign
+                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra))
+              - if q.description?
+                :markdown
+                  #{q.description}
+              %fieldset
+                .control-group
+                  .controls
+                    - q.options.each do |option|
+                      = label_tag nil, class: 'radio' do
+                        - if @response.persisted?
+                          = radio_button_tag q.id, option, @response.answer(q) == option
+                        - else
+                          = radio_button_tag q.id, option
+                        = option
           - else
-            %td.question
+            %td.description
               %h3
                 = q.title
                 - if q.extra?
@@ -70,7 +89,7 @@
                   .control.onoff
                     = hidden_field_tag q.id, '0' # Mimic an unchecked box.
                     - if @response.persisted?
-                      = check_box_tag q.id, '1', @response.checked?(q), 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                      = check_box_tag q.id, '1', @response.answer(q) == '1', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
                     - else
                       = check_box_tag q.id, '1', q.checked?, 'data-value' => q.unit_amount, 'data-initial' => q.default_value
                   %div(class="meta maximum#{' changed' if q.unchecked?}")

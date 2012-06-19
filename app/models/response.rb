@@ -41,14 +41,6 @@ class Response
     answers[question.id.to_s] || question.default_value
   end
 
-  def checked?(question)
-    answer(question) == '1'
-  end
-
-  def unchecked?(question)
-    answer(question) == '0'
-  end
-
 private
 
   # @todo Make this localizable. See also validation engine rule.

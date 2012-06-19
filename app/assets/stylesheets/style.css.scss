@@ -99,9 +99,6 @@ td {
   }
 }
 td.description {
-  padding: 15px 0;
-}
-td.question {
   padding: 15px 10px 15px 0;
 
   h3 {
@@ -116,6 +113,10 @@ td.question {
       font-size: 0.93em;
       font-weight: normal;
     }
+  }
+
+  .control-group {
+    margin: 0;
   }
 }
 
