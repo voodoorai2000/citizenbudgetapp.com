@@ -74,7 +74,7 @@ $ ->
 
   number_to_human = (number) ->
     number = parseFloat(number)
-    if number > 1000
+    if Math.abs(number) > 1000
       number /= 1000
       number = "#{number} k"
     number
