@@ -125,7 +125,7 @@ en:
       question:
         extra: This text will appear in a small overlay when people click for more information.
         unit_name: Use the plural form.
-        options_as_list: Separate options by commas.
+        options_as_list: Put each option on a separate line.
         step: You can usually set this to 1.
         default_value: If this is a check box, 1 is checked, 0 is unchecked.
     actions:
