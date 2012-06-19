@@ -49,26 +49,32 @@ en:
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-6 # citizenbudget.com
 
-  responses:
-    new: &new
-      instructions: Change an activity to start
+  questionnaires:
+    questionnaire:
       read_more: Learn more
       read_more_tip: Click for more info
       view_media: View media
       view_media_tip: Click to view media
-      close: Close
       your_choice: Your choice
+
+  responses:
+    new: &new
+      instructions: Change an activity to start
       submit_your_choices: Submit your choices
-      attribution: Get your own budget consultation from
-      product_name: Citizen Budget
-      product_url: http://citizenbudget.com/
       # Show
       share: We encourage you to share and discuss your budget choices. <b><a href="%{url}">Click here to participate.</a></b>
       invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
       comments: Comments
     show: *new
+    modals:
+      close: Close
     extra:
       close: Close
+    footer:
+      attribution: Get your own budget consultation from
+      product_name: Citizen Budget
+      product_url: http://citizenbudget.com/
+
 
   active_admin:
     dashboard: Dashboard

@@ -18,26 +18,31 @@ fr-CA:
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-7 # budgetcitoyen.com
 
-  responses:
-    new: &new
-      instructions: Modifiez une activité pour commencer.
+  questionnaires:
+    questionnaire:
       read_more: En savoir plus
       read_more_tip: Cliquez pour en savoir plus
       view_media: Consultez le contenu média
       view_media_tip: Cliquez pour consulter le contenu média
-      close: Fermer
       your_choice: Votre choix
+
+  responses:
+    new: &new
+      instructions: Modifiez une activité pour commencer.
       submit_your_choices: Soumettez vos choix
-      attribution: Tenez votre propre consultation en ligne avec
-      product_name: Budget Citoyen
-      product_url: http://budgetcitoyen.com/
       # Show
       share: Nous vous encourageons de partager et de discuter de vos choix budgétaires.
       invitation: Est-ce que vous n'avez pas encore soumis votre propre proposition de budget? <b><a href="%{url}">Cliquez ici pour participer.</a></b>
       comments: Commentaires
     show: *new
+    modals:
+      close: Fermer
     extra:
       close: Fermer
+    footer:
+      attribution: Tenez votre propre consultation en ligne avec
+      product_name: Budget Citoyen
+      product_url: http://budgetcitoyen.com/
 
   formtastic:
     required: requis
