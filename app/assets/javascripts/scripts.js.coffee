@@ -6,28 +6,13 @@ $ ->
   # Open non-Bootstrap links in new windows.
   $('.description a:not([class])').attr 'target', '_blank'
 
-  # Bootstrap plugins.
+  # Bootstrap plugins
   $('.dropdown-toggle').dropdown()
   $('.popover-toggle').popover().click (event) ->
     event.preventDefault()
   $('a[rel="tooltip"]').tooltip()
 
-  # iPad-compatibility for Bootstrap.
-  $('body').on('click.alert.data-api', dismiss, Alert.prototype.close)
-
-  $('html').on('click.dropdown.data-api', clearMenus)
-  $('body')
-    .on('click.dropdown', '.dropdown form', (e) -> e.stopPropagation())
-    .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
-
-  $('body').on('click.modal.data-api', '[data-toggle="modal"]', (e) ->
-    $this = $(this)
-    $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, ''))
-    option = if $target.data('modal') then 'toggle' else $.extend({}, $target.data(), $this.data())
-    e.preventDefault()
-    $target.modal(option)
-
-  # Navigation.
+  # Navigation
   (->
     if $('nav').length
       $window     = $ window
@@ -55,7 +40,7 @@ $ ->
         boolean = $window.scrollTop() >= offset
         $nav.toggleClass 'nav-fixed', boolean
         $message.toggleClass 'message-fixed', boolean
-        $whitespace.css(height: height).toggle boolean
+        $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
 
       $window.on 'scroll touchmove', processScroll
       processScroll()
