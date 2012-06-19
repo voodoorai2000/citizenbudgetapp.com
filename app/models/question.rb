@@ -95,7 +95,7 @@ private
     elsif %w(checkbox onoff).include?(widget)
       self.options = [0, 1]
     elsif %w(radio select).include?(widget) && options_as_list.present?
-      self.options = options_as_list.split("\n").map(&:strip)
+      self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
     end
   end
 
