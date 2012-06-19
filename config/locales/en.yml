@@ -32,6 +32,7 @@ en:
   widget:
     # Boolean
     checkbox: Check box
+    checkboxes: Check boxes
     onoff: On/off switch
     # Options
     radio: Radio buttons

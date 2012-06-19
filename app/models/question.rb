@@ -7,7 +7,7 @@ class Question
 
   # @todo Need to be able to map an amount to each radio and select option, in
   #   which case we need a new :amounts array field?
-  WIDGETS = %w(checkbox onoff radio select slider text textarea)
+  WIDGETS = %w(checkbox checkboxes onoff radio select slider text textarea)
 
   embedded_in :section
 
@@ -34,7 +34,7 @@ class Question
 
   validates_presence_of :unit_amount, :default_value, if: ->(q){%w(checkbox onoff slider).include? q.widget}
   validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(checkbox onoff slider).include? q.widget}
-  validates_presence_of :options, if: ->(q){%w(radio select slider).include? q.widget}
+  validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio select slider).include? q.widget}
 
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){q.widget == 'slider'}
@@ -83,7 +83,7 @@ private
       @minimum_units = 0
       @maximum_units = 1
       @step = 1
-    elsif %w(radio select).include?(widget) && options.present?
+    elsif %w(checkboxes radio select).include?(widget) && options.present?
       @options_as_list = options.join "\n"
     end
   end
@@ -94,7 +94,7 @@ private
       self.options << maximum_units.to_i unless options.last == maximum_units.to_i
     elsif %w(checkbox onoff).include?(widget)
       self.options = [0, 1]
-    elsif %w(radio select).include?(widget) && options_as_list.present?
+    elsif %w(checkboxes radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
     end
   end
