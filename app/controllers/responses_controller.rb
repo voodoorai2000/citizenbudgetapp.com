@@ -9,11 +9,7 @@ class ResponsesController < ApplicationController
       subscribe: true,
     })
 
-    @groups = @questionnaire.sections.group_by(&:group)
-    @maximum_difference = [
-      @questionnaire.maximum_amount.abs,
-      -@questionnaire.minimum_amount.abs,
-    ].max
+    build_questionnaire
   end
 
   def create
@@ -28,11 +24,7 @@ class ResponsesController < ApplicationController
   def show
     @response = @questionnaire.responses.find params[:id]
 
-    @groups = @questionnaire.sections.group_by(&:group)
-    @maximum_difference = [
-      @questionnaire.maximum_amount.abs,
-      -@questionnaire.minimum_amount.abs,
-    ].max
+    build_questionnaire
   end
 
 private
@@ -47,5 +39,13 @@ private
     } || I18n.available_locales.find{|x|
       x.to_s.split('-', 2).first == @questionnaire.locale.split('-', 2).first
     } || I18n.default_locale
+  end
+
+  def build_questionnaire
+    @groups = @questionnaire.sections.group_by(&:group)
+    @maximum_difference = [
+      @questionnaire.maximum_amount.abs,
+      -@questionnaire.minimum_amount.abs,
+    ].max
   end
 end

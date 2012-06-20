@@ -11,12 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap.min
 //= require jquery.easing.1.3
 //= require jquery.scrollTo-1.4.2-min
 //= require jquery.localscroll-1.2.7-min
-//= require jquery.validationEngine.js
-//= require jquery.ui.touch-punch.min.js
+//= require jquery.validationEngine
+//= require jquery.ui.touch-punch.min
 //= require iphone-style-checkboxes
 //= require mustache
 //= require i18n

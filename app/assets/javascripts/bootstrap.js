@@ -144,7 +144,7 @@
   * ============== */
 
   $(function () {
-    $('body').on('click.alert.data-api touchend.alert.data-api', dismiss, Alert.prototype.close)
+    $('body').on('click.alert.data-api', dismiss, Alert.prototype.close)
   })
 
 }(window.jQuery);/* ============================================================
@@ -662,7 +662,7 @@
     $('html').on('click.dropdown.data-api', clearMenus)
     $('body')
       .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
-      .on('click.dropdown.data-api touchend.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+      .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
   })
 
 }(window.jQuery);/* =========================================================
@@ -872,7 +872,7 @@
   * ============== */
 
   $(function () {
-    $('body').on('click.modal.data-api touchend.modal.data-api', '[data-toggle="modal"]', function ( e ) {
+    $('body').on('click.modal.data-api', '[data-toggle="modal"]', function ( e ) {
       var $this = $(this), href
         , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
         , option = $target.data('modal') ? 'toggle' : $.extend({}, $target.data(), $this.data())
@@ -1252,16 +1252,6 @@
     placement: 'right'
   , content: ''
   , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
-  })
-
-  $(function () {
-    $('body').on('touchend.popover.data-api', function () {
-      $('[data-toggle="popover"]').each(function () {
-        var $this = $(this)
-          , data = $this.data('popover')
-        if (data && data.tip().hasClass('in')) data.hide()
-      })
-    })
   })
 
 }(window.jQuery);/* =============================================================

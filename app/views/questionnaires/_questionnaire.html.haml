@@ -7,7 +7,7 @@
           - if section.extra?
             %span
               %i.icon-info-sign
-              = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(section.extra)), 'data-placement' => 'bottom', 'data-toggle' => 'popover'
+              = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(section.extra)), 'data-placement' => 'bottom'
           - if section.embed?
             %span
               %i.icon-facetime-video
@@ -30,7 +30,7 @@
                 - if q.extra?
                   %span
                     %i.icon-info-sign
-                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-placement' => 'bottom', 'data-toggle' => 'popover'
+                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-placement' => 'bottom'
               - if q.description?
                 :markdown
                   #{q.description}
@@ -41,9 +41,9 @@
                       - if q.widget == 'checkboxes'
                         = label_tag nil, class: 'checkbox' do
                           - if @response.persisted?
-                            = check_box_tag q.id, '1', @response.answer(q) == option
+                            = check_box_tag "#{q.id}[]", option, @response.answer(q).include?(option)
                           - else
-                            = check_box_tag q.id
+                            = check_box_tag "#{q.id}[]", option
                           = option
                           -# @todo this won't save properly
                       - elsif q.widget == 'radio'
@@ -60,7 +60,7 @@
                 - if q.extra?
                   %span
                     %i.icon-info-sign
-                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-toggle' => 'popover'
+                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra))
               - if q.description?
                 :markdown
                   #{q.description}

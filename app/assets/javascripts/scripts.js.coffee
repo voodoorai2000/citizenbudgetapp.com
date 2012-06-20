@@ -6,11 +6,17 @@ $ ->
   # Open non-Bootstrap links in new windows.
   $('.description a:not([class])').attr 'target', '_blank'
 
-  # Bootstrap plugins
+  # Initialize Bootstrap plugins.
   $('.dropdown-toggle').dropdown()
-  $('.popover-toggle').popover().click (event) ->
-    event.preventDefault()
-  $('a[rel="tooltip"]').tooltip()
+
+  # Turn popovers into modals on touch devices.
+  if $.support.touch
+    $('.popover-toggle').removeClass('popover-toggle').removeAttr('data-content').removeAttr('data-placement').attr('data-toggle', 'modal')
+    #href
+  else
+    $('.popover-toggle').popover().click (event) ->
+      event.preventDefault()
+    $('a[rel="tooltip"]').tooltip()
 
   # Navigation
   (->
