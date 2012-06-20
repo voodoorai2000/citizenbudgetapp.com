@@ -12,7 +12,11 @@ class Bitly
     # Shortens a URL.
     # @see http://dev.bitly.com/links.html#v3_shorten
     def shorten(url)
-      client.get('/v3/shorten', longUrl: url, login: ENV['BITLY_LOGIN'], apiKey: ENV['BITLY_API_KEY']).body['data']['url']
+      begin
+        client.get('/v3/shorten', longUrl: url, login: ENV['BITLY_LOGIN'], apiKey: ENV['BITLY_API_KEY']).body['data']['url']
+      rescue
+        url
+      end
     end
   end
 end
