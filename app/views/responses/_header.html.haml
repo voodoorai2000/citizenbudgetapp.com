@@ -1,6 +1,7 @@
 %header
   - if @questionnaire.logo?
-    #logo= image_tag @questionnaire.logo.large.url, alt: ''
+    #logo
+      = link_to_unless_current image_tag(@questionnaire.logo.large.url, alt: ''), root_path
   %h1= @questionnaire.title
   #facebook
     = facebook_button

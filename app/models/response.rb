@@ -26,7 +26,7 @@ class Response
 =begin
   before_save :sanitize_postal_code
 
-  validates_presence_of :ip, :initialized_at, :email, :postal_code
+  validates_presence_of :questionnaire_id, :ip, :initialized_at, :email, :postal_code
   validates :email, email: true, allow_blank: true
   validates_format_of :postal_code, with: /\A[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]\z/, allow_blank: true
   validates_inclusion_of :gender, in: GENDERS, allow_blank: true

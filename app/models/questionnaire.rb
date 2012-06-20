@@ -22,6 +22,7 @@ class Questionnaire
   field :ends_at, type: Time
   field :introduction, type: String
   field :domain, type: String
+  field :thank_you_template, type: String
 
   # Third-party integration.
   field :google_analytics, type: String

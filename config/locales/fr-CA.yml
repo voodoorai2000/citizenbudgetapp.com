@@ -1,5 +1,5 @@
 fr-CA:
-  create_response: Merci d'avoir participé à la consultation! Votre opinion est importante pour nous.
+  create_response: Merci d'avoir participé à la consultation ! Votre opinion est importante pour nous.
 
   gender:
     male: Masculin
@@ -9,6 +9,10 @@ fr-CA:
   group:
     revenue: Revenus
     expense: Dépenses
+
+  notifier:
+    thank_you:
+      subject: "%{organization} : Merci d'avoir participé à notre consultation !"
 
   layouts:
     application:
@@ -33,7 +37,7 @@ fr-CA:
     show:
       share: Nous vous encourageons de partager et de discuter de vos choix budgétaires ci-dessous avec vos amis et votre famille.
       copy_hint: copier dans le presse papier
-      copied_hint: copié!
+      copied_hint: copié !
       invitation: Est-ce que vous n'avez pas encore soumis vos propres choix budgétaires? <b><a href="%{url}">Cliquez ici pour participer.</a></b>
       comments: Commentaires
     modals:

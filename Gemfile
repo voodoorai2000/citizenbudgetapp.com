@@ -15,6 +15,7 @@ gem 'mongoid'
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'activeadmin-mongoid'
 gem 'devise'
+gem 'mustache'
 
 # Image uploads
 gem 'fog'

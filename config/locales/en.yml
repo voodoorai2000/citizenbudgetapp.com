@@ -13,6 +13,7 @@ en:
   new_questionnaire: Add a new consultation
   new_section: Add a section to your consultation
   new_question: Add a question to this section
+  example_name: John Doe
 
   questionnaire:
     untitled: Untitled
@@ -41,6 +42,10 @@ en:
     # String
     text: Text box
     textarea: Text area
+
+  notifier:
+    thank_you:
+      subject: "%{organization}: Thank you for participating in our consultation !"
 
   layouts:
     application:
@@ -121,6 +126,7 @@ en:
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
         facebook_app_id: If you have a Facebook app for this domain name.
+        thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
       section:
         extra: This text will appear in a small overlay when people click for more information.
       question:
