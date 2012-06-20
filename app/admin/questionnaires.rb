@@ -53,7 +53,7 @@ ActiveAdmin.register Questionnaire do
       row :facebook_app_id
       row :thank_you_template do |q|
         if q.thank_you_template?
-          Mustache.render q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx'
+          simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')
         end
       end
       row :sections do |q|

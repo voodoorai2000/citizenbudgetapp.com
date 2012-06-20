@@ -181,6 +181,7 @@ en:
         twitter_screen_name: Twitter screen name
         twitter_text: Tweet text
         facebook_app_id: Facebook App ID
+        thank_you_template: Thank-you email template
         sections: Sections
       section:
         title: Title
