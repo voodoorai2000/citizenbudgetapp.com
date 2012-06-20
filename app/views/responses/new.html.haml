@@ -1,5 +1,13 @@
 .container
-  = render partial: 'header'
+  %header
+    - if @questionnaire.logo?
+      #logo
+        = link_to_unless_current image_tag(@questionnaire.logo.large.url, alt: ''), root_path
+    %h1= @questionnaire.title
+    #facebook
+      = facebook_button
+    #twitter
+      = twitter_button
 
   %section#introduction
     .row
@@ -7,7 +15,7 @@
         :markdown
           #{@questionnaire.introduction}
       .span4
-        -#@todo PDF
+        &nbsp;
 
   = bootstrap_form_for @response, html: {class: 'form-horizontal'} do |f|
     %section#questionnaire

@@ -36,7 +36,9 @@ fr-CA:
       instructions: Modifiez une activité pour commencer.
       submit_your_choices: Soumettez vos choix
     show:
-      share: Nous vous encourageons de partager et de discuter de vos choix budgétaires ci-dessous avec vos amis et votre famille.
+      header: "%{name} a rééquilibré le budget !"
+      share: Nous vous encourageons de partager et de discuter de vos choix budgétaires avec vos amis et votre famille.
+      share_link: "Copier ce lien pour partager vos choix budgétaires :"
       copy_hint: copier dans le presse papier
       copied_hint: copié !
       invitation: Est-ce que vous n'avez pas encore soumis vos propres choix budgétaires? <b><a href="%{url}">Cliquez ici pour participer.</a></b>

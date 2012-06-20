@@ -25,6 +25,7 @@ gem 'carrierwave-mongoid'
 # Views
 gem 'haml-rails'
 gem 'rdiscount'
+gem 'unicode_utils'
 
 # Heroku API
 gem 'oj'

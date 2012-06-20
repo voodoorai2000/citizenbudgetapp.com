@@ -69,7 +69,9 @@ en:
       instructions: Change an activity to start
       submit_your_choices: Submit your choices
     show:
+      header: "%{name} a rééquilibré le budget !"
       share: We encourage you to share and discuss your budget choices below with your friends and family.
+      share_link: "Copy this link to share your budget choices:"
       copy_hint: copy to clipboard
       copied_hint: copied!
       invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
