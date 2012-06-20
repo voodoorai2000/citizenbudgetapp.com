@@ -3,6 +3,7 @@
 
 en:
   create_response: Thank you for your participation! Your opinion is important to us.
+  thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
   # Active Admin dashboard
   active_consultations: Active consultations
@@ -45,7 +46,7 @@ en:
 
   notifier:
     thank_you:
-      subject: "%{organization}: Thank you for participating in our consultation !"
+      subject: "Thank you for participating in our consultation !"
 
   layouts:
     application:
