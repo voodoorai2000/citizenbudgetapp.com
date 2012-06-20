@@ -1256,7 +1256,7 @@
 
   $(function () {
     $('body').on('click.popover.data-api touchend.popover.data-api', function () {
-      $($('[data-toggle="popover"]')).popover('toggle')
+      $('[data-toggle="popover"]').popover('hide')
     })
   })
 
