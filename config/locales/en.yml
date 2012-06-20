@@ -126,6 +126,7 @@ en:
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
         facebook_app_id: If you have a Facebook app for this domain name.
+        reply_to: Reply-to email address
         thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
       section:
         extra: This text will appear in a small overlay when people click for more information.
@@ -226,3 +227,4 @@ en:
       ends_at_must_be_greater_than_starts_at: The end time must be after the start time
       maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
       domain_must_be_active: The domain name must be active
+      reply_to_must_be_valid: The reply-to address must be valid

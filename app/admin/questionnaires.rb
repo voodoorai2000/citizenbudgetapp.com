@@ -51,6 +51,9 @@ ActiveAdmin.register Questionnaire do
       row :twitter_screen_name
       row :twitter_text
       row :facebook_app_id
+      row :reply_to do |q|
+        mail_to(q.reply_to) if q.reply_to?
+      end
       row :thank_you_template do |q|
         if q.thank_you_template?
           simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')

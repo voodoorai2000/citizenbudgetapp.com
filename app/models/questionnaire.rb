@@ -1,4 +1,6 @@
 # coding: utf-8
+require 'mail'
+
 class Questionnaire
   include Mongoid::Document
   include Mongoid::Paranoia
@@ -22,6 +24,7 @@ class Questionnaire
   field :ends_at, type: Time
   field :introduction, type: String
   field :domain, type: String
+  field :reply_to, type: String
   field :thank_you_template, type: String
 
   # Third-party integration.
@@ -35,6 +38,7 @@ class Questionnaire
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
   validate :domain_must_be_active
+  validate :reply_to_must_be_valid
 
   before_validation :sanitize_domain
   before_save :add_domain
@@ -136,6 +140,19 @@ private
         Socket.gethostbyname domain
       rescue SocketError
         errors.add :domain, I18n.t('errors.messages.domain_must_be_active')
+      end
+    end
+  end
+
+  def reply_to_must_be_valid
+    if reply_to?
+      begin
+        address = Mail::Address.new Mail::Address.new(reply_to).address
+        unless (address.domain && address.__send__(:tree).domain.dot_atom_text.elements.size > 1 rescue false)
+          errors.add :reply_to, I18n.t('errors.messages.reply_to_must_be_valid')
+        end
+      rescue Mail::Field::ParseError
+        errors.add :reply_to, I18n.t('errors.messages.reply_to_must_be_valid')
       end
     end
   end
