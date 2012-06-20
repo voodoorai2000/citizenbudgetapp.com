@@ -58,8 +58,10 @@ ActiveAdmin::Dashboards.build do
 
 end
 
-class Admin::DashboardController
-  def display?(meth)
-    Questionnaire.send(meth).count.nonzero?
+if Object.const_defined? 'Admin'
+  class Admin::DashboardController
+    def display?(meth)
+      Questionnaire.send(meth).count.nonzero?
+    end
   end
 end
