@@ -1,15 +1,18 @@
 class Notifier < ActionMailer::Base
-  default from: 'noreply@citizenbudget.com'
-
   def thank_you(response)
     questionnaire = response.questionnaire
+    organization = questionnaire.organization
+
+    from = Mail::Address.new 'noreply@citizenbudget.com'
+    from.display_name = organization.name
 
     to = Mail::Address.new response.email
     to.display_name = response.name if response.name?
 
     headers = {
+      from: from.format,
       to: to.format,
-      subject: t('.subject', organization: questionnaire.organization.name),
+      subject: t('.subject', organization: organization.name),
     }
 
     if questionnaire.reply_to?
