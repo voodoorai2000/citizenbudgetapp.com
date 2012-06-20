@@ -7,14 +7,32 @@
 #invitation {
   color: #000;
 }
+
 #url-field {
   width: 120px;
 }
-#share {
+
+.share-well {
   padding: 9px 19px;
+  font-size: 1.23em;
+  vertical-align: middle;
+  line-height: 40px; // for tweet button
 
   p {
     margin: 0;
+  }
+}
+#share-twitter {
+  font: italic 1.23em Georgia, Times, serif;
+
+  button {
+    margin-left: 0.5em;
+    color: #007493;
+    vertical-align: top;
+  }
+
+  .twitter-share-button {
+    vertical-align: middle;
   }
 }
 

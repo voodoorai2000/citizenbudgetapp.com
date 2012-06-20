@@ -50,6 +50,7 @@ ActiveAdmin.register Questionnaire do
       row :google_analytics
       row :twitter_screen_name
       row :twitter_text
+      row :twitter_share_text
       row :facebook_app_id
       row :reply_to do |q|
         mail_to(q.reply_to) if q.reply_to?

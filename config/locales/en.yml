@@ -2,6 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  left_quote: "“"
+  right_quote: "”"
   create_response: Thank you for your participation! Your opinion is important to us.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
@@ -74,6 +76,7 @@ en:
       share_link: "Copy this link to share your budget choices:"
       copy_hint: copy to clipboard
       copied_hint: copied!
+      tweet: Tweet
       invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
       comments: Comments
     modals:
@@ -128,6 +131,8 @@ en:
         description: This will be displayed on search engine results pages.
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
+        twitter_text: The default tweet for sharing the budget consultation.
+        twitter_share_text: The default tweet for sharing an individual's responses.
         facebook_app_id: If you have a Facebook app for this domain name.
         thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
       section:
@@ -182,7 +187,8 @@ en:
         domain: Domain name
         google_analytics: Google Analytics tracking code
         twitter_screen_name: Twitter screen name
-        twitter_text: Tweet text
+        twitter_text: Consultation tweet text
+        twitter_share_text: Response tweet text
         facebook_app_id: Facebook App ID
         reply_to: Reply-to email address
         thank_you_template: Thank-you email template

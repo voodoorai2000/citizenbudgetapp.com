@@ -31,11 +31,13 @@ class Questionnaire
   field :google_analytics, type: String
   field :twitter_screen_name, type: String
   field :twitter_text, type: String
+  field :twitter_share_text, type: String
   field :facebook_app_id, type: String
 
   validates_presence_of :title, :organization_id
   validates_inclusion_of :locale, in: LOCALES.keys, allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
+  validates_length_of :twitter_share_text, maximum: 140, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
   validate :domain_must_be_active
   validate :reply_to_must_be_valid
