@@ -659,7 +659,7 @@
    * =================================== */
 
   $(function () {
-    $('html').on('click.dropdown.data-api touchend.dropdown.data-api', clearMenus)
+    $('html').on('click.dropdown.data-api', clearMenus)
     $('body')
       .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
       .on('click.dropdown.data-api touchend.dropdown.data-api', toggle, Dropdown.prototype.toggle)
@@ -1255,8 +1255,12 @@
   })
 
   $(function () {
-    $('body').on('click.popover.data-api touchend.popover.data-api', function () {
-      $('[data-toggle="popover"]').popover('hide')
+    $('body').on('touchend.popover.data-api', function () {
+      $('[data-toggle="popover"]').each(function () {
+        var $this = $(this)
+          , data = $this.data('popover')
+        if (data && data.tip().hasClass('in')) data.hide()
+      })
     })
   })
 
