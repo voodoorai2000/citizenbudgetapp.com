@@ -7,7 +7,14 @@
       = flash[:notice]
 
   %p=t '.share'
-  -# @todo paragraph explaining sharing (Alex will provide)
+
+  = text_field_tag 'url', Bitly.shorten(response_url(@response)), id: 'url-field'
+  %span#clippy(rel="tooltip" title="#{t('.copy_hint')}")
+    %span.clippy
+
+  -#@todo bootstrap buttons?
+  -#facebook (open graph?)
+  -#twitter
 
   - unless flash[:notice]
     .alert#invitation
@@ -15,7 +22,6 @@
 
   -# @todo
   =# add big yellow arrow pointing to "add a comment" button
-  -# sharing: email, new twitter button, facebook open graph actions?
 
   %nav
     %ul.nav.nav-pills

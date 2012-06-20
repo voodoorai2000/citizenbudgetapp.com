@@ -1,4 +1,17 @@
 $ ->
+  # Sharing.
+  $(document).on 'mouseup', '#url-field', ->
+    $(this).select()
+
+  $('.clippy').clippy
+    clippy_path: '/assets/clippy.swf'
+    text: $('#url-field').val()
+    flashvars:
+      id: 'clippy'
+
+  window.clippyCopiedCallback = (id) ->
+    $('#' + id).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
+
   # Local globals.
   amountLeft = 0
   barLeft = 100
@@ -10,7 +23,7 @@ $ ->
   $('.dropdown-toggle').dropdown()
 
   # Turn popovers into modals on touch devices.
-  if $.support.touch or true
+  if $.support.touch
     $('.popover-toggle')
       .removeClass('popover-toggle')
       .removeAttr('data-content')
@@ -19,7 +32,7 @@ $ ->
   else
     $('.popover-toggle').popover().click (event) ->
       event.preventDefault()
-    $('a[rel="tooltip"]').tooltip()
+    $('[rel="tooltip"]').tooltip()
 
   # Navigation
   (->
