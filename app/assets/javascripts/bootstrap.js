@@ -144,7 +144,7 @@
   * ============== */
 
   $(function () {
-    $('body').on('click.alert.data-api touchstart.alert.data-api', dismiss, Alert.prototype.close)
+    $('body').on('click.alert.data-api touchend.alert.data-api', dismiss, Alert.prototype.close)
   })
 
 }(window.jQuery);/* ============================================================
@@ -659,10 +659,10 @@
    * =================================== */
 
   $(function () {
-    $('html').on('click.dropdown.data-api', clearMenus)
+    $('html').on('click.dropdown.data-api touchend.dropdown.data-api', clearMenus)
     $('body')
       .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
-      .on('click.dropdown.data-api touchstart.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+      .on('click.dropdown.data-api touchend.dropdown.data-api', toggle, Dropdown.prototype.toggle)
   })
 
 }(window.jQuery);/* =========================================================
@@ -872,7 +872,7 @@
   * ============== */
 
   $(function () {
-    $('body').on('click.modal.data-api touchstart.modal.data-api', '[data-toggle="modal"]', function ( e ) {
+    $('body').on('click.modal.data-api touchend.modal.data-api', '[data-toggle="modal"]', function ( e ) {
       var $this = $(this), href
         , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
         , option = $target.data('modal') ? 'toggle' : $.extend({}, $target.data(), $this.data())
@@ -1255,8 +1255,8 @@
   })
 
   $(function () {
-    $('body').on('click.popover.data-api touchstart.popover.data-api', '[data-toggle="popover"]', function () {
-      $(this).popover('toggle')
+    $('body').on('click.popover.data-api touchend.popover.data-api', function () {
+      $($('[data-toggle="popover"]')).popover('toggle')
     })
   })
 
