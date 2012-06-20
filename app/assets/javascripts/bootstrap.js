@@ -1255,7 +1255,9 @@
   })
 
   $(function () {
-    $('body').on('click.popover.data-api touchstart.popover.data-api', '[data-toggle="popover"]', Popover.prototype.toggle)
+    $('body').on('click.popover.data-api touchstart.popover.data-api', '[data-toggle="popover"]', function () {
+      $(this).popover('toggle')
+    })
   })
 
 }(window.jQuery);/* =============================================================

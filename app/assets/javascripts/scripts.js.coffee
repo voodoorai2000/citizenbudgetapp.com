@@ -42,7 +42,7 @@ $ ->
         $message.toggleClass 'message-fixed', boolean
         $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
 
-      $window.on 'scroll touchmove', processScroll
+      $window.on 'scroll', processScroll
       processScroll()
   )()
 
