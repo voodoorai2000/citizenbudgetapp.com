@@ -10,9 +10,12 @@ $ ->
   $('.dropdown-toggle').dropdown()
 
   # Turn popovers into modals on touch devices.
-  if $.support.touch
-    $('.popover-toggle').removeClass('popover-toggle').removeAttr('data-content').removeAttr('data-placement').attr('data-toggle', 'modal')
-    #href
+  if $.support.touch or true
+    $('.popover-toggle')
+      .removeClass('popover-toggle')
+      .removeAttr('data-content')
+      .removeAttr('data-placement')
+      .attr('data-toggle', 'modal')
   else
     $('.popover-toggle').popover().click (event) ->
       event.preventDefault()
