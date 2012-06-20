@@ -19,12 +19,19 @@ class Notifier < ActionMailer::Base
       headers[:reply_to] = questionnaire.reply_to
     end
 
+    default_url = response_url(response, host: questionnaire.domain || 'citizenbudget.com')
+    begin
+      url = Bitly.shorten default_url
+    rescue
+      url = default_url
+    end
+
     mail(headers) do |format|
       format.text do
         if questionnaire.thank_you_template?
           render text: Mustache.render(questionnaire.thank_you_template, {
             name: response.name,
-            url: Bitly.shorten(response_url(response, host: questionnaire.domain_url || 'http://citizenbudget.com/')),
+            url: url,
           })
         end
       end
