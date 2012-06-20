@@ -7,7 +7,7 @@
           - if section.extra?
             %span
               %i.icon-info-sign
-              = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(section.extra)), 'data-placement' => 'bottom'
+              = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(section.extra)), 'data-placement' => 'bottom', 'data-toggle' => 'popover'
           - if section.embed?
             %span
               %i.icon-facetime-video
@@ -30,7 +30,7 @@
                 - if q.extra?
                   %span
                     %i.icon-info-sign
-                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-placement' => 'bottom'
+                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-placement' => 'bottom', 'data-toggle' => 'popover'
               - if q.description?
                 :markdown
                   #{q.description}
@@ -60,7 +60,7 @@
                 - if q.extra?
                   %span
                     %i.icon-info-sign
-                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra))
+                    = link_to t('.read_more'), '#', 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-toggle' => 'popover'
               - if q.description?
                 :markdown
                   #{q.description}

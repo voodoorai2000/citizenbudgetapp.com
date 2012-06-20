@@ -235,7 +235,7 @@
   * =============== */
 
   $(function () {
-    $('body').on('click.button.data-api touchstart.button.data-api', '[data-toggle^=button]', function ( e ) {
+    $('body').on('click.button.data-api', '[data-toggle^=button]', function ( e ) {
       var $btn = $(e.target)
       if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
       $btn.button('toggle')
@@ -659,9 +659,9 @@
    * =================================== */
 
   $(function () {
-    $('html').on('click.dropdown.data-api touchstart.dropdown.data-api', clearMenus)
+    $('html').on('click.dropdown.data-api', clearMenus)
     $('body')
-      .on('click.dropdown touchstart.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
+      .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
       .on('click.dropdown.data-api touchstart.dropdown.data-api', toggle, Dropdown.prototype.toggle)
   })
 
@@ -1252,6 +1252,10 @@
     placement: 'right'
   , content: ''
   , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+  })
+
+  $(function () {
+    $('body').on('click.popover.data-api touchstart.popover.data-api', '[data-toggle="popover"]', Popover.prototype.toggle)
   })
 
 }(window.jQuery);/* =============================================================
