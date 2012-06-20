@@ -46,9 +46,4 @@ class AdminUser
   def password_required?
     new_record? ? false : super
   end
-
-  # @todo BreadcrumbHelper should respect :display_name_methods
-  def display_name
-    email
-  end
 end

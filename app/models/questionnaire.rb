@@ -64,11 +64,6 @@ class Questionnaire
     end
   end
 
-  # @todo BreadcrumbHelper should respect :display_name_methods
-  def display_name
-    title
-  end
-
   def locale_name
     locale && LOCALES[locale]
   end

@@ -7,8 +7,4 @@ class Organization
   field :name, type: String
 
   validates_presence_of :name
-
-  def display_name
-    name
-  end
 end

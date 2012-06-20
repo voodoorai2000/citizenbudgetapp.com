@@ -85,7 +85,7 @@ module ActiveAdmin
 
   module ViewHelpers
     module BreadcrumbHelper
-      # @note Fixes for Mongoid.
+      # @note Fixes for Mongoid. Use display_name method.
       def breadcrumb_links(path = nil)
         path ||= request.fullpath
         parts = path.gsub(/^\//, '').split('/')
@@ -102,7 +102,7 @@ module ActiveAdmin
                 parent_class = parent.singularize.camelcase.constantize
               end
               obj = parent_class.find(part[/^[a-f0-9]{24}$/] ? part : part.to_i)
-              name = obj.display_name if obj.respond_to?(:display_name)
+              name = display_name(obj)
             rescue
             end
           end
