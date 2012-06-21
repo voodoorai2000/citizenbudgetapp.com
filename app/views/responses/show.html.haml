@@ -25,9 +25,10 @@
   .well.share-well
     %p
       =t '.share_link'
-      = text_field_tag 'url', Bitly.shorten(response_url(@response)), id: 'url-field'
-      %span#clippy(rel="tooltip" title="#{t('.copy_hint')}")
-        %span.clippy
+      %span.input-prepend<
+        %span.add-on#clippy(rel="tooltip" title="#{t('.copy_hint')}")
+          %span.clippy
+        = text_field_tag 'url', Bitly.shorten(response_url(@response)), id: 'url-field'
   - if @questionnaire.twitter_share_text?
     .well.share-well#share-twitter
       %p
