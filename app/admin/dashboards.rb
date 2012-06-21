@@ -1,5 +1,5 @@
 ActiveAdmin::Dashboards.build do
-  section I18n.t(:active_consultations), if: ->{display? :active} do
+  section I18n.t(:active_consultations), if: ->{ Questionnaire.active.count.nonzero? } do
     ul do
       Questionnaire.includes(:organization).active.each do |q|
         li auto_link(q.organization) + ': ' + auto_link(q)
@@ -7,7 +7,7 @@ ActiveAdmin::Dashboards.build do
     end
   end
 
-  section I18n.t(:future_consultations), if: ->{display? :future} do
+  section I18n.t(:future_consultations), if: ->{ Questionnaire.future.count.nonzero? } do
     ul do
       Questionnaire.includes(:organization).future.each do |q|
         li auto_link(q.organization) + ': ' + auto_link(q)
@@ -56,12 +56,4 @@ ActiveAdmin::Dashboards.build do
   # section "Membership Summary", :if => :memberships_enabled?
   # section "Membership Summary", :if => Proc.new { current_admin_user.account.memberships.any? }
 
-end
-
-if Object.const_defined? 'Admin'
-  class Admin::DashboardController
-    def display?(meth)
-      Questionnaire.send(meth).count.nonzero?
-    end
-  end
 end
