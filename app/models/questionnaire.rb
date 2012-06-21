@@ -161,7 +161,7 @@ private
 
   def add_domain
     if domain_changed?
-      domains = Heroku.list_domains
+      domains = HerokuClient.list_domains
 
       if domain_was.present?
         queue = [domain_was]
@@ -170,7 +170,7 @@ private
         end
         queue.each do |d|
           if domains.include? d
-            Heroku.remove_domain d
+            HerokuClient.remove_domain d
           end
         end
       end
@@ -182,7 +182,7 @@ private
         end
         queue.each do |d|
           unless domains.include? d
-            Heroku.add_domain d
+            HerokuClient.add_domain d
           end
         end
       end

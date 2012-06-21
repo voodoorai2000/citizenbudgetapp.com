@@ -1,4 +1,4 @@
-class Heroku
+class HerokuClient
   class << self
     # @return [Faraday::Connection] an HTTP client
     def client
