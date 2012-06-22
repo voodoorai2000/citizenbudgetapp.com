@@ -1,3 +1,4 @@
+# coding: utf-8
 ActiveAdmin.register_page "Dashboard" do
   menu :priority => 1
 
@@ -8,7 +9,7 @@ ActiveAdmin.register_page "Dashboard" do
           panel t(:active_consultations) do
             ul do
               Questionnaire.includes(:organization).active.each do |q|
-                li auto_link(q.organization) + ': ' + auto_link(q)
+                li auto_link(q.organization) + ' – ' + auto_link(q)
               end
             end
           end
@@ -20,7 +21,7 @@ ActiveAdmin.register_page "Dashboard" do
           panel t(:future_consultations) do
             ul do
               Questionnaire.includes(:organization).future.each do |q|
-                li auto_link(q.organization) + ': ' + auto_link(q)
+                li auto_link(q.organization) + ' – ' + auto_link(q)
               end
             end
           end
