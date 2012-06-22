@@ -5,7 +5,6 @@ CitizenBudget::Application.routes.draw do
 
   resources :responses, only: [:new, :create, :show]
   match 'channel' => 'pages#channel', as: :channel, via: :get
-  match 'img/plateau.png' => 'pages#not_found'
   root to: 'responses#new'
 
   # The priority is based upon order of creation:
