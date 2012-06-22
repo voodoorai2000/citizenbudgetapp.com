@@ -4,6 +4,9 @@ gem 'rails', '3.2.1'
 gem 'airbrake'
 gem 'heroku'
 
+# Performance
+gem 'dalli'
+
 # Background jobs
 gem 'girl_friday'
 

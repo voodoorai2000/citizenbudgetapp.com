@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  caches_action :channel, :not_found
+
   def channel
     render layout: false
   end

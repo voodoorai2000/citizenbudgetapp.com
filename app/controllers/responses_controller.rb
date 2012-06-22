@@ -1,6 +1,7 @@
 class ResponsesController < ApplicationController
   before_filter :find_questionnaire
   before_filter :set_locale
+  caches_action :new, :show
 
   def new
     @response = @questionnaire.responses.build({
