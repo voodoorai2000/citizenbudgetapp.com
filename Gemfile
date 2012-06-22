@@ -1,11 +1,16 @@
  source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
+
+# Error logging
 gem 'airbrake'
 gem 'heroku'
 
-# Performance
-gem 'dalli'
+group :production do
+  # Performance
+  gem 'dalli'
+  gem 'newrelic_rpm'
+end
 
 # Background jobs
 gem 'girl_friday'
