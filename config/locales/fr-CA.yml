@@ -4,6 +4,17 @@ fr-CA:
   create_response: Merci d'avoir participé à la consultation ! Votre opinion est importante pour nous.
   thank_you_subject: "%{organization} : Merci d'avoir participé à notre consultation !"
 
+  # Active Admin dashboard
+  active_consultations: Consultations actives
+  future_consultations: Consultations futures
+  past_consultations: Consultations passées
+
+  # Active Admin show
+  new_questionnaire: Ajouter une consultation
+  new_section: Ajouter une section à votre consultation
+  new_question: Ajouter une  question à cette section
+  example_name: Monsieur Untel
+
   gender:
     male: Masculin
     female: Féminin

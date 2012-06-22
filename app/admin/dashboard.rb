@@ -2,21 +2,27 @@ ActiveAdmin.register_page "Dashboard" do
   menu :priority => 1
 
   content do
-    if Questionnaire.active.count.nonzero?
-      column t(:active_consultations) do
-        ul do
-          Questionnaire.includes(:organization).active.each do |q|
-            li auto_link(q.organization) + ': ' + auto_link(q)
+    columns do
+      if Questionnaire.active.count.nonzero?
+        column do
+          panel t(:active_consultations) do
+            ul do
+              Questionnaire.includes(:organization).active.each do |q|
+                li auto_link(q.organization) + ': ' + auto_link(q)
+              end
+            end
           end
         end
       end
-    end
 
-    if Questionnaire.future.count.nonzero?
-      column t(:future_consultations) do
-        ul do
-          Questionnaire.includes(:organization).future.each do |q|
-            li auto_link(q.organization) + ': ' + auto_link(q)
+      if Questionnaire.future.count.nonzero?
+        column do
+          panel t(:future_consultations) do
+            ul do
+              Questionnaire.includes(:organization).future.each do |q|
+                li auto_link(q.organization) + ': ' + auto_link(q)
+              end
+            end
           end
         end
       end
