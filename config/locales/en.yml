@@ -148,8 +148,8 @@ en:
       update: "Save %{model}"
       cancel: Cancel
 
-  activerecord: &activerecord
-    models: 
+  activerecord:
+    models: &models
       admin_user:
         one: Admin user
         other: Admin users
@@ -168,7 +168,7 @@ en:
       response:
         one: Response
         other: Responses
-    attributes:
+    attributes: &attributes
       admin_user:
         email: Email
       organization:
@@ -219,7 +219,9 @@ en:
         newsletter: Add me to your newsletter
         subscribe: I'd like to participate in your future consultations and surveys
 
-  mongoid: *activerecord
+  mongoid:
+    models: *models
+    attributes: *attributes
 
   number:
     currency:

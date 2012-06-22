@@ -334,11 +334,15 @@ fr-CA:
   activemodel:
     errors:
       <<: *errors
-  activerecord: &activerecord
+  activerecord:
     errors:
       <<: *errors
     attributes:
-      response:
+      models: &models
+        response:
+          one: Réponse
+          other: Réponses
+      response: &attributes
         email: Courriel
         postal_code: Code postal
         gender: Genre
@@ -348,4 +352,10 @@ fr-CA:
         newsletter: Inscrivez-moi à votre bulletin
         subscribe: J'aimerais participer à vos prochaines consultations et sondages
 
-  mongoid: *activerecord
+  mongoid:
+    models: *models
+    attributes: *attributes
+    # https://github.com/mongoid/mongoid/commit/99b04782e086c62e5cf63b09dd627cac134364c1#L4L1
+    errors:
+      messages:
+        document_not_found: "Document introuvable pour la classe %{klass} avec les ids %{identifiers}."
