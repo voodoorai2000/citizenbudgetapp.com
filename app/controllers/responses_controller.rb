@@ -4,13 +4,9 @@ class ResponsesController < ApplicationController
   caches_action :new, :show
 
   def new
-    @response = @questionnaire.responses.build({
-      initialized_at: Time.now.utc,
-      newsletter: true,
-      subscribe: true,
-    })
-
+    @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
     build_questionnaire
+    fresh_when @questionnaire, public: true # @todo may need to +touch+ questionnaire when associations changed
   end
 
   def create
@@ -24,8 +20,8 @@ class ResponsesController < ApplicationController
 
   def show
     @response = @questionnaire.responses.find params[:id]
-
     build_questionnaire
+    fresh_when @response, public: true
   end
 
 private
