@@ -48,6 +48,8 @@ CitizenBudget::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w(
+    active_admin.css
+    active_admin.js
     jquery.min.js
     jquery.validationEngine-en.js
     jquery.validationEngine-fr.js
