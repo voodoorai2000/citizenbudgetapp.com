@@ -56,8 +56,9 @@
 
   = render 'footer'
 
-= render partial: 'modals'
-
 :javascript
   var maximumDifference = #{@maximum_difference};
   var disabled = true;
+
+- content_for :footer do
+  = render partial: 'modals'

@@ -32,6 +32,9 @@
 </head>
 <body>
 <div id="fb-root"></div>
+
+<%= yield %>
+
 <script>
 window.fbAsyncInit = function() {
   FB.init({
@@ -59,8 +62,6 @@ window.twttr = (function (d,s,id) {
 }(document, "script", "twitter-wjs"));
 </script>
 
-<%= yield %>
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <script>window.jQuery || document.write("<%=j javascript_include_tag 'jquery.min.js' %>")</script>
@@ -68,6 +69,8 @@ window.twttr = (function (d,s,id) {
 <script>var locale = '<%= locale.to_s.sub '-', '_' %>';</script>
 <%= javascript_include_tag 'application' %>
 <%= javascript_include_tag "jquery.validationEngine-#{iso639_locale}" %>
+
+<%= yield :footer %>
 
 <% if Rails.env.production? && google_analytics_tracking_code %>
 <script>

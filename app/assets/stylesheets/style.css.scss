@@ -482,6 +482,12 @@ nav {
       padding: 0;
       height: 50px;
     }
+    #revenue .inner {
+      padding-right: 30px;
+    }
+    #expense .inner {
+      padding-left: 30px;
+    }
 
     & > .active {
       & > a,
