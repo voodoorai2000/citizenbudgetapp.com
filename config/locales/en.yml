@@ -35,6 +35,10 @@ en:
     revenue: Revenues
     expense: Expenses
 
+  role:
+    superuser: Superuser
+    administrator: Administrator
+
   widget:
     # Boolean
     checkbox: Check box
@@ -138,10 +142,8 @@ en:
     delete_model: "Delete %{model}"
     details: "%{model} Details"
     cancel: Cancel
-    download: "Download:"
     has_many_new: "Add New %{model}"
-    has_many_delete: Remove
-    logout: Logout
+    has_many_delete: Remove # "Delete"
     pagination:
       empty: "No %{model} found"
       one: ""

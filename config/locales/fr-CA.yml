@@ -32,6 +32,10 @@ fr-CA:
     revenue: Revenus
     expense: Dépenses
 
+  role:
+    superuser: Utilisateur root
+    administrator: Administrateur
+
   widget:
     # Boolean
     checkbox: Case à cocher
@@ -122,43 +126,37 @@ fr-CA:
       update: Enregistrer
       cancel: Annuler
 
-  active_admin:
-    dashboard: Tableau de Bord
-    view: Voir
-    edit: Modifier
-    delete: Supprimer
-    delete_confirmation: Êtes-vous certain de vouloir supprimer ce document ?
-    new_model: Ajouter
-    create_model: Ajouter
-    edit_model: Modifier
-    update_model: Modifier
-    delete_model: Supprimer
-    details: Détails
-    cancel: Annuler
-    download: "Télécharger :"
-    has_many_new: "Ajouter %{model}"
-    has_many_delete: Supprimer
-    logout: Déconnexion
-    pagination:
-      empty: "Aucun %{model} trouvé"
-      one: ""
-      one_page: "Affichage de <b>tous les %{n}</b> %{model}"
-      multiple: "Affichage de %{model} <b>%{from}-%{to}</b> sur un total de <b>%{total}</b>"
-      entry:
-        one: "entrée"
-        other: "entrées"
+  unauthorized:
+    manage:
+      all: Vous n'êtes pas autorisé à effectuer cette action.
 
+  active_admin:
     scopes:
       active: Actives
       future: Futures
       past: Passées
 
+    dashboard: Tableau de bord # "Tableau de Bord"
     dashboard_welcome:
       welcome: "Bienvenue dans Active Admin. Ceci est la page par défaut."
       call_to_action: "Pour ajouter des sections au tableau de bord, consultez 'app/admin/dashboards.rb'"
+    view: "Voir"
+    edit: "Modifier"
+    delete: "Supprimer"
+    delete_confirmation: Êtes-vous certain de vouloir supprimer ce document ? # "Êtes-vous certain de vouloir supprimer ceci ?"
+    new_model: Ajouter # "Nouveau %{model}"
+    create_model: Ajouter # "Nouveau %{model}"
+    edit_model: Modifier # "Modifier %{model}"
+    update_model: Modifier # "Modifier %{model}"
+    delete_model: Supprimer # "Supprimer %{model}"
+    details: Détails # "Détails de %{model}"
+    cancel: "Annuler"
     empty: "Vide"
     previous: "Précédent"
     next: "Suivant"
+    download: "Télécharger :" # "Télécharger:"
+    has_many_new: "Ajouter %{model}" # "Ajouter un nouveau %{model}"
+    has_many_delete: "Supprimer"
     filter: "Filtrer"
     clear_filters: "Supprimer les filtres"
     search_field: "Rechercher %{field}"
@@ -166,8 +164,17 @@ fr-CA:
     greater_than: "Plus grand que"
     less_than: "Plus petit que"
     main_content: "Veuillez implémenter %{model}#main_content pour afficher le contenu."
+    logout: "Déconnexion"
     sidebars:
       filters: "Filtres"
+    pagination:
+      empty: "Aucun %{model} trouvé"
+      one: "" # "Affichage de <b>1</b> %{model}"
+      one_page: "Affichage de <b>tous les %{n}</b> %{model}"
+      multiple: "Affichage de %{model} <b>%{from}-%{to}</b> sur un total de <b>%{total}</b>" # "Affichage de %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> sur un total de <b>%{total}</b>"
+      entry:
+        one: "entrée"
+        other: "entrées"
     any: "N'importe lequel"
     blank_slate:
       content: "Il n'y a pas encore de %{resource_name}."
@@ -190,6 +197,20 @@ fr-CA:
       title_content: "Commentaires (%{count})"
       errors:
         empty_text: "Le commentaire n'a pas été enregistré puisque le texte était vide."
+    devise:
+      login:
+        title: "login"
+        remember_me: "Se souvenir de moi"
+        submit: "login"
+      reset_password:
+        title: "Vous avez oublié votre mot de passe?"
+        submit: "Réinitialiser mon mot de passe"
+      change_password:
+        title: "Changez votre mot de passe"
+        submit: "Changer mon mot de passe"
+      links:
+        sign_in: "Connectez-vous"
+        forgot_your_password: "Vous avez oublié votre mot de passe?"
 
   date:
     abbr_day_names:
@@ -398,6 +419,7 @@ fr-CA:
     errors:
       <<: *errors
     models: &models
+      dashboard: Tabeau de bord
       admin_user:
         one: Administrateur
         other: Administrateurs
