@@ -61,6 +61,7 @@ GEM
     bson_ext (1.6.4)
       bson (~> 1.6.4)
     builder (3.0.0)
+    cancan (1.6.8)
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -247,6 +248,7 @@ DEPENDENCIES
   activeadmin-mongoid
   airbrake
   bson_ext
+  cancan
   carrierwave-mongoid
   coffee-rails (~> 3.2.1)
   dalli

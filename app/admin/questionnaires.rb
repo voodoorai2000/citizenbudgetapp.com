@@ -1,4 +1,7 @@
 ActiveAdmin.register Questionnaire do
+  menu if: proc{ can? :manage, Questionnaire }
+  controller.authorize_resource
+
   scope :active
   scope :future
   scope :past

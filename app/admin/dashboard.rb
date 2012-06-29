@@ -1,27 +1,30 @@
 # coding: utf-8
 ActiveAdmin.register_page 'Dashboard' do
-  menu priority: 1
+  controller.before_filter :set_locale
+  menu priority: 1, label: proc{ I18n.t :dashboard }
 
-  content do
-    columns do
-      if Questionnaire.active.count.nonzero?
-        column do
-          panel t(:active_consultations) do
-            ul do
-              Questionnaire.includes(:organization).active.each do |q|
-                li auto_link(q.organization) + ' – ' + auto_link(q)
+  content title: proc{ I18n.t :dashboard } do
+    if can? :manage, Questionnaire
+      columns do
+        if Questionnaire.active.count.nonzero?
+          column do
+            panel t(:active_consultations) do
+              ul do
+                Questionnaire.includes(:organization).active.each do |q|
+                  li auto_link(q.organization) + ' – ' + auto_link(q)
+                end
               end
             end
           end
         end
-      end
 
-      if Questionnaire.future.count.nonzero?
-        column do
-          panel t(:future_consultations) do
-            ul do
-              Questionnaire.includes(:organization).future.each do |q|
-                li auto_link(q.organization) + ' – ' + auto_link(q)
+        if Questionnaire.future.count.nonzero?
+          column do
+            panel t(:future_consultations) do
+              ul do
+                Questionnaire.includes(:organization).future.each do |q|
+                  li auto_link(q.organization) + ' – ' + auto_link(q)
+                end
               end
             end
           end

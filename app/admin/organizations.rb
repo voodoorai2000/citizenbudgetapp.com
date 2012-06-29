@@ -1,4 +1,7 @@
 ActiveAdmin.register Organization do
+  menu if: proc{ can? :manage, Organization }
+  controller.authorize_resource
+
   index do
     column :name
     column :questionnaires do |o|

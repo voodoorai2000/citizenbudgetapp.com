@@ -1,4 +1,6 @@
 ActiveAdmin.register Section do
+  controller.authorize_resource
+
   belongs_to :questionnaire
 
   index do

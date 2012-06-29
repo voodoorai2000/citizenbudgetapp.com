@@ -8,8 +8,10 @@ gem 'airbrake'
 gem 'heroku'
 
 # Performance
-gem 'dalli'
-gem 'newrelic_rpm'
+group :production do
+  gem 'dalli'
+  gem 'newrelic_rpm'
+end
 
 # Background jobs
 gem 'girl_friday'
@@ -23,6 +25,7 @@ gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'activeadmin-mongoid'
 gem 'devise'
 gem 'mustache'
+gem 'cancan'
 
 # Image uploads
 gem 'fog'

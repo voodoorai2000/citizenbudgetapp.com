@@ -40,9 +40,13 @@ class AdminUser
   ## Token authenticatable
   # field :authentication_token, :type => String
 
+  ROLES = %w(superuser administrator)
+
+  field :role, type: String
   field :locale, type: String
 
-  validates_presence_of :locale
+  validates_presence_of :role, :locale
+  validates_inclusion_of :role, in: ROLES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
 
   # https://github.com/gregbell/active_admin/wiki/Your-First-Admin-Resource%3A-AdminUser
