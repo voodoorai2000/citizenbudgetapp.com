@@ -1,4 +1,3 @@
-# coding: utf-8
 require 'mail'
 
 class Questionnaire
@@ -6,11 +5,6 @@ class Questionnaire
   include Mongoid::Timestamps
   include Mongoid::Paranoia
   include Mongoid::MultiParameterAttributes
-
-  LOCALES = {
-    'en-US' => 'English (United States)',
-    'fr-CA' => 'Français (Canada)',
-  }
 
   belongs_to :organization, index: true
   embeds_many :sections
@@ -36,7 +30,7 @@ class Questionnaire
   field :facebook_app_id, type: String
 
   validates_presence_of :title, :organization_id
-  validates_inclusion_of :locale, in: LOCALES.keys, allow_blank: true
+  validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validates_length_of :twitter_share_text, maximum: 140, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
@@ -70,10 +64,6 @@ class Questionnaire
     sections.reduce([]) do |memo,section|
       memo + section.questions
     end
-  end
-
-  def locale_name
-    locale && LOCALES[locale]
   end
 
   def domain_url

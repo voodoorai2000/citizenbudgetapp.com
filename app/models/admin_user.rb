@@ -6,6 +6,8 @@ class AdminUser
   devise :database_authenticatable, 
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :organization, index: true
+
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
   field :encrypted_password, :type => String, :null => false, :default => ""
@@ -37,6 +39,11 @@ class AdminUser
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  field :locale, type: String
+
+  validates_presence_of :locale
+  validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
 
   # https://github.com/gregbell/active_admin/wiki/Your-First-Admin-Resource%3A-AdminUser
   after_create do |admin|

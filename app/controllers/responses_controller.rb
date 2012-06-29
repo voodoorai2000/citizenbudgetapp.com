@@ -31,9 +31,9 @@ private
   end
 
   def set_locale
-    I18n.locale = I18n.available_locales.find{|x|
+    I18n.locale = Locale.available_locales.find{|x|
       x.to_s == @questionnaire.locale
-    } || I18n.available_locales.find{|x|
+    } || Locale.available_locales.find{|x|
       x.to_s.split('-', 2).first == @questionnaire.locale.split('-', 2).first
     } || I18n.default_locale
   end
