@@ -1,6 +1,6 @@
 # coding: utf-8
-ActiveAdmin.register_page "Dashboard" do
-  menu :priority => 1
+ActiveAdmin.register_page 'Dashboard' do
+  menu priority: 1
 
   content do
     columns do
