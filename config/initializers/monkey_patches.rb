@@ -1,3 +1,13 @@
+class String
+  def titleize
+    if I18n.locale == 'fr-CA'.to_sym
+      underscore.humanize.gsub(/\A('?[a-z])/) { $1.capitalize }
+    else
+      ActiveSupport::Inflector.titleize(self)
+    end
+  end
+end
+
 # @see https://gist.github.com/2903748
 module Mongoid::Document
   # Targets:

@@ -5,7 +5,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Citizen Budget"
+  config.site_title = proc{ I18n.t :site_title }
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -125,7 +125,15 @@ ActiveAdmin.setup do |config|
   # Active Admin resources from here.
   #
   # config.before_filter :do_something_awesome
+  config.before_filter :set_locale
 
+  def set_locale
+    I18n.locale = Locale.available_locales.find{|x|
+      x.to_s == current_admin_user.locale
+    } || Locale.available_locales.find{|x|
+      x.to_s.split('-', 2).first == current_admin_user.locale.split('-', 2).first
+    } || I18n.default_locale
+  end
 
   # == Register Stylesheets & Javascripts
   #
