@@ -5,6 +5,8 @@ fr-CA:
   thank_you_subject: "%{organization} : Merci d'avoir participé à notre consultation !"
 
   # Active Admin dashboard
+  site_title: Budget Citoyen
+  dashboard: Tableau de bord
   active_consultations: Consultations actives
   future_consultations: Consultations futures
   past_consultations: Consultations passées
@@ -15,6 +17,12 @@ fr-CA:
   new_question: Ajouter une  question à cette section
   example_name: Monsieur Untel
 
+  questionnaire:
+    untitled: Untitled
+    period: "du %{starts_at} au %{ends_at}"
+    starting: "à partir du %{date}"
+    ending: "se terminant le %{date}"
+
   gender:
     male: Masculin
     female: Féminin
@@ -23,6 +31,19 @@ fr-CA:
   group:
     revenue: Revenus
     expense: Dépenses
+
+  widget:
+    # Boolean
+    checkbox: Case à cocher
+    checkboxes: Cases à cocher
+    onoff: interrupteur marche-arrêt
+    # Options
+    radio: Boutons radio
+    select: Liste déroulante
+    slider: Curseur
+    # String
+    text: Champ de saisie
+    textarea: Zone de saisie
 
   notifier:
     thank_you:
@@ -48,6 +69,7 @@ fr-CA:
     new:
       instructions: Modifiez une activité pour commencer.
       submit_your_choices: Soumettez vos choix
+      submit: Envoyer
     show:
       header: "%{name} a rééquilibré le budget !"
       share: Nous vous encourageons à partager et à discuter de vos choix budgétaires avec vos amis et votre famille.
@@ -69,38 +91,74 @@ fr-CA:
   formtastic:
     required: requis
     placeholders:
+      # @todo Placeholders need to be customizable.
       response:
-        # @todo Placeholders need to be customizable.
         email: nom@exemple.com
         postal_code: H0H 0H0
+    labels:
+      question:
+        _destroy: Supprimer question
     hints:
       response:
         email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.
+      questionnaire:
+        description: Ce texte sera affiché dans les résultats des moteurs de recherche.
+        domain: Vous devez pointer vos DNS sur nos serveurs.
+        google_analytics: Si vous utilisez Google Analytics.
+        twitter_text: Le texte du Tweet pour partager la consultation.
+        twitter_share_text: Le texte du Tweet pour partager les responses d'un participant.
+        facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine
+        thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
+      section:
+        extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus.
+      question:
+        extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus.
+        unit_name: Utilisez la forme plurielle.
+        options_as_list: Mettez chaque option sur une nouvelle ligne.
+        step: Vous pouvez généralement utiliser une tranche de 1.
+        default_value: Si le composant est une case à cocher, mettez 1 pour qu'elle soit cochée par défault ou 0 pour qu'elle ne le soit pas.
     actions:
-      create: Envoyer
+      create: Enregistrer
+      update: Enregistrer
+      cancel: Annuler
 
   active_admin:
-    dashboard: "Tableau de Bord"
+    dashboard: Tableau de Bord
+    view: Voir
+    edit: Modifier
+    delete: Supprimer
+    delete_confirmation: Êtes-vous certain de vouloir supprimer ce document ?
+    new_model: Ajouter
+    create_model: Ajouter
+    edit_model: Modifier
+    update_model: Modifier
+    delete_model: Supprimer
+    details: Détails
+    cancel: Annuler
+    download: "Télécharger :"
+    has_many_new: "Ajouter %{model}"
+    has_many_delete: Supprimer
+    logout: Déconnexion
+    pagination:
+      empty: "Aucun %{model} trouvé"
+      one: ""
+      one_page: "Affichage de <b>tous les %{n}</b> %{model}"
+      multiple: "Affichage de %{model} <b>%{from}-%{to}</b> sur un total de <b>%{total}</b>"
+      entry:
+        one: "entrée"
+        other: "entrées"
+
+    scopes:
+      active: Actives
+      future: Futures
+      past: Passées
+
     dashboard_welcome:
       welcome: "Bienvenue dans Active Admin. Ceci est la page par défaut."
       call_to_action: "Pour ajouter des sections au tableau de bord, consultez 'app/admin/dashboards.rb'"
-    view: "Voir"
-    edit: "Modifier"
-    delete: "Supprimer"
-    delete_confirmation: "Êtes-vous certain de vouloir supprimer ceci ?"
-    new_model: "Ajouter %{model}"
-    create_model: "Ajouter %{model}"
-    edit_model: "Modifier %{model}"
-    update_model: "Modifier %{model}"
-    delete_model: "Supprimer %{model}"
-    details: "Détails de %{model}"
-    cancel: "Annuler"
     empty: "Vide"
     previous: "Précédent"
     next: "Suivant"
-    download: "Télécharger:"
-    has_many_new: "Ajouter %{model}"
-    has_many_delete: "Supprimer"
     filter: "Filtrer"
     clear_filters: "Supprimer les filtres"
     search_field: "Rechercher %{field}"
@@ -108,17 +166,8 @@ fr-CA:
     greater_than: "Plus grand que"
     less_than: "Plus petit que"
     main_content: "Veuillez implémenter %{model}#main_content pour afficher le contenu."
-    logout: "Déconnexion"
     sidebars:
       filters: "Filtres"
-    pagination:
-      empty: "Aucun %{model} trouvé"
-      one: "Affichage de <b>1</b> %{model}"
-      one_page: "Affichage de <b>tous les %{n}</b> %{model}"
-      multiple: "Affichage de %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> sur un total de <b>%{total}</b>"
-      entry:
-        one: "entrée"
-        other: "entrées"
     any: "N'importe lequel"
     blank_slate:
       content: "Il n'y a pas encore de %{resource_name}."
@@ -348,12 +397,72 @@ fr-CA:
   activerecord:
     errors:
       <<: *errors
-    attributes:
-      models: &models
-        response:
-          one: Réponse
-          other: Réponses
-      response: &attributes
+    models: &models
+      admin_user:
+        one: Administrateur
+        other: Administrateurs
+      organization:
+        one: Organisation
+        other: Organisations
+      questionnaire:
+        one: Consultation
+        other: Consultations
+      section:
+        one: Section
+        other: Sections
+      question:
+        one: Question
+        other: Questions
+      response:
+        one: Réponse
+        other: Réponses
+    attributes: &attributes
+      admin_user:
+        email: Adresse de courriel
+        locale: Localisation
+      organization:
+        name: Nom
+        questionnaires: Consultations
+      questionnaire:
+        title: Titre
+        organization: Organisation
+        locale: Localisation
+        logo: Logo
+        remove_logo: Supprimer logo
+        description: Description
+        starts_at: Date de début
+        ends_at: Date de fin
+        introduction: Texte de présentation
+        domain: Nom de domaine
+        google_analytics: Code de suivi Google Analytics
+        twitter_screen_name: Nom d'écran Twitter
+        twitter_text: Texte du Tweet
+        twitter_share_text: Texte du Tweet
+        facebook_app_id: Facebook App ID
+        reply_to: Adresse de courriel de correspondance 
+        thank_you_template: Modèle de message de remerciement
+        sections: Sections
+      section:
+        title: Titre
+        description: Description
+        extra: Informations supplémentaires
+        embed: Code embed
+        questions: Questions
+      question:
+        title: Titre
+        description: Description
+        extra: Informations supplémentaires
+        options: Options
+        options_as_list: Liste d'options
+        minimum_units: Nombre d'unités minimal
+        maximum_units: Nombre d'unités maximal
+        step: Par tranche de
+        default_value: Valeur par défaut
+        required: Requis
+        widget: Composant d'interface graphique
+        unit_amount: Montant unitaire
+        unit_name: Nom de l'unité
+      response:
         email: Courriel
         postal_code: Code postal
         gender: Genre
@@ -370,3 +479,10 @@ fr-CA:
     errors:
       messages:
         document_not_found: "Document introuvable pour la classe %{klass} avec les ids %{identifiers}."
+
+  errors:
+    messages:
+      ends_at_must_be_greater_than_starts_at: La date de fin doit être supérieure à la date de début
+      maximum_units_must_be_greater_than_minimum_units: Le nombre d'unités maximal doit être supérieur au nombre d'unités minimal
+      domain_must_be_active: Le nom de domaine doit être actif
+      reply_to_must_be_valid: L'adresse de courriel de correspondance doit être valide

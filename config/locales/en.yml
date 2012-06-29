@@ -8,6 +8,8 @@ en:
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
   # Active Admin dashboard
+  site_title: Citizen Budget
+  dashboard: Dashboard
   active_consultations: Active consultations
   future_consultations: Future consultations
   past_consultations: Past consultations
@@ -40,7 +42,7 @@ en:
     onoff: On/off switch
     # Options
     radio: Radio buttons
-    select: Select list
+    select: Drop-down list
     slider: Slider
     # String
     text: Text box
@@ -70,6 +72,7 @@ en:
     new:
       instructions: Change an activity to start
       submit_your_choices: Submit your choices
+      submit: Send
     show:
       header: "%{name} a rééquilibré le budget !"
       share: We encourage you to share and discuss your budget choices below with your friends and family.
@@ -87,32 +90,6 @@ en:
       attribution: Get your own budget consultation from
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
-
-  active_admin:
-    dashboard: Dashboard
-    view: View
-    edit: Edit
-    delete: Delete
-    delete_confirmation: Are you sure you want to delete this?
-    new_model: "New %{model}"
-    create_model: "New %{model}"
-    edit_model: "Edit %{model}"
-    update_model: "Edit %{model}"
-    delete_model: "Delete %{model}"
-    details: "%{model} Details"
-    cancel: Cancel
-    download: "Download:"
-    has_many_new: "Add New %{model}"
-    has_many_delete: Remove
-    logout: Logout
-    pagination:
-      empty: "No %{model} found"
-      one: ""
-      one_page: "Displaying <b>all %{n}</b> %{model}"
-      multiple: "Displaying %{model} <b>%{from}-%{to}</b> of <b>%{total}</b>"
-      entry:
-        one: "entry"
-        other: "entries"
 
   formtastic:
     required: required
@@ -148,6 +125,32 @@ en:
       update: "Save %{model}"
       cancel: Cancel
 
+  active_admin:
+    dashboard: Dashboard
+    view: View
+    edit: Edit
+    delete: Delete
+    delete_confirmation: Are you sure you want to delete this?
+    new_model: "New %{model}"
+    create_model: "New %{model}"
+    edit_model: "Edit %{model}"
+    update_model: "Edit %{model}"
+    delete_model: "Delete %{model}"
+    details: "%{model} Details"
+    cancel: Cancel
+    download: "Download:"
+    has_many_new: "Add New %{model}"
+    has_many_delete: Remove
+    logout: Logout
+    pagination:
+      empty: "No %{model} found"
+      one: ""
+      one_page: "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}-%{to}</b> of <b>%{total}</b>"
+      entry:
+        one: "entry"
+        other: "entries"
+
   activerecord:
     models: &models
       admin_user:
@@ -171,6 +174,7 @@ en:
     attributes: &attributes
       admin_user:
         email: Email
+        locale: Locale
       organization:
         name: Name
         questionnaires: Consultations
@@ -187,10 +191,10 @@ en:
         domain: Domain name
         google_analytics: Google Analytics tracking code
         twitter_screen_name: Twitter screen name
-        twitter_text: Consultation tweet text
-        twitter_share_text: Response tweet text
+        twitter_text: Tweet text
+        twitter_share_text: Tweet text
         facebook_app_id: Facebook App ID
-        reply_to: Reply-to email address
+        reply_to: Contact email
         thank_you_template: Thank-you email template
         sections: Sections
       section:
@@ -204,6 +208,10 @@ en:
         description: Description
         extra: Additional information
         options: Options
+        options_as_list: Options as list
+        minimum_units: Minimum units
+        maximum_units: Maximum units
+        step: Step
         default_value: Default value
         required: Required
         widget: Widget
