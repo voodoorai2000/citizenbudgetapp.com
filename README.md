@@ -3,6 +3,7 @@
 Create a new app on Heroku (replace placeholders):
 
     heroku create -s cedar --addons sendgrid:starter mongolab:starter memcache:5mb newrelic:standard
+    heroku config:add SECRET_TOKEN=`bundle exec rake secret`
     heroku config:add AWS_ACCESS_KEY_ID=REPLACE_ME
     heroku config:add AWS_SECRET_ACCESS_KEY=REPLACE_ME
     heroku config:add BITLY_API_KEY=REPLACE_ME
