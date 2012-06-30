@@ -1,7 +1,7 @@
 # coding: utf-8
 class Locale
   LOCALES = {
-    'en-US' => 'English (United States)',
+    'en' => 'English (United States)',
     'fr-CA' => 'Français (Canada)',
   }
 
