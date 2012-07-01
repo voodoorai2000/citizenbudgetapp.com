@@ -46,12 +46,21 @@ class AdminUser
   field :locale, type: String
 
   validates_presence_of :role, :locale
+  validates_presence_of :organization_id, unless: ->(a){a.role == 'superuser'}
   validates_inclusion_of :role, in: ROLES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
 
   # https://github.com/gregbell/active_admin/wiki/Your-First-Admin-Resource%3A-AdminUser
   after_create do |admin|
     admin.send_reset_password_instructions
+  end
+
+  def questionnaires
+    if role == 'superuser'
+      Questionnaire
+    else
+      organization && organization.questionnaires
+    end
   end
 
   def password_required?

@@ -29,7 +29,10 @@ class Ability
     when 'superuser'
       can :manage, :all
     when 'administrator'
-      can :manage, Questionnaire, id: user.organization.questionnaire_ids
+      # Can always read questionnaires that user owns.
+      can :read, Questionnaire, id: user.organization.questionnaire_ids
+      # Can manage future questionnaires that user owns.
+      can [:create, :update, :destroy], Questionnaire, id: user.organization.questionnaire_ids, :starts_at.ne => nil, :starts_at.gt => Time.now
     end
   end
 end

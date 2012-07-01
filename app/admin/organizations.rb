@@ -1,6 +1,7 @@
 ActiveAdmin.register Organization do
   menu if: proc{ can? :manage, Organization }
   controller.authorize_resource
+  before_filter { @skip_sidebar = true }
 
   index do
     column :name

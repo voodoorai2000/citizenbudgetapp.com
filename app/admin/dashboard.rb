@@ -4,13 +4,13 @@ ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc{ I18n.t :dashboard }
 
   content title: proc{ I18n.t :dashboard } do
-    if can? :manage, Questionnaire
+    if can? :read, Questionnaire
       columns do
-        if Questionnaire.active.count.nonzero?
+        if current_admin_user.questionnaires.active.count.nonzero?
           column do
             panel t(:active_consultations) do
               ul do
-                Questionnaire.includes(:organization).active.each do |q|
+                current_admin_user.questionnaires.active.each do |q|
                   li auto_link(q.organization) + ' – ' + auto_link(q)
                 end
               end
@@ -18,11 +18,11 @@ ActiveAdmin.register_page 'Dashboard' do
           end
         end
 
-        if Questionnaire.future.count.nonzero?
+        if current_admin_user.questionnaires.future.count.nonzero?
           column do
             panel t(:future_consultations) do
               ul do
-                Questionnaire.includes(:organization).future.each do |q|
+                current_admin_user.questionnaires.future.each do |q|
                   li auto_link(q.organization) + ' – ' + auto_link(q)
                 end
               end

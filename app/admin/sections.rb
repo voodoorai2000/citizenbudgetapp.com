@@ -1,5 +1,6 @@
 ActiveAdmin.register Section do
   controller.authorize_resource
+  before_filter { @skip_sidebar = true }
 
   belongs_to :questionnaire
 

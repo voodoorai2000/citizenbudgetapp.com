@@ -1,6 +1,14 @@
 ActiveAdmin.register Questionnaire do
   menu if: proc{ can? :manage, Questionnaire }
   controller.authorize_resource
+  before_filter { @skip_sidebar = true }
+
+  # https://github.com/gregbell/active_admin/wiki/Enforce-CanCan-constraints
+  controller do
+    def scoped_collection
+      end_of_association_chain.accessible_by(current_ability)
+    end
+  end
 
   scope :active
   scope :future

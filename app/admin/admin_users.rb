@@ -1,10 +1,13 @@
 ActiveAdmin.register AdminUser do
   menu if: proc{ can? :manage, AdminUser }
   controller.authorize_resource
+  before_filter { @skip_sidebar = true }
 
   index do
     column :email
-    column :locale
+    column :locale do |a|
+      Locale.locale_name(a.locale) if a.locale?
+    end
     default_actions
   end
 
