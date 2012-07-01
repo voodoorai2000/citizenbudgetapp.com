@@ -409,7 +409,7 @@ fr-CA:
     formats:
       default: ! '%H:%M:%S'
       long: ! '%A %d %B %Y %H:%M'
-      short: ! '%H:%M'
+      short: "%e %b %Y"
     pm: pm
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
@@ -497,10 +497,43 @@ fr-CA:
   mongoid:
     models: *models
     attributes: *attributes
-    # https://github.com/mongoid/mongoid/commit/99b04782e086c62e5cf63b09dd627cac134364c1#L4L1
     errors:
+      format: Le %{attribute} %{message}
       messages:
+        # https://github.com/mongoid/mongoid/commit/99b04782e086c62e5cf63b09dd627cac134364c1#L4L1
         document_not_found: "Document introuvable pour la classe %{klass} avec les ids %{identifiers}."
+        accepted: doit être accepté(e)
+        blank: doit être rempli(e)
+        confirmation: ne concorde pas avec la confirmation
+        empty: doit être rempli(e)
+        equal_to: doit être égal à %{count}
+        even: doit être pair
+        exclusion: n'est pas disponible
+        greater_than: doit être supérieur à %{count}
+        greater_than_or_equal_to: doit être supérieur ou égal à %{count}
+        inclusion: n'est pas inclus(e) dans la liste
+        invalid: n'est pas valide
+        less_than: doit être inférieur à %{count}
+        less_than_or_equal_to: doit être inférieur ou égal à %{count}
+        not_a_number: n'est pas un nombre
+        not_an_integer: doit être un nombre entier
+        odd: doit être impair
+        record_invalid: ! 'La validation a échoué : %{errors}'
+        taken: n'est pas disponible
+        too_long:
+          one: est trop long (pas plus d'un caractère)
+          other: est trop long (pas plus de %{count} caractères)
+        too_short:
+          one: est trop court (au moins un caractère)
+          other: est trop court (au moins %{count} caractères)
+        wrong_length:
+          one: ne fait pas la bonne longueur (doit comporter un seul caractère)
+          other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+      template:
+        body: ! 'Veuillez vérifier les champs suivants : '
+        header:
+          one: ! 'Impossible d''enregistrer ce %{model} : 1 erreur'
+          other: ! 'Impossible d''enregistrer ce %{model} : %{count} erreurs'
 
   errors:
     messages:
