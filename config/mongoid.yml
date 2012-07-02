@@ -1,10 +1,13 @@
 development:
   host: localhost
   database: citizen_budget_development
+  identity_map_enabled: true
 
 test:
   host: localhost
   database: citizen_budget_test
+  identity_map_enabled: true
 
 production:
   uri: <%= ENV['MONGOLAB_URI'] %>
+  identity_map_enabled: true
