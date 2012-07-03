@@ -1,7 +1,6 @@
 ActiveAdmin.register Questionnaire do
-  menu if: proc{ can? :manage, Questionnaire }
   controller.authorize_resource
-  before_filter { @skip_sidebar = true }
+  before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
 
   # https://github.com/gregbell/active_admin/wiki/Enforce-CanCan-constraints
   controller do
@@ -26,7 +25,7 @@ ActiveAdmin.register Questionnaire do
       l(q.ends_at, format: :short) if q.ends_at?
     end
     column :sections do |q|
-      link_to q.sections.count, [:admin, q, :sections]
+      link_to_if can?(:read, Section), q.sections.count, [:admin, q, :sections]
     end
     default_actions
   end
@@ -75,11 +74,14 @@ ActiveAdmin.register Questionnaire do
         ul(class: 'sortable') do
           q.sections.each do |s|
             li(id: dom_id(s)) do
-              i(class: 'icon-move') + span(link_to s.title, [:admin, resource, s])
+              i(class: 'icon-move') + span(link_to_if can?(:read, s), s.title, [:admin, q, s])
             end
           end
         end
-        div link_to t(:new_section), [:new, :admin, resource, :section], class: 'button'
+        if can?(:create, Section)
+          div link_to t(:new_section), [:new, :admin, q, :section], class: 'button'
+        end
+        '@todo https://github.com/gregbell/active_admin/pull/1460'
       end
     end
   end

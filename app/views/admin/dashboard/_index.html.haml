@@ -1,0 +1,12 @@
+- if current_admin_user.questionnaires.active.count.nonzero?
+  .panel
+    %h3=t :active_consultations
+    .panel_contents
+      %ul
+        = render current_admin_user.questionnaires.active
+- if current_admin_user.questionnaires.future.count.nonzero?
+  .panel
+    %h3=t :future_consultations
+    .panel_contents
+      %ul
+        = render current_admin_user.questionnaires.future

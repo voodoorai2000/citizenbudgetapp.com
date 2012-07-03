@@ -1,6 +1,6 @@
 ActiveAdmin.register Section do
   controller.authorize_resource
-  before_filter { @skip_sidebar = true }
+  before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
 
   belongs_to :questionnaire
 

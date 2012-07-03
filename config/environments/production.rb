@@ -47,6 +47,7 @@ CitizenBudget::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+  # @todo shouldn't be necessary to add active_admin assets
   config.assets.precompile += %w(
     active_admin.css
     active_admin.js

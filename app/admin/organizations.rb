@@ -1,7 +1,6 @@
 ActiveAdmin.register Organization do
-  menu if: proc{ can? :manage, Organization }
   controller.authorize_resource
-  before_filter { @skip_sidebar = true }
+  before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
 
   index do
     column :name
@@ -27,7 +26,7 @@ ActiveAdmin.register Organization do
             li auto_link q
           end
         end
-        div link_to t(:new_questionnaire), new_admin_questionnaire_path(organization_id: resource.id), class: 'button'
+        div link_to_if can?(:create, Questionnaire), t(:new_questionnaire), new_admin_questionnaire_path(organization_id: resource.id), class: 'button'
       end
     end
   end

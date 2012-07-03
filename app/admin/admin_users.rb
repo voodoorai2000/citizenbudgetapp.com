@@ -1,7 +1,6 @@
 ActiveAdmin.register AdminUser do
-  menu if: proc{ can? :manage, AdminUser }
   controller.authorize_resource
-  before_filter { @skip_sidebar = true }
+  before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
 
   index do
     column :email

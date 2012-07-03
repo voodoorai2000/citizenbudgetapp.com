@@ -27,12 +27,15 @@ class Ability
     user ||= AdminUser.new
     case user.role
     when 'superuser'
+      # Only superuser can create and destroy questionnaires and update
+      # questionnaires once the consultation has begun.
       can :manage, :all
     when 'administrator'
+      # @todo switch to Mongoid 3 to use #questionnaire_ids
+      # Can update future questionnaires that user owns.
+      can :update, Questionnaire, :_id.in => user.organization.questionnaires.map(&:id), :starts_at.ne => nil, :starts_at.gt => Time.now
       # Can always read questionnaires that user owns.
-      can :read, Questionnaire, id: user.organization.questionnaire_ids
-      # Can manage future questionnaires that user owns.
-      can [:create, :update, :destroy], Questionnaire, id: user.organization.questionnaire_ids, :starts_at.ne => nil, :starts_at.gt => Time.now
+      can :read, Questionnaire, :_id.in => user.organization.questionnaires.map(&:id)
     end
   end
 end
