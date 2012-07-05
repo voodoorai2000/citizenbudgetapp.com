@@ -170,7 +170,7 @@ fr-CA:
     pagination:
       empty: "Aucun %{model} trouvé"
       one: "" # "Affichage de <b>1</b> %{model}"
-      one_page: "Affichage de <b>tous les %{n}</b> %{model}"
+      one_page: "" # "Affichage de <b>tous les %{n}</b> %{model}"
       multiple: "Affichage de %{model} <b>%{from}-%{to}</b> sur un total de <b>%{total}</b>" # "Affichage de %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> sur un total de <b>%{total}</b>"
       entry:
         one: "entrée"
