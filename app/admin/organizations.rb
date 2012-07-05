@@ -1,6 +1,4 @@
 ActiveAdmin.register Organization do
-  before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
-
   index do
     column :name
     column :questionnaires do |o|

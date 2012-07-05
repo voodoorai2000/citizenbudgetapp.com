@@ -1,7 +1,23 @@
 ActiveAdmin.register Section do
-  before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
-
   belongs_to :questionnaire
+
+  # CanCan has trouble with embedded documents, so we may need to load and
+  # authorize resources manually. In this case, we will authorize against
+  # the top-level document.
+  # @see https://github.com/ryanb/cancan/issues/319
+  #
+  # Since sections are scoped to the parent questionnaire, we don't necessarily
+  # need to use #accessible_by to enforce constraints.
+  #
+  # https://github.com/ryanb/cancan/wiki/Controller-Authorization-Example
+  controller do
+    skip_authorize_resource :only => :index
+
+    def index
+      authorize! :show, parent
+      index!
+    end
+  end
 
   index do
     column :title

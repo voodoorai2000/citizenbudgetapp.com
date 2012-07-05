@@ -31,11 +31,15 @@ class Ability
       # questionnaires once the consultation has begun.
       can :manage, :all
     when 'administrator'
-      # @todo switch to Mongoid 3 to use #questionnaire_ids
       # Can update future questionnaires that user owns.
-      can :update, Questionnaire, :_id.in => user.organization.questionnaires.map(&:id), :starts_at.ne => nil, :starts_at.gt => Time.now
+      can :update, Questionnaire, :_id.in => user.organization.questionnaire_ids, :starts_at.ne => nil, :starts_at.gt => Time.now
+
       # Can always read questionnaires that user owns.
-      can :read, Questionnaire, :_id.in => user.organization.questionnaires.map(&:id)
+      can :read, Questionnaire, :_id.in => user.organization.questionnaire_ids
+
+      # Embedded documents pose a problem for CanCan. Must do loading and authorization manually.
+      # @see https://github.com/ryanb/cancan/issues/319
+      can :read, Section
     end
   end
 end

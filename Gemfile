@@ -22,7 +22,8 @@ gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 # Admin
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
-gem 'activeadmin-mongoid', git: 'git://github.com/elia/activeadmin-mongoid.git'
+# 0.0.1 doesn't support Mongoid 3 and elia isn't merging my pull requests fast enough
+gem 'activeadmin-mongoid', git: 'git://github.com/jpmckinney/activeadmin-mongoid.git'
 gem 'devise'
 gem 'mustache'
 gem 'cancan'

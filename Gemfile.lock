@@ -1,16 +1,6 @@
 GIT
-  remote: git://github.com/elia/activeadmin-mongoid.git
-  revision: 1bff52f9cde25528942389a1f643333f3588d8db
-  specs:
-    activeadmin-mongoid (0.0.1)
-      activeadmin (~> 0.4)
-      meta_search (>= 1.1.0.pre)
-      mongoid (>= 2.0)
-      sass-rails (~> 3.1, >= 3.1.4)
-
-GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: b5d23bb75d8bf8ef2882f1294a8c3e23647e4ee6
+  revision: 69a29f8ac464d6e713c5ba9518e350bfe3bd994d
   specs:
     activeadmin (0.4.4)
       arbre (>= 1.0.0.rc4)
@@ -33,6 +23,16 @@ GIT
     carrierwave-mongoid (0.3.0.alpha)
       carrierwave (~> 0.6.1)
       mongoid (~> 3.0.0.rc)
+
+GIT
+  remote: git://github.com/jpmckinney/activeadmin-mongoid.git
+  revision: 023c14bf963763f8c8bbc7eb494d8ccb16e47b96
+  specs:
+    activeadmin-mongoid (0.0.1)
+      activeadmin (~> 0.4)
+      meta_search (>= 1.1.0.pre)
+      mongoid (>= 2.0)
+      sass-rails (~> 3.1, >= 3.1.4)
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
