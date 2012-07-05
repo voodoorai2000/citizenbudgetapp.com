@@ -27,14 +27,14 @@ module Mongoid::Document
   # :url
 
   COLUMN_TYPE_MAP = {
-    BSON::ObjectId => :string,
-    BigDecimal     => :number,
-    Float          => :number,
-    Integer        => :number,
-    Range          => :range,
-    Regexp         => :string,
-    Symbol         => :string,
-    Time           => :datetime,
+    Moped::BSON::ObjectId => :string,
+    BigDecimal => :number,
+    Float      => :number,
+    Integer    => :number,
+    Range      => :range,
+    Regexp     => :string,
+    Symbol     => :string,
+    Time       => :datetime,
 
     # These don't map well (or even transform well):
     Array  => :string,
@@ -60,9 +60,9 @@ module Mongoid::Document
   Column = Struct.new :name, :type
   def column_for_attribute(attribute)
     name = attribute.to_s
-    field = self.class.fields[name]
+    field = fields[name]
     if field
-      if Mongoid::Fields::Internal::ForeignKeys::Object === field
+      if Mongoid::Fields::ForeignKey === field
         type = 'select'
       else
         type = field.type
