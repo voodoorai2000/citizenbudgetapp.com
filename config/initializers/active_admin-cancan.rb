@@ -81,6 +81,17 @@ module ActiveAdmin
   class ResourceController
     # lib/active_admin/resource_controller/collection.rb
 
+    # The following doesn't work (see https://github.com/ryanb/cancan/pull/683):
+    #
+    #     load_and_authorize_resource
+    #     skip_load_resource :only => :index
+    #
+    # If you don't skip loading on #index you will get the exception:
+    #
+    #     "Collection is not a paginated scope. Set collection.page(params[:page]).per(10) before calling :paginated_collection."
+    load_resource :except => :index
+    authorize_resource
+
     # https://github.com/gregbell/active_admin/wiki/Enforce-CanCan-constraints
     # https://github.com/ryanb/cancan/blob/master/lib/cancan/controller_resource.rb#L80
     def scoped_collection
