@@ -70,5 +70,7 @@ production:
   sessions:
     default:
       uri: <%= ENV['MONGOLAB_URI'] %>
+    options:
+      consistency: :strong
   options:
     identity_map_enabled: true
