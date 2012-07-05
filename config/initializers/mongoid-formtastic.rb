@@ -1,60 +1,62 @@
 # @see https://gist.github.com/2903748
 module Mongoid::Document
-  # Targets:
-  # :date (:date_select)
-  # :datetime (:datetime_select)
-  # :file
-  # :number
-  # :select
+  # ActiveRecord column types:
+  # :binary
+  # :boolean
+  # :date
+  # :datetime
+  # :decimal
+  # :float
+  # :integer
   # :string
-  # :time (:time_select)
+  # :text
+  # :time
+  # :timestamp
 
-  # Targets not used in +default_input_type+:
+  # Formtastic input types:
   # :boolean
   # :check_boxes
-  # :hidden
-  # :radio
-  # :range
-  # :text
-
-  # Targets based on attribute name:
   # :country
+  # :date_select
+  # :datetime_select
   # :email
+  # :file
+  # :hidden
+  # :number
   # :password
   # :phone
+  # :radio
+  # :range
   # :search
+  # :select
+  # :string
+  # :text
+  # :time_select
   # :time_zone
   # :url
 
+  # @see http://mongoid.org/en/mongoid/docs/documents.html#fields
   COLUMN_TYPE_MAP = {
+    Array                 => :string,
+    BigDecimal            => :decimal,
+    Boolean               => :boolean,
+    Date                  => :date, # :date_select Formtastic 2.2
+    DateTime              => :datetime, # :datetime_select Formtastic 2.2
+    Float                 => :float,
+    Hash                  => :string,
+    Integer               => :integer,
     Moped::BSON::ObjectId => :string,
-    BigDecimal => :number,
-    Float      => :number,
-    Integer    => :number,
-    Range      => :range,
-    Regexp     => :string,
-    Symbol     => :string,
-    Time       => :datetime,
+    Range                 => :range,
+    Regexp                => :string,
+    String                => :string,
+    Symbol                => :string,
+    # The Formtastic :time input type displays only hours, minutes and seconds.
+    Time                  => :datetime, # :datetime_select Formtastic 2.2
+    # Raises "uninitialized constant Mongoid::Document::TimeWithZone"
+    # TimeWithZone          => :datetime,
 
-    # These don't map well (or even transform well):
-    Array  => :string,
-    Hash   => :string,
+    # Fields with no type are objects.
     Object => :string,
-
-    # These transform to ActiveRecord types:
-    # Boolean
-    # Date
-    # DateTime
-    # String
-    # Time
-
-    # In Formtastic 2.2, uncomment:
-    # Date     => :date_select,
-    # DateTime => :datetime_select,
-    # Time     => :datetime_select,
-
-    # Rails defines TimeWithZone:
-    # TimeWithZone => :time,
   }
 
   Column = Struct.new :name, :type
@@ -62,11 +64,7 @@ module Mongoid::Document
     name = attribute.to_s
     field = fields[name]
     if field
-      if Mongoid::Fields::ForeignKey === field
-        type = 'select'
-      else
-        type = field.type
-      end
+      type = Mongoid::Fields::ForeignKey === field ? 'select' : field.type
       Column.new(name, COLUMN_TYPE_MAP[type] || type.to_s.downcase.to_sym)
     end
   end
