@@ -17,12 +17,11 @@ end
 gem 'girl_friday'
 
 # Database
-gem 'bson_ext'
-gem 'mongoid'
+gem 'mongoid', '3.0.0rc'
 
 # Admin
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
-gem 'activeadmin-mongoid'
+gem 'activeadmin-mongoid', git: 'git://github.com/elia/activeadmin-mongoid.git'
 gem 'devise'
 gem 'mustache'
 gem 'cancan'
@@ -30,7 +29,8 @@ gem 'cancan'
 # Image uploads
 gem 'fog'
 gem 'rmagick'
-gem 'carrierwave-mongoid'
+# https://github.com/jnicklas/carrierwave-mongoid/pull/29#issuecomment-6558204
+gem 'carrierwave-mongoid', :git => 'git://github.com/jnicklas/carrierwave-mongoid.git', :branch => 'mongoid-3.0'
 
 # Views
 gem 'haml-rails'
