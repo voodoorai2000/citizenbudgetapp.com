@@ -1,6 +1,14 @@
 ActiveAdmin.register AdminUser do
-  controller.authorize_resource
   before_filter { @skip_sidebar = true } # @todo https://github.com/elia/activeadmin-mongoid/pull/11
+
+  # @todo Putting this in ResourceController causes authorization to fail on #index actions.
+  controller do
+    load_and_authorize_resource :class => resource_class
+
+    # If you don't skip loading on #index you will get the exception:
+    # "Collection is not a paginated scope. Set collection.page(params[:page]).per(10) before calling :paginated_collection."
+    skip_load_resource :class => resource_class, :only => :index
+  end
 
   index do
     column :email

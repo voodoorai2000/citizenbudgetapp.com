@@ -76,6 +76,15 @@ module ActiveAdmin
         end
       end
     end
+  end
 
+  class ResourceController
+    # lib/active_admin/resource_controller/collection.rb
+
+    # https://github.com/gregbell/active_admin/wiki/Enforce-CanCan-constraints
+    # https://github.com/ryanb/cancan/blob/master/lib/cancan/controller_resource.rb#L80
+    def scoped_collection
+      end_of_association_chain.accessible_by(current_ability)
+    end
   end
 end
