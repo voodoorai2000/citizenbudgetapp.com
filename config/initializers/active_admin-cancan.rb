@@ -1,3 +1,4 @@
+# @see https://gist.github.com/3040303
 module ActiveAdmin
   module ViewHelpers
     # lib/active_admin/view_helpers/auto_link_helper.rb
