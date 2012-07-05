@@ -17,7 +17,8 @@ end
 gem 'girl_friday'
 
 # Database
-gem 'mongoid', '3.0.0rc'
+# 3.0.0rc doesn't include https://github.com/mongoid/mongoid/issues/2129
+gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 # Admin
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
