@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html do
-        redirect_to admin_dashboard_path, alert: exception.message
+        redirect_to admin_root_path, alert: exception.message
       end
     end
   end

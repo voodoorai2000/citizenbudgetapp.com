@@ -1,4 +1,29 @@
 # @see https://gist.github.com/3040303
+
+# Before using this initializer, you must set up Cancan. First, add the gem to your Gemfile:
+#
+#     gem 'cancan'
+#
+# Next, generate and edit an Ability class:
+#
+#     rails generate cancan:ability
+#
+# Then, add the following code to your ApplicationController:
+#
+#     rescue_from CanCan::AccessDenied do |exception|
+#       respond_to do |format|
+#         format.html do
+#           redirect_to admin_root_path, :alert => exception.message
+#         end
+#       end
+#     end
+#
+#     def current_ability
+#       @current_ability ||= Ability.new(current_admin_user)
+#     end
+#
+# Finally, copy this code to a Rails initializer, like
+# config/initializers/active_admin-cancan.rb
 module ActiveAdmin
   module ViewHelpers
     # lib/active_admin/view_helpers/auto_link_helper.rb
