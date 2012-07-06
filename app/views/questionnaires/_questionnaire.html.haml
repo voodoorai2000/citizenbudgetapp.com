@@ -45,7 +45,6 @@
                           - else
                             = check_box_tag "#{q.id}[]", option
                           = option
-                          -# @todo this won't save properly
                       - elsif q.widget == 'radio'
                         = label_tag nil, class: 'radio' do
                           - if @response.persisted?
