@@ -1,33 +1,59 @@
 module ActiveAdmin
   module ViewHelpers
     module BreadcrumbHelper
-      # @note Fixes for Mongoid. Use display_name method.
+
       def breadcrumb_links(path = nil)
         path ||= request.fullpath
         parts = path.gsub(/^\//, '').split('/')
+        # The last part of the path is usually rendered as the page title.
         parts.pop unless %w{ create update }.include?(params[:action])
         crumbs = []
-        obj = nil
+
         parts.each_with_index do |part, index|
-          name = ""
-          if part =~ /^\d|^[a-f0-9]{24}$/ && parent = parts[index - 1]
-            begin
-              if obj && obj.respond_to?(parent)
-                parent_class = obj.send(parent)
-              else
-                parent_class = parent.singularize.camelcase.constantize
-              end
-              obj = parent_class.find(part[/^[a-f0-9]{24}$/] ? part : part.to_i)
-              name = display_name(obj)
-            rescue
-            end
+          model = nil
+          object = nil
+          name = nil
+          options = []
+
+          # The zero index is the "admin" part of the path. The next two parts
+          # of the path are the resource class and ID, or the parent class and
+          # parent ID if this is a nested resource. The rest are for the current
+          # resource.
+          case index
+          when 0
+            options = [:admin_root]
+            name = part.titlecase
+          when 1
+            model = respond_to?(:parent?) && parent? && parent.class || resource.class
+            options = [:admin, model]
+            name = model.model_name.human(:count => 1.1, :default => part.titlecase)
+          when 2
+            object = respond_to?(:parent?) && parent? && parent || resource
+            options = [:admin, object]
+            name = display_name(object)
+          when 3
+            model = resource.class
+            options = [:admin, parent, model]
+            name = model.model_name.human(:count => 1.1, :default => part.titlecase)
+          when 4
+            object = resource
+            options = [:admin, parent, object]
+            name = display_name(object)
+          else
+            raise NotImplementedError
           end
 
-          name = part.titlecase if name == ""
+          no_route = false
           begin
-            crumbs << link_to( I18n.translate!("activerecord.models.#{part.singularize}", :count => 2), "/" + parts[0..index].join('/'))
-          rescue I18n::MissingTranslationData
-            crumbs << link_to( name, "/" + parts[0..index].join('/'))
+            url = url_for(options)
+          rescue NoMethodError
+            no_route = true
+          end
+
+          crumbs << if (object && cannot?(:read, object)) || (model && cannot?(:read, model)) || no_route
+            name
+          else
+            link_to(name, url)
           end
         end
         crumbs
