@@ -61,10 +61,13 @@ ActiveAdmin.register Questionnaire do
         end
       end
       row :sections do |q|
-        ul(class: 'sortable') do
+        ul(class: can?(:update, s) ? 'sortable' : '') do
           q.sections.each do |s|
             li(id: dom_id(s)) do
-              i(class: 'icon-move') + span(link_to_if can?(:read, s), s.title, [:admin, q, s])
+              if can?(:update, s)
+                i(class: 'icon-move')
+              end
+              text_node link_to_if can?(:read, s), s.title, [:admin, q, s]
             end
           end
         end

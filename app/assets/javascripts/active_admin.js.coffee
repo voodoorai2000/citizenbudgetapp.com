@@ -16,6 +16,7 @@ $ ->
       .done (request) ->
         $target.effect 'highlight'
 
+  # Display the appropriate options for the selected widget.
   setup_fieldset = (i) ->
     widget = $("#section_questions_attributes_#{i}_widget")
 
