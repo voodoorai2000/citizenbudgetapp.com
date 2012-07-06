@@ -1,8 +1,11 @@
 # @see https://gist.github.com/2903748
+require 'formtastic/version'
 
 # Formtastic sets default input types for ActiveRecord column types. This does
 # the same for Mongoid field types.
 module Mongoid::Document
+  FORMTASTIC_2_2 = Formtastic::VERSION[/\A2\.2\.\d\z/]
+
   # Map Mongoid field types to either ActiveRecord column types (which
   # Formtastic understands) or directly to Formtastic input types.
   #
@@ -46,8 +49,8 @@ module Mongoid::Document
     Array                 => :string,
     BigDecimal            => :decimal,
     Boolean               => :boolean,
-    Date                  => :date, # :date_select Formtastic 2.2
-    DateTime              => :datetime, # :datetime_select Formtastic 2.2
+    Date                  => FORMTASTIC_2_2 ? :date_select : :date,
+    DateTime              => FORMTASTIC_2_2 ? :datetime_select : :datetime,
     Float                 => :float,
     Hash                  => :string,
     Integer               => :integer,
@@ -58,7 +61,7 @@ module Mongoid::Document
     Symbol                => :string,
     # The Formtastic :time input type displays only hours, minutes and seconds,
     # but a Time object has both date and time parts.
-    Time                  => :datetime, # :datetime_select Formtastic 2.2
+    Time                  => FORMTASTIC_2_2 ? :datetime_select : :datetime,
     # Raises "uninitialized constant Mongoid::Document::TimeWithZone"
     # TimeWithZone          => :datetime,
 

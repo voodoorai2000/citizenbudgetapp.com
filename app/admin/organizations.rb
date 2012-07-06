@@ -7,12 +7,7 @@ ActiveAdmin.register Organization do
     default_actions
   end
 
-  form do |f|
-    f.inputs do
-      f.input :name
-    end
-    f.actions
-  end
+  form partial: 'form'
 
   show do
     attributes_table do
@@ -26,7 +21,7 @@ ActiveAdmin.register Organization do
         if can? :create, Questionnaire
           div link_to t(:new_questionnaire), new_admin_questionnaire_path(organization_id: resource.id), class: 'button'
         end
-        '@todo https://github.com/gregbell/active_admin/pull/1460'
+        '@todo https://github.com/gregbell/active_admin/pull/1479'
       end
     end
   end

@@ -71,7 +71,7 @@ ActiveAdmin.register Questionnaire do
         if can? :create, Section
           div link_to t(:new_section), [:new, :admin, q, :section], class: 'button'
         end
-        '@todo https://github.com/gregbell/active_admin/pull/1460'
+        '@todo https://github.com/gregbell/active_admin/pull/1479'
       end
     end
   end

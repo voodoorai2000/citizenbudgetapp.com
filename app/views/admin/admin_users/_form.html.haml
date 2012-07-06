@@ -1,0 +1,10 @@
+= semantic_form_for [:admin, resource] do |f|
+  = f.inputs do
+    = f.input :email
+    = f.input :organization
+    = f.input :role, as: :radio, collection: AdminUser::ROLES.map{|r| [t(r, scope: :role), r]}
+    = f.input :locale, as: :radio, collection: Locale::LOCALES.map{|k,v| [v, k]}
+  = f.actions do
+    = f.action :submit
+    %li.cancel
+      = link_to t('active_admin.cancel'), action: :index

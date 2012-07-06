@@ -11,15 +11,7 @@ ActiveAdmin.register AdminUser do
     default_actions
   end
 
-  form do |f|
-    f.inputs do
-      f.input :email
-      f.input :organization
-      f.input :role, as: :radio, collection: AdminUser::ROLES.map{|r| [t(r, scope: :role), r]}
-      f.input :locale, as: :radio, collection: Locale::LOCALES.map{|k,v| [v, k]}
-    end
-    f.actions
-  end
+  form partial: 'form'
 
   show do
     attributes_table do

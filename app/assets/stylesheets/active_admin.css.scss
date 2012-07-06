@@ -38,6 +38,10 @@
   height: 332px !important; // 11x8.5 aspect ratio plus 62
 }
 
+.fragment {
+  display: inline;
+}
+
 body.active_admin {
   form {
     // Override
