@@ -2,7 +2,7 @@ ActiveAdmin.register Organization do
   index do
     column :name
     column :questionnaires do |o|
-      o.questionnaires.count
+      link_to_if can?(:read, Questionnaire), o.questionnaires.count, [:admin, :questionnaires]
     end
     default_actions
   end
