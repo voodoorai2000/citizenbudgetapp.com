@@ -30,7 +30,35 @@ ActiveAdmin.register Section do
     default_actions
   end
 
-  form partial: 'form'
+  form do |f|
+    f.inputs do
+      f.input :title
+      f.input :group, collection: Section::GROUPS.map{|g| [t(g, scope: :group), g]}
+      f.input :description, as: :text, input_html: {rows: 3}
+      f.input :extra, as: :text, input_html: {rows: 3}
+      f.input :embed, as: :text, input_html: {rows: 3}
+    end
+
+    f.has_many :questions, header: 'Services and activities' do |g|
+      unless g.object.new_record?
+        g.input :_destroy, as: :boolean
+      end
+      g.input :title
+      g.input :description, as: :text, input_html: {rows: 3}
+      g.input :extra, as: :text, input_html: {rows: 3}
+      g.input :widget, collection: Question::WIDGETS.map{|w| [t(w, scope: :widget), w]}
+      g.input :options_as_list, as: :text, input_html: {rows: 5}
+      g.input :default_value, input_html: {size: 8}
+      g.input :minimum_units, input_html: {size: 8}
+      g.input :maximum_units, input_html: {size: 8}
+      g.input :step, input_html: {size: 8}
+      g.input :unit_name, input_html: {size: 20}
+      g.input :unit_amount, as: :string, input_html: {size: 8}
+      g.input :required
+      g.input :position, as: :hidden
+    end
+    f.actions
+  end
 
   show do
     attributes_table do
