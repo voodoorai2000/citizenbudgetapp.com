@@ -5,6 +5,7 @@ module FormtasticBootstrap
     default_hint_class = 'help-inline'
     default_inline_error_class = 'help-inline'
 
+    # Add bootstrap_action_class_name.
     def action_class(as)
       @input_classes_cache ||= {}
       @input_classes_cache[as] ||= begin
