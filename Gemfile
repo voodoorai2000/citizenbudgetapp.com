@@ -17,13 +17,14 @@ end
 gem 'girl_friday'
 
 # Database
-# 3.0.0rc doesn't include https://github.com/mongoid/mongoid/issues/2129
+# 3.0.0rc doesn't include https://github.com/mongoid/mongoid/issues/2129 https://github.com/mongoid/mongoid/pull/2175
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 
 # Admin
+gem 'formtastic', '2.2.1'
+# 0.4.4 is buggy
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
-# 0.0.1 doesn't support Mongoid 3 and elia isn't merging my pull requests fast enough
-gem 'activeadmin-mongoid', git: 'git://github.com/jpmckinney/activeadmin-mongoid.git'
+gem 'activeadmin-mongoid', '~> 0.0.2.jpmckinney.0'
 gem 'devise'
 gem 'mustache'
 gem 'cancan'

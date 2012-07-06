@@ -1,13 +1,13 @@
 GIT
   remote: git://github.com/gregbell/active_admin.git
-  revision: 69a29f8ac464d6e713c5ba9518e350bfe3bd994d
+  revision: ffef502ed2be8dc47f24d650e1727fcccbc296d7
   specs:
     activeadmin (0.4.4)
       arbre (>= 1.0.0.rc4)
       bourbon (>= 1.0.0)
       devise (>= 1.1.2)
       fastercsv
-      formtastic (~> 2.1.1)
+      formtastic (>= 2.0.0)
       inherited_resources (>= 1.3.1)
       jquery-rails (>= 1.0.0)
       kaminari (>= 0.13.0)
@@ -25,22 +25,12 @@ GIT
       mongoid (~> 3.0.0.rc)
 
 GIT
-  remote: git://github.com/jpmckinney/activeadmin-mongoid.git
-  revision: 023c14bf963763f8c8bbc7eb494d8ccb16e47b96
-  specs:
-    activeadmin-mongoid (0.0.1)
-      activeadmin (~> 0.4)
-      meta_search (>= 1.1.0.pre)
-      mongoid (>= 2.0)
-      sass-rails (~> 3.1, >= 3.1.4)
-
-GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 9084fa8857fb4fc3747232cb12ed53011522d09d
+  revision: 21d194b91d33ffd6d8d88882fed82ec5ffc0ab33
   specs:
     mongoid (3.0.0.rc)
       activemodel (~> 3.1)
-      moped (~> 1.1.0)
+      moped (~> 1.1.1)
       origin (~> 1.0.3)
       tzinfo (~> 0.3.22)
 
@@ -60,6 +50,11 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.3)
+    activeadmin-mongoid (0.0.2.jpmckinney.0)
+      activeadmin (~> 0.4)
+      meta_search (>= 1.1.0.pre)
+      mongoid (>= 2.0)
+      sass-rails (~> 3.1, >= 3.1.4)
     activemodel (3.2.6)
       activesupport (= 3.2.6)
       builder (~> 3.0.0)
@@ -122,8 +117,8 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.3)
-    formtastic (2.1.1)
-      actionpack (~> 3.0)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     girl_friday (0.9.7)
       connection_pool (~> 0.1.0)
     haml (3.1.6)
@@ -168,7 +163,7 @@ GEM
       activesupport (~> 3.1)
       polyamorous (~> 0.5.0)
     mime-types (1.19)
-    moped (1.1.0)
+    moped (1.1.1)
     multi_json (1.3.6)
     multipart-post (1.1.5)
     mustache (0.99.4)
@@ -262,7 +257,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  activeadmin-mongoid!
+  activeadmin-mongoid (~> 0.0.2.jpmckinney.0)
   airbrake
   cancan
   carrierwave-mongoid!
@@ -271,6 +266,7 @@ DEPENDENCIES
   devise
   faraday
   fog
+  formtastic (= 2.2.1)
   girl_friday
   haml-rails
   heroku
