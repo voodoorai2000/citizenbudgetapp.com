@@ -76,7 +76,7 @@ ActiveAdmin.register Section do
         s.embed.html_safe if s.embed?
       end
       row :questions do |s|
-        ul(class: can?(:update, q) ? 'sortable' : '') do
+        ul(class: can?(:update, s) ? 'sortable' : '') do
           s.questions.each do |q|
             li(id: dom_id(q)) do
               if can?(:update, q)

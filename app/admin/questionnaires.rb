@@ -61,7 +61,7 @@ ActiveAdmin.register Questionnaire do
         end
       end
       row :sections do |q|
-        ul(class: can?(:update, s) ? 'sortable' : '') do
+        ul(class: can?(:update, q) ? 'sortable' : '') do
           q.sections.each do |s|
             li(id: dom_id(s)) do
               if can?(:update, s)
