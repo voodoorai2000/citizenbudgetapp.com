@@ -17,7 +17,7 @@
       = link_to '×', '#', 'data-dismiss' => 'alert', 'class' => 'close'
       = flash[:notice]
   - else
-    .alert#invitation
+    .alert.invitation
       =t('.invitation', url: root_path).html_safe
 
   %p=t '.share'
@@ -51,7 +51,7 @@
   = render @questionnaire
 
   - unless flash[:notice]
-    .alert#invitation
+    .alert.invitation
       =t('.invitation', url: root_path).html_safe
 
   = render 'footer'
