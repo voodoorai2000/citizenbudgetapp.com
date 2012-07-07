@@ -17,6 +17,7 @@ class Questionnaire
   field :description, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
+  field :time_zone, type: String
   field :introduction, type: String
   field :domain, type: String
   field :reply_to, type: String
@@ -31,6 +32,7 @@ class Questionnaire
 
   validates_presence_of :title, :organization_id
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
+  validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validates_length_of :twitter_share_text, maximum: 140, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
