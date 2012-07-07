@@ -50,6 +50,36 @@ class Questionnaire
     domain && any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
+  # Returns the number of responses by date in the local time zone.
+  def count_by_date
+    # new Date() always parses the date into the current time zone. getTime()
+    # returns the number of milliseconds since epoch. getTimezoneOffset()
+    # returns the offset in minutes. In case we can't assume that MongoDB is
+    # running in UTC, we add the local time zone offset.
+    responses.map_reduce(%Q{
+      function () {
+        var date = new Date(this.created_at.getTime() + this.created_at.getTimezoneOffset() * 60000 + #{offset} * 1000);
+        emit({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}, {count: 1});
+      }
+    }, %Q{
+      function (key, values) {
+        var result = {count: 0};
+        values.forEach(function (value) {
+          result.count += value.count;
+        });
+        return result;
+      }
+    }).out(inline: true)
+  end
+
+  def offset
+    if time_zone?
+      Time.now.in_time_zone(time_zone).utc_offset # respects DST
+    else
+      0
+    end
+  end
+
   def find_question(question)
     questions.find do |q|
       q.id.to_s == question.id.to_s
