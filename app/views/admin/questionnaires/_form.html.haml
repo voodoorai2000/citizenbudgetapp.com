@@ -12,7 +12,7 @@
     -# @todo see https://github.com/justinfrench/formtastic/pull/866
     = f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
     = f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
-    = f.input :time_zone, priority_zones: /US & Canada/, include_blank: true
+    = f.input :time_zone, priority_zones: /US & Canada/, model: TimeZoneI18n, include_blank: true
     = f.input :introduction, as: :text
     = f.input :domain, input_html: {size: 20}
     = f.input :google_analytics, input_html: {size: 15}

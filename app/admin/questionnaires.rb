@@ -14,7 +14,9 @@ ActiveAdmin.register Questionnaire do
     column :ends_at do |q|
       l(q.ends_at, format: :short) if q.ends_at?
     end
-    column :time_zone
+    column :time_zone do |q|
+      TimeZoneI18n[q.time_zone].human if q.time_zone?
+    end
     column :sections do |q|
       link_to_if can?(:read, Section), q.sections.count, [:admin, q, :sections]
     end
@@ -42,7 +44,9 @@ ActiveAdmin.register Questionnaire do
       row :ends_at do |q|
         l(q.ends_at, format: :long) if q.ends_at?
       end
-      row :time_zone
+      row :time_zone do |q|
+        TimeZoneI18n[q.time_zone].human if q.time_zone?
+      end
       row :introduction do |q|
         RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
       end
