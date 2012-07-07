@@ -41,14 +41,14 @@
                       - if q.widget == 'checkboxes'
                         = label_tag nil, class: 'checkbox' do
                           - if @response.persisted?
-                            = check_box_tag "#{q.id}[]", option, @response.answer(q).include?(option)
+                            = check_box_tag "#{q.id}[]", option, @response.answer(q).include?(option), disabled: true
                           - else
                             = check_box_tag "#{q.id}[]", option
                           = option
                       - elsif q.widget == 'radio'
                         = label_tag nil, class: 'radio' do
                           - if @response.persisted?
-                            = radio_button_tag q.id, option, @response.answer(q) == option
+                            = radio_button_tag q.id, option, @response.answer(q) == option, disabled: true
                           - else
                             = radio_button_tag q.id, option
                           = option
