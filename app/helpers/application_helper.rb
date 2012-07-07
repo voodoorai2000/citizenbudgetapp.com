@@ -5,6 +5,7 @@ module ApplicationHelper
     semantic_form_for record_or_name_or_array, options, &proc
   end
 
+  # Facebook uses underscores in locale identifiers (as do Unix systems).
   def system_locale
     locale.to_s.sub('-', '_')
   end
