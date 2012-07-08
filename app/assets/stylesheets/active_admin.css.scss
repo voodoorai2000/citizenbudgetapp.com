@@ -28,21 +28,6 @@
 // .admin_namespace    applies to the admin namespace (eg: /admin)
 // .other_namespace    applies to a custom namespace named other (eg: /other)
 
-// Hide
-#batch_actions_selector {
-  display: none;
-}
-
-.speakerdeck-iframe {
-  width: 350px !important;
-  height: 332px !important; // 8.5 x 11 (US Letter) aspect ratio plus 62
-}
-
-// Formtastic class
-.fragment {
-  display: inline;
-}
-
 body.active_admin {
   form {
     // Override
@@ -90,8 +75,22 @@ body.active_admin {
     box-shadow: none;
   }
 
+  // Fix labels on check boxes, etc.
   .choices-group label {
     font-weight: normal;
+  }
+
+  // Override
+  .panel {
+    .panel_contents {
+      padding: 3px 11px 11px 11px;
+      h4 {
+        font-size: 1em;
+        font-weight: bold;
+        line-height: 1.5em;
+        margin-bottom: 1em;
+      }
+    }
   }
 
   .sortable {
@@ -102,13 +101,30 @@ body.active_admin {
   }
 }
 
+// Hide
+#batch_actions_selector {
+  display: none;
+}
+
+// Fix form input height
+#questionnaire_remove_logo_input {
+  height: auto;
+}
+
+// Formtastic class
+.fragment {
+  display: inline;
+}
+
+// SpeakerDeck integration
+.speakerdeck-iframe {
+  width: 350px !important;
+  height: 332px !important; // 8.5 x 11 (US Letter) aspect ratio plus 62
+}
+
 .block-errors {
   color: $error-color;
   font-weight: bold;
-}
-
-#questionnaire_remove_logo_input {
-  height: auto;
 }
 
 // Bootstrap

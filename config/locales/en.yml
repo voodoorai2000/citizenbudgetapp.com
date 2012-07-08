@@ -64,6 +64,12 @@ en:
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-6 # citizenbudget.com
 
+  admin:
+    questionnaires:
+      questionnaire:
+        chart:
+          title: Responses per day (%{count} total)
+          format: MMM d
   questionnaires:
     questionnaire:
       read_more: Learn more
@@ -71,7 +77,6 @@ en:
       view_media: View media
       view_media_tip: Click to view media
       your_choice: Your choice
-
   responses:
     new:
       instructions: Change an activity to start

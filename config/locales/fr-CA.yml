@@ -61,6 +61,12 @@ fr-CA:
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-7 # budgetcitoyen.com
 
+  admin:
+    questionnaires:
+      questionnaire:
+        chart:
+          title: Nombre de soumissions par jour (%{count} totales)
+          format: d MMM
   questionnaires:
     questionnaire:
       read_more: En savoir plus
@@ -68,7 +74,6 @@ fr-CA:
       view_media: Consultez le contenu média
       view_media_tip: Cliquez pour consulter le contenu média
       your_choice: Votre choix
-
   responses:
     new:
       instructions: Modifiez une activité pour commencer.

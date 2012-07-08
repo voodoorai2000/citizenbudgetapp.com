@@ -1,4 +1,33 @@
-%li
+%h4
   = auto_link questionnaire.organization
   –
   = auto_link questionnaire
+
+-# https://developers.google.com/chart/interactive/docs/gallery/linechart
+-# Google Charts intelligently inserts zero-values for missing dates in the time series.
+-# @todo Translate Google Charts dates.
+:javascript
+  google.setOnLoadCallback(function () {
+    var data = new google.visualization.DataTable();
+    data.addColumn('date');
+    data.addColumn('number');
+    data.addRows([#{questionnaire.count_by_date.map{|x| %([
+      new Date(#{x['_id']['year']}, #{x['_id']['month'] - 1}, #{x['_id']['day']}),
+      #{x['value']['count']}
+    ])}.join(',')}]);
+    new google.visualization.LineChart(document.getElementById('#{dom_id(questionnaire)}')).draw(data, {
+      chartArea: {
+        left: 15
+      },
+      backgroundColor: '#f4f4f4',
+      gridlineColor: '#f4f4f4',
+      hAxis: {
+        baselineColor: '#f4f4f4',
+        format: '#{t '.chart.format'}'
+      },
+      legend: 'none',
+      title: "#{t '.chart.title', count: questionnaire.responses.count}"
+    });
+  });
+
+%div(id="#{dom_id(questionnaire)}" style="width: 550px; height: 275px;")
