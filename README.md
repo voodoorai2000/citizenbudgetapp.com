@@ -21,6 +21,8 @@ To get the values of these constants and enable related functionality, follow th
 * [Google Analytics](http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html#register) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key and client ID.
 * Automatically configure [Heroku](https://api.heroku.com/account) to serve a consultation's custom domain. Go to your Heroku account page to get your API key. `HEROKU_APP` is the name of your Heroku app (the part before `.herokuapp.com`).
 
+You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.
+
 To copy a development database to production, run (replace placeholders):
 
     mongodump -h localhost -d citizen_budget_development -o dump-dir
