@@ -30,6 +30,8 @@ class Questionnaire
   field :twitter_share_text, type: String
   field :facebook_app_id, type: String
 
+  index domain: 1
+
   validates_presence_of :title, :organization_id
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
@@ -42,15 +44,19 @@ class Questionnaire
   before_validation :sanitize_domain
   before_save :add_domain
 
-  scope :active, where(:starts_at.ne => nil, :ends_at.ne => nil, :starts_at.lte => Time.now, :ends_at.gte => Time.now)
+  scope :current, where(:starts_at.ne => nil, :ends_at.ne => nil, :starts_at.lte => Time.now, :ends_at.gte => Time.now)
   scope :future, where(:starts_at.ne => nil, :starts_at.gt => Time.now)
   scope :past, where(:ends_at.ne => nil, :ends_at.lt => Time.now)
+  scope :active, where(:ends_at.ne => nil, :ends_at.gt => Time.now)
 
+  # @param [String] a domain name
+  # @return [Questionnaire,nil] a questionnaire whose domain name matches
+  # @note No two active questionnaires should have the same domain.
   def self.find_by_domain(domain)
-    domain && any_in(domain: [domain, sanitize_domain(domain)]).first
+    domain && active.any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
-  # Returns the number of responses by date in the local time zone.
+  # @return [Integer] the number of responses by date in the local time zone
   def count_by_date
     # new Date() always parses the date into the current time zone. getTime()
     # returns the number of milliseconds since epoch. getTimezoneOffset()
@@ -72,7 +78,7 @@ class Questionnaire
     }).out(inline: true)
   end
 
-  # Returns the median time to complete the questionnaire.
+  # @return [Integer] the median number of seconds to complete the questionnaire
   def time_to_complete
     times = responses.map{|response|
       response.created_at - response.initialized_at
@@ -92,26 +98,18 @@ class Questionnaire
     (Date.today - starts_at.to_date).to_i
   end
 
+  # @return [Integer] the time zone offset in seconds
+  # @note If the consultation crosses a clock shift, the offset will be
+  #   incorrect for the final days of the consultation.
   def offset
-    if time_zone?
-      Time.now.in_time_zone(time_zone).utc_offset # respects DST
+    if starts_at? && time_zone?
+      starts_at.in_time_zone(time_zone).utc_offset # respects DST
     else
       0
     end
   end
 
-  def find_question(question)
-    questions.find do |q|
-      q.id.to_s == question.id.to_s
-    end
-  end
-
-  def find_question_by_id(id)
-    questions.find do |q|
-      q.id.to_s == id
-    end
-  end
-
+  # @return [Array] all questions from every section
   def questions
     sections.reduce([]) do |memo,section|
       memo + section.questions
@@ -122,7 +120,7 @@ class Questionnaire
     domain? && "http://#{domain}"
   end
 
-  def active?
+  def current?
     starts_at? && ends_at? && starts_at < Time.now && Time.now < ends_at
   end
 
@@ -134,6 +132,7 @@ class Questionnaire
     ends_at? && ends_at < Time.now
   end
 
+  # @return [Float] the largest surplus possible
   def maximum_amount
     sections.reduce(0) do |sum,section|
       sum + section.questions.reduce(0) do |sum,q|
@@ -146,6 +145,7 @@ class Questionnaire
     end
   end
 
+  # @return [Float] the largest deficit possible
   def minimum_amount
     sections.reduce(0) do |sum,section|
       sum + section.questions.reduce(0) do |sum,q|
@@ -202,6 +202,7 @@ private
     end
   end
 
+  # Adds the questionnaire's domain to the app's custom domains list on Heroku.
   def add_domain
     if domain_changed?
       domains = HerokuClient.list_domains

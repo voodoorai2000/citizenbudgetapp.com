@@ -10,7 +10,7 @@ en:
   # Active Admin dashboard
   site_title: Citizen Budget
   dashboard: Dashboard
-  active_consultations: Active consultations
+  current_consultations: Current consultations
   future_consultations: Future consultations
   past_consultations: Past consultations
 
@@ -65,8 +65,8 @@ en:
       google_analytics: UA-21866813-6 # citizenbudget.com
 
   admin:
-    questionnaires:
-      questionnaire:
+    dashboard:
+      current:
         chart:
           title: Responses per day
           format: MMM d

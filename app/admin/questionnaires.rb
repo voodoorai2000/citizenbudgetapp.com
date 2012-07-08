@@ -1,5 +1,5 @@
 ActiveAdmin.register Questionnaire do
-  scope :active
+  scope :current
   scope :future
   scope :past
 
