@@ -10,11 +10,17 @@ class Bitly
     end
 
     # Shortens a URL.
+    # @param [String] a url
+    # @return [String] a short url
     # @see http://dev.bitly.com/links.html#v3_shorten
     def shorten(url)
-      begin
-        client.get('/v3/shorten', longUrl: url, login: ENV['BITLY_LOGIN'], apiKey: ENV['BITLY_API_KEY']).body['data']['url']
-      rescue
+      if ENV['BITLY_API_KEY'] && ENV['BITLY_LOGIN']
+        begin
+          client.get('/v3/shorten', longUrl: url, login: ENV['BITLY_LOGIN'], apiKey: ENV['BITLY_API_KEY']).body['data']['url']
+        rescue # @todo Add exception class.
+          url
+        end
+      else
         url
       end
     end

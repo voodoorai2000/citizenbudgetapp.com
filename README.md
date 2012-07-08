@@ -1,6 +1,6 @@
 ## Deployment
 
-Create a new app on Heroku (replace placeholders):
+Create a new Cedar app on Heroku (replace placeholders):
 
     heroku create -s cedar --addons sendgrid:starter mongolab:starter memcache:5mb newrelic:standard
     heroku config:add SECRET_TOKEN=`bundle exec rake secret`
@@ -8,12 +8,18 @@ Create a new app on Heroku (replace placeholders):
     heroku config:add AWS_SECRET_ACCESS_KEY=REPLACE_ME
     heroku config:add BITLY_API_KEY=REPLACE_ME
     heroku config:add BITLY_LOGIN=REPLACE_ME
+    heroku config:add GOOGLE_ANALYTICS_API_KEY=REPLACE_ME
+    heroku config:add GOOGLE_ANALYTICS_CLIENT_ID=REPLACE_ME
     heroku config:add HEROKU_API_KEY=REPLACE_ME
     heroku config:add HEROKU_APP=REPLACE_ME
 
-If you change any assets, you need to recompile them and add them to Git:
+This app by default uses SendGrid to send emails, MongoLab for its database, Memcache for caching, and New Relic for monitoring. We recommend that you set up alerting and [availability monitoring](https://newrelic.com/docs/features/availability-monitoring-faq) in New Relic.
 
-    RAILS_ENV=production bundle exec rake assets:precompile
+To get the values of these constants and enable related functionality, follow the following links:
+* In production, this app stores uploads on [Amazon S3](http://aws.amazon.com/s3/). Sign up to get your access and secret keys.
+* [Bitly](http://bitly.com/a/your_api_key/) shortens URLs to make it easier for consultation participants to share links to their responses. Sign up to get an API key and login.
+* [Google Analytics](http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html#register) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key and client ID.
+* Automatically configure [Heroku](https://api.heroku.com/account) to serve a consultation's custom domain. Go to your Heroku account page to get your API key. `HEROKU_APP` is the name of your Heroku app (the part before `.herokuapp.com`).
 
 To copy a development database to production, run (replace placeholders):
 
@@ -45,6 +51,14 @@ To copy a production database to development, run (replace placeholders):
     rm -f dump-dir/MONGOLAB_DB/system.*
     mongorestore -h localhost -d citizen_budget_development --drop dump-dir/*
 
+If you change any assets, you need to recompile them and add them to Git:
+
+    RAILS_ENV=production bundle exec rake assets:precompile
+    git add public/assets
+    git commit -a -m 'precompile assets'
+
+Rails will cache the assets for some time. To expire all the assets, change the value of `config.assets.version` in `config/application.rb` before precompiling.
+
 ## Troubleshooting
 
 * If you are getting New Relic-related exceptions when starting the Rails server or console, run `gem uninstall psych -a`.
@@ -57,7 +71,7 @@ For minimum uncertainty, use the same version of Ruby (1.9.3-p194) and Bundler (
 
 ### Gotchas
 
-* `Mongoid::Paranoia` on embedded documents seems to be buggy. If a deleted embedded document is invalid, it will cause saving the parent to fail.
+* `Mongoid::Paranoia` on embedded documents seems to be buggy. If a deleted embedded document is invalid, it will cause saving the parent to fail. This occurred before upgrading to Mongoid 3.
 * Unless you nest an embedded document, you will raise `Access to the collection for COLLECTION is not allowed since it is an embedded document, please access a collection from the root document.`
 
 ## Known issues

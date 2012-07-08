@@ -231,5 +231,7 @@ private
         end
       end
     end
+  rescue HerokuClient::ConfigurationError
+    true
   end
 end

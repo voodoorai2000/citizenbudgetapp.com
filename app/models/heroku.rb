@@ -1,12 +1,19 @@
 class HerokuClient
+  class ConfigurationError < StandardError; end
+
   class << self
     # @return [Faraday::Connection] an HTTP client
+    # @raises [ConfigurationError] unless configuration variables are set
     def client
-      Faraday.new 'https://api.heroku.com', headers: {'Accept' => 'application/json'} do |builder|
-        builder.request :url_encoded
-        builder.request :basic_auth, nil, ENV['HEROKU_API_KEY']
-        builder.response :json
-        builder.adapter :net_http
+      if ENV['HEROKU_API_KEY'] && ENV['HEROKU_APP']
+        Faraday.new 'https://api.heroku.com', headers: {'Accept' => 'application/json'} do |builder|
+          builder.request :url_encoded
+          builder.request :basic_auth, nil, ENV['HEROKU_API_KEY']
+          builder.response :json
+          builder.adapter :net_http
+        end
+      else
+        raise ConfigurationError
       end
     end
 
