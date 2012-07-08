@@ -25,6 +25,7 @@ class Section
     read_attribute(:position) || _index
   end
 
+  # @return [Boolean] whether all questions are survey questions
   def survey?
     questions.all? do |question|
       question.survey?

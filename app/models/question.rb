@@ -15,7 +15,7 @@ class Question
   field :title, type: String
   field :description, type: String
   field :options, type: Array
-  # @note default_value needs to be cast before use
+  # @note default_value needs to be cast before use.
   field :default_value
   field :required, type: Boolean
 
@@ -47,6 +47,8 @@ class Question
 
   default_scope asc(:position)
 
+  # @note Check boxes and radio buttons are currently used for survey questions,
+  #   but that's not necessarily the case.
   def survey?
     %w(checkboxes radio).include? widget
   end
@@ -61,12 +63,14 @@ class Question
     %w(checkbox onoff).include?(widget) && default_value.to_f == 0
   end
 
+  # @return [Float] the maximum value of the widget
   def maximum_amount
     if %w(checkbox onoff slider).include? widget
       (maximum_units - default_value.to_f) * unit_amount
     end
   end
 
+  # @return [Float] the minimum value of the widget
   def minimum_amount
     if %w(checkbox onoff slider).include? widget
       (minimum_units - default_value.to_f) * unit_amount

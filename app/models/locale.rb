@@ -6,6 +6,7 @@ class Locale
   }
 
   class << self
+    # @todo Remove once https://github.com/gregbell/active_admin/pull/1470 is merged.
     def available_locales
       LOCALES.keys
     end

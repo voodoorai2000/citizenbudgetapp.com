@@ -35,15 +35,18 @@ class Response
   validates_numericality_of :age, only_integer: true, greater_than: 0, allow_blank: true
 =end
 
+  # @return [Float] the time to submit the response in seconds
   def time_to_complete
     persisted? && created_at - initialized_at
   end
 
+  # @param [Question] a question
+  # @return the answer to the question
   def answer(question)
     answers[question.id.to_s] || question.default_value
   end
 
-  # @returns [String] the first name and last name initial
+  # @returns [String] the full first name and last name initial
   def display_name
     if name?
       parts = name.strip.split(' ', 2)
