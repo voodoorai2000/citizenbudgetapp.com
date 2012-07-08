@@ -26,8 +26,21 @@
         format: '#{t '.chart.format'}'
       },
       legend: 'none',
-      title: "#{t '.chart.title', count: questionnaire.responses.count}"
+      title: "#{t '.chart.title'}"
     });
   });
+
+.attributes_table
+  %table
+    %tbody
+      %tr
+        %th=t '.table.days_header'
+        %td=t '.table.days', count: (Date.today - questionnaire.starts_at.to_date).to_i
+      %tr
+        %th=t '.table.responses_header'
+        %td=t '.table.responses', count: questionnaire.responses.count
+      %tr
+        %th=t '.table.time_to_complete_header'
+        %td= distance_of_time_in_words questionnaire.time_to_complete
 
 %div(id="#{dom_id(questionnaire)}" style="width: 550px; height: 275px;")

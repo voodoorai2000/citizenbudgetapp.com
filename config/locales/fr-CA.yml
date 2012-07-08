@@ -65,8 +65,18 @@ fr-CA:
     questionnaires:
       questionnaire:
         chart:
-          title: Nombre de soumissions par jour (%{count} totales)
+          title: Nombre de soumissions par jour
           format: d MMM
+        table:
+          days_header: Jours écoulés
+          days:
+            one: un jour
+            other: "%{count} jours"
+          responses_header: Nombre de soumissions
+          responses:
+            one: une réponse
+            other: "%{count} réponses"
+          time_to_complete_header: Temps médian requis
   questionnaires:
     questionnaire:
       read_more: En savoir plus

@@ -72,6 +72,26 @@ class Questionnaire
     }).out(inline: true)
   end
 
+  # Returns the median time to complete the questionnaire.
+  def time_to_complete
+    times = responses.map{|response|
+      response.created_at - response.initialized_at
+    }.sort
+
+    middle = times.size / 2
+
+    if times.size.odd?
+      times[middle]
+    else
+      (times[middle - 1] + times[middle]) / 2.0
+    end
+  end
+
+  # @return [Integer] the number of days elapsed
+  def days_elapsed
+    (Date.today - starts_at.to_date).to_i
+  end
+
   def offset
     if time_zone?
       Time.now.in_time_zone(time_zone).utc_offset # respects DST

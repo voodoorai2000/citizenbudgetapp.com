@@ -3,7 +3,7 @@ ActiveAdmin.register Questionnaire do
   scope :future
   scope :past
 
-  index do
+  index :download_links => false do
     column :title
     column :organization do |q|
       auto_link q.organization

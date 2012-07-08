@@ -68,8 +68,18 @@ en:
     questionnaires:
       questionnaire:
         chart:
-          title: Responses per day (%{count} total)
+          title: Responses per day
           format: MMM d
+        table:
+          days_header: Days elapsed
+          days:
+            one: one day
+            other: "%{count} days"
+          responses_header: Number of submissions
+          responses:
+            one: one submission
+            other: "%{count} submissions"
+          time_to_complete_header: Median time to complete
   questionnaires:
     questionnaire:
       read_more: Learn more
