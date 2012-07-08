@@ -25,6 +25,7 @@ class Questionnaire
 
   # Third-party integration.
   field :google_analytics, type: String
+  field :google_analytics_profile, type: String
   field :twitter_screen_name, type: String
   field :twitter_text, type: String
   field :twitter_share_text, type: String

@@ -80,6 +80,7 @@ en:
             one: one submission
             other: "%{count} submissions"
           time_to_complete_header: Median time to complete
+        google_analytics: Authorize Google Analytics
   questionnaires:
     questionnaire:
       read_more: Learn more
@@ -127,6 +128,7 @@ en:
         description: This will be displayed on search engine results pages.
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
+        google_analytics_profile: If you use Google Analytics.
         twitter_text: The default tweet for sharing the budget consultation.
         twitter_share_text: The default tweet for sharing an individual's responses.
         facebook_app_id: If you have a Facebook app for this domain name.
@@ -183,6 +185,7 @@ en:
         introduction: Introductory text
         domain: Domain name
         google_analytics: Google Analytics tracking code
+        google_analytics_profile: Google Analytics profile ID
         twitter_screen_name: Twitter screen name
         twitter_text: Tweet text
         twitter_share_text: Tweet text

@@ -51,6 +51,7 @@ ActiveAdmin.register Questionnaire do
         link_to(q.domain, q.domain_url) if q.domain?
       end
       row :google_analytics
+      row :google_analytics_profile
       row :twitter_screen_name
       row :twitter_text
       row :twitter_share_text

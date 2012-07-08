@@ -77,6 +77,7 @@ fr-CA:
             one: une réponse
             other: "%{count} réponses"
           time_to_complete_header: Temps médian requis
+      google_analytics: Autorisez Google Analytics
   questionnaires:
     questionnaire:
       read_more: En savoir plus
@@ -124,6 +125,7 @@ fr-CA:
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         domain: Vous devez pointer vos DNS sur nos serveurs.
         google_analytics: Si vous utilisez Google Analytics.
+        google_analytics_profile: Si vous utilisez Google Analytics.
         twitter_text: Le texte du Tweet pour partager la consultation.
         twitter_share_text: Le texte du Tweet pour partager les responses d'un participant.
         facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine
@@ -618,6 +620,7 @@ fr-CA:
         introduction: Texte de présentation
         domain: Nom de domaine
         google_analytics: Code de suivi Google Analytics
+        google_analytics_profile: Identifiant de profil Google Analytics
         twitter_screen_name: Nom d'écran Twitter
         twitter_text: Texte du Tweet
         twitter_share_text: Texte du Tweet
