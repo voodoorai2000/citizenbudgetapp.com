@@ -9,6 +9,7 @@ class Questionnaire
   belongs_to :organization, index: true
   embeds_many :sections
   has_many :responses
+  embeds_one :google_api_authorization
   mount_uploader :logo, LogoUploader
 
   field :title, type: String
