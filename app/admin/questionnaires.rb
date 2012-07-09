@@ -4,16 +4,22 @@ ActiveAdmin.register Questionnaire do
   scope :past
 
   action_item only: :show do
+    if resource.domain? && google_client.authorized?
+      link_to t('.link_google_analytics'), link_google_analytics_admin_questionnaire_path(resource)
+    end
+  end
+
+  action_item only: :show do
     if resource.domain?
       if google_client.authorized?
-        link_to t('.link_google_analytics'), google_analytics_admin_questionnaire_path(resource)
+        link_to t('.deauthorize_google_api'), deauthorize_google_api_admin_questionnaire_path(resource)
       else
-        link_to t('.authorize_google_analytics'), google_client.authorization_uri(resource_url)
+        link_to t('.authorize_google_api'), google_client.authorization_uri(resource_url)
       end
     end
   end
 
-  member_action :google_analytics do
+  member_action :link_google_analytics do
     if resource.domain?
       if google_client.authorized?
         begin
@@ -21,20 +27,35 @@ ActiveAdmin.register Questionnaire do
           profile = data.items.find{|item| Questionnaire.sanitize_domain(item.name) == resource.domain}
           if profile
             resource.update_attributes google_analytics: profile.webPropertyId, google_analytics_profile: profile.id
-            flash[:notice] = t(:google_analytics_success, property: profile.webPropertyId)
+            flash[:notice] = t(:link_google_analytics_success, property: profile.webPropertyId)
           else
-            flash[:error] = t(:google_analytics_failure, username: data.username)
+            flash[:error] = t(:link_google_analytics_failure, username: data.username)
           end
         rescue GoogleClient::AccessRevokedError
+          current_admin_user.delete_token!
           flash[:error] = t(:oauth_failure)
         end
       else
-        flash[:error] = t(:google_analytics_unauthorized)
+        flash[:error] = t(:link_google_analytics_unauthorized)
       end
     else
-      flash[:error] = t(:google_analytics_blank_domain)
+      flash[:error] = t(:link_google_analytics_blank_domain)
     end
-    redirect_to resource_url
+    redirect_to resource_path
+  end
+
+  member_action :deauthorize_google_api do
+    begin
+      if google_client.revoke!
+        current_admin_user.delete_token!
+        flash[:notice] = t(:deauthorize_google_api_success)
+      else
+        flash[:error] = t(:deauthorize_google_api_failure)
+      end
+    rescue MissingRefreshToken
+      flash[:error] = t(:deauthorize_google_api_blank_token)
+    end
+    redirect_to resource_path
   end
 
   index :download_links => false do

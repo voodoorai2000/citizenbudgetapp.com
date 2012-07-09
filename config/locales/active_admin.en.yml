@@ -3,7 +3,8 @@ en:
     resource:
       show:
         link_google_analytics: Link Google Analytics
-        authorize_google_analytics: Authorize Google Analytics
+        authorize_google_api: Authorize Google Analytics
+        deauthorize_google_api: Deauthorize Google Analytics
 
     dashboard: Dashboard
     dashboard_welcome:

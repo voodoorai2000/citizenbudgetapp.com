@@ -1,13 +1,14 @@
 fr-CA:
   active_admin:
+    resource:
+      show:
+        link_google_analytics: Lier Analytics
+        authorize_google_api: Autoriser accès à Google Analytics
+        deauthorize_google_api: Révoquer accès
     scopes:
       current: Actuelles
       future: Futures
       past: Passées
-    resource:
-      show:
-        link_google_analytics: Lier Google Analytics
-        authorize_google_analytics: Autoriser accès à Google Analytics
 
     dashboard: Tableau de bord # "Tableau de Bord"
     dashboard_welcome:

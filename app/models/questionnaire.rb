@@ -24,8 +24,8 @@ class Questionnaire
   field :thank_you_template, type: String
 
   # Third-party integration.
-  field :google_analytics, type: String
-  field :google_analytics_profile, type: String
+  field :google_analytics, type: String # tracking code
+  field :google_analytics_profile, type: String # table ID
   field :twitter_screen_name, type: String
   field :twitter_text, type: String
   field :twitter_share_text, type: String

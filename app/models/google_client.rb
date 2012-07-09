@@ -2,6 +2,7 @@
 class GoogleClient
   class ConfigurationError < StandardError; end
   class AccessRevokedError < StandardError; end
+  class MissingRefreshToken < StandardError; end
 
   attr_reader :client
 
@@ -19,7 +20,6 @@ class GoogleClient
   end
 
   # @return whether the client is authorized
-  # @todo make sure this is false if access was revoked
   def authorized?
     client.authorization.access_token && !client.authorization.expired?
   end
@@ -40,9 +40,21 @@ class GoogleClient
     client.authorization.fetch_access_token!
   end
 
+  # Revokes access.
+  # @return [Boolean] if the revocation was successful
+  # @raises [MissingRefreshToken] if no refresh token
+  # @see https://developers.google.com/accounts/docs/OAuth2WebServer#tokenrevoke
+  def revoke!
+    if client.authorization.refresh_token
+      Faraday.get('https://accounts.google.com/o/oauth2/revoke', token: client.authorization.refresh_token).status == 200
+    else
+      raise MissingRefreshToken
+    end
+  end
+
   # Resets the token.
   def unauthorize!
-    client.update_token! access_token: nil, refresh_token: nil, expires_in: nil, issued_at: nil
+    client.authorization.update_token! access_token: nil, refresh_token: nil, expires_in: nil, issued_at: nil
   end
 
   # Ensures the client has a fresh access token.
