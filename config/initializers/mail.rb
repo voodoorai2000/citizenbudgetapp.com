@@ -1,4 +1,4 @@
-# https://devcenter.heroku.com/articles/sendgrid
+# @see https://devcenter.heroku.com/articles/sendgrid
 ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.sendgrid.net',
   :port           => '587',

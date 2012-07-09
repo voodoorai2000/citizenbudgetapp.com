@@ -37,7 +37,9 @@ class Ability
       # Can always read questionnaires that user owns.
       can :read, Questionnaire, :_id.in => user.organization.questionnaire_ids
 
-      # Embedded documents pose a problem for CanCan. Must do loading and authorization manually.
+      # CanCan has trouble with embedded documents, so we may need to load and
+      # authorize resources manually. In this case, we do not scope which
+      # sections a user can read.
       # @see https://github.com/ryanb/cancan/issues/319
       can :read, Section
     end

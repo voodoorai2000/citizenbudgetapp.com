@@ -10,7 +10,7 @@ class Bitly
     end
 
     # Shortens a URL.
-    # @param [String] a url
+    # @param [String] url a url
     # @return [String] a short url
     # @see http://dev.bitly.com/links.html#v3_shorten
     def shorten(url)

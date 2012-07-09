@@ -86,7 +86,7 @@ $ ->
     else
       x * (27 + x * x) / (27 + 9 * x * x)
 
-  # https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L231
+  # @see https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L231
   number_with_delimiter = (number) ->
     parts = Math.round(parseFloat(number)).toString().split '.'
     parts[0] = parts[0].replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'

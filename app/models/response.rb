@@ -40,7 +40,7 @@ class Response
     persisted? && created_at - initialized_at
   end
 
-  # @param [Question] a question
+  # @param [Question] question a question
   # @return the answer to the question
   def answer(question)
     answers[question.id.to_s] || question.default_value

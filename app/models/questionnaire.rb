@@ -50,7 +50,7 @@ class Questionnaire
   scope :past, where(:ends_at.ne => nil, :ends_at.lt => Time.now)
   scope :active, where(:ends_at.ne => nil, :ends_at.gt => Time.now)
 
-  # @param [String] a domain name
+  # @param [String] domain a domain name
   # @return [Questionnaire,nil] a questionnaire whose domain name matches
   # @note No two active questionnaires should have the same domain.
   def self.find_by_domain(domain)

@@ -2,7 +2,7 @@ class HerokuClient
   class ConfigurationError < StandardError; end
 
   class << self
-    # @return [Faraday::Connection] an HTTP client
+    # @return [Faraday::Connection] an HTTP client for the Heroku API
     # @raises [ConfigurationError] unless configuration variables are set
     def client
       if ENV['HEROKU_API_KEY'] && ENV['HEROKU_APP']
