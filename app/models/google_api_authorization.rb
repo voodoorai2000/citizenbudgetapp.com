@@ -1,7 +1,7 @@
 # http://code.google.com/p/google-api-ruby-client/wiki/OAuth2
 # @note Using a JavaScript client, it's impossible for users belonging to the
 # same organization to share access to Google Analytics data.
-class GoogleAPIAuthorization
+class GoogleApiAuthorization
   include Mongoid::Document
 
   class CodeExchangeError < StandardError; end
@@ -22,14 +22,14 @@ class GoogleAPIAuthorization
     self.class.configured?
   end
 
-  # @return [GoogleClient] a Google API client
+  # @return [Google::APIClient] a Google API client
   def client
     @client ||= begin
       client = Google::APIClient.new
       client.authorization.client_id = ENV['GOOGLE_CLIENT_ID']
       client.authorization.client_secret = ENV['GOOGLE_CLIENT_SECRET']
       client.authorization.scope = 'https://www.googleapis.com/auth/analytics.readonly'
-      client.authorization.redirect_uri = GOOGLE_API_REDIRECT_URI
+      client.authorization.redirect_uri = ENV['GOOGLE_REDIRECT_URI']
       client.authorization.update_token! token
       client
     end

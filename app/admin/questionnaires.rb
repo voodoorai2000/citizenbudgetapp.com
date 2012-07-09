@@ -22,7 +22,7 @@ ActiveAdmin.register Questionnaire do
   member_action :link_google_analytics, method: :post do
     if resource.google_api_authorization.authorized? && resource.domain?
       begin
-        data = google_client.profiles
+        data = resource.google_api_authorization.profiles
         profile = data.items.find{|item| Questionnaire.sanitize_domain(item.name) == resource.domain}
         if profile
           resource.update_attributes google_analytics: profile.webPropertyId, google_analytics_profile: profile.id
@@ -30,9 +30,9 @@ ActiveAdmin.register Questionnaire do
         else
           flash[:error] = t(:link_google_analytics_failure, username: data.username)
         end
-      rescue GoogleAPIAuthorization::AccessRevokedError
+      rescue GoogleApiAuthorization::AccessRevokedError
         flash[:error] = t('google_api.access_revoked')
-      rescue GoogleAPIAuthorization::APIError
+      rescue GoogleApiAuthorization::APIError
         flash[:error] = t('google_api.api_error')
       end
     end # fails silently if conditions before clicking the button fail
