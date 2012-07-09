@@ -16,19 +16,25 @@ fr-CA:
   example_name: Monsieur Untel
 
   # Google API
-  oauth_failure: Impossible de s'authentifier auprès de l'API Google.
-  oauth_code_exchange_failure: Impossible d'obtenir un jeton d'accès de l'API Google.
+  google_api:
+    authentication_error: Impossible de s'authentifier auprès de l'API Google.
+    code_exchange_error: Impossible d'obtenir un jeton d'accès de l'API Google.
+    no_authorization_code: Aucun code d'autorisation n'a été reçu de l'API Google.
+    no_state: Aucun paramètre d'état n'a été reçu de l'API Google.
+    not_authorized: L'accès à vos données Google Analytics n'est pas autorisé.
+    not_configured: Ce système n'est pas configuré pour Google Analytics. S'il vous plaît contactez votre administrateur.
+    access_revoked: S'il vous plaît réautorisez l'accès à vos données Google Analytics et réessayez.
+    api_error: Une erreur s'est produite lors d'un appel à l'API Google. S'il vous plaît essayez de nouveau.
+
+  # Google API actions
   authorize_google_api: Autoriser l'accès à vos données Google Analytics
   deauthorize_google_api: Interdire l'accès à vos données Google Analytics
-  deauthorize_google_api_success: L'accès à votre compte Google Analytics a été révoqué.
-  deauthorize_google_api_failure: Une erreur s'est produite. S'il vous plaît essayez de nouveau.
-  deauthorize_google_api_blank_token: Impossible de révoquer l'accès à votre compte Google Analytics. S'il vous plaît contactez votre administrateur.
+  deauthorize_google_api_success: L'accès à vos données Google Analytics a été interdit.
+
+  # Google Analytics actions
   link_google_analytics: Lier votre compte Google Analytics
-  relink_google_analytics: Relier votre compte Google Analytics
   link_google_analytics_success: "Le profil Google Analytics %{property} est maintenant associé à votre consultation."
   link_google_analytics_failure: "Impossible de trouver un nom de domaine correspondant dans le compte Google Analytics de %{username}."
-  link_google_analytics_unauthorized: S'il vous plaît réautorisez l'accès à votre compte Google Analytics et réessayez.
-  link_google_analytics_blank_domain: Vous devez définir un nom de domaine avant de lier Google Analytics.
 
   questionnaire:
     untitled: Untitled
@@ -90,7 +96,6 @@ fr-CA:
             one: une réponse
             other: "%{count} réponses"
           time_to_complete_header: Temps médian requis
-        authorize: Autorisez l'accès à vos données Google Analytics
   questionnaires:
     questionnaire:
       read_more: En savoir plus

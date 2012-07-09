@@ -1,24 +1,34 @@
 class PagesController < ApplicationController
   caches_action :channel, :not_found
 
+  def oauth2callback
+    if params[:state]
+      questionnaire = Questionnaire.find(params[:state])
+      if params[:code]
+        if resource.google_api_authorization.configured?
+          begin
+            resource.google_api_authorization.redeem_authorization_code! params[:code]
+          rescue GoogleAPIAuthorization::CodeExchangeError
+            flash[:error] = t('google_api.code_exchange_error')
+          end
+        else
+          flash[:error] = t('google_api.not_configured')
+        end
+      elsif params[:error]
+        flash[:error] = t('google_api.authentication_error')
+      else
+        flash[:error] = t('google_api.no_authorization_code')
+      end
+      redirect_to [:admin, questionnaire]
+    else
+      flash[:error] = t('google_api.no_state')
+      redirect_to admin_root_path
+    end
+  end
+
   def channel
     expires_in 1.hour, public: true
     render layout: false
-  end
-
-  def oauth2callback
-    if params[:code]
-      begin
-        google_client.authorize! params[:code]
-        # Save the refresh token, so that we can get fresh tokens later.
-        current_admin_user.update_token! google_client.authorization
-      rescue Signet::AuthorizationError # code exchange failure
-        flash[:error] = t(:oauth_code_exchange_failure)
-      end
-    elsif params[:error]
-      flash[:error] = t(:oauth_failure)
-    end
-    redirect_to params[:state] || admin_root_path
   end
 
   def not_found

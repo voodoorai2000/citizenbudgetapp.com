@@ -4,39 +4,58 @@ ActiveAdmin.register Questionnaire do
   scope :past
 
   action_item only: :show do
-    if resource.domain? && google_client.authorized?
-      if resource.google_analytics? && resource.google_analytics_profile?
-        name = t(:relink_google_analytics)
-      else
-        name = t(:link_google_analytics)
-      end
-      link_to name, link_google_analytics_admin_questionnaire_path(resource)
+    if resource.google_api_authorization.authorized? && resource.domain?
+      link_to t(:link_google_analytics), link_google_analytics_admin_questionnaire_path(resource), method: :post
     end
   end
 
-  member_action :link_google_analytics do
-    if resource.domain?
-      if google_client.authorized?
-        begin
-          data = google_client.profiles
-          profile = data.items.find{|item| Questionnaire.sanitize_domain(item.name) == resource.domain}
-          if profile
-            resource.update_attributes google_analytics: profile.webPropertyId, google_analytics_profile: profile.id
-            flash[:notice] = t(:link_google_analytics_success, property: profile.webPropertyId)
-          else
-            flash[:error] = t(:link_google_analytics_failure, username: data.username)
-          end
-        rescue GoogleClient::AccessRevokedError
-          current_admin_user.delete_token!
-          flash[:error] = t(:oauth_failure)
-        end
+  action_item only: :show do
+    if resource.google_api_authorization.configured?
+      if resource.google_api_authorization.authorized?
+        link_to t(:deauthorize_google_api), deauthorize_google_api_admin_questionnaire_path(resource), method: :post
       else
-        flash[:error] = t(:link_google_analytics_unauthorized)
+        link_to t(:authorize_google_api), resource.google_api_authorization.authorization_uri(resource.id)
       end
-    else
-      flash[:error] = t(:link_google_analytics_blank_domain)
     end
+  end
+
+  member_action :link_google_analytics, method: :post do
+    if resource.google_api_authorization.authorized? && resource.domain?
+      begin
+        data = google_client.profiles
+        profile = data.items.find{|item| Questionnaire.sanitize_domain(item.name) == resource.domain}
+        if profile
+          resource.update_attributes google_analytics: profile.webPropertyId, google_analytics_profile: profile.id
+          flash[:notice] = t(:link_google_analytics_success, property: profile.webPropertyId)
+        else
+          flash[:error] = t(:link_google_analytics_failure, username: data.username)
+        end
+      rescue GoogleAPIAuthorization::AccessRevokedError
+        flash[:error] = t('google_api.access_revoked')
+      rescue GoogleAPIAuthorization::APIError
+        flash[:error] = t('google_api.api_error')
+      end
+    end # fails silently if conditions before clicking the button fail
     redirect_to resource_path
+  end
+
+  member_action :deauthorize_google_api, method: :post do
+    if resource.google_api_authorization.authorized?
+      if resource.google_api_authorization.revoke_refresh_token!
+        flash[:notice] = t(:deauthorize_google_api_success)
+      else
+        flash[:error] = t('google_api.api_error')
+      end
+    end # fails silently if conditions before clicking the button fail
+    redirect_to resource_path
+  end
+
+  member_action :sort, method: :post do
+    authorize! :update, resource
+    resource.sections.each do |s|
+      s.update_attribute :position, params[:section].index(s.id.to_s)
+    end
+    render nothing: true, status: 204
   end
 
   index download_links: false do
@@ -117,13 +136,5 @@ ActiveAdmin.register Questionnaire do
         '@todo https://github.com/gregbell/active_admin/pull/1479'
       end
     end
-  end
-
-  member_action :sort, method: :post do
-    authorize! :update, resource
-    resource.sections.each do |s|
-      s.update_attribute :position, params[:section].index(s.id.to_s)
-    end
-    render nothing: true, status: 204
   end
 end

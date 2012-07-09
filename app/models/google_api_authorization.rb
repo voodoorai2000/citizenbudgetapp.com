@@ -5,6 +5,7 @@ class GoogleAPIAuthorization
   include Mongoid::Document
 
   class CodeExchangeError < StandardError; end
+  class AccessRevokedError < StandardError; end
   class APIError < StandardError; end
 
   embedded_in :questionnaire
@@ -36,7 +37,7 @@ class GoogleAPIAuthorization
 
   # @return [Boolean] whether the client is authorized
   def authorized?
-    !!client.authorization.access_token
+    configured? && !!client.authorization.access_token
   end
 
   # @param [String] state any string
@@ -120,7 +121,6 @@ private
 
   # Ensures the client has a fresh access token.
   #
-  # @note If access is revoked while the token is fresh, no exception is raised.
   # @see https://github.com/sporkmonger/signet/blob/master/lib/signet/oauth_2/client.rb#L157
   # @see https://github.com/sporkmonger/signet/blob/master/lib/signet/oauth_2/client.rb#L581
   def refresh_access_token!
@@ -158,8 +158,11 @@ private
     update_attribute :token, {}
   end
 
+  # Executes an API call from an authorized client.
+  #
   # @param [Hash] params
   # @return a data object
+  # @raises [AccessRevokedError] if access was revoked
   # @raises [Google::APIClient::ClientError] if a client error occurred
   # @raises [APIError] if a server or transmission error occurred
   # @see https://developers.google.com/apis-explorer/#p/analytics/v3/
@@ -167,7 +170,11 @@ private
   # @note Default max-results is 1000, which we are unlikely to exceed.
   def execute!(params)
     refresh_access_token!
-    client.execute!(params).data if authorized? # in case refresh fails
+    if authorized?
+      client.execute!(params).data
+    else
+      raise AccessRevokedError
+    end
   rescue Google::APIClient::ServerError, Google::APIClient::TransmissionError
     raise APIError
   end
