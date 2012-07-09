@@ -1,13 +1,11 @@
 :javascript
-  google.load('visualization', '1', {packages: ['corechart'], language: '#{iso639_locale}'});
+  google.load('visualization', '1', {packages: ['corechart', 'table'], language: '#{iso639_locale}'});
 
-- if current_admin_user.questionnaires.active.count.nonzero?
-  .panel
-    %h3=t :active_consultations
-    .panel_contents
-      = render current_admin_user.questionnaires.active
-- if current_admin_user.questionnaires.future.count.nonzero?
+- if @questionnaires.current.count.nonzero?
+  = render partial: 'current', collection: current_admin_user.questionnaires.current, as: :questionnaire
+- if @questionnaires.future.count.nonzero?
   .panel
     %h3=t :future_consultations
     .panel_contents
-      = render current_admin_user.questionnaires.future
+      %ul
+        = render partial: 'future', collection: current_admin_user.questionnaires.future, as: :questionnaire

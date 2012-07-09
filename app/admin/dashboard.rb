@@ -1,28 +1,58 @@
 # coding: utf-8
 ActiveAdmin.register_page 'Dashboard' do
-  controller.before_filter :set_locale
   menu priority: 1, label: proc{ I18n.t :dashboard }
+  controller.before_filter :set_locale # @see https://github.com/gregbell/active_admin/issues/1489
 
-  action_item do
-    if google_client.authorized?
-      link_to t(:deauthorize_google_api), admin_dashboard_deauthorize_google_api_path
-    else
-      link_to t(:authorize_google_api), google_client.authorization_uri(resource_url)
-    end
-  end
-
-  page_action :deauthorize_google_api do
-    begin
-      if google_client.revoke!
-        current_admin_user.delete_token!
-        flash[:notice] = t(:deauthorize_google_api_success)
-      else
-        flash[:error] = t(:deauthorize_google_api_failure)
+  controller do
+    def index
+      @charts = {}
+      @questionnaires = current_admin_user.questionnaires
+      @questionnaires.current.each do |q|
+        @charts[q.id.to_s] = {
+          # Google Charts needs a Date object, so we can't use #to_json.
+          # JavaScript months start counting from zero.
+          responses: q.count_by_date.map{
+            |row| %([#{date_to_js(row['_id'])}, #{row['value']['count']}])
+          }.join(',')
+        }
+        if q.started? && q.google_analytics_profile? && q.google_api_authorization.authorized?
+          begin
+            # http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html
+            # http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/demos/set-demo.html
+            data = q.google_api_authorization.reports({
+              'ids'        => q.google_analytics_profile,
+              'start-date' => q.starts_at - 3.days,
+              'end-date'   => [Time.now, q.ends_at].min,
+              'metrics'    => 'ga:visitors,ga:visits,ga:pageviews',
+              'dimensions' => 'ga:date',
+              'sort'       => 'ga:date',
+            })
+            @charts[q.id.to_s][:visits] = {
+              name: Questionnaire.sanitize_domain(data.profileInfo['profileName']),
+              property: data.profileInfo['webPropertyId'],
+              visitors: data.totalsForAllResults['ga:visitors'],
+              visits: data.totalsForAllResults['ga:visits'],
+              pageviews: data.totalsForAllResults['ga:pageviews'],
+              data: data.rows.map{|row|
+                %([#{date_to_js(Date.parse(row[0]))}, #{row[1]}, #{row[2]}, #{row[3]}])
+              }.join(','),
+            }
+          rescue GoogleApiAuthorization::AccessRevokedError, GoogleApiAuthorization::APIError
+            # Omit the chart if there's an error.
+          end
+        end
       end
-    rescue MissingRefreshToken
-      flash[:error] = t(:deauthorize_google_api_blank_token)
     end
-    redirect_to admin_root_path
+
+  protected
+
+    def date_to_js(date)
+      if Hash === date
+        %(new Date(#{date['year']}, #{date['month'] - 1}, #{date['day']}))
+      else # Date, Time or DateTime
+        %(new Date(#{date.year}, #{date.month - 1}, #{date.day}))
+      end
+    end
   end
 
   content title: proc{ I18n.t :dashboard } do

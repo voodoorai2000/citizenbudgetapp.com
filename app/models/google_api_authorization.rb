@@ -44,7 +44,7 @@ class GoogleApiAuthorization
   # @return [String] an authorization URI
   # @see https://developers.google.com/accounts/docs/OAuth2WebServer#formingtheurl
   def authorization_uri(state = '')
-    client.authorization.authorization_uri(state: state).to_s
+    client.authorization.authorization_uri(state: state.to_s).to_s
   end
 
   # Redeems an authorization code to obtain an access token.
@@ -85,20 +85,17 @@ class GoogleApiAuthorization
   # @see https://developers.google.com/analytics/devguides/reporting/core/v3/
   # @see https://developers.google.com/analytics/devguides/reporting/core/dimsmets
   def reports(parameters = {})
+    parameters.stringify_keys!
     # Prepend "ga:" to the table ID if absent.
     if parameters['ids'] && parameters['ids'][/\A\d+\z/]
       parameters['ids'] = "ga:#{parameters['ids']}"
     end
-    # Set default start and end dates, matching Google Analytics behavior.
-    {'start-date' => 1.month.ago, 'end-date' => Date.today}.each do |parameter,default|
-      parameters[parameter] = default unless parameters.key?(parameter)
-    end
     # Allow passing a Time, Date or DateTime.
-    %(start-date end-date).each do |parameter|
+    %w(start-date end-date).each do |parameter|
       parameters[parameter] = parameters[parameter].strftime '%Y-%m-%d' unless String === parameters[parameter]
     end
     # Allow passing an Array.
-    %(metrics dimensions).each do |parameter|
+    %w(metrics dimensions sort).each do |parameter|
       if Array === parameters[parameter]
         parameters[parameter] = parameters[parameter].map{|value|
           value[':'] ? value : "ga:#{value}"

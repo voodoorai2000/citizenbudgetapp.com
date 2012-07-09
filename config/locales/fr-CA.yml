@@ -14,6 +14,8 @@ fr-CA:
   new_section: Ajouter une section à votre consultation
   new_question: Ajouter une  question à cette section
   example_name: Monsieur Untel
+  # http://userguide.icu-project.org/formatparse/datetime
+  icu_date_format: d MMM
 
   # Google API
   google_api:
@@ -27,12 +29,12 @@ fr-CA:
     api_error: Une erreur s'est produite lors d'un appel à l'API Google. S'il vous plaît essayez de nouveau.
 
   # Google API actions
-  authorize_google_api: Autoriser l'accès à vos données Google Analytics
-  deauthorize_google_api: Interdire l'accès à vos données Google Analytics
+  authorize_google_api: Autoriser l'accès à Google Analytics # Autoriser l'accès à vos données Google Analytics
+  deauthorize_google_api: Interdire Google Analytics # Interdire l'accès à vos données Google Analytics
   deauthorize_google_api_success: L'accès à vos données Google Analytics a été interdit.
 
   # Google Analytics actions
-  link_google_analytics: Lier votre compte Google Analytics
+  link_google_analytics: Lier Google Analytics # Lier votre compte Google Analytics
   link_google_analytics_success: "Le profil Google Analytics %{property} est maintenant associé à votre consultation."
   link_google_analytics_failure: "Impossible de trouver un nom de domaine correspondant dans le compte Google Analytics de %{username}."
 
@@ -84,8 +86,12 @@ fr-CA:
     dashboard:
       current:
         chart:
-          title: Nombre de soumissions par jour
-          format: d MMM
+          responses_title: Nombre de soumissions par jour
+          visits_title: "Fréquentation de %{name} (%{property})"
+          responses: Soumissions
+          visitors: Visiteurs
+          visits: Visites
+          pageviews: Pages vues
         table:
           days_header: Jours écoulés
           days:
@@ -96,6 +102,9 @@ fr-CA:
             one: une réponse
             other: "%{count} réponses"
           time_to_complete_header: Temps médian requis
+          visitors_header: Visiteurs
+          visits_header: Visites
+          pageviews_header: Pages vues
   questionnaires:
     questionnaire:
       read_more: En savoir plus

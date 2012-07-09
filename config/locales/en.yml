@@ -17,6 +17,8 @@ en:
   new_section: Add a section to your consultation
   new_question: Add a question to this section
   example_name: John Doe
+  # http://userguide.icu-project.org/formatparse/datetime
+  icu_date_format: MMM d
 
   # Google API errors
   google_api:
@@ -87,8 +89,12 @@ en:
     dashboard:
       current:
         chart:
-          title: Responses per day
-          format: MMM d
+          responses_title: Responses per day
+          visits_title: "Traffic to %{name} (%{property})"
+          responses: Responses
+          visitors: Visitors
+          visits: Visits
+          pageviews: Pageviews
         table:
           days_header: Days elapsed
           days:
@@ -99,6 +105,9 @@ en:
             one: one submission
             other: "%{count} submissions"
           time_to_complete_header: Median time to complete
+          visitors_header: Visitors
+          visits_header: Visits
+          pageviews_header: Pageviews
   questionnaires:
     questionnaire:
       read_more: Learn more

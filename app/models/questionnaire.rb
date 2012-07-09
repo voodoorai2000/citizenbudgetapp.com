@@ -49,7 +49,7 @@ class Questionnaire
   scope :current, where(:starts_at.ne => nil, :ends_at.ne => nil, :starts_at.lte => Time.now, :ends_at.gte => Time.now)
   scope :future, where(:starts_at.ne => nil, :starts_at.gt => Time.now)
   scope :past, where(:ends_at.ne => nil, :ends_at.lt => Time.now)
-  scope :active, where(:ends_at.ne => nil, :ends_at.gt => Time.now)
+  scope :active, where(:ends_at.ne => nil, :ends_at.gte => Time.now)
 
   # @param [String] domain a domain name
   # @return [Questionnaire,nil] a questionnaire whose domain name matches
@@ -123,11 +123,19 @@ class Questionnaire
   end
 
   def current?
-    starts_at? && ends_at? && starts_at < Time.now && Time.now < ends_at
+    starts_at? && ends_at? && starts_at <= Time.now && Time.now <= ends_at
   end
 
   def future?
-    starts_at? && Time.now < starts_at
+    starts_at? && starts_at > Time.now
+  end
+
+  def started?
+    starts_at? && starts_at <= Time.now
+  end
+
+  def active?
+    ends_at? && ends_at >= Time.now
   end
 
   def past?

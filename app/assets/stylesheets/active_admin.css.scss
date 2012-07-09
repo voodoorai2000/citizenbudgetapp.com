@@ -100,6 +100,12 @@ body.active_admin {
   }
 }
 
+body.admin_dashboard {
+  table {
+    width: 250px;
+  }
+}
+
 // Hide
 #batch_actions_selector {
   display: none;

@@ -5,9 +5,9 @@ class PagesController < ApplicationController
     if params[:state]
       questionnaire = Questionnaire.find(params[:state])
       if params[:code]
-        if resource.google_api_authorization.configured?
+        if questionnaire.google_api_authorization.configured?
           begin
-            resource.google_api_authorization.redeem_authorization_code! params[:code]
+            questionnaire.google_api_authorization.redeem_authorization_code! params[:code]
           rescue GoogleAPIAuthorization::CodeExchangeError
             flash[:error] = t('google_api.code_exchange_error')
           end

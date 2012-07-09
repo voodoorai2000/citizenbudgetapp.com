@@ -1,0 +1,66 @@
+-# Google Charts adds null values for missing dates in the time series.
+-# https://developers.google.com/chart/interactive/docs/gallery/linechart
+:javascript
+  draw('#{dom_id(questionnaire)}_responses', [
+    "#{t '.chart.responses'}"
+  ], [#{@charts[questionnaire.id.to_s][:responses]}], {
+    hAxis: {
+      baselineColor: '#f4f4f4',
+      format: '#{t :icu_date_format}'
+    },
+    legend: 'none',
+    title: "#{t '.chart.responses_title'}"
+  });
+- if @charts[questionnaire.id.to_s][:visits]
+  :javascript
+    draw('#{dom_id(questionnaire)}_visits', [
+      "#{t '.chart.visitors'}",
+      "#{t '.chart.visits'}",
+      "#{t '.chart.pageviews'}"
+    ], [#{@charts[questionnaire.id.to_s][:visits][:data]}], {
+      hAxis: {
+        baselineColor: '#f4f4f4',
+        format: '#{t :icu_date_format}'
+      },
+      title: "#{t '.chart.visits_title', name: @charts[questionnaire.id.to_s][:visits][:name], property: @charts[questionnaire.id.to_s][:visits][:property]}"
+    });
+
+.panel
+  %h3
+    = auto_link questionnaire.organization
+    –
+    = auto_link questionnaire
+  .panel_contents
+    .columns.clearfix
+      .column
+        .attributes_table
+          %table
+            %tbody
+              %tr
+                %th=t '.table.days_header'
+                %td=t '.table.days', count: (Date.today - questionnaire.starts_at.to_date).to_i
+              %tr
+                %th=t '.table.responses_header'
+                %td=t '.table.responses', count: questionnaire.responses.count
+              %tr
+                %th=t '.table.time_to_complete_header'
+                %td= distance_of_time_in_words questionnaire.time_to_complete
+      .column
+        %div(id="#{dom_id(questionnaire)}_responses" style="width:700px;height:250px;")
+    - if @charts[questionnaire.id.to_s][:visits]
+      .columns.clearfix
+        .column
+          .attributes_table
+            %table
+              %tbody
+                %tr
+                  %th=t '.table.visitors_header'
+                  %td= @charts[questionnaire.id.to_s][:visits][:visitors]
+                %tr
+                  %th=t '.table.visits_header'
+                  %td= @charts[questionnaire.id.to_s][:visits][:visits]
+                %tr
+                  %th=t '.table.pageviews_header'
+                  %td= @charts[questionnaire.id.to_s][:visits][:pageviews]
+        .column
+          %div(id="#{dom_id(questionnaire)}_visits" style="width:700px;height:250px;")
