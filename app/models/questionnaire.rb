@@ -205,7 +205,7 @@ private
 
   # Adds the questionnaire's domain to the app's custom domains list on Heroku.
   def add_domain
-    if domain_changed?
+    if HerokuClient.configured? && domain_changed?
       domains = HerokuClient.list_domains
 
       if domain_was.present?
@@ -232,7 +232,5 @@ private
         end
       end
     end
-  rescue HerokuClient::ConfigurationError
-    true
   end
 end

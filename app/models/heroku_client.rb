@@ -1,20 +1,8 @@
-class HerokuClient
-  class ConfigurationError < StandardError; end
-
+class HerokuClient # avoid clash with heroku gem
   class << self
-    # @return [Faraday::Connection] an HTTP client for the Heroku API
-    # @raises [ConfigurationError] unless configuration variables are set
-    def client
-      if ENV['HEROKU_API_KEY'] && ENV['HEROKU_APP']
-        Faraday.new 'https://api.heroku.com', headers: {'Accept' => 'application/json'} do |builder|
-          builder.request :url_encoded
-          builder.request :basic_auth, nil, ENV['HEROKU_API_KEY']
-          builder.response :json
-          builder.adapter :net_http
-        end
-      else
-        raise ConfigurationError
-      end
+    # @return [Boolean] whether configuration variables are set
+    def configured?
+      ENV['HEROKU_API_KEY'] && ENV['HEROKU_APP']
     end
 
     # Lists the domain names associated to the Heroku app.
@@ -38,6 +26,18 @@ class HerokuClient
         client.delete("/apps/#{ENV['HEROKU_APP']}/domains/#{domain}").body == {}
       rescue MultiJson::DecodeError
         false
+      end
+    end
+
+  private
+
+    # @return [Faraday::Connection] an HTTP client for the Heroku API
+    def client
+      Faraday.new 'https://api.heroku.com', headers: {'Accept' => 'application/json'} do |builder|
+        builder.request :url_encoded
+        builder.request :basic_auth, nil, ENV['HEROKU_API_KEY']
+        builder.response :json
+        builder.adapter :net_http
       end
     end
   end
