@@ -5,17 +5,12 @@ ActiveAdmin.register Questionnaire do
 
   action_item only: :show do
     if resource.domain? && google_client.authorized?
-      link_to t('.link_google_analytics'), link_google_analytics_admin_questionnaire_path(resource)
-    end
-  end
-
-  action_item only: :show do
-    if resource.domain?
-      if google_client.authorized?
-        link_to t('.deauthorize_google_api'), deauthorize_google_api_admin_questionnaire_path(resource)
+      if resource.google_analytics? && resource.google_analytics_profile?
+        name = t(:relink_google_analytics)
       else
-        link_to t('.authorize_google_api'), google_client.authorization_uri(resource_url)
+        name = t(:link_google_analytics)
       end
+      link_to name, link_google_analytics_admin_questionnaire_path(resource)
     end
   end
 
@@ -44,21 +39,7 @@ ActiveAdmin.register Questionnaire do
     redirect_to resource_path
   end
 
-  member_action :deauthorize_google_api do
-    begin
-      if google_client.revoke!
-        current_admin_user.delete_token!
-        flash[:notice] = t(:deauthorize_google_api_success)
-      else
-        flash[:error] = t(:deauthorize_google_api_failure)
-      end
-    rescue MissingRefreshToken
-      flash[:error] = t(:deauthorize_google_api_blank_token)
-    end
-    redirect_to resource_path
-  end
-
-  index :download_links => false do
+  index download_links: false do
     column :title
     column :organization do |q|
       auto_link q.organization

@@ -14,15 +14,21 @@ fr-CA:
   new_section: Ajouter une section à votre consultation
   new_question: Ajouter une  question à cette section
   example_name: Monsieur Untel
+
+  # Google API
   oauth_failure: Impossible de s'authentifier auprès de l'API Google.
   oauth_code_exchange_failure: Impossible d'obtenir un jeton d'accès de l'API Google.
+  authorize_google_api: Autoriser l'accès à vos données Google Analytics
+  deauthorize_google_api: Interdire l'accès à vos données Google Analytics
+  deauthorize_google_api_success: L'accès à votre compte Google Analytics a été révoqué.
+  deauthorize_google_api_failure: Une erreur s'est produite. S'il vous plaît essayez de nouveau.
+  deauthorize_google_api_blank_token: Impossible de révoquer l'accès à votre compte Google Analytics. S'il vous plaît contactez votre administrateur.
+  link_google_analytics: Lier votre compte Google Analytics
+  relink_google_analytics: Relier votre compte Google Analytics
   link_google_analytics_success: "Le profil Google Analytics %{property} est maintenant associé à votre consultation."
   link_google_analytics_failure: "Impossible de trouver un nom de domaine correspondant dans le compte Google Analytics de %{username}."
   link_google_analytics_unauthorized: S'il vous plaît réautorisez l'accès à votre compte Google Analytics et réessayez.
   link_google_analytics_blank_domain: Vous devez définir un nom de domaine avant de lier Google Analytics.
-  deauthorize_google_api_success: L'accès à votre compte Google Analytics a été révoqué.
-  deauthorize_google_api_failure: Une erreur s'est produite. S'il vous plaît essayez de nouveau.
-  deauthorize_google_api_blank_token: Impossible de révoquer l'accès à votre compte Google Analytics. S'il vous plaît contactez votre administrateur.
 
   questionnaire:
     untitled: Untitled

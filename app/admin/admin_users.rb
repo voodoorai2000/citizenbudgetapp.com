@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  index :download_links => false do
+  index download_links: false do
     column :email
     column :organization
     column :role do |a|

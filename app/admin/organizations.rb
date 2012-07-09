@@ -1,5 +1,5 @@
 ActiveAdmin.register Organization do
-  index :download_links => false do
+  index download_links: false do
     column :name
     column :questionnaires do |o|
       link_to_if can?(:read, Questionnaire), o.questionnaires.count, [:admin, :questionnaires]

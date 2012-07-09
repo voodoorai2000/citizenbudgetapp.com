@@ -17,15 +17,21 @@ en:
   new_section: Add a section to your consultation
   new_question: Add a question to this section
   example_name: John Doe
+
+  # Google API
   oauth_failure: Couldn't authenticate with the Google API.
   oauth_code_exchange_failure: Couldn't obtain a Google API access token.
+  authorize_google_api: Authorize Google Analytics
+  deauthorize_google_api: Deauthorize Google Analytics
+  deauthorize_google_api_success: Access to your Google Analytics account has been successfully revoked.
+  deauthorize_google_api_failure: An error occurred. Please try again.
+  deauthorize_google_api_blank_token: Couldn't revoke access to your Google Analytics account. Please contact your administrator.
+  link_google_analytics: Link Google Analytics
+  relink_google_analytics: Re-link Google Analytics
   link_google_analytics_success: "The Google Analytics profile %{property} is now linked to your consultation."
   link_google_analytics_failure: "Couldn't find a matching domain in %{username}'s Google Analytics account."
   link_google_analytics_unauthorized: Please re-authorize Google Analytics and try again.
   link_google_analytics_blank_domain: You must set a domain name before linking Google Analytics.
-  deauthorize_google_api_success: Access to your Google Analytics account has been successfully revoked.
-  deauthorize_google_api_failure: An error occurred. Please try again.
-  deauthorize_google_api_blank_token: Couldn't revoke access to your Google Analytics account. Please contact your administrator.
 
   questionnaire:
     untitled: Untitled

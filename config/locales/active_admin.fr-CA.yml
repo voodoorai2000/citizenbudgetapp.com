@@ -1,10 +1,5 @@
 fr-CA:
   active_admin:
-    resource:
-      show:
-        link_google_analytics: Lier Analytics
-        authorize_google_api: Autoriser accès à Google Analytics
-        deauthorize_google_api: Révoquer accès
     scopes:
       current: Actuelles
       future: Futures

@@ -19,7 +19,7 @@ ActiveAdmin.register Section do
     end
   end
 
-  index :download_links => false do
+  index download_links: false do
     column :title
     column :group do |s|
       t(s.group, scope: :group) if s.group?
