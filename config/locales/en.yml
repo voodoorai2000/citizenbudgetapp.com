@@ -95,6 +95,7 @@ en:
           visitors: Visitors
           visits: Visits
           pageviews: Pageviews
+          other: Other
         table:
           days_header: Days elapsed
           days:

@@ -92,6 +92,7 @@ fr-CA:
           visitors: Visiteurs
           visits: Visites
           pageviews: Pages vues
+          other: Autres
         table:
           days_header: Jours écoulés
           days:

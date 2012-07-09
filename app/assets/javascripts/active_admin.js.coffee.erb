@@ -44,17 +44,15 @@ $ ->
 
   $('.has_many.questions fieldset').each setup_fieldset
 
-window.draw = (id, headers, rows, options) ->
+window.draw = (chart_type, id, headers, rows, options) ->
   google.setOnLoadCallback ->
     data = new google.visualization.DataTable()
-    data.addColumn 'date'
+    data.addColumn if chart_type is 'LineChart' then 'date' else 'string'
     data.addColumn('number', header) for header in headers
     data.addRows(rows)
-    new google.visualization.LineChart(document.getElementById(id)).draw data,
+    new google.visualization[chart_type](document.getElementById(id)).draw data,
       $.extend
         backgroundColor: '#f4f4f4'
         curveType: 'function'
         gridlineColor: '#f4f4f4'
-        legend:
-          position: 'bottom'
       , options

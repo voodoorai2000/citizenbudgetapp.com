@@ -17,16 +17,20 @@ ActiveAdmin.register_page 'Dashboard' do
         }
         if q.started? && q.google_analytics_profile? && q.google_api_authorization.authorized?
           begin
-            # http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html
-            # http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/demos/set-demo.html
-            data = q.google_api_authorization.reports({
+            parameters = {
               'ids'        => q.google_analytics_profile,
               'start-date' => q.starts_at - 3.days,
               'end-date'   => [Time.now, q.ends_at].min,
+            }
+
+            # http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html
+            # http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/demos/set-demo.html
+            data = q.google_api_authorization.reports(parameters.merge({
               'metrics'    => 'ga:visitors,ga:visits,ga:pageviews',
               'dimensions' => 'ga:date',
               'sort'       => 'ga:date',
-            })
+            }))
+
             @charts[q.id.to_s][:visits] = {
               name: Questionnaire.sanitize_domain(data.profileInfo['profileName']),
               property: data.profileInfo['webPropertyId'],
@@ -35,6 +39,18 @@ ActiveAdmin.register_page 'Dashboard' do
               pageviews: data.totalsForAllResults['ga:pageviews'],
               data: data.rows.map{|row|
                 %([#{date_to_js(Date.parse(row[0]))}, #{row[1]}, #{row[2]}, #{row[3]}])
+              }.join(','),
+            }
+
+            data = q.google_api_authorization.reports(parameters.merge({
+              'metrics'     => 'ga:visitors',
+              'dimensions'  => 'ga:source',
+              'sort'        => '-ga:visitors',
+            }))
+
+            @charts[q.id.to_s][:sources] = {
+              data: data.rows.map{|row|
+                %(["#{row[0]}", #{row[1]}])
               }.join(','),
             }
           rescue GoogleApiAuthorization::AccessRevokedError, GoogleApiAuthorization::APIError
