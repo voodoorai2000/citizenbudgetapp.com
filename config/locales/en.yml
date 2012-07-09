@@ -7,18 +7,22 @@ en:
   create_response: Thank you for your participation! Your opinion is important to us.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
-  # Active Admin dashboard
+  # Active Admin
   site_title: Citizen Budget
   dashboard: Dashboard
   current_consultations: Current consultations
   future_consultations: Future consultations
   past_consultations: Past consultations
-
-  # Active Admin show
   new_questionnaire: Add a new consultation
   new_section: Add a section to your consultation
   new_question: Add a question to this section
   example_name: John Doe
+  oauth_failure: Couldn't authenticate with the Google API.
+  oauth_code_exchange_failure: Couldn't obtain a Google API access token.
+  google_analytics_success: "The Google Analytics profile %{property} is now linked to your consultation."
+  google_analytics_failure: "Couldn't find a matching domain in %{username}'s Google Analytics account."
+  google_analytics_unauthorized: Please re-authorize Google Analytics and try again.
+  google_analytics_blank_domain: You must set a domain name before linking Google Analytics.
 
   questionnaire:
     untitled: Untitled
@@ -80,7 +84,7 @@ en:
             one: one submission
             other: "%{count} submissions"
           time_to_complete_header: Median time to complete
-        google_analytics: Authorize Google Analytics
+        authorize: Authorize access to your Google Analytics data
   questionnaires:
     questionnaire:
       read_more: Learn more

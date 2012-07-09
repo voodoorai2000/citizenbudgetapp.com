@@ -1,5 +1,10 @@
 en:
   active_admin:
+    resource:
+      show:
+        link_google_analytics: Link Google Analytics
+        authorize_google_analytics: Authorize Google Analytics
+
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the default dashboard page."

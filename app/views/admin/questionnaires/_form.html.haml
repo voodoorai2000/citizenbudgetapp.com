@@ -9,7 +9,7 @@
     = f.input :logo, as: :file
     = f.input :logo_cache, as: :hidden
     = f.input :description, as: :text, input_html: {rows: 3}
-    -# @todo see https://github.com/justinfrench/formtastic/pull/866
+    -# @todo switch to labels: false when Formtastic 2.2.2 released https://github.com/justinfrench/formtastic/pull/866
     = f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
     = f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
     = f.input :time_zone, priority_zones: /US & Canada/, model: TimeZoneI18n, include_blank: true

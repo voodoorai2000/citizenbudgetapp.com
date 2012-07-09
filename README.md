@@ -8,8 +8,9 @@ Create a new Cedar app on Heroku (replace placeholders):
     heroku config:add AWS_SECRET_ACCESS_KEY=REPLACE_ME
     heroku config:add BITLY_API_KEY=REPLACE_ME
     heroku config:add BITLY_LOGIN=REPLACE_ME
-    heroku config:add GOOGLE_ANALYTICS_API_KEY=REPLACE_ME
-    heroku config:add GOOGLE_ANALYTICS_CLIENT_ID=REPLACE_ME
+    heroku config:add GOOGLE_API_KEY=REPLACE_ME
+    heroku config:add GOOGLE_CLIENT_ID=REPLACE_ME
+    heroku config:add GOOGLE_CLIENT_SECRET=REPLACE_ME
     heroku config:add HEROKU_API_KEY=REPLACE_ME
     heroku config:add HEROKU_APP=REPLACE_ME
 
@@ -18,7 +19,7 @@ This app by default uses SendGrid to send emails, MongoLab for its database, Mem
 To get the values of these constants and enable related functionality, follow the following links:
 * In production, this app stores uploads on [Amazon S3](http://aws.amazon.com/s3/). Sign up to get your access and secret keys.
 * [Bitly](http://bitly.com/a/your_api_key/) shortens URLs to make it easier for consultation participants to share links to their responses. Sign up to get an API key and login.
-* [Google Analytics](http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html#register) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key and client ID.
+* [Google Analytics](https://developers.google.com/analytics/resources/tutorials/hello-analytics-api#register_project) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key, client ID and client secret. Remember to give appropriate values for redirect URIs for local development, e.g. `http://localhost:3000/oauth2callback`. Raw IP addresses like `0.0.0.0` are not allowed.
 * Automatically configure [Heroku](https://api.heroku.com/account) to serve a consultation's custom domain. Go to your Heroku account page to get your API key. `HEROKU_APP` is the name of your Heroku app (the part before `.herokuapp.com`).
 
 You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.
@@ -63,6 +64,7 @@ Rails will cache the assets for some time. To expire all the assets, change the 
 
 ## Troubleshooting
 
+* For whatever reason, Active Admin caches `ApplicationController` instance methods in development, requiring a restart to invalidate the cache.
 * If you are getting New Relic-related exceptions when starting the Rails server or console, run `gem uninstall psych -a`.
 * If saving a record fails with no errors shown, it is likely because an association is invalid.
 

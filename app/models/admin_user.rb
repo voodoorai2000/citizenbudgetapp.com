@@ -47,6 +47,7 @@ class AdminUser
 
   field :role, type: String
   field :locale, type: String
+  field :google_token, type: Hash, default: {}
 
   validates_presence_of :role, :locale
   validates_presence_of :organization_id, unless: ->(a){a.role == 'superuser'}
@@ -64,6 +65,24 @@ class AdminUser
     else
       organization && organization.questionnaires
     end
+  end
+
+  # Stores Google API OAuth 2 credentials.
+  # @param [Signet::OAuth2::Client] authorization
+  def update_token!(authorization)
+    update_attribute :google_token, {
+      access_token: authorization.access_token,
+      refresh_token: authorization.refresh_token,
+      # #expired_in and #issued_at are required for Google::APIClient#expired?
+      # @see https://github.com/sporkmonger/signet/blob/master/lib/signet/oauth_2/client.rb#L581
+      expires_in: authorization.expires_in,
+      issued_at: authorization.issued_at,
+    }
+  end
+
+  # Resets the token.
+  def delete_token!
+    update_attribute :google_token, {}
   end
 
   def password_required?

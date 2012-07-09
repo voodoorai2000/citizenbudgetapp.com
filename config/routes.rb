@@ -5,6 +5,7 @@ CitizenBudget::Application.routes.draw do
 
   resources :responses, only: [:new, :create, :show]
   match 'channel' => 'pages#channel', as: :channel, via: :get
+  match 'oauth2callback' => 'pages#oauth2callback', as: :oauth2callback
   root to: 'responses#new'
 
   # The priority is based upon order of creation:

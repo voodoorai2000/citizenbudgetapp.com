@@ -3,6 +3,40 @@ ActiveAdmin.register Questionnaire do
   scope :future
   scope :past
 
+  action_item only: :show do
+    if resource.domain?
+      if google_client.authorized?
+        link_to t('.link_google_analytics'), google_analytics_admin_questionnaire_path(resource)
+      else
+        link_to t('.authorize_google_analytics'), google_client.authorization_uri(resource_url)
+      end
+    end
+  end
+
+  member_action :google_analytics do
+    if resource.domain?
+      if google_client.authorized?
+        begin
+          data = google_client.profiles
+          profile = data.items.find{|item| Questionnaire.sanitize_domain(item.name) == resource.domain}
+          if profile
+            resource.update_attributes google_analytics: profile.webPropertyId, google_analytics_profile: profile.id
+            flash[:notice] = t(:google_analytics_success, property: profile.webPropertyId)
+          else
+            flash[:error] = t(:google_analytics_failure, username: data.username)
+          end
+        rescue GoogleClient::AccessRevokedError
+          flash[:error] = t(:oauth_failure)
+        end
+      else
+        flash[:error] = t(:google_analytics_unauthorized)
+      end
+    else
+      flash[:error] = t(:google_analytics_blank_domain)
+    end
+    redirect_to resource_url
+  end
+
   index :download_links => false do
     column :title
     column :organization do |q|
