@@ -74,7 +74,7 @@ production:
       username: <%= uri.user %>
       password: <%= uri.password %>
       hosts:
-      - <%= uri.host %>:<%= uri.port %>
+      - "<%= uri.host %>:<%= uri.port %>"
     options:
       consistency: :strong
   options:
