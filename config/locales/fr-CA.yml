@@ -100,9 +100,10 @@ fr-CA:
             other: "%{count} jours"
           responses_header: Nombre de soumissions
           responses:
-            one: une réponse
-            other: "%{count} réponses"
+            one: une soumission
+            other: "%{count} soumissions"
           time_to_complete_header: Temps médian requis
+          participation_rate_header: Taux de participation
           visitors_header: Visiteurs
           visits_header: Visites
           pageviews_header: Pages vues

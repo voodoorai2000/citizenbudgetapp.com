@@ -3,7 +3,7 @@
 :javascript
   draw('LineChart', '#{dom_id(questionnaire)}_responses', [
     "#{t '.chart.responses'}"
-  ], [#{@charts[questionnaire.id.to_s][:responses]}], {
+  ], [#{@charts[questionnaire.id.to_s][:responses][:rows]}], {
     hAxis: {
       baselineColor: '#f4f4f4',
       format: '#{t :icu_date_format}'
@@ -19,7 +19,7 @@
       "#{t '.chart.visitors'}",
       "#{t '.chart.visits'}",
       "#{t '.chart.pageviews'}"
-    ], [#{@charts[questionnaire.id.to_s][:visits][:data]}], {
+    ], [#{@charts[questionnaire.id.to_s][:visits][:rows]}], {
       hAxis: {
         baselineColor: '#f4f4f4',
         format: '#{t :icu_date_format}'
@@ -33,9 +33,9 @@
   :javascript
     draw('PieChart', '#{dom_id(questionnaire)}_sources', [
       "#{t '.chart.visitors'}"
-    ], [#{@charts[questionnaire.id.to_s][:sources][:data]}], {
+    ], [#{@charts[questionnaire.id.to_s][:sources][:rows]}], {
       pieResidueSliceLabel: "#{t '.chart.other'}",
-      sliceVisibilityThreshold: 1 / 180
+      sliceVisibilityThreshold: 1 / 90
     });
 .panel
   %h3
@@ -50,13 +50,17 @@
             %tbody
               %tr
                 %th=t '.table.days_header'
-                %td=t '.table.days', count: (Date.today - questionnaire.starts_at.to_date).to_i
+                %td=t '.table.days', count: questionnaire.days_elapsed
               %tr
                 %th=t '.table.responses_header'
-                %td=t '.table.responses', count: questionnaire.responses.count
+                %td=t '.table.responses', count: @charts[questionnaire.id.to_s][:responses][:count]
               %tr
                 %th=t '.table.time_to_complete_header'
                 %td= distance_of_time_in_words questionnaire.time_to_complete
+              - if @charts[questionnaire.id.to_s][:visits]
+                %tr
+                  %th=t '.table.participation_rate_header'
+                  %td= number_to_percentage @charts[questionnaire.id.to_s][:responses][:count] / @charts[questionnaire.id.to_s][:visits][:visitors].to_f * 100, precision: 1
       .column
         %div(id="#{dom_id(questionnaire)}_responses" style="width:600px;height:250px;")
     - if @charts[questionnaire.id.to_s][:visits]

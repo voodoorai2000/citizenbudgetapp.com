@@ -106,6 +106,7 @@ en:
             one: one submission
             other: "%{count} submissions"
           time_to_complete_header: Median time to complete
+          participation_rate_header: Participation rate
           visitors_header: Visitors
           visits_header: Visits
           pageviews_header: Pageviews

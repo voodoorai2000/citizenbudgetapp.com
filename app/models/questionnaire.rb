@@ -99,7 +99,26 @@ class Questionnaire
 
   # @return [Integer] the number of days elapsed
   def days_elapsed
-    (Date.today - starts_at.to_date).to_i
+    (today - starts_on).to_i
+  end
+
+  # @return [Date] the consultation's start date in its time zone
+  def starts_on
+    starts_at.in_time_zone(time_zone).to_date
+  end
+
+  # @return [Date] the consultation's end date in its time zone
+  def ends_on
+    ends_at.in_time_zone(time_zone).to_date
+  end
+
+  # @return [Date] the current date in the consultation's time zone
+  def today
+    if time_zone?
+      Time.now.in_time_zone(time_zone).to_date
+    else
+      Date.today
+    end
   end
 
   # @return [Integer] the time zone offset in seconds

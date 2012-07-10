@@ -53,6 +53,5 @@ window.draw = (chart_type, id, headers, rows, options) ->
     new google.visualization[chart_type](document.getElementById(id)).draw data,
       $.extend
         backgroundColor: '#f4f4f4'
-        curveType: 'function'
         gridlineColor: '#f4f4f4'
       , options
