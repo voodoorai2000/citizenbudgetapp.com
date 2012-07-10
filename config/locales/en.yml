@@ -139,6 +139,11 @@ en:
       product_name: Citizen Budget
       product_url: http://citizenbudget.com/
 
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: Set your Citizen Budget password
+
   formtastic:
     required: required
     placeholders:

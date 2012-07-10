@@ -136,6 +136,11 @@ fr-CA:
       product_name: Budget Citoyen
       product_url: http://budgetcitoyen.com/
 
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: "Budget Citoyen: Choisissez votre mot de passe"
+
   formtastic:
     required: requis
     placeholders:
