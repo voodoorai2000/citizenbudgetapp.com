@@ -84,6 +84,8 @@ class Questionnaire
   def time_to_complete
     times = responses.map{|response|
       response.created_at - response.initialized_at
+    }.select{|time|
+      time < 3600 # if longer than an hour, probably left tab open in background
     }.sort
 
     middle = times.size / 2

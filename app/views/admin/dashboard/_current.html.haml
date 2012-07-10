@@ -58,7 +58,7 @@
                 %th=t '.table.time_to_complete_header'
                 %td= distance_of_time_in_words questionnaire.time_to_complete
       .column
-        %div(id="#{dom_id(questionnaire)}_responses" style="width:700px;height:250px;")
+        %div(id="#{dom_id(questionnaire)}_responses" style="width:600px;height:250px;")
     - if @charts[questionnaire.id.to_s][:visits]
       .columns.clearfix
         .column
@@ -75,8 +75,8 @@
                   %th=t '.table.pageviews_header'
                   %td= @charts[questionnaire.id.to_s][:visits][:pageviews]
         .column
-          %div(id="#{dom_id(questionnaire)}_visits" style="width:700px;height:250px;")
+          %div(id="#{dom_id(questionnaire)}_visits" style="width:600px;height:250px;")
     - if @charts[questionnaire.id.to_s][:sources]
       .columns.clearfix
         .column.offset
-          %div(id="#{dom_id(questionnaire)}_sources" style="width:700px;height:300px;")
+          %div(id="#{dom_id(questionnaire)}_sources" style="width:600px;height:300px;")
