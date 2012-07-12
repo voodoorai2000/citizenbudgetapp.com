@@ -211,7 +211,7 @@ private
   end
 
   def domain_must_be_active
-    if domain?
+    if domain? && !domain[/\A[a-z]+\.citizenbudget\.com\z/]
       begin
         Socket.gethostbyname domain
       rescue SocketError
