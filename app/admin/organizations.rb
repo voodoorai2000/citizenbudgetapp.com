@@ -13,9 +13,11 @@ ActiveAdmin.register Organization do
     attributes_table do
       row :name
       row :questionnaires do |o|
-        ul do
-          o.questionnaires.each do |q|
-            li auto_link q
+        if o.questionnaires.count.nonzero?
+          ul do
+            o.questionnaires.each do |q|
+              li auto_link q
+            end
           end
         end
         if can? :create, Questionnaire
