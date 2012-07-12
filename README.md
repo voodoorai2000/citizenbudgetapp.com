@@ -22,7 +22,7 @@ To get the values of these constants and enable related functionality, follow th
 * [Google Analytics](https://developers.google.com/analytics/resources/tutorials/hello-analytics-api#register_project) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key, client ID and client secret. Remember to give appropriate values for redirect URIs for local development, e.g. `http://localhost:3000/oauth2callback`. Raw IP addresses like `0.0.0.0` are not allowed.
 * Automatically configure [Heroku](https://api.heroku.com/account) to serve a consultation's custom domain. Go to your Heroku account page to get your API key. `HEROKU_APP` is the name of your Heroku app (the part before `.herokuapp.com`).
 
-You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.
+You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.  There are still multiple references to `citizenbudget.com` in the code which you may need to replace.
 
 To copy a development database to production, run (replace placeholders):
 
