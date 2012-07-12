@@ -6,7 +6,7 @@ class ResponsesController < ApplicationController
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
     build_questionnaire
-    fresh_when @questionnaire, public: true # @todo may need to +touch+ questionnaire when associations changed
+    fresh_when @questionnaire, public: true # @todo may need to +touch+ questionnaire when embedded documents change
   end
 
   def create
@@ -14,7 +14,7 @@ class ResponsesController < ApplicationController
     @response.answers = params.select{|k,_| k[/\A[a-f0-9]{24}\z/]}
     @response.ip      = request.ip
     @response.save! # There shouldn't be errors.
-    Notifier.thank_you(@response).deliver
+    Notifier.thank_you(@response).deliver if @response.email.present?
     redirect_to @response, notice: t(:create_response)
   end
 
