@@ -1,8 +1,16 @@
 class ResponsesController < ApplicationController
   before_filter :find_questionnaire
   before_filter :set_locale
-  caches_action :new, :cache_path => ->(c) { params[:token] || request.host }
-  caches_action :show
+
+  # http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
+  caches_action :new, cache_path: ->(c) do
+    record = @questionnaire.responses.build
+    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number)].join '-'
+  end
+  caches_action :show, cache_path: ->(c) do
+    record = @questionnaire.responses.find params[:id]
+    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number)].join '-'
+  end
 
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true

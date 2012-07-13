@@ -14,4 +14,13 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_admin_user)
   end
+
+  def set_locale
+    I18n.locale = params[:locale] || cookies[:locale] || locale_from_domain || :en
+    cookies[:locale] = I18n.locale unless cookies[:locale] == I18n.locale
+  end
+
+  def locale_from_domain
+    # @todo
+  end
 end

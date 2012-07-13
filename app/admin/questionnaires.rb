@@ -3,10 +3,6 @@ ActiveAdmin.register Questionnaire do
   scope :future
   scope :past
 
-  controller do
-    cache_sweeper :questionnaire_sweeper, only: [:create, :update, :destroy]
-  end
-
   action_item only: :show do
     if resource.google_api_authorization.authorized? && resource.domain?
       link_to t(:link_google_analytics), link_google_analytics_admin_questionnaire_path(resource), method: :post

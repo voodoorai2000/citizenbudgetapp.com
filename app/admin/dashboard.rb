@@ -76,7 +76,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
   protected
 
-    # Google Charts needs a Date object, so we can't use #to_json. 
+    # Google Charts needs a Date object, so we can't use #to_json.
     #
     # @param [Date,Time,DateTime] date a date
     def date_to_js(date)
