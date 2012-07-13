@@ -22,6 +22,7 @@ en:
   new_questionnaire: Add a new consultation
   new_section: Add a section to your consultation
   new_question: Add a question to this section
+  questions: Services and activities
   example_name: John Doe
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: MMM d

@@ -19,6 +19,7 @@ fr-CA:
   new_questionnaire: Ajouter une consultation
   new_section: Ajouter une section à votre consultation
   new_question: Ajouter une  question à cette section
+  questions: Services et activités
   example_name: Monsieur Untel
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: d MMM
