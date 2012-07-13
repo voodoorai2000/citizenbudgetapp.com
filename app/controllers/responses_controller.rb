@@ -27,7 +27,7 @@ class ResponsesController < ApplicationController
 private
 
   def find_questionnaire
-    @questionnaire = Questionnaire.find_by_domain(request.domain) || Questionnaire.last # Useful in development
+    @questionnaire = Questionnaire.find_by_domain(request.host) || Questionnaire.last # Useful in development
   end
 
   def set_locale
