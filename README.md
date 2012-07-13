@@ -4,6 +4,7 @@ Create a new Cedar app on Heroku (replace placeholders):
 
     heroku create -s cedar --addons sendgrid:starter mongolab:starter memcache:5mb newrelic:standard
     heroku config:add SECRET_TOKEN=`bundle exec rake secret`
+    heroku config:add ACTION_MAILER_HOST=REPLACE_ME
     heroku config:add AWS_ACCESS_KEY_ID=REPLACE_ME
     heroku config:add AWS_SECRET_ACCESS_KEY=REPLACE_ME
     heroku config:add AWS_DIRECTORY=REPLACE_ME
@@ -33,7 +34,7 @@ To copy a development database to production, run (replace placeholders):
 
 ## Configuration
 
-You may want to change some translations in the `config/locales` files, such as `app`, `site_title`, `layouts.application` and `responses.footer`.  There are multiple references to `citizenbudget.com` in the code which you may need to replace (we are working to remove these).
+You may want to change some translations in the `config/locales` files, such as `app`, `site_title`, `layouts.application`.  There are multiple references to `citizenbudget.com` in the code which you may need to replace (we are working to remove these).
 
 ## Development
 

@@ -24,7 +24,7 @@ class Notifier < ActionMailer::Base
         if questionnaire.thank_you_template?
           render text: Mustache.render(questionnaire.thank_you_template, {
             name: response.name,
-            url: Bitly.shorten(response_url(response, host: questionnaire.domain || 'citizenbudget.com')),
+            url: Bitly.shorten(response_url(response, ActionMailer::Base.default_url_options.merge(host: questionnaire.domain))),
           })
         end
       end
