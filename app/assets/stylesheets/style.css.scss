@@ -39,15 +39,19 @@
 
 /* Header --------------------------------------------------------------------*/
 
+header {
+  position: relative;
+}
+
 #facebook {
   position: absolute;
-  top: 37px;
-  right: 250px;
+  top: 0;
+  right: 130px;
 }
 #twitter {
   position: absolute;
-  top: 37px;
-  right: 120px;
+  top: 0;
+  right: 0;
 }
 
 // @todo We should set the height attribute on the image, so that the nav
