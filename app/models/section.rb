@@ -19,6 +19,8 @@ class Section
 
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 
+  after_save :touch_questionnaire # @see https://github.com/mongoid/mongoid/pull/2195
+
   default_scope asc(:position)
 
   def position
@@ -30,5 +32,11 @@ class Section
     questions.all? do |question|
       question.survey?
     end
+  end
+
+private
+
+  def touch_questionnaire
+    questionnaire.touch
   end
 end
