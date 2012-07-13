@@ -1,7 +1,7 @@
 class ResponsesController < ApplicationController
   before_filter :find_questionnaire
   before_filter :set_locale
-  caches_action :new, :cache_path => ->(c) { request.host }
+  caches_action :new, :cache_path => ->(c) { params[:token] || request.host }
   caches_action :show
 
   def new
@@ -28,8 +28,8 @@ class ResponsesController < ApplicationController
 private
 
   def find_questionnaire
-    @questionnaire = Questionnaire.find_by_domain(request.host)
-    @questionnaire ||= Questionnaire.where(authorization_token: params[:token]).first if params[:token]
+    @questionnaire = Questionnaire.where(authorization_token: params[:token]).first if params[:token]
+    @questionnaire ||= Questionnaire.find_by_domain(request.host)
     @questionnaire ||= Questionnaire.last if Rails.env.development?
     redirect_to 'http://www.citizenbudget.com/' if @questionnaire.nil?
   end
