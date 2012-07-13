@@ -42,11 +42,14 @@ class LogoUploader < CarrierWave::Uploader::Base
   # version :thumb do
   #   process :scale => [50, 50]
   # end
+
   version :large do
     process :resize_to_limit => [200, 940]
+    process :set_width_and_height
   end
   version :medium do
     process :resize_to_limit => [100, 470]
+    process :set_width_and_height
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -61,4 +64,12 @@ class LogoUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  # https://github.com/jnicklas/carrierwave/wiki/How-to:-Get-version-image-dimensions
+  def set_width_and_height
+    if @file && model
+      image = ::Magick::Image.read(@file.file).first
+      model.logo_width = image.columns
+      model.logo_height = image.rows
+    end
+  end
 end

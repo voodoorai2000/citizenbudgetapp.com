@@ -33,7 +33,11 @@ class Questionnaire
   field :facebook_app_id, type: String
   field :authorization_token, type: String
 
-  attr_protected :authorization_token
+  # Logo uploader.
+  field :logo_width, type: Integer
+  field :logo_height, type: Integer
+
+  attr_protected :authorization_token, :logo_width, :logo_height
 
   index domain: 1
 
