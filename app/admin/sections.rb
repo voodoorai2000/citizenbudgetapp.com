@@ -39,7 +39,10 @@ ActiveAdmin.register Section do
       f.input :embed, as: :text, input_html: {rows: 3}
     end
 
-    f.has_many :questions, header: 'Services and activities' do |g|
+    # Add an ID to each question so that we can link to each question from sections#show
+    # @see https://github.com/gregbell/active_admin/pull/1512
+    # @see https://github.com/gregbell/active_admin/pull/1391
+    f.has_many :questions, legend: t(:questions), id: "question_%i" do |g,i|
       unless g.object.new_record?
         g.input :_destroy, as: :boolean
       end
