@@ -152,6 +152,7 @@ fr-CA:
         email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.
       questionnaire:
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
+        introduction: Vous pouvez utiliser la syntaxe Markdown.
         domain: Vous devez pointer vos DNS sur nos serveurs.
         google_analytics: Si vous utilisez Google Analytics.
         google_analytics_profile: Si vous utilisez Google Analytics.
@@ -160,9 +161,11 @@ fr-CA:
         facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine
         thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
       section:
-        extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus.
+        description: Vous pouvez utiliser la syntaxe Markdown.
+        extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
       question:
-        extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus.
+        description: Vous pouvez utiliser la syntaxe Markdown.
+        extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
         unit_name: Utilisez la forme plurielle.
         options_as_list: Mettez chaque option sur une nouvelle ligne.
         step: Vous pouvez généralement utiliser une tranche de 1.

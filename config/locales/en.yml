@@ -155,6 +155,7 @@ en:
         email: We will not share your e-mail address or other contact information with any third-parties.
       questionnaire:
         description: This will be displayed on search engine results pages.
+        introduction: You can use Markdown syntax.
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
         google_analytics_profile: If you use Google Analytics.
@@ -163,9 +164,11 @@ en:
         facebook_app_id: If you have a Facebook app for this domain name.
         thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
       section:
-        extra: This text will appear in a small overlay when people click for more information.
+        description: You can use Markdown syntax.
+        extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.
       question:
-        extra: This text will appear in a small overlay when people click for more information.
+        description: You can use Markdown syntax.
+        extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.
         unit_name: Use the plural form.
         options_as_list: Put each option on a separate line.
         step: You can usually set this to 1.
