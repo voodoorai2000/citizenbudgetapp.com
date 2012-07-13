@@ -14,6 +14,6 @@ private
 
   def expire_cache_for(record)
     questionnaire = record.is_a?(Questionnaire) ? record : record.questionnaire
-    expire_action(controller: 'responses', action: ['new', 'show'])
+    expire_action(controller: '/responses', action: ['new', 'show']) # "/" is required to set namespace
   end
 end
