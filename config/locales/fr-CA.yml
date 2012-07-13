@@ -182,6 +182,20 @@ fr-CA:
       update: Enregistrer
       cancel: Annuler
 
+  # Responders gem
+  # Documentation: https://github.com/plataformatec/responders
+  # https://github.com/plataformatec/responders/blob/master/lib/responders/locales/en.yml
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} créé(e).'
+      update:
+        notice: '%{resource_name} mis(e) à jour.'
+      destroy:
+        notice: '%{resource_name} supprimé(e).'
+        alert: '%{resource_name} n'a pas pu être supprimé(e).'
+
+  # CanCan gem
   unauthorized:
     manage:
       all: Vous n'êtes pas autorisé à effectuer cette action.

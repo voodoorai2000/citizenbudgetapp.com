@@ -185,6 +185,19 @@ en:
       update: "Save %{model}"
       cancel: Cancel
 
+  # Responders gem
+  # Documentation: https://github.com/plataformatec/responders
+  # https://github.com/plataformatec/responders/blob/master/lib/responders/locales/en.yml
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} was created.'
+      update:
+        notice: '%{resource_name} was updated.'
+      destroy:
+        notice: '%{resource_name} was removed.'
+        alert: '%{resource_name} could not be removed.'
+
   activerecord:
     models: &models
       admin_user:
