@@ -14,7 +14,7 @@ class GoogleApiAuthorization
 
   # @return [Boolean] whether configuration variables are set
   def self.configured?
-    ENV['GOOGLE_CLIENT_ID'] && ENV['GOOGLE_CLIENT_SECRET']
+    ENV['GOOGLE_CLIENT_ID'] && ENV['GOOGLE_CLIENT_SECRET'] && ENV['GOOGLE_REDIRECT_URI']
   end
 
   # @return [Boolean] whether configuration variables are set
