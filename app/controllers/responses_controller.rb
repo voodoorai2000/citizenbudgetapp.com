@@ -1,7 +1,7 @@
 class ResponsesController < ApplicationController
   before_filter :find_questionnaire
   before_filter :set_locale
-  caches_action :new#, :cache_path => -> { request.host }
+  caches_action :new, :cache_path => ->(c) { request.host }
   caches_action :show
 
   def new
