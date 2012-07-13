@@ -6,7 +6,8 @@ class ResponsesController < ApplicationController
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
     build_questionnaire
-    fresh_when @questionnaire, public: true
+    # @todo Caching needs to take into account the current domain.
+    #fresh_when @questionnaire, public: true
   end
 
   def create
