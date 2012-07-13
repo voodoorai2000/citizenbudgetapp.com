@@ -11,6 +11,8 @@ ActiveAdmin.register Section do
   #
   # https://github.com/ryanb/cancan/wiki/Controller-Authorization-Example
   controller do
+    cache_sweeper :questionnaire_sweeper, only: [:create, :update, :destroy]
+
     skip_authorize_resource :only => :index
 
     def index
