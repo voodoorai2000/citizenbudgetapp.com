@@ -192,8 +192,10 @@ en:
     actions:
       create:
         notice: '%{resource_name} was created.'
+        alert: '%{resource_name} could not be created. See errors below.'
       update:
         notice: '%{resource_name} was updated.'
+        alert: '%{resource_name} could not be updated. See errors below.'
       destroy:
         notice: '%{resource_name} was removed.'
         alert: '%{resource_name} could not be removed.'

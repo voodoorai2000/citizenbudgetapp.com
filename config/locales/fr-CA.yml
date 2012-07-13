@@ -135,7 +135,7 @@ fr-CA:
       copy_hint: copier dans le presse papier
       copied_hint: copié !
       tweet: Tweeter
-      invitation: Vous n'avez pas encore soumis vos propres choix budgétaires ? <b><a href="%{url}">Cliquez ici pour participer.</a></b>
+      invitation: "Vous n'avez pas encore soumis vos propres choix budgétaires ? <b><a href=\"%{url}\">Cliquez ici pour participer.</a></b>"
       comments: Commentaires
     modals:
       close: Fermer
@@ -189,11 +189,13 @@ fr-CA:
     actions:
       create:
         notice: '%{resource_name} créé(e).'
+        notice: "%{resource_name} n'a pas pu être créé(e). Voir les messages d'erreurs ci-dessous."
       update:
         notice: '%{resource_name} mis(e) à jour.'
+        notice: "%{resource_name} n'a pas pu être mis(e) à jour. Voir les messages d'erreurs ci-dessous."
       destroy:
         notice: '%{resource_name} supprimé(e).'
-        alert: '%{resource_name} n'a pas pu être supprimé(e).'
+        alert: "%{resource_name} n'a pas pu être supprimé(e)."
 
   # CanCan gem
   unauthorized:
