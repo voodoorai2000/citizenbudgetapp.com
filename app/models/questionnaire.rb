@@ -31,6 +31,9 @@ class Questionnaire
   field :twitter_text, type: String
   field :twitter_share_text, type: String
   field :facebook_app_id, type: String
+  field :authorization_token, type: String
+
+  attr_protected :authorization_token
 
   index domain: 1
 
@@ -45,6 +48,7 @@ class Questionnaire
 
   before_validation :sanitize_domain
   before_save :add_domain
+  before_create :set_authorization_token
 
   scope :current, where(:starts_at.ne => nil, :ends_at.ne => nil, :starts_at.lte => Time.now, :ends_at.gte => Time.now)
   scope :future, where(:starts_at.ne => nil, :starts_at.gt => Time.now)
@@ -211,7 +215,7 @@ private
   end
 
   def domain_must_be_active
-    if domain? && !domain[/\A[a-z]+\.citizenbudget\.com\z/]
+    if domain? && !domain[/\A[a-z]+\.(citizenbudget|budgetcitoyen)\.com\z/]
       begin
         Socket.gethostbyname domain
       rescue SocketError
@@ -230,6 +234,13 @@ private
       rescue Mail::Field::ParseError
         errors.add :reply_to, I18n.t('errors.messages.reply_to_must_be_valid')
       end
+    end
+  end
+
+  def set_authorization_token
+    loop do
+      self.authorization_token = SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
+      break unless self.class.where(authorization_token: authorization_token).first
     end
   end
 
