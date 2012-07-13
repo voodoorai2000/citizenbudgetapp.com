@@ -6,7 +6,7 @@ class ResponsesController < ApplicationController
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
     build_questionnaire
-    fresh_when @questionnaire, public: true # @todo may need to +touch+ questionnaire when embedded documents change
+    fresh_when @questionnaire, public: true
   end
 
   def create
@@ -27,7 +27,7 @@ class ResponsesController < ApplicationController
 private
 
   def find_questionnaire
-    @questionnaire = Questionnaire.find_by_domain(request.domain) || Questionnaire.first # Useful in development
+    @questionnaire = Questionnaire.find_by_domain(request.domain) || Questionnaire.last # Useful in development
   end
 
   def set_locale
