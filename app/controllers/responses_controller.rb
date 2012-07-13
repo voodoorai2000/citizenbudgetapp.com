@@ -38,7 +38,7 @@ private
     @questionnaire = Questionnaire.where(authorization_token: params[:token]).first if params[:token]
     @questionnaire ||= Questionnaire.find_by_domain(request.host)
     @questionnaire ||= Questionnaire.last if Rails.env.development?
-    redirect_to 'http://www.citizenbudget.com/' if @questionnaire.nil?
+    redirect_to t('app.product_url') if @questionnaire.nil?
   end
 
   def set_locale

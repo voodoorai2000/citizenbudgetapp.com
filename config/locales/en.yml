@@ -10,6 +10,8 @@ en:
   app:
     host: app.citizenbudget.com
     domain: citizenbudget.com
+    product_name: Citizen Budget
+    product_url: http://www.citizenbudget.com/
 
   # Active Admin
   site_title: Citizen Budget
@@ -144,8 +146,6 @@ en:
       close: Close
     footer:
       attribution: Get your own budget consultation from
-      product_name: Citizen Budget
-      product_url: http://citizenbudget.com/
 
   formtastic:
     required: required
