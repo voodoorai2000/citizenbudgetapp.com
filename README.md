@@ -6,23 +6,27 @@ Create a new Cedar app on Heroku (replace placeholders):
     heroku config:add SECRET_TOKEN=`bundle exec rake secret`
     heroku config:add AWS_ACCESS_KEY_ID=REPLACE_ME
     heroku config:add AWS_SECRET_ACCESS_KEY=REPLACE_ME
+    heroku config:add AWS_DIRECTORY=REPLACE_ME
     heroku config:add BITLY_API_KEY=REPLACE_ME
     heroku config:add BITLY_LOGIN=REPLACE_ME
     heroku config:add GOOGLE_API_KEY=REPLACE_ME
     heroku config:add GOOGLE_CLIENT_ID=REPLACE_ME
     heroku config:add GOOGLE_CLIENT_SECRET=REPLACE_ME
+    heroku config:add GOOGLE_REDIRECT_URI=REPLACE_ME
     heroku config:add HEROKU_API_KEY=REPLACE_ME
     heroku config:add HEROKU_APP=REPLACE_ME
 
 This app by default uses SendGrid to send emails, MongoLab for its database, Memcache for caching, and New Relic for monitoring. We recommend that you set up alerting and [availability monitoring](https://newrelic.com/docs/features/availability-monitoring-faq) in New Relic.
 
-To get the values of these constants and enable related functionality, follow the following links:
-* In production, this app stores uploads on [Amazon S3](http://aws.amazon.com/s3/). Sign up to get your access and secret keys.
+To improve email deliverability, add an SPF record to your domain. Simply create a TXT DNS record with the value `v=spf1 a mx include:sendgrid.net ~all`. If you already have an SPF record, add `include:sendgrid.net` to it.
+
+To get the these constants' values and enable related functionality, follow the following links:
+* In production, this app stores uploads on [Amazon S3](http://aws.amazon.com/s3/). Sign up to get your access and secret keys. `AWS_DIRECTORY` is your bucket name.
 * [Bitly](http://bitly.com/a/your_api_key/) shortens URLs to make it easier for consultation participants to share links to their responses. Sign up to get an API key and login.
 * [Google Analytics](https://developers.google.com/analytics/resources/tutorials/hello-analytics-api#register_project) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key, client ID and client secret. Remember to give appropriate values for redirect URIs for local development, e.g. `http://localhost:3000/oauth2callback`. Raw IP addresses like `0.0.0.0` are not allowed.
 * Automatically configure [Heroku](https://api.heroku.com/account) to serve a consultation's custom domain. Go to your Heroku account page to get your API key. `HEROKU_APP` is the name of your Heroku app (the part before `.herokuapp.com`).
 
-You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.  There are still multiple references to `citizenbudget.com` in the code which you may need to replace.
+You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.  There are multiple references to `citizenbudget.com` in the code which you may need to replace (we are working to remove these).
 
 To copy a development database to production, run (replace placeholders):
 
