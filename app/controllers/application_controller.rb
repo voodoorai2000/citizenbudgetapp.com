@@ -1,3 +1,7 @@
+# In development, you must reload your application for changes in
+# ApplicationController to take effect.
+#
+# @see https://github.com/gregbell/active_admin/issues/697
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_locale
