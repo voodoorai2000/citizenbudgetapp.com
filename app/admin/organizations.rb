@@ -13,7 +13,7 @@ ActiveAdmin.register Organization do
     attributes_table do
       row :name
       row :questionnaires do |o|
-        if o.questionnaires.count.nonzero?
+        if o.questionnaires.present?
           ul do
             o.questionnaires.each do |q|
               li auto_link q

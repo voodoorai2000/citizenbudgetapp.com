@@ -120,13 +120,15 @@ ActiveAdmin.register Questionnaire do
         end
       end
       row :sections do |q|
-        ul(class: can?(:update, q) ? 'sortable' : '') do
-          q.sections.each do |s|
-            li(id: dom_id(s)) do
-              if can?(:update, s)
-                i(class: 'icon-move')
+        if q.sections.present?
+          ul(class: can?(:update, q) ? 'sortable' : '') do
+            q.sections.each do |s|
+              li(id: dom_id(s)) do
+                if can?(:update, s)
+                  i(class: 'icon-move')
+                end
+                text_node link_to_if can?(:read, s), s.title, [:admin, q, s]
               end
-              text_node link_to_if can?(:read, s), s.title, [:admin, q, s]
             end
           end
         end
