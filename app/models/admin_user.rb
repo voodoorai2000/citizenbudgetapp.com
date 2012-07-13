@@ -52,6 +52,8 @@ class AdminUser
   validates_inclusion_of :role, in: ROLES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
 
+  before_save :set_locale
+
   # https://github.com/gregbell/active_admin/wiki/Your-First-Admin-Resource%3A-AdminUser
   after_create do |admin|
     admin.send_reset_password_instructions
@@ -67,5 +69,9 @@ class AdminUser
 
   def password_required?
     new_record? ? false : super
+  end
+
+  def set_locale
+    self.locale = nil if locale.blank?
   end
 end
