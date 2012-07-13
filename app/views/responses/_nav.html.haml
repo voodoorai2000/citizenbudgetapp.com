@@ -1,13 +1,14 @@
-- @groups.each do |group,sections|
-  - if sections.size == 1
-    = render sections
-  - else
-    %li.dropdown
-      = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
-        = t(group, scope: :group)
-        %span.caret
-      %ul.dropdown-menu
-        = render sections
+- unless @groups.size == 1 && @groups.values[0].size == 1
+  - @groups.each do |group,sections|
+    - if sections.size == 1
+      = render sections
+    - else
+      %li.dropdown
+        = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
+          = t(group, scope: :group)
+          %span.caret
+        %ul.dropdown-menu
+          = render sections
 - @groups.each do |group,_|
   %li.group(id="#{group}")
     .inner

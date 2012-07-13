@@ -7,6 +7,7 @@ ActiveAdmin.register_page 'Dashboard' do
     def index
       @questionnaires = current_admin_user.questionnaires
 
+      # @todo Add fragment caching.
       @charts = {}
       @questionnaires.current.each do |q|
         @charts[q.id.to_s] = {}
