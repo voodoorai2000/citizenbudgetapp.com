@@ -18,7 +18,7 @@ module ApplicationHelper
     if @questionnaire
       "#{@questionnaire.organization.name} - #{@questionnaire.title}"
     else
-      t '.title'
+      t 'app.product_name'
     end
   end
 
@@ -27,7 +27,7 @@ module ApplicationHelper
   end
 
   def author
-    @questionnaire && @questionnaire.organization.name || t('.author')
+    @questionnaire && @questionnaire.organization.name || t('app.author_name')
   end
 
   # Open Graph tags
@@ -40,11 +40,11 @@ module ApplicationHelper
   end
 
   def og_site_name
-    @questionnaire && @questionnaire.title || t('.title')
+    @questionnaire && @questionnaire.title || t('app.product_name')
   end
 
   def og_url
-    @questionnaire && @questionnaire.domain_url || t('.og_url')
+    @questionnaire && @questionnaire.domain_url || t('app.product_url')
   end
 
   def og_image

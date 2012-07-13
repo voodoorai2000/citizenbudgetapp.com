@@ -1,9 +1,11 @@
 class Notifier < ActionMailer::Base
+  default from: ENV['ACTION_MAILER_FROM']
+
   def thank_you(response)
     questionnaire = response.questionnaire
     organization = questionnaire.organization
 
-    from = Mail::Address.new 'noreply@citizenbudget.com'
+    from = default_params[:from]
     from.display_name = organization.name
 
     to = Mail::Address.new response.email

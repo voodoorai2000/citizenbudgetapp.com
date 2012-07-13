@@ -12,6 +12,8 @@ en:
     domain: citizenbudget.com
     product_name: Citizen Budget
     product_url: http://www.citizenbudget.com/
+    author_name: Open North
+    author_url: http://opennorth.ca/
 
   # Active Admin
   site_title: Citizen Budget
@@ -86,9 +88,6 @@ en:
 
   layouts:
     application:
-      title: Citizen Budget
-      author: Open North
-      og_url: http://citizenbudget.com/
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-6 # citizenbudget.com
 

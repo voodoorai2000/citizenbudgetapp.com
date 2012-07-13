@@ -9,6 +9,8 @@ fr-CA:
     domain: budgetcitoyen.com
     product_name: Budget Citoyen
     product_url: http://www.budgetcitoyen.com/
+    author_name: Nord Ouvert
+    author_url: http://nordouvert.ca/
 
   # Active Admin
   site_title: Budget Citoyen
@@ -83,9 +85,6 @@ fr-CA:
 
   layouts:
     application:
-      title: Budget Citoyen
-      author: Nord Ouvert
-      og_url: http://budgetcitoyen.com/
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-7 # budgetcitoyen.com
 
