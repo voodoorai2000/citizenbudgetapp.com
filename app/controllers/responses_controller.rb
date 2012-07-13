@@ -1,6 +1,5 @@
 class ResponsesController < ApplicationController
-  before_filter :find_questionnaire
-  before_filter :set_locale
+  prepend_before_filter :find_questionnaire # run before #set_locale
 
   # http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
   caches_action :new, cache_path: ->(c) do
@@ -43,13 +42,7 @@ private
   end
 
   def set_locale
-    I18n.locale = @questionnaire.locale && (
-      Locale.available_locales.find{|x|
-        x.to_s == @questionnaire.locale
-      } || Locale.available_locales.find{|x|
-        x.to_s.split('-', 2).first == @questionnaire.locale.split('-', 2).first
-      }
-    ) || I18n.default_locale
+    I18n.locale = locale_from_record(@questionnaire) || super
   end
 
   def build_questionnaire

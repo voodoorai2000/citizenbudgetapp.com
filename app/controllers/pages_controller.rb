@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_filter :set_locale
   caches_action :channel, :not_found
 
   def oauth2callback

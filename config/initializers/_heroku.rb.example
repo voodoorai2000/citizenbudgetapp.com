@@ -8,13 +8,12 @@ ENV['MONGOLAB_URI'] = 'mongodb://127.0.0.1:27017/citizen_budget_development'
 # production environment locally. This variable is set by Heroku in production.
 # ENV['AIRBRAKE_API_KEY']      = 'REPLACE_ME'
 
-# Uncomment the following lines to store files on Amazon S3 when running a
-# production environment locally.
-# ENV['AWS_ACCESS_KEY_ID']     = 'REPLACE_ME'
-# ENV['AWS_SECRET_ACCESS_KEY'] = 'REPLACE_ME'
+# Running a production environment locally will fail if these are not set.
+ENV['AWS_ACCESS_KEY_ID']     = 'REPLACE_ME'
+ENV['AWS_SECRET_ACCESS_KEY'] = 'REPLACE_ME'
 # The Amazon S3 budget name. You must create a CNAME DNS record to point to the bucket:
 # @see http://docs.amazonwebservices.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingCustomURLs
-# ENV['AWS_DIRECTORY']         = 'REPLACE_ME'
+ENV['AWS_DIRECTORY']         = 'REPLACE_ME'
 
 # Uncomment the following lines to integrate Bitly URL shortening.
 # ENV['BITLY_API_KEY']         = 'REPLACE_ME'

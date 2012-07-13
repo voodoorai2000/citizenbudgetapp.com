@@ -26,12 +26,14 @@ To get the these constants' values and enable related functionality, follow the 
 * [Google Analytics](https://developers.google.com/analytics/resources/tutorials/hello-analytics-api#register_project) displays charts and tables about visitors to the consultation website on the administrative dashboard. Follow the instructions to get your API key, client ID and client secret. Remember to give appropriate values for redirect URIs for local development, e.g. `http://localhost:3000/oauth2callback`. Raw IP addresses like `0.0.0.0` are not allowed.
 * Automatically configure [Heroku](https://api.heroku.com/account) to serve a consultation's custom domain. Go to your Heroku account page to get your API key. `HEROKU_APP` is the name of your Heroku app (the part before `.herokuapp.com`).
 
-You may want to change some translations in the `config/locales` files, such as `site_title`, `layouts.application` and `responses.footer`.  There are multiple references to `citizenbudget.com` in the code which you may need to replace (we are working to remove these).
-
 To copy a development database to production, run (replace placeholders):
 
     mongodump -h localhost -d citizen_budget_development -o dump-dir
     mongorestore -h MONGOLAB_HOST -d MONGOLAB_DB -u MONGOLAB_USER -p MONGOLAB_PASSWORD dump-dir/*
+
+## Configuration
+
+You may want to change some translations in the `config/locales` files, such as `app`, `site_title`, `layouts.application` and `responses.footer`.  There are multiple references to `citizenbudget.com` in the code which you may need to replace (we are working to remove these).
 
 ## Development
 
@@ -65,6 +67,10 @@ If you change any assets, you need to recompile them and add them to Git:
     git commit -a -m 'precompile assets'
 
 Rails will cache the assets for some time. To expire all the assets, change the value of `config.assets.version` in `config/application.rb` before precompiling.
+
+## Contributing
+
+If you contribute translations, remember to add a new key-value pair to the `LOCALES` constants in `app/models/locale.rb`.
 
 ## Troubleshooting
 

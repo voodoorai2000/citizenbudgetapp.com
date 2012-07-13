@@ -125,15 +125,7 @@ ActiveAdmin.setup do |config|
   # Active Admin resources from here.
   #
   # config.before_filter :do_something_awesome
-  config.before_filter :set_locale
-
-  def set_locale
-    I18n.locale = Locale.available_locales.find{|x|
-      x.to_s == current_admin_user.locale
-    } || Locale.available_locales.find{|x|
-      x.to_s.split('-', 2).first == current_admin_user.locale.split('-', 2).first
-    } || I18n.default_locale
-  end
+  # @see https://github.com/gregbell/active_admin/issues/1489
 
   # == Register Stylesheets & Javascripts
   #

@@ -3,8 +3,6 @@ ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc{ I18n.t :dashboard }
 
   controller do
-    before_filter :set_locale # @see https://github.com/gregbell/active_admin/issues/1489
-
     def index
       @questionnaires = current_admin_user.questionnaires
 

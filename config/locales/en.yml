@@ -7,6 +7,9 @@ en:
   create_response: Thank you for your participation! Your opinion is important to us.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
+  app:
+    host: app.citizenbudget.com
+
   # Active Admin
   site_title: Citizen Budget
   dashboard: Dashboard
