@@ -8,6 +8,9 @@ ENV['MONGOLAB_URI']          = 'mongodb://127.0.0.1:27017/citizen_budget_develop
 # Uncomment the following lines to store files on Amazon S3 when running in production locally.
 # ENV['AWS_ACCESS_KEY_ID']     = 'REPLACE_ME'
 # ENV['AWS_SECRET_ACCESS_KEY'] = 'REPLACE_ME'
+# The Amazon S3 budget name. You must create a CNAME DNS record to point to the bucket:
+# @see http://docs.amazonwebservices.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingCustomURLs
+# ENV['AWS_DIRECTORY']         = 'REPLACE_ME'
 
 # Uncomment the following lines to integrate Bitly URL shortening.
 # ENV['BITLY_API_KEY']         = 'REPLACE_ME'
