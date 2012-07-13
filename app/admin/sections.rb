@@ -76,13 +76,15 @@ ActiveAdmin.register Section do
         s.embed.html_safe if s.embed?
       end
       row :questions do |s|
-        ul(class: can?(:update, s) ? 'sortable' : '') do
-          s.questions.each do |q|
-            li(id: dom_id(q)) do
-              if can?(:update, q)
-                i(class: 'icon-move')
+        if s.questions.present?
+          ul(class: can?(:update, s) ? 'sortable' : '') do
+            s.questions.each do |q|
+              li(id: dom_id(q)) do
+                if can?(:update, q)
+                  i(class: 'icon-move')
+                end
+                text_node q.title
               end
-              text_node q.title
             end
           end
         end
