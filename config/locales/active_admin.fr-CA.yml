@@ -78,8 +78,8 @@ fr-CA:
         title: "Vous avez oublié votre mot de passe ?"
         submit: "Réinitialiser le mot de passe"
       change_password:
-        title: "Changez votre mot de passe"
-        submit: "Changer le mot de passe"
+        title: "Choisissez votre mot de passe"
+        submit: "Définir le mot de passe"
       links:
         sign_in: "Ouvrir une session"
         forgot_your_password: "Vous avez oublié votre mot de passe ?"

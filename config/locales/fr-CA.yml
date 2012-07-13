@@ -568,7 +568,7 @@ fr-CA:
         email: Adresse de courriel
         locale: Localisation
         password: Mot de passe
-        password_confirmation: Confirmation de mot de passe
+        password_confirmation: Confirmation du mot de passe
       organization:
         name: Nom
         questionnaires: Consultations
