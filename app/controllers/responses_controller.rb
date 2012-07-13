@@ -7,7 +7,7 @@ class ResponsesController < ApplicationController
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
     build_questionnaire
-    fresh_when @questionnaire, public: true
+    #fresh_when @questionnaire, public: true
   end
 
   def create
@@ -32,11 +32,13 @@ private
   end
 
   def set_locale
-    I18n.locale = Locale.available_locales.find{|x|
-      x.to_s == @questionnaire.locale
-    } || Locale.available_locales.find{|x|
-      x.to_s.split('-', 2).first == @questionnaire.locale.split('-', 2).first
-    } || I18n.default_locale
+    I18n.locale = @questionnaire.locale && (
+      Locale.available_locales.find{|x|
+        x.to_s == @questionnaire.locale
+      } || Locale.available_locales.find{|x|
+        x.to_s.split('-', 2).first == @questionnaire.locale.split('-', 2).first
+      }
+    ) || I18n.default_locale
   end
 
   def build_questionnaire
