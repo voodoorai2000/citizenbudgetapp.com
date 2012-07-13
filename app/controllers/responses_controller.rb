@@ -1,13 +1,12 @@
 class ResponsesController < ApplicationController
   before_filter :find_questionnaire
   before_filter :set_locale
-  caches_action :new, :show
+  caches_action :new, :show, cache_path: -> { request.host }
 
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
     build_questionnaire
-    # @todo Caching needs to take into account the current domain.
-    #fresh_when @questionnaire, public: true
+    fresh_when @questionnaire, public: true
   end
 
   def create
