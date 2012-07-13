@@ -47,7 +47,7 @@ class AdminUser
   field :role, type: String
   field :locale, type: String
 
-  validates_presence_of :role, :locale
+  validates_presence_of :role
   validates_presence_of :organization_id, unless: ->(a){a.role == 'superuser'}
   validates_inclusion_of :role, in: ROLES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true

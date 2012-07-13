@@ -113,6 +113,9 @@ en:
           visitors_header: Visitors
           visits_header: Visits
           pageviews_header: Pageviews
+    admin_users:
+      form:
+        automatic: Automatic
   questionnaires:
     questionnaire:
       read_more: Learn more

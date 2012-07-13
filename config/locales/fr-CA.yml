@@ -110,6 +110,9 @@ fr-CA:
           visitors_header: Visiteurs
           visits_header: Visites
           pageviews_header: Pages vues
+    admin_users:
+      form:
+        automatic: Automatique
   questionnaires:
     questionnaire:
       read_more: En savoir plus
