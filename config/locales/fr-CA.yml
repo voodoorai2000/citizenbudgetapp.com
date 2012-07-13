@@ -6,6 +6,7 @@ fr-CA:
 
   app:
     host: app.budgetcitoyen.com
+    domain: budgetcitoyen.com
 
   # Active Admin
   site_title: Budget Citoyen

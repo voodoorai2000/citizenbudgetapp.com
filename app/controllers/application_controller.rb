@@ -19,7 +19,7 @@ protected
   end
 
   def set_locale
-    I18n.locale = current_admin_user && locale_from_record(current_admin_user) || locale_from_host || I18n.default_locale
+    I18n.locale = current_admin_user && locale_from_record(current_admin_user) || locale_from_host || locale_from_domain || I18n.default_locale
   end
 
   def locale_from_record(record)
@@ -36,6 +36,12 @@ protected
   def locale_from_host
     Locale.available_locales.find do |locale|
       request.host == t('app.host', locale: locale)
+    end
+  end
+
+  def locale_from_domain
+    Locale.available_locales.find do |locale|
+      request.domain == t('app.domain', locale: locale)
     end
   end
 end

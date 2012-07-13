@@ -9,6 +9,7 @@ en:
 
   app:
     host: app.citizenbudget.com
+    domain: citizenbudget.com
 
   # Active Admin
   site_title: Citizen Budget
