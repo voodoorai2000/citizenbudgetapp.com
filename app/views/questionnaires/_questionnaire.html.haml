@@ -73,8 +73,8 @@
                     .meta.maximum &nbsp;
                     .meta.minimum &nbsp;
                   - else
-                    .meta.maximum=  number_with_delimiter(q.maximum_units)
-                    .meta.minimum= [number_with_delimiter(q.minimum_units), q.unit_name].compact.join ' '
+                    .meta.maximum=  number_with_precision(q.maximum_units, strip_insignificant_zeros: true)
+                    .meta.minimum= [number_with_precision(q.minimum_units, strip_insignificant_zeros: true), q.unit_name].compact.join ' '
                   - if @response.persisted?
                     .control.control-slider.slider(data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled")
                       = hidden_field_tag q.id, @response.answer(q)

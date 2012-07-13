@@ -38,9 +38,10 @@ class Question
 
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){q.widget == 'slider'}
-  validates_numericality_of :minimum_units, :maximum_units, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'slider'}
+  validates_numericality_of :minimum_units, :maximum_units, allow_blank: true, if: ->(q){q.widget == 'slider'}
   validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){q.widget == 'slider'}
   validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){q.widget == 'slider'}
+  validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){q.widget == 'slider'}
 
   after_initialize :get_options
   before_validation :set_options
@@ -84,8 +85,8 @@ class Question
 private
   def get_options
     if widget == 'slider' && options.present?
-      @minimum_units = options.first.to_i
-      @maximum_units = options.last.to_i
+      @minimum_units = options.first.to_f
+      @maximum_units = options.last.to_f
       @step = options[1] - options[0]
     elsif %w(checkbox onoff).include?(widget)
       @minimum_units = 0
@@ -98,8 +99,8 @@ private
 
   def set_options
     if widget == 'slider' && minimum_units.present? && maximum_units.present? && step.present?
-      self.options = (minimum_units.to_i..maximum_units.to_i).step(step.to_f).to_a
-      self.options << maximum_units.to_i unless options.last == maximum_units.to_i
+      self.options = (minimum_units.to_f..maximum_units.to_f).step(step.to_f).to_a
+      self.options << maximum_units.to_f unless options.last == maximum_units.to_f
     elsif %w(checkbox onoff).include?(widget)
       self.options = [0, 1]
     elsif %w(checkboxes radio select).include?(widget) && options_as_list.present?
@@ -108,8 +109,16 @@ private
   end
 
   def maximum_units_must_be_greater_than_minimum_units
-    if widget == 'slider' && minimum_units.present? && maximum_units.present? && minimum_units.to_i >= maximum_units.to_i
+    if widget == 'slider' && minimum_units.present? && maximum_units.present? && minimum_units.to_f >= maximum_units.to_f
       errors.add :maximum_units, I18n.t('errors.messages.maximum_units_must_be_greater_than_minimum_units')
+    end
+  end
+
+  def default_value_must_be_between_minimum_and_maximum
+    if widget == 'slider' && minimum_units.present? && maximum_units.present? && default_value.present? && minimum_units.to_f < maximum_units.to_f
+      if default_value.to_f < minimum_units.to_f || default_value.to_f > maximum_units.to_f
+        errors.add :default_value, I18n.t('errors.messages.default_value_must_be_between_minimum_and_maximum')
+      end
     end
   end
 end

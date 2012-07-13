@@ -273,5 +273,6 @@ en:
     messages:
       ends_at_must_be_greater_than_starts_at: The end time must be after the start time
       maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
+      default_value_must_be_between_minimum_and_maximum: Default value must be between minimum and maximum
       domain_must_be_active: The domain name must be active
       reply_to_must_be_valid: The reply-to address must be valid

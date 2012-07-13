@@ -426,6 +426,11 @@ fr-CA:
   errors: &errors
     format: Le %{attribute} %{message}
     messages:
+      ends_at_must_be_greater_than_starts_at: La date de fin doit être supérieure à la date de début
+      maximum_units_must_be_greater_than_minimum_units: Le nombre d'unités maximal doit être supérieur au nombre d'unités minimal
+      default_value_must_be_between_minimum_and_maximum: La valeur par défaut doit être entre le minimum et le maximum
+      domain_must_be_active: Le nom de domaine doit être actif
+      reply_to_must_be_valid: L'adresse de courriel de correspondance doit être valide
       accepted: doit être accepté(e)
       blank: doit être rempli(e)
       confirmation: ne concorde pas avec la confirmation
@@ -650,10 +655,3 @@ fr-CA:
         header:
           one: ! 'Impossible d''enregistrer ce %{model} : 1 erreur'
           other: ! 'Impossible d''enregistrer ce %{model} : %{count} erreurs'
-
-  errors:
-    messages:
-      ends_at_must_be_greater_than_starts_at: La date de fin doit être supérieure à la date de début
-      maximum_units_must_be_greater_than_minimum_units: Le nombre d'unités maximal doit être supérieur au nombre d'unités minimal
-      domain_must_be_active: Le nom de domaine doit être actif
-      reply_to_must_be_valid: L'adresse de courriel de correspondance doit être valide
