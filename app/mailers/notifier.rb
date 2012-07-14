@@ -5,7 +5,7 @@ class Notifier < ActionMailer::Base
     questionnaire = response.questionnaire
     organization = questionnaire.organization
 
-    from = default_params[:from]
+    from = Mail::Address.new default_params[:from]
     from.display_name = organization.name
 
     to = Mail::Address.new response.email
