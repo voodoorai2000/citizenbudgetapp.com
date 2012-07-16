@@ -4,11 +4,11 @@ class ResponsesController < ApplicationController
   # http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
   caches_action :new, cache_path: ->(c) do
     record = @questionnaire.responses.build
-    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number)].join '-'
+    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number), params[:token] || request.host].join '-'
   end
   caches_action :show, cache_path: ->(c) do
     record = @questionnaire.responses.find params[:id]
-    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number)].join '-'
+    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number), params[:token] || request.host].join '-'
   end
 
   def new

@@ -162,6 +162,8 @@ en:
         email: We will not share your e-mail address or other contact information with any third-parties.
       questionnaire:
         description: This will be displayed on search engine results pages.
+        starts_at: Set the time in UTC.
+        ends_at: Set the time in UTC.
         introduction: You can use Markdown syntax.
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
