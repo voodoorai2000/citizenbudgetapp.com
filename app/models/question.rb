@@ -87,7 +87,7 @@ private
     if widget == 'slider' && options.present?
       @minimum_units = options.first.to_f
       @maximum_units = options.last.to_f
-      @step = options[1] - options[0]
+      @step = (options[1] - options[0]).round(2)
     elsif %w(checkbox onoff).include?(widget)
       @minimum_units = 0
       @maximum_units = 1
