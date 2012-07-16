@@ -63,7 +63,7 @@ class Questionnaire
   # @return [Questionnaire,nil] a questionnaire whose domain name matches
   # @note No two active questionnaires should have the same domain.
   def self.find_by_domain(domain)
-    domain && active.any_in(domain: [domain, sanitize_domain(domain)]).first
+    domain && current.any_in(domain: [domain, sanitize_domain(domain)]).first
   end
 
   # @return [Integer] the number of responses by date in the local time zone
