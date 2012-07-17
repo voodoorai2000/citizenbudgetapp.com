@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def token_url(questionnaire)
+    root_url(token: questionnaire.authorization_token)
+  end
+
   def bootstrap_form_for(record_or_name_or_array, *args, &proc)
     options = args.extract_options!
     options[:builder] ||= FormtasticBootstrap::FormBuilder

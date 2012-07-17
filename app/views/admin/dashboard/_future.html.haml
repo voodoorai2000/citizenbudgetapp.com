@@ -14,8 +14,7 @@
           %tr
             %th=t '.table.url'
             %td
-              %span.input-prepend
-                %span.add-on(rel="tooltip" title="#{t('.copy_hint')}" id="#{dom_id(questionnaire)}")>
-                  %span.clippy(data-text="#{root_url(token: questionnaire.authorization_token)}" data-tooltip="#{dom_id(questionnaire)}")
-                %input.url-with-token(value="#{root_url(token: questionnaire.authorization_token)}")
+              %span(rel="tooltip" title="#{t('.copy_hint')}" id="#{dom_id(questionnaire)}")>
+                %span.clippy(data-text="#{token_url questionnaire}" data-tooltip="#{dom_id(questionnaire)}")
+              = link_to token_url(questionnaire), token_url(questionnaire)
 
