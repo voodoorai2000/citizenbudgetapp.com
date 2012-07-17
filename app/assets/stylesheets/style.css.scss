@@ -43,6 +43,10 @@ header {
   position: relative;
 }
 
+#logo {
+  margin-bottom: 1em;
+}
+
 #facebook {
   position: absolute;
   top: 0;
@@ -63,6 +67,11 @@ legend {
 }
 h1 {
   margin-bottom: 0.433em;
+
+  img {
+    float: left;
+    margin-right: 10px;
+  }
 }
 
 /* Introduction --------------------------------------------------------------*/
@@ -141,6 +150,11 @@ td.description {
       font-size: 0.93em;
       font-weight: normal;
     }
+  }
+
+  img {
+    float: right;
+    margin-left: 10px;
   }
 
   .control-group {
