@@ -7,7 +7,7 @@ $ ->
     clippy_path: '/assets/clippy.swf'
     text: $('#url-field').val()
     flashvars:
-      id: 'clippy'
+      args: 'clippy'
 
   window.clippyCopiedCallback = (id) ->
     $('#' + id).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
