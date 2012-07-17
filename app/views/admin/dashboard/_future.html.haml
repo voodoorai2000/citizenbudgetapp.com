@@ -1,9 +1,21 @@
-%li
-  = auto_link questionnaire.organization
-  –
-  = auto_link questionnaire
+.panel
+  %h3
+    = auto_link questionnaire.organization
+    –
+    = auto_link questionnaire
+  .panel_contents
+    .attributes_table
+      %table
+        %tbody
+          - if questionnaire.starts_at?
+            %tr
+              %th=t '.table.starts_at'
+              %td=l questionnaire.starts_at.in_time_zone(questionnaire.time_zone), format: :short
+          %tr
+            %th=t '.table.url'
+            %td
+              %span.input-prepend
+                %span.add-on(rel="tooltip" title="#{t('.copy_hint')}" id="#{dom_id(questionnaire)}")>
+                  %span.clippy(data-text="#{root_url(token: questionnaire.authorization_token)}" data-tooltip="#{dom_id(questionnaire)}")
+                %input.url-with-token(value="#{root_url(token: questionnaire.authorization_token)}")
 
-  %span.input-prepend
-    %span.add-on(rel="tooltip" title="#{t('.copy_hint')}" id="#{dom_id(questionnaire)}")>
-      %span.clippy(data-text="#{root_url(token: questionnaire.authorization_token)}" data-tooltip="#{dom_id(questionnaire)}")
-    %input.url-with-token(value="#{root_url(token: questionnaire.authorization_token)}")

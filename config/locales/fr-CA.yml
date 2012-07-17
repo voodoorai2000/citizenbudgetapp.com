@@ -15,9 +15,6 @@ fr-CA:
   # Active Admin
   site_title: Budget Citoyen
   dashboard: Tableau de bord
-  current_consultations: Consultations actuelles
-  future_consultations: Consultations futures
-  past_consultations: Consultations passées
   new_questionnaire: Ajouter une consultation
   new_section: Ajouter une section à votre consultation
   new_question: Ajouter une  question à cette section
@@ -92,6 +89,9 @@ fr-CA:
     dashboard:
       future:
         copy_hint: copier dans le presse papier
+        table:
+          starts_at: Date de début
+          url: Lien
       current:
         chart:
           responses_title: Nombre de soumissions par jour

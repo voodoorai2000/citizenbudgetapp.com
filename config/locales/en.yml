@@ -18,9 +18,6 @@ en:
   # Active Admin
   site_title: Citizen Budget
   dashboard: Dashboard
-  current_consultations: Current consultations
-  future_consultations: Future consultations
-  past_consultations: Past consultations
   new_questionnaire: Add a new consultation
   new_section: Add a section to your consultation
   new_question: Add a question to this section
@@ -95,6 +92,9 @@ en:
     dashboard:
       future:
         copy_hint: copy to clipboard
+        table:
+          starts_at: Starts on
+          url: URL
       current:
         chart:
           responses_title: Responses per day

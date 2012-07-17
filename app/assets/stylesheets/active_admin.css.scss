@@ -101,7 +101,7 @@ body.active_admin {
 }
 
 body.admin_dashboard {
-  table {
+  .narrow {
     width: 280px;
   }
   .offset {
@@ -136,7 +136,7 @@ body.admin_dashboard {
 }
 
 .url-with-token {
-  width: 200px;
+  width: 400px;
 }
 
 // Bootstrap .input-prepend
@@ -228,6 +228,10 @@ body.active_admin {
       }
     }
   }
+
+  // Bootstrap .clearfix
+  .clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";}
+  .clearfix:after{clear:both;}
 
   // Bootstrap .fade
   .fade {
