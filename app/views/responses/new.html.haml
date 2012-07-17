@@ -3,7 +3,10 @@
     - if @questionnaire.logo?
       #logo
         = link_to_unless_current image_tag(@questionnaire.logo.large.url, width: @questionnaire.logo_width, height: @questionnaire.logo_height, alt: ''), root_path
-    %h1= @questionnaire.title
+    %h1
+      - if @questionnaire.title_image?
+        = image_tag @questionnaire.title_image.square.url, width: @questionnaire.title_image_width, height: @questionnaire.title_image_height, alt: ''
+      = @questionnaire.title
     #facebook
       = facebook_button
     #twitter

@@ -87,7 +87,10 @@ ActiveAdmin.register Questionnaire do
         Locale.locale_name(q.locale) if q.locale?
       end
       row :logo do |q|
-        link_to(image_tag(q.logo.medium.url), q.logo_url) if q.logo?
+        link_to(image_tag(q.logo.large.url), q.logo_url) if q.logo?
+      end
+      row :title_image do |q|
+        link_to(image_tag(q.title_image.square.url), q.title_image_url) if q.title_image?
       end
       row :description
       row :starts_at do |q|

@@ -1,7 +1,7 @@
 # coding: utf-8
 require 'carrierwave/processing/mime_types'
 
-class LogoUploader < CarrierWave::Uploader::Base
+class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
 
   process :set_content_type
@@ -44,11 +44,15 @@ class LogoUploader < CarrierWave::Uploader::Base
   # end
 
   version :large do
-    process :resize_to_limit => [200, 940]
+    process :resize_to_limit => [940, 200]
     process :set_width_and_height
   end
   version :medium do
-    process :resize_to_limit => [100, 470]
+    process :resize_to_limit => [470, 100]
+    process :set_width_and_height
+  end
+  version :square do
+    process :resize_and_pad => [72, 72]
     process :set_width_and_height
   end
 
@@ -66,10 +70,22 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # https://github.com/jnicklas/carrierwave/wiki/How-to:-Get-version-image-dimensions
   def set_width_and_height
-    if @file && model
+    if @file && set_width_and_height?
       image = ::Magick::Image.read(@file.file).first
-      model.logo_width = image.columns
-      model.logo_height = image.rows
+      model.send(width_method, image.columns)
+      model.send(height_method, image.rows)
     end
+  end
+
+  def set_width_and_height?
+    model && model.respond_to?(width_method) && model.respond_to?(height_method)
+  end
+
+  def width_method
+    @width_method ||= "#{mounted_as}_width=".to_sym
+  end
+
+  def height_method
+    @height_method ||= "#{mounted_as}_height=".to_sym
   end
 end

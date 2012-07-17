@@ -10,11 +10,13 @@ class Questionnaire
   embeds_many :sections
   has_many :responses
   embeds_one :google_api_authorization, autobuild: true
-  mount_uploader :logo, LogoUploader
+  mount_uploader :logo, ImageUploader
+  mount_uploader :title_image, ImageUploader
 
   field :title, type: String
   field :locale, type: String
   field :logo, type: String
+  field :title_image, type: String
   field :description, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
@@ -33,9 +35,11 @@ class Questionnaire
   field :facebook_app_id, type: String
   field :authorization_token, type: String
 
-  # Logo uploader.
+  # Image uploaders.
   field :logo_width, type: Integer
   field :logo_height, type: Integer
+  field :title_image_width, type: Integer
+  field :title_image_height, type: Integer
 
   attr_protected :authorization_token, :logo_width, :logo_height
 
