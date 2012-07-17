@@ -39,10 +39,8 @@ ActiveAdmin.register Section do
       f.input :embed, as: :text, input_html: {rows: 3}
     end
 
-    # Add an ID to each question so that we can link to each question from sections#show
-    # @see https://github.com/gregbell/active_admin/pull/1512
     # @see https://github.com/gregbell/active_admin/pull/1391
-    f.has_many :questions, legend: t(:questions), id: "question_%i" do |g,i|
+    f.has_many :questions, header: t(:questions) do |g,i|
       unless g.object.new_record?
         g.input :_destroy, as: :boolean
       end
@@ -81,12 +79,12 @@ ActiveAdmin.register Section do
       row :questions do |s|
         if s.questions.present?
           ul(class: can?(:update, s) ? 'sortable' : '') do
-            s.questions.each do |q|
+            s.questions.each_with_index do |q,index|
               li(id: dom_id(q)) do
                 if can?(:update, q)
                   i(class: 'icon-move')
                 end
-                text_node q.title
+                text_node link_to_if can?(:read, q), q.title, edit_admin_questionnaire_section_path(s.questionnaire, s, anchor: "section_questions_attributes_#{index}__destroy_input")
               end
             end
           end

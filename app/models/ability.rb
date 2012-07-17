@@ -42,6 +42,7 @@ class Ability
       # sections a user can read.
       # @see https://github.com/ryanb/cancan/issues/319
       can :read, Section
+      can :read, Question
     end
   end
 end
