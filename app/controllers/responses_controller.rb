@@ -53,7 +53,7 @@ private
     ].max
   end
 
-  def cache_key
+  def cache_key(record)
     [ record.cache_key, # the default cache key for the response
       @questionnaire.updated_at.utc.to_s(:number), # scope responses by questionnaire
       CitizenBudget::Application.config.assets.version, # expire cache when assets change
