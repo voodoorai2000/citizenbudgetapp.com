@@ -4,11 +4,11 @@ class ResponsesController < ApplicationController
   # http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
   caches_action :new, cache_path: ->(c) do
     record = @questionnaire.responses.build
-    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number), params[:token] || request.host].join '-'
+    cache_key record
   end
   caches_action :show, cache_path: ->(c) do
     record = @questionnaire.responses.find params[:id]
-    [record.cache_key, @questionnaire.updated_at.utc.to_s(:number), params[:token] || request.host].join '-'
+    cache_key record
   end
 
   def new
@@ -51,5 +51,13 @@ private
       @questionnaire.maximum_amount.abs,
       -@questionnaire.minimum_amount.abs,
     ].max
+  end
+
+  def cache_key
+    [ record.cache_key, # the default cache key for the response
+      @questionnaire.updated_at.utc.to_s(:number), # scope responses by questionnaire
+      CitizenBudget::Application.config.assets.version, # expire cache when assets change
+      params[:token] || request.host # use a different cache if using a token
+    ].join '-'
   end
 end
