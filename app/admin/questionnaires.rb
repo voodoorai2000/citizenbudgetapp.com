@@ -77,7 +77,7 @@ ActiveAdmin.register Questionnaire do
 
   form partial: 'form'
 
-  show do
+  show title: ->(q){truncate display_name(q), length: 35, separator: ' '} do
     attributes_table do
       row :title
       row :organization do |q|

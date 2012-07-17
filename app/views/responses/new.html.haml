@@ -10,12 +10,8 @@
       = twitter_button
 
   %section#introduction
-    .row
-      .span8
-        :markdown
-          #{@questionnaire.introduction}
-      .span4
-        &nbsp;
+    :markdown
+      #{@questionnaire.introduction}
 
   = bootstrap_form_for @response, html: {class: 'form-horizontal'} do |f|
     %section#questionnaire
