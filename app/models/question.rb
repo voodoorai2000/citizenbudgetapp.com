@@ -21,6 +21,7 @@ class Question
 
   field :widget, type: String
   field :extra, type: String
+  field :embed, type: String
   field :unit_amount, type: Float
   field :unit_name, type: String
   field :position, type: Integer

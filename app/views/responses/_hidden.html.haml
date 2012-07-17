@@ -1,0 +1,4 @@
+- @questionnaire.sections.each do |section|
+  = render partial: 'modals', locals: {object: section}
+  - section.questions.each do |q|
+    = render partial: 'modals', locals: {object: q}

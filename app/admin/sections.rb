@@ -47,6 +47,7 @@ ActiveAdmin.register Section do
       g.input :title
       g.input :description, as: :text, input_html: {rows: 3}
       g.input :extra, as: :text, input_html: {rows: 3}
+      g.input :embed, as: :text, input_html: {rows: 3}
       g.input :widget, collection: Question::WIDGETS.map{|w| [t(w, scope: :widget), w]}
       g.input :options_as_list, as: :text, input_html: {rows: 5}
       g.input :default_value, input_html: {size: 8}
