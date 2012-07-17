@@ -2,3 +2,8 @@
   = auto_link questionnaire.organization
   –
   = auto_link questionnaire
+
+  %span.input-prepend
+    %span.add-on(rel="tooltip" title="#{t('.copy_hint')}" id="#{dom_id(questionnaire)}")>
+      %span.clippy(data-text="#{root_url(token: questionnaire.authorization_token)}" data-tooltip="#{dom_id(questionnaire)}")
+    %input.url-with-token(value="#{root_url(token: questionnaire.authorization_token)}")

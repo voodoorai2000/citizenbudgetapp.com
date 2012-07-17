@@ -93,6 +93,8 @@ en:
 
   admin:
     dashboard:
+      future:
+        copy_hint: copy to clipboard
       current:
         chart:
           responses_title: Responses per day
@@ -136,7 +138,6 @@ en:
       share: We encourage you to share and discuss your budget choices below with your friends and family.
       share_link: "Copy this link to share your budget choices:"
       copy_hint: copy to clipboard
-      copied_hint: copied!
       tweet: Tweet
       invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
       comments: Comments

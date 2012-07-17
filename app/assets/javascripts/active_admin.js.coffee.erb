@@ -1,8 +1,27 @@
 //= require active_admin/base
 //= require bootstrap.min
+//= require swfobject
+//= require jquery.clippy
 //= require i18n
 
 $ ->
+  $('[rel="tooltip"]').tooltip()
+
+  # URL with token.
+  $(document).on 'mouseup', '.url-with-token', ->
+    $(this).select()
+
+  $('.clippy').each ->
+    $this = $ this
+    $this.clippy
+      clippy_path: '/assets/clippy.swf'
+      flashvars:
+        args: $this.data 'tooltip'
+
+  window.clippyCopiedCallback = (args) ->
+    $('#' + args).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
+
+  # Sortable sections and questions.
   $('.sortable').sortable
     axis: 'y'
     cursor: 'move'
@@ -44,6 +63,7 @@ $ ->
 
   $('.has_many.questions fieldset').each setup_fieldset
 
+# Dashboard charts.
 window.draw = (chart_type, id, headers, rows, options) ->
   google.setOnLoadCallback ->
     data = new google.visualization.DataTable()
