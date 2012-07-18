@@ -41,6 +41,12 @@ module ResponsesHelper
     content_tag(:div, nil, html_options.merge(options))
   end
 
+  # Only strip zeroes if all are insignificant.
+  def currency(number)
+    escaped_separator = Regexp.escape t(:'number.currency.format.separator', default: [:'number.format.separator', '.'])
+    number_to_currency(number).sub /#{escaped_separator}0+\z/, ''
+  end
+
   def colspan(section)
     section.survey? && 1 || 2
   end
