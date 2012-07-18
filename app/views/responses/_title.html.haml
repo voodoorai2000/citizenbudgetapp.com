@@ -1,0 +1,9 @@
+= object.title
+- if object.extra?
+  %span
+    %i.icon-info-sign
+    = link_to t('.read_more'), "##{object.title.parameterize}_extra", 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(object.extra)), 'data-placement' => placement
+- if object.embed?
+  %span
+    %i.icon-facetime-video
+    = link_to t('.view_media'), "##{object.title.parameterize}_embed", 'data-toggle' => 'modal', 'rel' => 'tooltip', 'title' => t('.view_media_tip')

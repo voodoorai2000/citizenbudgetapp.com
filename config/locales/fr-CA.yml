@@ -120,10 +120,6 @@ fr-CA:
         automatic: Automatique
   questionnaires:
     questionnaire:
-      read_more: En savoir plus
-      read_more_tip: Cliquez pour en savoir plus
-      view_media: Consultez le contenu média
-      view_media_tip: Cliquez pour consulter le contenu média
       your_choice: Votre choix
   responses:
     new:
@@ -138,6 +134,11 @@ fr-CA:
       tweet: Tweeter
       invitation: "Vous n'avez pas encore soumis vos propres choix budgétaires ? <b><a href=\"%{url}\">Cliquez ici pour participer.</a></b>"
       comments: Commentaires
+    title:
+      read_more: En savoir plus
+      read_more_tip: Cliquez pour en savoir plus
+      view_media: Consultez le contenu média
+      view_media_tip: Cliquez pour consulter le contenu média
     modals:
       close: Fermer
     modal:

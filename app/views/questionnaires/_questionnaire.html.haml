@@ -3,15 +3,7 @@
     %thead
       %tr
         %th.category
-          = section.title
-          - if section.extra?
-            %span
-              %i.icon-info-sign
-              = link_to t('.read_more'), "##{section.title.parameterize}_extra", 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(section.extra)), 'data-placement' => 'bottom'
-          - if section.embed?
-            %span
-              %i.icon-facetime-video
-              = link_to t('.view_media'), "##{section.title.parameterize}_embed", 'data-toggle' => 'modal', 'rel' => 'tooltip', 'title' => t('.view_media_tip')
+          = render partial: 'title', locals: {object: section, placement: 'bottom'}
         - unless section.survey?
           %th.column.highlight
             =t '.your_choice'
@@ -26,15 +18,7 @@
           - if q.survey?
             %td.description(colspan="#{colspan(section)}")
               %h3
-                = q.title
-                - if q.extra?
-                  %span
-                    %i.icon-info-sign
-                    = link_to t('.read_more'), "##{q.title.parameterize}_extra", 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra)), 'data-placement' => 'bottom'
-                - if q.embed?
-                  %span
-                    %i.icon-facetime-video
-                    = link_to t('.view_media'), "##{q.title.parameterize}_embed", 'data-toggle' => 'modal', 'rel' => 'tooltip', 'title' => t('.view_media_tip')
+                = render partial: 'title', locals: {object: q, placement: 'bottom'}
               - if q.description?
                 :markdown
                   #{q.description}
@@ -59,11 +43,7 @@
           - else
             %td.description
               %h3
-                = q.title
-                - if q.extra?
-                  %span
-                    %i.icon-info-sign
-                    = link_to t('.read_more'), "##{q.title.parameterize}_extra", 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(q.extra))
+                = render partial: 'title', locals: {object: q, placement: 'top'}
               - if q.description?
                 :markdown
                   #{q.description}

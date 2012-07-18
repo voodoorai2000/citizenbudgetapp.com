@@ -123,10 +123,6 @@ en:
         automatic: Automatic
   questionnaires:
     questionnaire:
-      read_more: Learn more
-      read_more_tip: Click for more info
-      view_media: View media
-      view_media_tip: Click to view media
       your_choice: Your choice
   responses:
     new:
@@ -141,6 +137,11 @@ en:
       tweet: Tweet
       invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
       comments: Comments
+    title:
+      read_more: Learn more
+      read_more_tip: Click for more info
+      view_media: View media
+      view_media_tip: Click to view media
     modals:
       close: Close
     modal:
