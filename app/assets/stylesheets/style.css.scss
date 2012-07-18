@@ -540,6 +540,22 @@ nav {
   }
 }
 
+// If there is only one item in the menu.
+nav.simple {
+  .nav {
+    li {
+      float: none;
+    }
+    #revenue .inner,
+    #expense .inner {
+      padding: 0;
+    }
+  }
+  .chart {
+    margin: 0 auto;
+  }
+}
+
 .nav-fixed {
   position: fixed;
   top: 0;

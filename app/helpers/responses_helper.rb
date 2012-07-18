@@ -1,4 +1,5 @@
 module ResponsesHelper
+  # Surrounds a string with locale-appropriate curly quotes.
   def curly_quote(string)
     "#{t(:left_quote)}#{string}#{t(:right_quote)}"
   end
@@ -7,6 +8,7 @@ module ResponsesHelper
     RDiscount.new(string).to_html.html_safe
   end
 
+  # Escapes double-quotes for inclusion in HTML attributes.
   def escape_attribute(string)
     string.gsub '"', '&quot;'
   end
@@ -41,5 +43,10 @@ module ResponsesHelper
 
   def colspan(section)
     section.survey? && 1 || 2
+  end
+
+  # Display a menu if there are multiple groups and/or sections.
+  def simple_navigation?
+    @groups.size == 1 && @groups.values[0].size == 1
   end
 end

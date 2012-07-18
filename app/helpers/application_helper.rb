@@ -1,8 +1,4 @@
 module ApplicationHelper
-  def token_url(questionnaire)
-    root_url(token: questionnaire.authorization_token)
-  end
-
   def bootstrap_form_for(record_or_name_or_array, *args, &proc)
     options = args.extract_options!
     options[:builder] ||= FormtasticBootstrap::FormBuilder
@@ -17,6 +13,8 @@ module ApplicationHelper
   def iso639_locale
     locale.to_s.split('-', 2).first
   end
+
+  # <head> tags
 
   def title
     if @questionnaire
@@ -35,6 +33,7 @@ module ApplicationHelper
   end
 
   # Open Graph tags
+
   def og_title
     title
   end
@@ -61,7 +60,8 @@ module ApplicationHelper
     end
   end
 
-  # Facebook tags
+  # Third-party integration
+
   def facebook_app_id
     @questionnaire && @questionnaire.facebook_app_id
   end
@@ -70,7 +70,13 @@ module ApplicationHelper
     @questionnaire && @questionnaire.google_analytics || t('.google_analytics')
   end
 
-  MAX_DIMENSION = 560 # Like Bootstrap's .modal
+  # Used in both public and private controllers.
+
+  def token_url(questionnaire)
+    root_url(token: questionnaire.authorization_token)
+  end
+
+  MAX_DIMENSION = 560 # As for Bootstrap's .modal
 
   def speakerdeck(html)
     ratio = html[/data-ratio="([0-9.]+)"/, 1].to_f
