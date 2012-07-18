@@ -590,8 +590,22 @@ nav.simple {
 
 /* Responsive ----------------------------------------------------------------*/
 
+.min-width-default {
+  display: block;
+}
+.min-width-768 {
+  display: none;
+}
+
 // From bootstrap-responsive.css
 @media (min-width: 768px) and (max-width: 979px) {
+  .min-width-default {
+    display: none;
+  }
+  .min-width-768 {
+    display: block;
+  }
+
   nav,
   .nav-fixed .nav {
     width: 722px;
