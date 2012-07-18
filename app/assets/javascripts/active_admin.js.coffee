@@ -1,5 +1,5 @@
 //= require active_admin/base
-//= require bootstrap.min
+//= require bootstrap
 //= require swfobject
 //= require jquery.clippy
 //= require i18n

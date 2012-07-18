@@ -30,7 +30,10 @@ $ ->
       .removeAttr('data-placement')
       .attr('data-toggle', 'modal')
   else
-    $('.popover-toggle').popover().click (event) ->
+    $('.popover-toggle').popover(trigger: 'manual').each ->
+      that = $(this).data('popover')
+      that.$element.on 'mouseenter', $.proxy(that.enter, that)
+    .click (event) ->
       event.preventDefault()
     $('[rel="tooltip"]').tooltip()
 

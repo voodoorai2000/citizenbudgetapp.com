@@ -2,7 +2,7 @@
 - if object.extra?
   %span
     %i.icon-info-sign
-    = link_to t('.read_more'), "##{object.title.parameterize}_extra", 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(object.extra)), 'data-placement' => placement
+    = link_to t('.read_more'), "##{object.title.parameterize}_extra", 'class' => 'popover-toggle', 'data-content' => escape_attribute(markdown(object.extra)).html_safe, 'data-placement' => placement
 - if object.embed?
   %span
     %i.icon-facetime-video

@@ -11,7 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//= require bootstrap.min
+//= require bootstrap
 //= require swfobject
 //= require jquery.easing.1.3
 //= require jquery.scrollTo-1.4.2-min

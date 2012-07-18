@@ -1005,6 +1005,13 @@
           .css({ top: 0, left: 0, display: 'block' })
           .appendTo(inside ? this.$element : document.body)
 
+        // @todo Hack to keep popovers open. Both Tooltip#show and #hide destroy
+        // the tip, so we can't add event handlers outside these methods. #enter
+        // and #leave assume the event occurs on the toggle element, so we need
+        // to mock the event object.
+        $tip.on('mouseleave', this.options.selector, $.proxy(function(){this.leave({currentTarget: this.$element})}, this))
+        $tip.find('.popover-inner a').attr('target', '_blank')
+
         pos = this.getPosition(inside)
 
         actualWidth = $tip[0].offsetWidth
