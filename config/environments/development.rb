@@ -30,4 +30,8 @@ CitizenBudget::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # https://github.com/rails/rails/issues/3583
+  config.middleware.delete Rack::ConditionalGet
+  config.middleware.delete Rack::ETag
 end
