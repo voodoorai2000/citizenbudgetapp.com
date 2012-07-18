@@ -52,7 +52,7 @@
                 - if q.widget == 'slider'
                   .impact
                     %span.key
-                    %span.value= number_to_currency 0
+                    %span.value= number_to_currency 0, strip_insignificant_zeros: true
                   - if q.unit_name == '$' && q.unit_amount == 1
                     .meta.maximum &nbsp;
                     .meta.minimum &nbsp;
@@ -72,13 +72,13 @@
                       .tick.initial
                       .tick.highest
                   .meta.maximum
-                    = number_to_currency q.maximum_amount
+                    = number_to_currency q.maximum_amount, strip_insignificant_zeros: true
                   .meta.minimum
-                    = number_to_currency q.minimum_amount
+                    = number_to_currency q.minimum_amount, strip_insignificant_zeros: true
                 - elsif q.widget == 'onoff'
                   .impact
                     %span.key
-                    %span.value= number_to_currency 0
+                    %span.value= number_to_currency 0, strip_insignificant_zeros: true
                   .control.control-onoff
                     = hidden_field_tag q.id, '0' # Mimic an unchecked box.
                     - if @response.persisted?
@@ -86,6 +86,6 @@
                     - else
                       = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value
                   %div(class="meta maximum#{' changed' if q.unchecked?}")
-                    = number_to_currency q.maximum_amount
+                    = number_to_currency q.maximum_amount, strip_insignificant_zeros: true
                   %div(class="meta minimum#{' changed' if q.checked?}")
-                    = number_to_currency q.minimum_amount
+                    = number_to_currency q.minimum_amount, strip_insignificant_zeros: true

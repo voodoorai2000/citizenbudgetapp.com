@@ -286,11 +286,6 @@ en:
     models: *models
     attributes: *attributes
 
-  number:
-    currency:
-      format:
-        precision: 0
-
   time:
     formats:
       short: "%B %e, %Y"

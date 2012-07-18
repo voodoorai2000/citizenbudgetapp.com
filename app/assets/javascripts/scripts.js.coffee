@@ -94,16 +94,40 @@ $ ->
     else
       x * (27 + x * x) / (27 + 9 * x * x)
 
-  # @see https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L231
+  # @see https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L208
   number_with_delimiter = (number) ->
-    parts = Math.round(parseFloat(number)).toString().split '.'
+    parts = parseFloat(number).toString().split '.'
     parts[0] = parts[0].replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'
     parts.join t('currency_separator')
 
+  # @see https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L254
+  # @note Doesn't implement :significant option.
+  number_with_precision = (number, options = {}) ->
+    options.precision ?= 2
+    # toFixed has unpredictable rounding, but small rounding errors are not an issue.
+    formatted_number = number_with_delimiter parseFloat(number).toFixed(options.precision)
+    if options.strip_insignificant_zeros
+      escaped_separator = t('currency_separator').replace ///(
+        [
+          .     # Dot
+          ?*+{} # Quantification
+          [\]   # Character set
+          ()    # Grouping
+          ^$    # Anchors
+          |     # Alternation
+          \\    # Escape character
+          \#    # Comment
+          -     # Hyphen
+        ]
+      )///g, '\\$1'
+      formatted_number.replace(///(#{escaped_separator})(\d*[1-9])?0+\z///, '$1$2').replace(///#{escaped_separator}$///, '')
+    else
+      formatted_number
+
   # Converts a number to a currency.
-  number_to_currency = (number) ->
+  number_to_currency = (number, options = {}) ->
     Mustache.render t('currency_format'),
-      number: number_with_delimiter number
+      number: number_with_precision number, options
       unit: t 'currency_unit'
 
   number_to_human = (number) ->
@@ -140,7 +164,7 @@ $ ->
     $span   = $ '#' + $table.attr('id') + '_link span'
     if $span.parents('.dropdown-menu').length
       balance = calculateBalance $table
-      $span.html(number_to_currency(balance)).css('color', if balance < 0 then '#f00' else '#000').toggle(balance != 0)
+      $span.html(number_to_currency(balance, strip_insignificant_zeros: true)).css('color', if balance < 0 then '#f00' else '#000').toggle(balance != 0)
 
   # Updates within-group balance.
   updateBalance = ->
@@ -156,7 +180,7 @@ $ ->
       balance += group_balance
 
       # Update group balance.
-      currency = number_to_currency group_balance
+      currency = number_to_currency group_balance, strip_insignificant_zeros: true
       amount.html(currency).toggleClass 'negative', group_balance < 0
 
       # Move bar and balance.
@@ -199,7 +223,7 @@ $ ->
           width: width
 
     $message = $ '.message'
-    currency = number_to_currency balance
+    currency = number_to_currency balance, strip_insignificant_zeros: true
 
     # Update message.
     changed = $('.selected').length
@@ -256,7 +280,7 @@ $ ->
           color = '#d00'
 
       $tr.find('.key').html key
-      $tr.find('.value').html number_to_currency(Math.abs(current - initial) * value)
+      $tr.find('.value').html number_to_currency(Math.abs(current - initial) * value, strip_insignificant_zeros: true)
       $tr.find('.impact').css('color', color).css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
         $tr.addClass 'selected'
