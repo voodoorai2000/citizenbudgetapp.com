@@ -988,6 +988,10 @@
 
       if (this.hasContent() && this.enabled) {
         $tip = this.tip()
+
+        // @todo Hack to prevent flashing popover.
+        if ($tip.hasClass('in')) return
+
         this.setContent()
 
         if (this.options.animation) {
@@ -1010,7 +1014,12 @@
         // and #leave assume the event occurs on the toggle element, so we need
         // to mock the event object.
         if (this.options.trigger == 'manual') {
-          $tip.on('mouseleave', this.options.selector, $.proxy(function(){this.leave({currentTarget: this.$element})}, this))
+          $tip.on('mouseenter', this.options.selector, $.proxy(function () {
+            this.hoverState = 'in' // cancel hide
+          }, this))
+          $tip.on('mouseleave', this.options.selector, $.proxy(function () {
+            this.leave({currentTarget: this.$element})
+          }, this))
           $tip.find('.popover-inner a').attr('target', '_blank')
         }
 
