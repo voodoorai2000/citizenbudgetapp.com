@@ -96,8 +96,8 @@ $ ->
 
   # @see https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L208
   number_with_delimiter = (number) ->
-    parts = parseFloat(number).toString().split '.'
-    parts[0] = parts[0].replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t 'currency_delimiter'
+    parts = number.toString().split '.'
+    parts[0] = parts[0].replace /(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + t('currency_delimiter')
     parts.join t('currency_separator')
 
   # @see https://github.com/rails/rails/blob/006de2577a978cd212f07df478b03053b1309c84/actionpack/lib/action_view/helpers/number_helper.rb#L254
@@ -120,7 +120,9 @@ $ ->
           -     # Hyphen
         ]
       )///g, '\\$1'
-      formatted_number.replace(///(#{escaped_separator})(\d*[1-9])?0+\z///, '$1$2').replace(///#{escaped_separator}$///, '')
+      # Only strip zeroes if all are insignificant.
+      # formatted_number.replace(///(#{escaped_separator})(\d*[1-9])?0+$///, '$1$2').replace(///#{escaped_separator}$///, '')
+      formatted_number.replace ///#{escaped_separator}0+$///, ''
     else
       formatted_number
 
