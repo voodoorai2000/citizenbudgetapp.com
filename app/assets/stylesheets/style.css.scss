@@ -338,9 +338,7 @@ label.iOSCheckLabelOff.reverse {
   }
 }
 
-.embed {
-  width: 567px;
-  margin: -300px 0 0 -283px;
+.embed { // Override .modal
   border: none;
   background-color: transparent;
   text-align: center;
@@ -350,11 +348,6 @@ label.iOSCheckLabelOff.reverse {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-
-  .speakerdeck-iframe {
-    width: 567px !important;
-    height: 500px !important; // 11x8.5 aspect ratio plus 62
-  }
 }
 
 /* Identification ------------------------------------------------------------*/

@@ -1009,8 +1009,10 @@
         // the tip, so we can't add event handlers outside these methods. #enter
         // and #leave assume the event occurs on the toggle element, so we need
         // to mock the event object.
-        $tip.on('mouseleave', this.options.selector, $.proxy(function(){this.leave({currentTarget: this.$element})}, this))
-        $tip.find('.popover-inner a').attr('target', '_blank')
+        if (this.options.trigger == 'manual') {
+          $tip.on('mouseleave', this.options.selector, $.proxy(function(){this.leave({currentTarget: this.$element})}, this))
+          $tip.find('.popover-inner a').attr('target', '_blank')
+        }
 
         pos = this.getPosition(inside)
 

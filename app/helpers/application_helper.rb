@@ -69,4 +69,25 @@ module ApplicationHelper
   def google_analytics_tracking_code
     @questionnaire && @questionnaire.google_analytics || t('.google_analytics')
   end
+
+  MAX_DIMENSION = 560 # Like Bootstrap's .modal
+
+  def speakerdeck(html)
+    ratio = html[/data-ratio="([0-9.]+)"/, 1].to_f
+    if ratio.zero?
+      html.html_safe
+    else
+      # @see http://speakerdeck.com/assets/embed.js
+      if ratio >= 1
+        width  = MAX_DIMENSION
+        height = ((width - 2) / ratio + 64).round
+        margin = 0
+      else
+        height = MAX_DIMENSION
+        width  = ((height - 64) * ratio + 2).round
+        margin = ((MAX_DIMENSION - width) / 2.0).round
+      end
+      content_tag(:div, html.html_safe, style: "width:#{width}px;height:#{height}px;margin-left:#{margin}px")
+    end
+  end
 end

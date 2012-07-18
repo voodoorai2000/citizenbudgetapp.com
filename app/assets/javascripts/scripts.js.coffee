@@ -37,6 +37,11 @@ $ ->
       event.preventDefault()
     $('[rel="tooltip"]').tooltip()
 
+  $('.modal').bind 'shown', ->
+    $(this).removeClass 'invisible'
+  $('.modal').bind 'hidden', ->
+    $(this).addClass 'invisible'
+
   # Navigation
   (->
     if $('nav').length

@@ -124,12 +124,6 @@ body.admin_dashboard {
   display: inline;
 }
 
-// SpeakerDeck integration
-.speakerdeck-iframe {
-  width: 350px !important;
-  height: 332px !important; // 8.5 x 11 (US Letter) aspect ratio plus 62
-}
-
 .block-errors {
   color: $error-color;
   font-weight: bold;

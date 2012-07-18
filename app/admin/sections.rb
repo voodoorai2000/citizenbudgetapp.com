@@ -75,7 +75,7 @@ ActiveAdmin.register Section do
         RDiscount.new(s.extra).to_html.html_safe if s.extra?
       end
       row :embed do |s|
-        s.embed.html_safe if s.embed?
+        speakerdeck(s.embed) if s.embed?
       end
       row :questions do |s|
         if s.questions.present?
