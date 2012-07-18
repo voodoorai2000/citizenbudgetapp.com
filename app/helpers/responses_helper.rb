@@ -44,7 +44,9 @@ module ResponsesHelper
   # Only strip zeroes if all are insignificant.
   def currency(number)
     escaped_separator = Regexp.escape t(:'number.currency.format.separator', default: [:'number.format.separator', '.'])
-    number_to_currency(number).sub /#{escaped_separator}0+\z/, ''
+    # This logic should be in number_with_precision, but as long as the
+    # separator occurs only once, this is safe.
+    number_to_currency(number).sub /#{escaped_separator}0+\b/, ''
   end
 
   def colspan(section)
