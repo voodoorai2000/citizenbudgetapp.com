@@ -33,7 +33,7 @@ module ResponsesHelper
       'data-send'       => 'true',
       'data-layout'     => 'button_count',
       'data-show-faces' => 'false',
-      'data-width'      => '175',
+      'data-width'      => t(:facebook_width),
     }
     if @questionnaire
       html_options['data-href'] = @questionnaire.domain_url

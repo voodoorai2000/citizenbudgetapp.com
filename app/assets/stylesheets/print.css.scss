@@ -1,0 +1,144 @@
+@import "bootstrap";
+
+// @todo
+// hide placeholder attribute
+// fix page break through lines
+// render disabled form elements as enabled
+// hide lists of links?
+
+section img, // Images may not work in black and white
+nav, // Hide interactive elements
+th span, // Hide "Learn more" and "View media" links
+h3 span,
+footer, // Hide promotional material
+#facebook,
+#twitter,
+#message,
+#whitespace,
+.widget-slider, // Some widgets are unsuitable in print
+.widget-onoff,
+.custom-chart, // Hide custom charts
+.form-actions,
+.modal {
+  display: none;
+}
+
+$font-size: 16px;
+
+body,
+a {
+  font-size: $font-size;
+  color: #000;
+}
+
+label,
+input,
+button,
+select,
+textarea {
+  font-size: $font-size;
+  line-height: 1.5em;
+}
+
+#identification {
+  opacity: 1 !important;
+  filter: alpha(opacity=100) !important;
+}
+
+input[disabled],
+select[disabled],
+textarea[disabled] {
+  border-color: #ccc;
+}
+
+/* Header --------------------------------------------------------------------*/
+
+#logo {
+  margin-bottom: 1em;
+}
+
+h1,
+h2,
+legend {
+  color: #000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+h1 {
+  margin-bottom: 0.433em;
+
+  img {
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+/* Introduction --------------------------------------------------------------*/
+
+#introduction {
+  font-family: Georgia, "Times New Roman", Times, serif;
+
+  p {
+    font-size: 1.08em;
+    line-height: 1.5em;
+    margin-bottom: 1em;
+  }
+}
+
+/* Questionnaire -------------------------------------------------------------*/
+
+$column-width: 250px;
+
+table {
+  width: 100%;
+  margin: 50px 0;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 5px 0;
+  border-bottom: 2px solid #000;
+  font-size: 1.38em;
+}
+th.category {
+  font-weight: normal;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+th.column {
+  width: $column-width;
+  visibility: hidden;
+}
+
+td {
+  border-bottom: 1px solid #999;
+
+  p {
+    margin: 0 0 1em;
+  }
+}
+td.description {
+  padding: 15px 10px 15px 0;
+
+  h3 {
+    margin: 0;
+    font-size: 1.08em;
+    font-weight: bold;
+    line-height: 1.5em;
+  }
+
+  .control-group {
+    margin: 0;
+  }
+  .controls {
+    margin-left: 40px;
+  }
+}
+
+/* Identification ------------------------------------------------------------*/
+
+legend span {
+  padding-left: 160px;
+}

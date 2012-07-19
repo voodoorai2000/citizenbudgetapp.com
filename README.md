@@ -114,6 +114,7 @@ If you contribute translations, remember to add a new key-value pair to the `LOC
 
 ## Troubleshooting
 
+* To prevent paragraph (`p` tag) insertion in Markdown, wrap the content in a `div` tag.
 * Active Admin caches `ApplicationController` and `ApplicationHelper` methods in development, requiring a restart.
 * If you are getting New Relic-related exceptions when starting the Rails server or console, run `gem uninstall psych -a`.
 * If saving a record fails with no explicit errors shown, it is likely because an association is invalid.

@@ -4,6 +4,7 @@
 en:
   left_quote: "“"
   right_quote: "”"
+  facebook_width: 155
   create_response: Thank you for your participation! Your opinion is important to us.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
@@ -128,7 +129,7 @@ en:
     new:
       instructions: Change an activity to start
       submit_your_choices: Submit your choices
-      submit: Send
+      submit: Submit
     show:
       header: "%{name} a rééquilibré le budget !"
       share: We encourage you to share and discuss your budget choices below with your friends and family.

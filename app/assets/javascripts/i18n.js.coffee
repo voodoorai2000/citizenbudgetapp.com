@@ -1,5 +1,5 @@
 I18n =
-  en:
+  en_US:
     overlay_title: 'Sample overlay'
     overlay_text: 'This is where the explanatory text would appear.'
     yes: 'YES'

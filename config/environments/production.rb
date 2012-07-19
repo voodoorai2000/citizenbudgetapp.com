@@ -58,6 +58,7 @@ CitizenBudget::Application.configure do
     jquery.validationEngine-fr.js
     jquery-ui.min.js
     modernizr-2.5.3.min.js
+    print.css
   )
 
   # Disable delivery errors, bad email addresses will be ignored
