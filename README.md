@@ -68,9 +68,9 @@ If you change any assets, you need to compile them and add them to Git:
 
 ### Cache
 
-Rails will cache assets for some time. To expire assets, increment the value of `config.assets.version` in [config/application.rb](https://github.com/opennorth/citizenbudgetapp.com/blob/master/config/application.rb#L63) before compiling.
+To expire assets, increment the value of `config.assets.version` in [config/application.rb](https://github.com/opennorth/citizenbudgetapp.com/blob/master/config/application.rb#L63) before compiling.
 
-The following Git pre-commit hook sets `RAILS_APP_VERSION`, which will expire all ETags on deployment and check for whitespace errors. Paste the code into `.git/hooks/pre-commit` to add the pre-commit hook.
+The following Git pre-commit hook checks for whitespace errors and sets `RAILS_APP_VERSION`, which will cause all ETags to expire on deployment. Paste the code into `.git/hooks/pre-commit` to add this hook.
 
 ```sh
 #!/bin/sh
@@ -103,7 +103,7 @@ To run a local production environment that is close to the Heroku environment, r
     export RACK_ENV=production
     foreman start
 
-To get New Relic to work properly in this enviroment, you must also define the following. Defining these in `_heroku.rb` will have no effect, because the `newrelic_rpm` gem will read `config/newrelic.yml` before any Rails initializers run.
+To get New Relic to work properly in this enviroment, you must also define the following. (Defining these in `_heroku.rb` will have no effect, because the `newrelic_rpm` gem will read `config/newrelic.yml` before any Rails initializers run.)
 
     export NEW_RELIC_APP_NAME=`heroku config:get NEW_RELIC_APP_NAME`
     export NEW_RELIC_LICENSE_KEY=`heroku config:get NEW_RELIC_LICENSE_KEY`
@@ -114,10 +114,10 @@ If you contribute translations, remember to add a new key-value pair to the `LOC
 
 ## Troubleshooting
 
-* For whatever reason, Active Admin caches `ApplicationController` and `ApplicationHelper` methods in development, requiring a restart.
+* Active Admin caches `ApplicationController` and `ApplicationHelper` methods in development, requiring a restart.
 * If you are getting New Relic-related exceptions when starting the Rails server or console, run `gem uninstall psych -a`.
 * If saving a record fails with no explicit errors shown, it is likely because an association is invalid.
-* Unless you nest an embedded document, you will raise `Access to the collection for COLLECTION is not allowed since it is an embedded document, please access a collection from the root document.`
+* Unless you nest an embedded document, you will raise "Access to the collection for COLLECTION is not allowed since it is an embedded document, please access a collection from the root document."
 
 For minimum uncertainty, use the same version of Ruby (1.9.3-p194) and Bundler (1.2.0.pre) as on Heroku:
 
