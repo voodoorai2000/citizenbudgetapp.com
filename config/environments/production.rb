@@ -73,7 +73,7 @@ CitizenBudget::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => ENV['ACTION_MAILER_HOST'] }
+  config.action_mailer.default_url_options = {host: ENV['ACTION_MAILER_HOST']}
 
   # https://devcenter.heroku.com/articles/rack-cache-memcached-static-assets-rails31
   config.static_cache_control = 'public, max-age=2592000' # 30 days

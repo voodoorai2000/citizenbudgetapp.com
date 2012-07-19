@@ -24,9 +24,11 @@ class Notifier < ActionMailer::Base
     mail(headers) do |format|
       format.text do
         if questionnaire.thank_you_template?
+          options = ActionMailer::Base.default_url_options
+          options = options.merge(host: questionnaire.domain) if questionnaire.domain?
           render text: Mustache.render(questionnaire.thank_you_template, {
             name: response.name,
-            url: Bitly.shorten(response_url(response, ActionMailer::Base.default_url_options.merge(host: questionnaire.domain))),
+            url: Bitly.shorten(response_url(response, options)),
           })
         end
       end
