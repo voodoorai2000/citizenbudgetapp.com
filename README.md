@@ -34,6 +34,29 @@ To copy a development database to production, run (replace placeholders):
     mongodump -h localhost -d citizen_budget_development -o dump-dir
     mongorestore -h MONGOLAB_HOST -d MONGOLAB_DB -u MONGOLAB_USER -p MONGOLAB_PASSWORD dump-dir/*
 
+The following Git pre-commit hook sets `RAILS_APP_VERSION`, which will expire all ETags on deployment and check for whitespace errors:
+
+```sh
+#!/bin/sh
+
+# If this is the initial commit, diff against an empty tree object.
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+  against=`git rev-parse --short HEAD`
+else
+  against=4b825dc
+fi
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Save the Rails app version.
+echo "ENV['RAILS_APP_VERSION'] = '$against'" > config/initializers/rails_app_version.rb
+
+# If there are whitespace errors, print the offending file names and fail.
+exec git diff-index --check --cached $against --
+```
+
 ## Configuration
 
 You may want to change some translations in the `config/locales` files, such as `app`, `site_title`, `layouts.application`.  There are multiple references to `citizenbudget.com` in the code which you may need to replace (we are working to remove these).

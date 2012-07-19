@@ -15,8 +15,9 @@ class Response
 
   # @todo Make fields and validations customizable and configurable.
   field :email, type: String
-  field :postal_code, type: String
   field :name, type: String
+
+  field :postal_code, type: String
   field :gender, type: String
   field :age, type: Integer
   field :comments, type: String
@@ -54,6 +55,22 @@ class Response
       parts[1] = "#{UnicodeUtils.upcase(parts[1][0])}." if parts[1]
       parts.join ' '
     end
+  end
+
+  # @see http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
+  # @see lib/active_record/integration.rb
+  # @see lib/active_support/cache.rb
+  def cache_key
+    # Scope "responses/new" by questionnaire, and expire the cache when the
+    # questionnaire changes.
+    parts = [super]
+    parts << questionnaire.updated_at.utc.to_s(:number) if questionnaire?
+    # We can expire the cache when assets change by uncommenting the following
+    # line, but we already expire it on each commit by setting RAILS_APP_VERSION
+    # to the current Git revision in a pre-commit hook.
+    #
+    # parts << CitizenBudget::Application.config.assets.version
+    parts.join '-'
   end
 
 private

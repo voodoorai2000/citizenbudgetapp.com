@@ -133,6 +133,14 @@ body.admin_dashboard {
   width: 400px;
 }
 
+.min-width-default {
+  display: none;
+}
+
+.min-width-768 {
+  display: block;
+}
+
 // Bootstrap .input-prepend
 body.active_admin {
   .input-prepend {

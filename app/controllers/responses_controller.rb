@@ -54,10 +54,8 @@ private
   end
 
   def cache_key(record)
-    [ record.cache_key, # the default cache key for the response
-      @questionnaire.updated_at.utc.to_s(:number), # scope responses by questionnaire
-      CitizenBudget::Application.config.assets.version, # expire cache when assets change
-      params[:token] || request.host # use a different cache if using a token
-    ].join '-'
+    parts = [record.cache_key]
+    parts << params[:token] if params[:token] # use a different cache for token access
+    parts.join '-'
   end
 end
