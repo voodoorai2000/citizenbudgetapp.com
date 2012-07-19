@@ -1,0 +1,1 @@
+ENV['RAILS_APP_VERSION'] = '737a7ec'
