@@ -1,34 +1,7 @@
-function contentLoaded(a, b) {
-    var c = !1,
-        d = !0,
-        e = a.document,
-        f = e.documentElement,
-        g = e.addEventListener ? "addEventListener" : "attachEvent",
-        h = e.addEventListener ? "removeEventListener" : "detachEvent",
-        i = e.addEventListener ? "" : "on",
-        j = function (d) {
-            if (d.type == "readystatechange" && e.readyState != "complete") return;
-            (d.type == "load" ? a : e)[h](i + d.type, j, !1), !c && (c = !0) && b.call(a, d.type || d)
-        }, k = function () {
-            try {
-                f.doScroll("left")
-            } catch (a) {
-                setTimeout(k, 50);
-                return
-            }
-            j("poll")
-        };
-    if (e.readyState == "complete") b.call(a, "lazy");
-    else {
-        if (e.createEventObject && f.doScroll) {
-            try {
-                d = !a.frameElement
-            } catch (l) {}
-            d && k()
-        }
-        e[g](i + "DOMContentLoaded", j, !1), e[g](i + "readystatechange", j, !1), a[g](i + "load", j, !1)
-    }
-}((function () {
+// Replace contentLoaded and getElementsByClassName with jQuery alternatives.
+
+// Defines SpeakerDeck.API
+((function () {
     var a, b, c = function (a, b) {
         return function () {
             return a.apply(b, arguments)
@@ -94,50 +67,7 @@ function contentLoaded(a, b) {
         return a.removeEventListener ? a.removeEventListener(b, c, !1) : a.detachEvent ? a.detachEvent("on" + b, c) : a["on" + b] = null
     }, this.SpeakerDeck = SpeakerDeck
 })).call(this);
-var getElementsByClassName = function (a, b, c) {
-    return document.getElementsByClassName ? getElementsByClassName = function (a, b, c) {
-        c = c || document;
-        var d = c.getElementsByClassName(a),
-            e = b ? new RegExp("\\b" + b + "\\b", "i") : null,
-            f = [],
-            g;
-        for (var h = 0, i = d.length; h < i; h += 1) g = d[h], (!e || e.test(g.nodeName)) && f.push(g);
-        return f
-    } : document.evaluate ? getElementsByClassName = function (a, b, c) {
-        b = b || "*", c = c || document;
-        var d = a.split(" "),
-            e = "",
-            f = "http://www.w3.org/1999/xhtml",
-            g = document.documentElement.namespaceURI === f ? f : null,
-            h = [],
-            i, j;
-        for (var k = 0, l = d.length; k < l; k += 1) e += "[contains(concat(' ', @class, ' '), ' " + d[k] + " ')]";
-        try {
-            i = document.evaluate(".//" + b + e, c, g, 0, null)
-        } catch (m) {
-            i = document.evaluate(".//" + b + e, c, null, 0, null)
-        }
-        while (j = i.iterateNext()) h.push(j);
-        return h
-    } : getElementsByClassName = function (a, b, c) {
-        b = b || "*", c = c || document;
-        var d = a.split(" "),
-            e = [],
-            f = b === "*" && c.all ? c.all : c.getElementsByTagName(b),
-            g, h = [],
-            i;
-        for (var j = 0, k = d.length; j < k; j += 1) e.push(new RegExp("(^|\\s)" + d[j] + "(\\s|$)"));
-        for (var l = 0, m = f.length; l < m; l += 1) {
-            g = f[l], i = !1;
-            for (var n = 0, o = e.length; n < o; n += 1) {
-                i = e[n].test(g.className);
-                if (!i) break
-            }
-            i && h.push(g)
-        }
-        return h
-    }, getElementsByClassName(a, b, c)
-};
+
 ((function () {
     var a, b, c, d = function (a, b) {
         return function () {
@@ -152,7 +82,8 @@ var getElementsByClassName = function (a, b, c) {
         var a = this;
         return f.init = function () {
             var a, b, c, d, e;
-            b = getElementsByClassName("speakerdeck-embed"), e = [];
+            //b = getElementsByClassName("speakerdeck-embed"), e = [];
+            b = $('.speakerdeck-embed').get(), e = [];
             for (c = 0, d = b.length; c < d; c++) a = b[c], e.push((new f(a)).setup());
             return e
         }, f.prototype.url = function () {
@@ -212,5 +143,6 @@ var getElementsByClassName = function (a, b, c) {
                 return a.apply(e, d)
             }, b)
         }
-    }, contentLoaded(window, a.init), b(window, "popstate", a.init), b(document, "speakerdeck", a.init)
+    },// contentLoaded(window, a.init), b(window, "popstate", a.init), b(document, "speakerdeck", a.init)
+    $(a.init)
 })).call(this)
