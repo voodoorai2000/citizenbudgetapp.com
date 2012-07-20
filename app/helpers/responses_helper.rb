@@ -55,6 +55,6 @@ module ResponsesHelper
 
   # Display a menu if there are multiple groups and/or sections.
   def simple_navigation?
-    @groups.size == 1 && @groups.values[0].size == 1
+    @groups.one? && @groups.values[0].one?
   end
 end

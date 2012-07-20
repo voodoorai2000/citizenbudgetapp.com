@@ -1,7 +1,7 @@
 - unless simple_navigation?
   - @groups.each do |group,sections|
     -# Display a dropdown if there are multiple sections within the group.
-    - if sections.size == 1
+    - if sections.one?
       = render sections
     - else
       %li.dropdown
