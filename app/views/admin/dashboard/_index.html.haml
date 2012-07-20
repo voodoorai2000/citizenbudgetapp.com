@@ -1,5 +1,5 @@
 :javascript
-  google.load('visualization', '1', {packages: ['corechart', 'table'], language: '#{iso639_locale}'});
+  google.load('visualization', '1', {language: '#{iso639_locale}'});
 
 - if @questionnaires.future.count.nonzero?
   = render partial: 'future', collection: current_admin_user.questionnaires.future, as: :questionnaire

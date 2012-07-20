@@ -65,13 +65,17 @@ $ ->
 
 # Dashboard charts.
 window.draw = (chart_type, id, headers, rows, options) ->
+  # https://developers.google.com/chart/interactive/docs/drawing_charts
   google.setOnLoadCallback ->
     data = new google.visualization.DataTable()
     data.addColumn if chart_type is 'LineChart' then 'date' else 'string'
     data.addColumn('number', header) for header in headers
     data.addRows(rows)
-    new google.visualization[chart_type](document.getElementById(id)).draw data,
-      $.extend
+    new google.visualization.drawChart
+      chartType: chart_type
+      containerId: id
+      dataTable: data
+      options: $.extend
         backgroundColor: '#f4f4f4'
         gridlineColor: '#f4f4f4'
       , options
