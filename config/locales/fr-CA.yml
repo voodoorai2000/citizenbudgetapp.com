@@ -59,6 +59,7 @@ fr-CA:
   group:
     revenue: Revenus
     expense: Dépenses
+    other: Autre
 
   role:
     superuser: Utilisateur root

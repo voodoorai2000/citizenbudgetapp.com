@@ -144,13 +144,6 @@ class Questionnaire
     end
   end
 
-  # @return [Array] all questions from every section
-  def questions
-    sections.reduce([]) do |memo,section|
-      memo + section.questions
-    end
-  end
-
   def domain_url
     domain? && "http://#{domain}"
   end
@@ -177,7 +170,7 @@ class Questionnaire
 
   # @return [Float] the largest surplus possible
   def maximum_amount
-    sections.reduce(0) do |sum,section|
+    sections.budgetary.reduce(0) do |sum,section|
       sum + section.questions.reduce(0) do |sum,q|
         if section.group == 'revenue'
           sum + (q.maximum_amount || 0)
@@ -190,7 +183,7 @@ class Questionnaire
 
   # @return [Float] the largest deficit possible
   def minimum_amount
-    sections.reduce(0) do |sum,section|
+    sections.budgetary.reduce(0) do |sum,section|
       sum + section.questions.reduce(0) do |sum,q|
         if section.group == 'revenue'
           sum + (q.minimum_amount || 0)

@@ -62,6 +62,7 @@ en:
   group:
     revenue: Revenues
     expense: Expenses
+    other: Other
 
   role:
     superuser: Superuser

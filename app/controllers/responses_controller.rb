@@ -17,6 +17,12 @@ class ResponsesController < ApplicationController
     fresh_when @questionnaire, public: true
   end
 
+  def show
+    @response = @questionnaire.responses.find params[:id]
+    build_questionnaire
+    fresh_when @response, public: true
+  end
+
   def create
     @response = @questionnaire.responses.build params[:response]
     @response.answers = params.select{|k,_| k[/\A[a-f0-9]{24}\z/]}
@@ -24,12 +30,6 @@ class ResponsesController < ApplicationController
     @response.save! # There shouldn't be errors.
     Notifier.thank_you(@response).deliver if @response.email.present?
     redirect_to @response, notice: t(:create_response)
-  end
-
-  def show
-    @response = @questionnaire.responses.find params[:id]
-    build_questionnaire
-    fresh_when @response, public: true
   end
 
 private
@@ -46,10 +46,10 @@ private
   end
 
   def build_questionnaire
-    @groups = @questionnaire.sections.group_by(&:group)
+    @groups = @questionnaire.sections.budgetary.group_by(&:group)
     @maximum_difference = [
       @questionnaire.maximum_amount.abs,
-      -@questionnaire.minimum_amount.abs,
+      @questionnaire.minimum_amount.abs,
     ].max
   end
 

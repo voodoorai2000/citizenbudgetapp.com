@@ -1,7 +1,7 @@
 class Section
   include Mongoid::Document
 
-  GROUPS = %w(revenue expense)
+  GROUPS = %w(revenue expense other)
 
   embedded_in :questionnaire
   embeds_many :questions
@@ -21,6 +21,7 @@ class Section
 
   after_save :touch_questionnaire # @see https://github.com/mongoid/mongoid/pull/2195
 
+  scope :budgetary, where(:group.in => %w(revenue expense))
   default_scope asc(:position)
 
   def position
