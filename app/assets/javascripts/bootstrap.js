@@ -989,10 +989,11 @@
       if (this.hasContent() && this.enabled) {
         $tip = this.tip()
 
-        // @todo Hack to prevent flashing popover.
-        if ($tip.hasClass('in')) return
-
         this.setContent()
+
+        // @todo Hack to prevent flashing popover. Run after setContent so that
+        // we may update content by changing data attributes and calling #show.
+        if ($tip.hasClass('in')) return
 
         if (this.options.animation) {
           $tip.addClass('fade')
