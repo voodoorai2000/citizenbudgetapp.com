@@ -1,20 +1,27 @@
 @import "bootstrap";
 
-// @todo
-// hide placeholder attribute
-// fix page break through lines
-// render disabled form elements as enabled
-// hide lists of links?
+// Chromium < 20 doesn't render check boxes and radio buttons.
+//
+// Safari and Chromium cuts words in two along the page break.
+// * http://code.google.com/p/chromium/issues/list?q=print+table+page+break
+// * http://code.google.com/p/chromium/issues/detail?id=88183
+// * http://code.google.com/p/chromium/issues/detail?id=99124
+// * https://bugs.webkit.org/buglist.cgi?quicksearch=print+table
+//
+// Firefox
+// * https://bugzilla.mozilla.org/show_bug.cgi?id=132035
 
-section img, // Images may not work in black and white
+h1 img, // Images may not work in black and white
+section img,
 nav, // Hide interactive elements
 th span, // Hide "Learn more" and "View media" links
 h3 span,
+legend,
 footer, // Hide promotional material
+form abbr, // Hide "required" asterisks
 #facebook,
 #twitter,
 #message,
-#whitespace,
 .widget-slider, // Some widgets are unsuitable in print
 .widget-onoff,
 .custom-chart, // Hide custom charts
@@ -23,12 +30,34 @@ footer, // Hide promotional material
   display: none;
 }
 
+/* JavaScript and inline CSS overrides ---------------------------------------*/
+
+#whitespace {
+  display: none !important;
+}
+
+#identification {
+  opacity: 1 !important;
+  filter: alpha(opacity=100) !important;
+}
+
+/* Print faster --------------------------------------------------------------*/
+// http://www.sanbeiji.com/archives/953
+
+* { // this selector is slowest
+  background: transparent !important;
+  color: #000 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Legibility ----------------------------------------------------------------*/
+
 $font-size: 16px;
 
-body,
-a {
+body {
   font-size: $font-size;
-  color: #000;
 }
 
 label,
@@ -40,16 +69,137 @@ textarea {
   line-height: 1.5em;
 }
 
-#identification {
-  opacity: 1 !important;
-  filter: alpha(opacity=100) !important;
+/* Inputs --------------------------------------------------------------------*/
+// http://37signals.com/svn/posts/2609-customizing-web-forms-with-css3-and-webkit/
+
+$input-size: 16px;
+$margin-size: 5px;
+
+.form-horizontal {
+  textarea,
+  input {
+    -webkit-appearance: none; // textfield | radio | checkbox
+       -moz-appearance: none;
+        -ms-appearance: none;
+         -o-appearance: none;
+            appearance: none;
+    display: inline-block;
+    border: 1px solid #000;
+    -webkit-border-radius: 0;
+            border-radius: 0;
+  }
+
+  input[type="email"],
+  input[type="number"],
+  input[type="text"],
+  textarea {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: $input-size;
+    height: $input-size;
+    margin: $margin-size $margin-size 0 -18px;
+    padding: 0;
+  }
+
+  input[type="radio"] {
+    -webkit-border-radius: $input-size;
+            border-radius: $input-size;
+  }
+
+  // Remove resize handle.
+  textarea {
+    resize: none;
+  }
+
+  // http://stackoverflow.com/questions/3790935/can-i-hide-the-html5-number-inputs-spin-box
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  // display: none, appearance: none and color: #fff have no effect. opacity
+  // works in Chrome but not in Safari.
+  ::-webkit-input-placeholder {
+    text-indent: -9999px;
+  }
+
+  // Mozilla and Microsoft implement the placeholder as a pseudo-class, so any
+  // styles will apply to the entire input.
+  :-moz-placeholder {
+    text-indent: -9999px;
+  }
+  :-ms-input-placeholder {
+    text-indent: -9999px;
+  }
 }
 
-input[disabled],
-select[disabled],
-textarea[disabled] {
-  border-color: #ccc;
+// It's very hard to style check boxes in Firefox. -moz-appearance: textfield
+// removes the check mark on screen but not in print. It seems impossible to
+// change the border and remove the check mark without removing the input tag.
+// @see https://bugzilla.mozilla.org/show_bug.cgi?id=241985
+// @see https://developer.mozilla.org/en/CSS/@-moz-document
+@-moz-document url-prefix() {
+  .form-horizontal {
+    input[type="checkbox"],
+    input[type="radio"] {
+      display: none;
+    }
+  }
+
+  .checkbox:before,
+  .radio:before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: $margin-size;
+    width: $input-size;
+    height: $input-size;
+    margin: 0 $margin-size 0 -18px;
+    border: 1px solid #000;
+  }
+
+  .radio:before {
+    border-radius: $input-size;
+  }
 }
+
+/* Paged media queries -------------------------------------------------------*/
+// http://html5boilerplate.com/docs/css/#paged-media-styles
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  page-break-after: avoid;
+}
+
+blockquote,
+img,
+pre,
+tr {
+  page-break-inside: avoid;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  orphans: 3;
+  widows: 3;
+}
+
+
 
 /* Header --------------------------------------------------------------------*/
 
@@ -60,7 +210,6 @@ textarea[disabled] {
 h1,
 h2,
 legend {
-  color: #000;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-weight: normal;
 }
@@ -113,7 +262,7 @@ th.column {
 }
 
 td {
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #000;
 
   p {
     margin: 0 0 1em;
@@ -135,10 +284,4 @@ td.description {
   .controls {
     margin-left: 40px;
   }
-}
-
-/* Identification ------------------------------------------------------------*/
-
-legend span {
-  padding-left: 160px;
 }
