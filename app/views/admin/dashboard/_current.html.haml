@@ -1,42 +1,3 @@
--# Google Charts adds null values for missing dates in the time series.
--# https://developers.google.com/chart/interactive/docs/gallery/linechart
-:javascript
-  draw('LineChart', '#{dom_id(questionnaire)}_responses', [
-    "#{t '.chart.responses'}"
-  ], [#{@charts[questionnaire.id.to_s][:responses][:rows]}], {
-    hAxis: {
-      baselineColor: '#f4f4f4',
-      format: '#{t :icu_date_format}'
-    },
-    legend: {
-      position: 'none'
-    },
-    title: "#{t '.chart.responses_title'}"
-  });
-- if @charts[questionnaire.id.to_s][:visits]
-  :javascript
-    draw('LineChart', '#{dom_id(questionnaire)}_visits', [
-      "#{t '.chart.visitors'}",
-      "#{t '.chart.visits'}",
-      "#{t '.chart.pageviews'}"
-    ], [#{@charts[questionnaire.id.to_s][:visits][:rows]}], {
-      hAxis: {
-        baselineColor: '#f4f4f4',
-        format: '#{t :icu_date_format}'
-      },
-      legend: {
-        position: 'bottom'
-      },
-      title: "#{t '.chart.visits_title', name: @charts[questionnaire.id.to_s][:visits][:name], property: @charts[questionnaire.id.to_s][:visits][:property]}"
-    });
-- if @charts[questionnaire.id.to_s][:sources]
-  :javascript
-    draw('PieChart', '#{dom_id(questionnaire)}_sources', [
-      "#{t '.chart.visitors'}"
-    ], [#{@charts[questionnaire.id.to_s][:sources][:rows]}], {
-      pieResidueSliceLabel: "#{t '.chart.other'}",
-      sliceVisibilityThreshold: 1 / 90
-    });
 .panel
   %h3
     = auto_link questionnaire.organization
@@ -84,3 +45,43 @@
       .columns.clearfix
         .column.offset
           %div(id="#{dom_id(questionnaire)}_sources" style="width:600px;height:300px;")
+
+-# Google Charts adds null values for missing dates in the time series.
+-# https://developers.google.com/chart/interactive/docs/gallery/linechart
+:javascript
+  draw('LineChart', '#{dom_id(questionnaire)}_responses', [
+    "#{t '.chart.responses'}"
+  ], [#{@charts[questionnaire.id.to_s][:responses][:rows]}], {
+    hAxis: {
+      baselineColor: '#f4f4f4',
+      format: '#{t :icu_date_format}'
+    },
+    legend: {
+      position: 'none'
+    },
+    title: "#{t '.chart.responses_title'}"
+  });
+- if @charts[questionnaire.id.to_s][:visits]
+  :javascript
+    draw('LineChart', '#{dom_id(questionnaire)}_visits', [
+      "#{t '.chart.visitors'}",
+      "#{t '.chart.visits'}",
+      "#{t '.chart.pageviews'}"
+    ], [#{@charts[questionnaire.id.to_s][:visits][:rows]}], {
+      hAxis: {
+        baselineColor: '#f4f4f4',
+        format: '#{t :icu_date_format}'
+      },
+      legend: {
+        position: 'bottom'
+      },
+      title: "#{t '.chart.visits_title', name: @charts[questionnaire.id.to_s][:visits][:name], property: @charts[questionnaire.id.to_s][:visits][:property]}"
+    });
+- if @charts[questionnaire.id.to_s][:sources]
+  :javascript
+    draw('PieChart', '#{dom_id(questionnaire)}_sources', [
+      "#{t '.chart.visitors'}"
+    ], [#{@charts[questionnaire.id.to_s][:sources][:rows]}], {
+      pieResidueSliceLabel: "#{t '.chart.other'}",
+      sliceVisibilityThreshold: 1 / 90
+    });
