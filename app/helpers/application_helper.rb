@@ -82,22 +82,28 @@ module ApplicationHelper
 
   MAX_DIMENSION = 560 # As for Bootstrap's .modal
 
+  # @see http://speakerdeck.com/assets/embed.js
   def speakerdeck(html)
-    ratio = html[/data-ratio="([0-9.]+)"/, 1].to_f
-    if ratio.zero?
-      html.html_safe
-    else
-      # @see http://speakerdeck.com/assets/embed.js
+    if html['speakerdeck.com/assets/embed.js']
+      id = html[/data-id="([0-9a-f]+)"/, 1]
+      ratio = html[/data-ratio="([0-9.]+)"/, 1].to_f
+
+      properties = {}
       if ratio >= 1
-        width  = MAX_DIMENSION
-        height = ((width - 2) / ratio + 64).round
-        margin = 0
+        properties['width']  = MAX_DIMENSION
+        properties['height'] = ((properties[:width] - 2) / ratio + 64).round
       else
-        height = MAX_DIMENSION
-        width  = ((height - 64) * ratio + 2).round
-        margin = ((MAX_DIMENSION - width) / 2.0).round
+        properties['height'] = MAX_DIMENSION
+        properties['width']  = ((properties[:height] - 64) * ratio + 2).round
+        properties['margin-left'] = ((MAX_DIMENSION - properties[:width]) / 2.0).round
       end
-      content_tag(:div, html.html_safe, style: "width:#{width}px;height:#{height}px;margin-left:#{margin}px")
+
+      content_tag(:div,
+        content_tag(:div,
+          'class' => 'speakerdeck-embed', 'data-id' => id, 'data-ratio' => ratio),
+        'style' => properties.map{|k,v| "#{k}=#{v}px"}.join(';'))
+    else
+      html.html_safe
     end
   end
 end
