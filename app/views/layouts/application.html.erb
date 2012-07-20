@@ -40,19 +40,19 @@
 window.fbAsyncInit = function() {
   FB.init({
 <% if facebook_app_id.present? %>
-    appId  : '<%= facebook_app_id %>',
+    appId: '<%= facebook_app_id %>',
 <% end %>
-    cookie : true,
+    cookie: true,
     logging: false,
-    xfbml  : true,
-    channelUrl  : '<%= channel_url %>'
+    xfbml: true,
+    channelUrl: '<%= channel_url %>'
   });
 };
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/<%= system_locale %>/all.js#<% if facebook_app_id %>appId=<%= facebook_app_id %>&amp;<% end %>xfbml=1";
+  js.src = "//connect.facebook.net/<%= system_locale %>/all.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 window.twttr = (function (d,s,id) {
