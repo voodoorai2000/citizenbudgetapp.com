@@ -50,6 +50,7 @@ class Questionnaire
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validates_length_of :twitter_share_text, maximum: 140, allow_blank: true
+  validates :reply_to, email: true, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
   validate :domain_must_be_active
   validate :reply_to_must_be_valid
