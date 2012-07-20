@@ -31,7 +31,7 @@
     %section#identification
       = f.inputs name: t('.submit_your_choices') do
         = f.input :email, required: true, input_html: {class: 'validate[required,custom[email]]'}
-        = f.input :postal_code, required: true, input_html: {class: 'validate[required,custom[postalCode]] span2'}
+        = f.input :postal_code, required: true, input_html: {class: 'validate[required,custom[postalCodeCA]] span2'}
         = f.input :age, as: :number, input_html: {maxlength: 3, class: 'span1'}
         = f.input :gender, as: :radio, collection: t(:gender).map{|k,v| [v, k]}
         = f.input :name
