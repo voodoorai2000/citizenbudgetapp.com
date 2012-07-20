@@ -26,6 +26,7 @@
             return this.send("goToSlide", a)
         }, e.prototype.receive = function (a) {
             var b;
+            if (a.data.substring(0, 4) == '_FB_') return; // FIXME
             return b = JSON.parse(a.data), this.trigger.apply(this, b)
         }, e.prototype.release = function () {
             return b(window, "message", this.receive)

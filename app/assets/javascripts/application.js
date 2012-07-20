@@ -23,3 +23,4 @@
 //= require mustache
 //= require i18n
 //= require scripts
+//= require speakerdeck

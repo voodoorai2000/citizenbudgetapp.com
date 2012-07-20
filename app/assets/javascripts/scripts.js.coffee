@@ -9,8 +9,8 @@ $ ->
     flashvars:
       args: 'clippy'
 
-  window.clippyCopiedCallback = (id) ->
-    $('#' + id).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
+  window.clippyCopiedCallback = (args) ->
+    $('#' + args).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
 
   # Local globals.
   amountLeft = 0
