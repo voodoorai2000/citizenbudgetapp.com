@@ -45,7 +45,7 @@ window.fbAsyncInit = function() {
     cookie: true,
     logging: false,
     xfbml: true,
-    channelUrl: '<%= channel_url %>'
+    channelUrl: '<%= channel_url(locale: system_locale) %>'
   });
 };
 (function(d, s, id) {
