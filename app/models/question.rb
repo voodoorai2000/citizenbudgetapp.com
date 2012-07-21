@@ -16,7 +16,6 @@ class Question
   field :description, type: String
   field :options, type: Array
   field :default_value # default_value needs to be cast before use
-  # HTML attributes
   field :size, type: Integer
   field :maxlength, type: Integer
   field :placeholder, type: String # no #placeholder in Drupal FAPI: http://drupal.org/project/elements
@@ -43,9 +42,9 @@ class Question
   validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){%w(textarea).include? q.widget}
 
   # Budgetary widget validations.
-  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(checkbox onoff slider).include? q.widget}
-  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(checkbox onoff slider).include? q.widget}
-  validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio select slider).include? q.widget}
+  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff slider).include? q.widget}
+  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff slider).include? q.widget}
+  validates_presence_of :options, if: ->(q){%w(checkboxes onoff radio select slider).include? q.widget}
 
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){q.widget == 'slider'}
@@ -77,14 +76,14 @@ class Question
 
   # @return [Float] the maximum value of the widget
   def maximum_amount
-    if %w(checkbox onoff slider).include? widget
+    if %w(onoff slider).include? widget
       (maximum_units - default_value.to_f) * unit_amount
     end
   end
 
   # @return [Float] the minimum value of the widget
   def minimum_amount
-    if %w(checkbox onoff slider).include? widget
+    if %w(onoff slider).include? widget
       (minimum_units - default_value.to_f) * unit_amount
     end
   end
@@ -99,7 +98,7 @@ private
       @minimum_units = options.first.to_f
       @maximum_units = options.last.to_f
       @step = (options[1] - options[0]).round(2)
-    elsif %w(checkbox onoff).include?(widget)
+    elsif %w(onoff).include?(widget)
       @minimum_units = 0
       @maximum_units = 1
       @step = 1
@@ -112,7 +111,7 @@ private
     if widget == 'slider' && minimum_units.present? && maximum_units.present? && step.present?
       self.options = (minimum_units.to_f..maximum_units.to_f).step(step.to_f).to_a
       self.options << maximum_units.to_f unless options.last == maximum_units.to_f
-    elsif %w(checkbox onoff).include?(widget)
+    elsif %w(onoff).include?(widget)
       self.options = [0, 1]
     elsif %w(checkboxes radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
