@@ -91,11 +91,11 @@ module ApplicationHelper
       properties = {}
       if ratio >= 1
         properties['width']  = MAX_DIMENSION
-        properties['height'] = ((properties[:width] - 2) / ratio + 64).round
+        properties['height'] = ((properties['width'] - 2) / ratio + 64).round
       else
         properties['height'] = MAX_DIMENSION
-        properties['width']  = ((properties[:height] - 64) * ratio + 2).round
-        properties['margin-left'] = ((MAX_DIMENSION - properties[:width]) / 2.0).round
+        properties['width']  = ((properties['height'] - 64) * ratio + 2).round
+        properties['margin-left'] = ((MAX_DIMENSION - properties['width']) / 2.0).round
       end
 
       content_tag(:div,
