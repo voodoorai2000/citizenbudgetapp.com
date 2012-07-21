@@ -56,7 +56,8 @@ $ ->
       ).toggle(widget.val() == 'slider')
 
       $("#section_questions_attributes_#{i}_size_input,
-         #section_questions_attributes_#{i}_maxlength_input"
+         #section_questions_attributes_#{i}_maxlength_input,
+         #section_questions_attributes_#{i}_placeholder_input"
       ).toggle(widget.val() == 'text')
 
       $("#section_questions_attributes_#{i}_rows_input,

@@ -15,11 +15,11 @@ class Question
   field :title, type: String
   field :description, type: String
   field :options, type: Array
-  # @note default_value needs to be cast before use.
-  field :default_value
+  field :default_value # default_value needs to be cast before use
   # HTML attributes
   field :size, type: Integer
   field :maxlength, type: Integer
+  field :placeholder, type: String # no #placeholder in Drupal FAPI: http://drupal.org/project/elements
   field :rows, type: Integer
   field :cols, type: Integer
   field :required, type: Boolean

@@ -284,6 +284,7 @@ en:
         unit_name: Unit name
         size: Text field size
         maxlength: Maximum length
+        placeholder: Placeholder
         rows: Rows
         cols: Columns
       response:

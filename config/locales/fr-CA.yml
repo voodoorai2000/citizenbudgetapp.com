@@ -645,6 +645,7 @@ fr-CA:
         unit_name: Nom de l'unité
         size: Taille du champ texte
         maxlength: Taille maximale
+        placeholder: Espace réservé
         rows: Rangées
         cols: Colonnes
       response:

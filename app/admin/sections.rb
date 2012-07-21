@@ -72,6 +72,7 @@ ActiveAdmin.register Section do
         g.input :size, as: :string, input_html: {size: 4}
         g.input :rows, as: :string, input_html: {size: 4}
         g.input :cols, as: :string, input_html: {size: 4}
+        g.input :placeholder, input_html: {size: 18}
       end
 
       g.input :position, as: :hidden
