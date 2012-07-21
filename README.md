@@ -4,7 +4,7 @@ Create a new Cedar app on Heroku. This app by default uses SendGrid to send emai
 
     heroku create -s cedar --addons sendgrid:starter mongolab:starter memcache:5mb newrelic:standard
 
-Then, add basic config vars. You can read [the documentation for each config var](https://github.com/opennorth/citizenbudgetapp.com/blob/master/config/initializers/_heroku.example.rb) in the source.
+Then, add basic config vars. You can read [the documentation for each config var](https://github.com/opennorth/citizenbudgetapp.com/blob/master/examples/_heroku.rb) in the source.
 
     heroku config:add SECRET_TOKEN=`bundle exec rake secret`
     heroku config:add ACTION_MAILER_FROM=REPLACE_ME      # noreply@citizenbudget.com
@@ -52,7 +52,7 @@ You may want to change some translations in the [config/locales](https://github.
 
 Copy and edit the `_heroku.rb` configuration file:
 
-    cp config/initializers/_heroku.example.rb config/initializers/_heroku.rb
+    cp examples/_heroku.rb config/initializers/_heroku.rb
 
 ### Database
 
