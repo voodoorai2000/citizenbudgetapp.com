@@ -7,6 +7,8 @@ class Question
 
   # @todo Need to be able to map an amount to each option for checkboxes, radio
   # and select widgets, in which case we need a new :amounts array field?
+  # @note The check box widget is used uniquely in non-budgetary questions. Use
+  # the on/off switch for budgetary questions.
   WIDGETS = %w(checkbox checkboxes onoff radio select slider text textarea)
 
   embedded_in :section
