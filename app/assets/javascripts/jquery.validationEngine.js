@@ -46,7 +46,7 @@
 				alert("Sorry, jqv.attach() only applies to a form");
 				return this;
 			}
-			
+
 			var form = this;
 			var options;
 
@@ -77,7 +77,7 @@
 		* Unregisters any bindings that may point to jQuery.validaitonEngine
 		*/
 		detach: function() {
-			
+
 			if(!$(this).is("form")) {
 				alert("Sorry, jqv.detach() only applies to a form");
 				return this;
@@ -118,7 +118,7 @@
 			else {
 				// field validation
 				var form = $(this).closest('form');
-				var options = form.data('jqv');  
+				var options = form.data('jqv');
 				var r = methods._validateField($(this), options);
 
 				if (options.onSuccess && options.InvalidFields.length == 0)
@@ -239,7 +239,7 @@
 			var form = $(this);
 			var options = form.data('jqv');
 
-			// validate each field 
+			// validate each field
 			// (- skip field ajax validation, not necessary IF we will perform an ajax form validation)
 			var r=methods._validateFields(form, options.ajaxFormValidation);
 
@@ -474,7 +474,7 @@
 
 			for (var i = 0; i < rules.length; i++) {
 				// Fix for adding spaces in the rules
-				rules[i] = rules[i].replace(" ", ""); 
+				rules[i] = rules[i].replace(" ", "");
 				var errorMsg = undefined;
 				switch (rules[i]) {
 
@@ -491,7 +491,7 @@
 						var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";
 						var firstOfGroup = form.find(classGroup).eq(0);
 						if(firstOfGroup[0] != field[0]){
-							methods._validateField(firstOfGroup, options, skipAjaxValidation); 
+							methods._validateField(firstOfGroup, options, skipAjaxValidation);
 							options.showArrow = true;
 							continue;
 						};
@@ -575,7 +575,7 @@
 				}
 			}
 			// If the rules required is not added, an empty field is not validated
-			if(!required && field.val() == "" && !promptText) options.isError = false;
+			if(!required && field.val() == "") options.isError = false; // FIXME && !promptText
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
@@ -674,7 +674,7 @@
 					isValid = true;
 					return false;
 				}
-			}); 
+			});
 
 			if(!isValid) {
         return options.allrules[rules[i]].alertText;
@@ -698,7 +698,7 @@
 				alert("jqv:custom rule not found - "+customRule);
 				return;
 			}
-			
+
 			if(rule["regex"]) {
 				 var ex=rule.regex;
 					if(!ex) {
@@ -708,15 +708,15 @@
 					var pattern = new RegExp(ex);
 
 					if (!pattern.test(field.val())) return options.allrules[customRule].alertText;
-					
+
 			} else if(rule["func"]) {
-				fn = rule["func"]; 
-				 
+				fn = rule["func"];
+
 				if (typeof(fn) !== "function") {
 					alert("jqv:custom parameter 'function' is no function - "+customRule);
 						return;
 				}
-				 
+
 				if (!fn(field, rules, i, options))
 					return options.allrules[customRule].alertText;
 			} else {
@@ -1273,7 +1273,7 @@
 
 				//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
 				var positionType=field.data("promptPosition") || options.promptPosition;
-				if (typeof(positionType)=='string') 
+				if (typeof(positionType)=='string')
 				{
 					var pos=positionType.indexOf(":");
 					if(pos!=-1)
@@ -1302,7 +1302,7 @@
 				'position':'absolute'
 			});
 			field.before(prompt);
-			
+
 			var pos = methods._calculatePosition(field, prompt, options);
 			prompt.css({
 				"top": pos.callerTopPosition,
@@ -1320,7 +1320,7 @@
 						prompt.remove();
 					});
 				}, options.autoHideDelay);
-			} 
+			}
 			return prompt.animate({
 				"opacity": 0.87
 			});
@@ -1438,9 +1438,9 @@
 
 			var promptTopPosition, promptleftPosition, marginTopSize;
 			var fieldWidth 	= field.width();
-			var fieldLeft 	= field.position().left; 
+			var fieldLeft 	= field.position().left;
 			var fieldTop 	=  field.position().top;
-			var fieldHeight 	=  field.height();	
+			var fieldHeight 	=  field.height();
 			var promptHeight = promptElmt.height();
 
 
@@ -1448,7 +1448,7 @@
 			promptTopPosition = promptleftPosition = 0;
 			// compensation for the arrow
 			marginTopSize = -promptHeight;
-		
+
 
 			//prompt positioning adjustment support
 			//now you can adjust prompt position
@@ -1485,7 +1485,7 @@
 				};
 			};
 
-			
+
 			switch (positionType) {
 				default:
 				case "topRight":
@@ -1495,7 +1495,7 @@
 
 				case "topLeft":
 					promptTopPosition +=  fieldTop;
-					promptleftPosition += fieldLeft; 
+					promptleftPosition += fieldLeft;
 					break;
 
 				case "centerRight":
@@ -1507,7 +1507,7 @@
 					promptleftPosition = fieldLeft - (promptElmt.width() + 2);
 					promptTopPosition = fieldTop+4;
 					marginTopSize = 0;
-					
+
 					break;
 
 				case "bottomLeft":
@@ -1521,7 +1521,7 @@
 					marginTopSize = 0;
 			};
 
-		
+
 
 			//apply adjusments if any
 			promptleftPosition += shiftX;
