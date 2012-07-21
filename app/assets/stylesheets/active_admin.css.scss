@@ -33,6 +33,10 @@ body.active_admin {
     // Override
     .has_many {
       padding: 0;
+
+      h3 {
+        margin-bottom: 0;
+      }
     }
 
     // Override
@@ -51,6 +55,66 @@ body.active_admin {
     input[type="text"][size],
     input[type="number"][size] {
       width: auto;
+    }
+
+    fieldset.has_many_fields {
+      background: transparent;
+      @include border-radius(0);
+      @include box-shadow(none);
+      padding: 0;
+      border-bottom: 5px solid #ddd;
+
+      & > ol > li {
+        padding: 0;
+
+        &.optional {
+          padding: 1em 0;
+        }
+
+        &.boolean label {
+          padding-left: 13%;
+        }
+      }
+
+      li li {
+        margin: 1em 0;
+      }
+
+      & > ol > li {
+        p.inline-hints {
+          font-size: 1em;
+          margin-top: 0;
+        }
+
+        fieldset {
+          margin-bottom: 1em;
+
+          ol {
+            width: 87%;
+            padding-left: 13%;
+          }
+
+          &.inline {
+            li {
+              float: left;
+              width: 25%;
+            }
+
+            label {
+              width: 40%;
+            }
+
+            p.inline-hints {
+              margin-left: 40%;
+            }
+
+            .boolean label {
+              width: 100%;
+              padding: 0;
+            }
+          }
+        }
+      }
     }
 
     // Override

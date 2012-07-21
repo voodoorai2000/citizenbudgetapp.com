@@ -55,6 +55,14 @@ $ ->
          #section_questions_attributes_#{i}_unit_name_input"
       ).toggle(widget.val() == 'slider')
 
+      $("#section_questions_attributes_#{i}_size_input,
+         #section_questions_attributes_#{i}_maxlength_input"
+      ).toggle(widget.val() == 'text')
+
+      $("#section_questions_attributes_#{i}_rows_input,
+         #section_questions_attributes_#{i}_cols_input"
+      ).toggle(widget.val() == 'textarea')
+
     widget.change toggle_options
     toggle_options()
 

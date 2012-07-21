@@ -23,6 +23,12 @@ fr-CA:
   example_name: Monsieur Untel
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: d MMM
+  language: Changer de langue
+  legend:
+    question: Question
+    widget: Paramètres # Composant d'interface graphique
+    fiscal: Paramètres fiscaux
+    html: HTML
 
   # Google API
   google_api:
@@ -126,7 +132,8 @@ fr-CA:
   responses:
     new:
       instructions: Modifiez une activité pour commencer.
-      submit_your_choices: Soumettez vos choix
+      submit_your_choices: Soumettez vos choix # Backwards-compatibility
+      required: requis
       submit: Envoyer
     show:
       header: "%{name} a rééquilibré le budget !"
@@ -182,8 +189,9 @@ fr-CA:
         extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
         unit_name: Utilisez la forme plurielle.
         options_as_list: Mettez chaque option sur une nouvelle ligne.
-        step: Vous pouvez généralement utiliser une tranche de 1.
+        step: Généralement vous pouvez utiliser une tranche de 1.
         default_value: Si le composant est une case à cocher, mettez 1 pour qu'elle soit cochée par défault ou 0 pour qu'elle ne le soit pas.
+        maxlength: La longueur maximale du champ en nombre de caractères.
     actions:
       create: Enregistrer
       update: Enregistrer
@@ -635,6 +643,10 @@ fr-CA:
         widget: Composant d'interface graphique
         unit_amount: Montant unitaire
         unit_name: Nom de l'unité
+        size: Taille du champ texte
+        maxlength: Taille maximale
+        rows: Rangées
+        cols: Colonnes
       response:
         email: Courriel
         postal_code: Code postal

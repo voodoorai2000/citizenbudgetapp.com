@@ -17,6 +17,11 @@ class Question
   field :options, type: Array
   # @note default_value needs to be cast before use.
   field :default_value
+  # HTML attributes
+  field :size, type: Integer
+  field :maxlength, type: Integer
+  field :rows, type: Integer
+  field :cols, type: Integer
   field :required, type: Boolean
 
   field :widget, type: String
@@ -33,6 +38,11 @@ class Question
   validates_inclusion_of :widget, in: WIDGETS, allow_blank: true
   validates_numericality_of :unit_amount, allow_blank: true
 
+  # HTML attribute validations.
+  validates_numericality_of :size, :maxlength, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){%w(text).include? q.widget}
+  validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){%w(textarea).include? q.widget}
+
+  # Budgetary widget validations.
   validates_presence_of :unit_amount, :default_value, if: ->(q){%w(checkbox onoff slider).include? q.widget}
   validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(checkbox onoff slider).include? q.widget}
   validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio select slider).include? q.widget}

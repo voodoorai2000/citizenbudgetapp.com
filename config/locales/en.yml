@@ -26,6 +26,12 @@ en:
   example_name: John Doe
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: MMM d
+  language: Switch language
+  legend:
+    question: Question
+    widget: Widget parameters
+    fiscal: Fiscal parameters
+    html: HTML
 
   # Google API errors
   google_api:
@@ -129,7 +135,8 @@ en:
   responses:
     new:
       instructions: Change an activity to start
-      submit_your_choices: Submit your choices
+      submit_your_choices: Submit your choices # Backwards-compatibility
+      required: required
       submit: Submit
     show:
       header: "%{name} a rééquilibré le budget !"
@@ -185,8 +192,9 @@ en:
         extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.
         unit_name: Use the plural form.
         options_as_list: Put each option on a separate line.
-        step: You can usually set this to 1.
+        step: You can often set this to 1.
         default_value: If this is a check box, 1 is checked, 0 is unchecked.
+        maxlength: The maximum length of the field in characters.
     actions:
       create: "Save %{model}"
       update: "Save %{model}"
@@ -274,6 +282,10 @@ en:
         widget: Widget
         unit_amount: Unit amount
         unit_name: Unit name
+        size: Text field size
+        maxlength: Maximum length
+        rows: Rows
+        cols: Columns
       response:
         email: Email
         postal_code: Postal code
