@@ -23,6 +23,7 @@ class Questionnaire
   field :time_zone, type: String
   field :introduction, type: String
   field :domain, type: String
+  field :email_required, type: Boolean
   field :reply_to, type: String
   field :thank_you_template, type: String
 

@@ -29,16 +29,58 @@
       = render @questionnaire
 
     %section#identification
-      = f.inputs name: t('.submit_your_choices') do
-        = f.input :email, required: true, input_html: {class: 'validate[required,custom[email]]'}
-        = f.input :postal_code, required: true, input_html: {class: 'validate[required,custom[postalCodeCA]] span2'}
-        = f.input :age, as: :number, input_html: {maxlength: 3, class: 'span1'}
-        = f.input :gender, as: :radio, collection: t(:gender).map{|k,v| [v, k]}
-        = f.input :name
-        = f.input :comments, as: :text, input_html: {rows: 4, class: 'span6'}
-        = f.input :newsletter
-        = f.input :subscribe
-        = f.input :initialized_at, as: :hidden
+      = f.input :initialized_at, as: :hidden
+      - if @fields.any?
+        - @fields.each_with_index do |section,index|
+          = f.inputs name: section.title do
+            -# @todo It's not very flexible to add email and name like this, but it works for now.
+            - if index.zero?
+              - if @questionnaire.email_required?
+                = f.input :email, required: true, input_html: {class: 'validate[required,custom[email]]'}
+              - else
+                = f.input :email, input_html: {class: 'validate[custom[email]]'}
+              = f.input :name
+            - section.questions.each do |q|
+              .control-group
+                - unless q.widget == 'checkbox'
+                  %label.control-label(for="#{q.id}")
+                    = q.title
+                    - if q.required?
+                      %abbr(title="#{t '.required'}") *
+                .controls
+                  - if q.widget == 'checkbox'
+                    = hidden_field_tag q.id, '0' # Mimic an unchecked box.
+                    %label.checkbox
+                      = check_box_tag q.id, '1', q.checked?, html_attributes(q)
+                      = q.title
+                      - if q.required?
+                        %abbr(title="#{t '.required'}") *
+                  - elsif q.widget == 'checkboxes'
+                    - q.options.each do |option|
+                      %label.checkbox.inline
+                        = check_box_tag "#{q.id}[]", option, q.default_value == option, html_attributes(q)
+                        = option
+                  - elsif q.widget == 'radio'
+                    - q.options.each do |option|
+                      %label.radio.inline
+                        = radio_button_tag q.id, option, q.default_value == option, html_attributes(q)
+                        = option
+                  - elsif q.widget == 'select'
+                    = select_tag q.id, options_for_select([nil] + q.options, q.default_value), html_attributes(q)
+                  - elsif q.widget == 'text'
+                    = text_field_tag q.id, nil, html_attributes(q)
+                  - elsif q.widget == 'textarea'
+                    = text_area_tag q.id, nil, html_attributes(q)
+      - else
+        = f.inputs name: t('.submit_your_choices') do
+          = f.input :email, required: true, input_html: {class: 'validate[required,custom[email]]'}
+          = f.input :postal_code, required: true, input_html: {class: 'validate[required,custom[postalCodeCA]] span2'}
+          = f.input :age, as: :number, input_html: {maxlength: 3, class: 'span1'}
+          = f.input :gender, as: :radio, collection: t(:gender).map{|k,v| [v, k]}
+          = f.input :name
+          = f.input :comments, as: :text, input_html: {rows: 4, class: 'span6'}
+          = f.input :newsletter
+          = f.input :subscribe
       = f.actions do
         = f.action :submit, label: t('.submit')
 

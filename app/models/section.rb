@@ -22,6 +22,7 @@ class Section
   after_save :touch_questionnaire # @see https://github.com/mongoid/mongoid/pull/2195
 
   scope :budgetary, where(:group.in => %w(revenue expense))
+  scope :nonbudgetary, where(group: 'other')
   default_scope asc(:position)
 
   def position

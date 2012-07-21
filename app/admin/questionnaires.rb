@@ -122,6 +122,7 @@ ActiveAdmin.register Questionnaire do
           simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')
         end
       end
+      row :email_required
       row :sections do |q|
         if q.sections.present?
           ul(class: can?(:update, q) ? 'sortable' : '') do

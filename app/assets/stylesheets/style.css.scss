@@ -356,6 +356,9 @@ label.iOSCheckLabelOff.reverse {
 legend span {
   padding-left: 160px;
 }
+#identification select {
+  width: auto; // override Bootstrap
+}
 .formError .formErrorContent {
   width: 200px;
 }

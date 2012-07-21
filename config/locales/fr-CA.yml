@@ -622,6 +622,7 @@ fr-CA:
         facebook_app_id: Facebook App ID
         reply_to: Adresse de courriel de correspondance 
         thank_you_template: Modèle de message de remerciement
+        email_required: Les participants doivent fournir une adresse courriel
         sections: Sections
       section:
         title: Titre

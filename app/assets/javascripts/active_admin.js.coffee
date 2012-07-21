@@ -45,9 +45,11 @@ $ ->
       $("#section_questions_attributes_#{i}_options_as_list_input"
       ).toggle(widget.val() in ['checkboxes', 'radio', 'select'])
 
-      $("#section_questions_attributes_#{i}_default_value_input,
-         #section_questions_attributes_#{i}_unit_amount_input"
+      $("#section_questions_attributes_#{i}_default_value_input"
       ).toggle(widget.val() in ['checkbox', 'onoff', 'slider'])
+
+      $("#section_questions_attributes_#{i}_unit_amount_input"
+      ).toggle(widget.val() in ['onoff', 'slider'])
 
       $("#section_questions_attributes_#{i}_minimum_units_input,
          #section_questions_attributes_#{i}_maximum_units_input,

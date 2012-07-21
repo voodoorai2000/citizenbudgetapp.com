@@ -26,7 +26,8 @@ form abbr, // Hide "required" asterisks
 .widget-onoff,
 .custom-chart, // Hide custom charts
 .form-actions,
-.modal {
+.modal,
+.no-print {
   display: none;
 }
 

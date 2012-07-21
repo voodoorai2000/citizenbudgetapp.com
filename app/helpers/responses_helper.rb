@@ -13,6 +13,51 @@ module ResponsesHelper
     string.gsub '"', '&quot;'
   end
 
+  def html_attributes(question)
+    attributes = {}
+    classes = []
+
+    value = question.default_value
+    attributes[:value] = value if value.present?
+
+    [:size, :maxlength, :placeholder, :rows, :cols].each do |attribute|
+      value = question.send attribute
+      attributes[attribute] = value if value.present?
+    end
+
+    if question.size.present? || question.cols.present?
+      span = case question.size || question.cols # 210px is the default
+      when 0..5
+        'span1' # 50px
+      when 6..18
+        'span2' # 130px
+      when 33..45
+        'span4' # 290px
+      when 46..58
+        'span5' # 370px
+      when 59..72
+        'span6' # 450px
+      when 73..85
+        'span7' # 530px
+      when 86..98
+        'span8' # 610px
+      when 99..112
+        'span9' # 690px
+      when 113..125
+        'span10' # 770px
+      end
+      classes << span if span
+    end
+
+    if question.required?
+      attributes[:required] = Formtastic::FormBuilder.use_required_attribute
+      classes = 'validate[required]'
+    end
+
+    attributes[:class] = classes.join(' ') unless classes.empty?
+    attributes
+  end
+
   def twitter_button(options = {})
     html_options = {
       'class'      => 'twitter-share-button',

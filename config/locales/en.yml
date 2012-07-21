@@ -261,6 +261,7 @@ en:
         facebook_app_id: Facebook App ID
         reply_to: Contact email
         thank_you_template: Thank-you email template
+        email_required: Respondents must provide an email address
         sections: Sections
       section:
         title: Title

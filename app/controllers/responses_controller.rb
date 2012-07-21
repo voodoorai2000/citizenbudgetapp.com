@@ -12,7 +12,7 @@ class ResponsesController < ApplicationController
   end
 
   def new
-    @response = @questionnaire.responses.build initialized_at: Time.now.utc, newsletter: true, subscribe: true
+    @response = @questionnaire.responses.build initialized_at: Time.now.utc
     build_questionnaire
     fresh_when @questionnaire, public: true
   end
@@ -47,6 +47,7 @@ private
 
   def build_questionnaire
     @groups = @questionnaire.sections.budgetary.group_by(&:group)
+    @fields = @questionnaire.sections.nonbudgetary
     @maximum_difference = [
       @questionnaire.maximum_amount.abs,
       @questionnaire.minimum_amount.abs,
