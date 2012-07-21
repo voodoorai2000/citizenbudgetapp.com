@@ -24,6 +24,8 @@ fr-CA:
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: d MMM
   language: Changer de langue
+  yes: Oui
+  no: Non
   legend:
     question: Question
     widget: Paramètres # Composant d'interface graphique

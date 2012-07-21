@@ -27,6 +27,8 @@ en:
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: MMM d
   language: Switch language
+  yes: Yes
+  no: No
   legend:
     question: Question
     widget: Widget parameters
