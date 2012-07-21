@@ -23,7 +23,8 @@ protected
   end
 
   def set_locale
-    I18n.locale = current_admin_user && locale_from_record(current_admin_user) || locale_from_host || locale_from_domain || I18n.default_locale
+    I18n.locale = params[:locale] || cookies[:locale] || current_admin_user && locale_from_record(current_admin_user) || locale_from_host || locale_from_domain || I18n.default_locale
+    cookies[:locale] = I18n.locale unless cookies[:locale] == I18n.locale
   end
 
   def locale_from_record(record)
