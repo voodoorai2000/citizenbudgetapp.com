@@ -249,6 +249,7 @@ en:
         organization: Organization
         locale: Locale
         logo: Logo
+        title_image: Header image
         remove_logo: Remove logo
         description: Description
         starts_at: Start date

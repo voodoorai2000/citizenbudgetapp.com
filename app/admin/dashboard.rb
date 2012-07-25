@@ -65,7 +65,7 @@ ActiveAdmin.register_page 'Dashboard' do
                 %(["#{row[0]}", #{row[1]}])
               }.join(','),
             }
-          rescue GoogleApiAuthorization::AccessRevokedError, GoogleApiAuthorization::APIError
+          rescue GoogleApiAuthorization::AccessRevokedError, GoogleApiAuthorization::APIError, SocketError
             # Omit the chart if there's an error.
           end
         end

@@ -248,6 +248,7 @@ private
   end
 
   # Adds the questionnaire's domain to the app's custom domains list on Heroku.
+  # @todo protect app and www subdomains of citizenbudget/budgetcitoyen
   def add_domain
     if HerokuClient.configured? && domain_changed?
       domains = HerokuClient.list_domains

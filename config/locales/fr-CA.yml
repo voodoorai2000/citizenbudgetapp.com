@@ -610,6 +610,7 @@ fr-CA:
         organization: Organisation
         locale: Localisation
         logo: Logo
+        title_image: Image d'en-tête
         remove_logo: Supprimer logo
         description: Description
         starts_at: Date de début
