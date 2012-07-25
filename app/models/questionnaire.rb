@@ -104,7 +104,9 @@ class Questionnaire
 
     middle = times.size / 2
 
-    if times.size.odd?
+    if times.size.zero?
+      0
+    elsif times.size.odd?
       times[middle]
     else
       (times[middle - 1] + times[middle]) / 2.0
