@@ -29,6 +29,7 @@ en:
   language: Switch language
   yes: Yes
   no: No
+  default: Default
   legend:
     question: Question
     widget: Widget parameters
@@ -123,6 +124,7 @@ en:
           responses:
             one: one submission
             other: "%{count} submissions"
+          download: Download
           time_to_complete_header: Median time to complete
           participation_rate_header: Participation rate
           visitors_header: Visitors
@@ -292,6 +294,8 @@ en:
         rows: Rows
         cols: Columns
       response:
+        id: ID
+        ip: IP address
         email: Email
         postal_code: Postal code
         gender: Gender
@@ -300,6 +304,8 @@ en:
         comments: Comments?
         newsletter: Add me to your newsletter
         subscribe: I'd like to participate in your future consultations and surveys
+        created_at: Submitted
+        time_to_complete: Time to complete
 
   mongoid:
     models: *models

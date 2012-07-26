@@ -21,7 +21,7 @@ module ResponsesHelper
     attributes[:value] = value if value.present?
 
     [:size, :maxlength, :placeholder, :rows, :cols].each do |attribute|
-      value = question.send attribute
+      value = question[attribute]
       attributes[attribute] = value if value.present?
     end
 

@@ -26,6 +26,7 @@ fr-CA:
   language: Changer de langue
   yes: Oui
   no: Non
+  default: Défaut
   legend:
     question: Question
     widget: Paramètres # Composant d'interface graphique
@@ -120,6 +121,7 @@ fr-CA:
           responses:
             one: une soumission
             other: "%{count} soumissions"
+          download: Télécharger
           time_to_complete_header: Temps médian requis
           participation_rate_header: Taux de participation
           visitors_header: Visiteurs
@@ -653,6 +655,8 @@ fr-CA:
         rows: Rangées
         cols: Colonnes
       response:
+        id: Identifiant
+        ip: Adresse IP
         email: Courriel
         postal_code: Code postal
         gender: Genre
@@ -661,6 +665,8 @@ fr-CA:
         comments: Commentaires?
         newsletter: Inscrivez-moi à votre bulletin
         subscribe: J'aimerais participer à vos prochaines consultations et sondages
+        created_at: Soumise
+        time_to_complete: Temps requis
 
   mongoid:
     models: *models

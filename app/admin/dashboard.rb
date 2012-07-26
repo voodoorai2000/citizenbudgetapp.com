@@ -1,6 +1,21 @@
 # coding: utf-8
+require 'csv'
+
 ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc{ I18n.t :dashboard }
+
+  # Instance variables set here will not be accessible from the template.
+  content title: proc{ I18n.t :dashboard } do
+    render 'index'
+  end
+
+  page_action 'csv' do
+    @questionnaire = current_admin_user.questionnaires.find params[:id]
+    # http://www.rfc-editor.org/rfc/rfc4180.txt
+    headers['Content-Type'] = 'text/csv; charset=utf-8; header=present'
+    headers['Content-Disposition'] = %(attachment; filename="data.csv")
+    render layout: false
+  end
 
   controller do
     def index
@@ -81,9 +96,5 @@ ActiveAdmin.register_page 'Dashboard' do
       # JavaScript months start counting from zero.
       "new Date(#{date.year}, #{date.month - 1}, #{date.day})"
     end
-  end
-
-  content title: proc{ I18n.t :dashboard } do
-    render 'index'
   end
 end

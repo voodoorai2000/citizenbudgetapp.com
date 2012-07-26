@@ -1,0 +1,35 @@
+<%=
+CSV.generate do |csv|
+  headers = @questionnaire.csv_headers.map do |column|
+    Response.human_attribute_name column
+  end
+  @questionnaire.sections.each do |section|
+    section.questions.each do |question|
+      headers << question.title
+    end
+  end
+  csv << headers
+
+  defaults = @questionnaire.csv_headers.map do |column|
+    t :default
+  end
+  @questionnaire.sections.each do |section|
+    section.questions.each do |question|
+      defaults << question.default_value
+    end
+  end
+  csv << defaults
+
+  @questionnaire.responses.each do |response|
+    row = @questionnaire.csv_headers.map do |column|
+      response.send column
+    end
+    @questionnaire.sections.each do |section|
+      section.questions.each do |question|
+        row << response.answer(question) # @todo escape newlines
+      end
+    end
+    csv << row
+  end
+end.html_safe
+%>

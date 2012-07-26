@@ -198,6 +198,17 @@ class Questionnaire
     end
   end
 
+  # @return [Array] a list of CSV headers
+  def csv_headers
+    @headers ||= begin
+      headers = %w(id ip created_at time_to_complete email name)
+      if sections.nonbudgetary.none? # backwards compatibility
+        headers += %w(postal_code gender age comments newsletter subscribe)
+      end
+      headers
+    end
+  end
+
 private
 
   # Removes the protocol and trailing slash, if present.

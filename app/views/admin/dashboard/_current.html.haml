@@ -14,7 +14,9 @@
                 %td=t '.table.days', count: questionnaire.days_elapsed
               %tr
                 %th=t '.table.responses_header'
-                %td=t '.table.responses', count: @charts[questionnaire.id.to_s][:responses][:count]
+                %td
+                  =t '.table.responses', count: @charts[questionnaire.id.to_s][:responses][:count]
+                  = link_to t('.table.download'), admin_dashboard_csv_path(id: questionnaire)
               %tr
                 %th=t '.table.time_to_complete_header'
                 %td= distance_of_time_in_words questionnaire.time_to_complete

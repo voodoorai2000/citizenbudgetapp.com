@@ -2,6 +2,6 @@
   google.load('visualization', '1', {language: '#{iso639_locale}'});
 
 - if @questionnaires.future.count.nonzero?
-  = render partial: 'future', collection: current_admin_user.questionnaires.future, as: :questionnaire
+  = render partial: 'future', collection: @questionnaires.future, as: :questionnaire
 - if @questionnaires.current.count.nonzero?
-  = render partial: 'current', collection: current_admin_user.questionnaires.current, as: :questionnaire
+  = render partial: 'current', collection: @questionnaires.current, as: :questionnaire
