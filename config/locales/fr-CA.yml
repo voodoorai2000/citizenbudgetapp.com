@@ -170,10 +170,10 @@ fr-CA:
           visits_header: Visites
           pageviews_header: Pages vues
           days:
-            one: un jour
+            one: "%{count} jour"
             other: "%{count} jours"
           responses:
-            one: une soumission
+            one: "%{count} soumission"
             other: "%{count} soumissions"
           download: Télécharger
     admin_users:
@@ -298,7 +298,6 @@ fr-CA:
         created_at: Soumise
         time_to_complete: Temps requis
 
-        # For backwards compatibility only. You don't need to translate these.
         email: Courriel
         postal_code: Code postal
         gender: Genre
@@ -307,23 +306,6 @@ fr-CA:
         comments: Commentaires?
         newsletter: Inscrivez-moi à votre bulletin
         subscribe: J'aimerais participer à vos prochaines consultations et sondages
-
-  # --- Application branding ---------------------------------------------------
-
-  site_title: Budget Citoyen
-
-  app:
-    host: app.budgetcitoyen.com
-    domain: budgetcitoyen.com
-    product_name: Budget Citoyen
-    product_url: http://www.budgetcitoyen.com/
-    author_name: Nord Ouvert
-    author_url: http://nordouvert.ca/
-
-  layouts:
-    application:
-      facebook_admins: "100002666906486"
-      google_analytics: UA-21866813-7
 
   # --- Time zones -------------------------------------------------------------
 
@@ -472,6 +454,23 @@ fr-CA:
     "Nuku'alofa": "Nuku'alofa" # +13:00
     "Samoa": "Samoa" # +13:00
     "Tokelau Is.": "Tokelau" # +14:00
+
+  # --- Application branding ---------------------------------------------------
+
+  site_title: Budget Citoyen
+
+  app:
+    host: app.budgetcitoyen.com
+    domain: budgetcitoyen.com
+    product_name: Budget Citoyen
+    product_url: http://www.budgetcitoyen.com/
+    author_name: Nord Ouvert
+    author_url: http://nordouvert.ca/
+
+  layouts:
+    application:
+      facebook_admins: "100002666906486"
+      google_analytics: UA-21866813-7
 
   # --- MAKE NO CHANGES PAST THIS POINT ----------------------------------------
 
