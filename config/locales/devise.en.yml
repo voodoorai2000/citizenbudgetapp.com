@@ -1,3 +1,4 @@
+# https://raw.github.com/plataformatec/devise/master/config/locales/en.yml
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
 en:
@@ -10,6 +11,7 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
 
   devise:
     failure:
