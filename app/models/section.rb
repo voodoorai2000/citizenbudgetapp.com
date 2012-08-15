@@ -44,6 +44,8 @@ class Section
 private
 
   def touch_questionnaire
-    questionnaire.touch
+    # @see https://github.com/mongoid/mongoid/pull/2291
+    #questionnaire.touch
+    questionnaire.set :updated_at, Time.now
   end
 end
