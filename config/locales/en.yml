@@ -541,7 +541,3 @@ en:
     male: Male
     female: Female
     no_answer: N/A
-
-  mongoid:
-    models: *models
-    attributes: *attributes
