@@ -18,8 +18,7 @@ end
 gem 'girl_friday'
 
 # Database
-# 3.0.0rc doesn't include https://github.com/mongoid/mongoid/issues/2129 https://github.com/mongoid/mongoid/pull/2175
-gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid'
 
 # Admin
 gem 'formtastic', '2.2.1'
@@ -35,7 +34,7 @@ gem 'mustache'
 # Image uploads
 gem 'fog'
 gem 'rmagick'
-# @see https://github.com/jnicklas/carrierwave-mongoid/pull/29#issuecomment-6558204
+# @see https://github.com/jnicklas/carrierwave-mongoid/pull/29#issuecomment-7249357
 gem 'carrierwave-mongoid', git: 'git://github.com/jnicklas/carrierwave-mongoid.git', branch: 'mongoid-3.0'
 
 # Views
