@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '1.9.3'
 gem 'rails', '3.2.6'
-gem 'localeapp'
+gem 'rails-i18n'
 
 group :production do
   # Error logging
@@ -28,6 +28,7 @@ gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'activeadmin-mongoid', '~> 0.0.2.jpmckinney.0'
 gem 'cancan'
 gem 'devise'
+gem 'devise-i18n'
 gem 'google-api-client', require: 'google/api_client'
 gem 'mustache'
 
