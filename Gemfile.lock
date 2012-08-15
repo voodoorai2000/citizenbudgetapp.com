@@ -126,6 +126,7 @@ GEM
       actionpack (>= 3.0)
     girl_friday (0.9.7)
       connection_pool (~> 0.1.0)
+    gli (2.0.0)
     google-api-client (0.3.0)
       addressable (~> 2.2.2)
       autoparse (~> 0.2.0)
@@ -170,6 +171,12 @@ GEM
     kgio (2.7.4)
     launchy (2.1.0)
       addressable (~> 2.2.6)
+    localeapp (0.5.0)
+      gli
+      i18n
+      json
+      rest-client
+      ya2yaml
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -273,6 +280,7 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.1)
       rack (>= 1.0)
+    ya2yaml (0.31)
 
 PLATFORMS
   ruby
@@ -294,6 +302,7 @@ DEPENDENCIES
   haml-rails
   heroku
   jquery-rails
+  localeapp
   mongoid!
   multi_json
   mustache
