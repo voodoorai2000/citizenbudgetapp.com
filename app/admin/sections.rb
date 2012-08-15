@@ -40,7 +40,7 @@ ActiveAdmin.register Section do
     end
 
     # @see https://github.com/gregbell/active_admin/pull/1391
-    f.has_many :questions, header: t(:questions) do |g,i|
+    f.has_many :questions, header: Question.model_name.human(count: 1.1) do |g,i|
       unless g.object.new_record?
         g.input :_destroy, as: :boolean
       end
