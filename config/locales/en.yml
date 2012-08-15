@@ -1,149 +1,42 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# Fragments like %{example} are placeholders and should not be changed. You may,
+# however, move them within the translation text.
 
 en:
+  # --- Public section ---------------------------------------------------------
+
+  # http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks
   left_quote: "“"
   right_quote: "”"
+
+  # The width of the Facebook button in pixels. In English, the button will
+  # have the short words "Like" and "Send", whereas in French it will have
+  # "J'aime" and "Envoyer", which require 20 more pixels.
   facebook_width: 155
+
+  # This message appears after the participant submits their response.
   create_response: Thank you for your participation! Your opinion is important to us.
+
+  # The subject of the thank-you email that is sent to participants.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
-
-  app:
-    host: app.citizenbudget.com
-    domain: citizenbudget.com
-    product_name: Citizen Budget
-    product_url: http://www.citizenbudget.com/
-    author_name: Open North
-    author_url: http://opennorth.ca/
-
-  # Active Admin
-  site_title: Citizen Budget
-  dashboard: Dashboard
-  new_questionnaire: Add a new consultation
-  new_section: Add a section to your consultation
-  new_question: Add a question to this section
-  questions: Services and activities
-  example_name: John Doe
-  # http://userguide.icu-project.org/formatparse/datetime
-  icu_date_format: MMM d
-  language: Switch language
-  yes: Yes
-  no: No
-  default: Default
-  legend:
-    question: Question
-    widget: Widget parameters
-    fiscal: Fiscal parameters
-    html: HTML
-
-  # Google API errors
-  google_api:
-    authentication_error: Couldn't authenticate with the Google API.
-    code_exchange_error: Couldn't obtain a Google API access token.
-    no_authorization_code: No Google API authorization code was received.
-    no_state: No Google API state parameter was received.
-    not_authorized: Access to your Google Analytics account has not been authorized.
-    not_configured: This system is not configured for Google Analytics. Please contact your administrator.
-    access_revoked: Please re-authorize Google Analytics and try again.
-    api_error: A Google API error occurred. Please try again.
-
-  # Google API actions
-  authorize_google_api: Authorize Google Analytics
-  deauthorize_google_api: Deauthorize Google Analytics
-  deauthorize_google_api_success: Access to your Google Analytics account has been successfully revoked.
-
-  # Google Analytics actions
-  link_google_analytics: Link Google Analytics
-  link_google_analytics_success: "The Google Analytics profile %{property} is now linked to your consultation."
-  link_google_analytics_failure: "Couldn't find a matching domain in %{username}'s Google Analytics account."
-
-  questionnaire:
-    untitled: Untitled
-    period: "%{starts_at} to %{ends_at}"
-    starting: "starting %{date}"
-    ending: "ending %{date}"
-
-  gender:
-    male: Male
-    female: Female
-    no_answer: N/A
 
   group:
     revenue: Revenues
     expense: Expenses
     other: Other
 
-  role:
-    superuser: Superuser
-    administrator: Administrator
-
-  widget:
-    # Boolean
-    checkbox: Check box
-    checkboxes: Check boxes
-    onoff: On/off switch
-    # Options
-    radio: Radio buttons
-    select: Drop-down list
-    slider: Slider
-    # String
-    text: Text box
-    textarea: Text area
-
-  notifier:
-    thank_you:
-      subject: "Thank you for participating in our consultation !"
-
-  layouts:
-    application:
-      facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
-      google_analytics: UA-21866813-6 # citizenbudget.com
-
-  admin:
-    dashboard:
-      future:
-        copy_hint: copy to clipboard
-        table:
-          starts_at: Starts on
-          url: URL
-      current:
-        chart:
-          responses_title: Responses per day
-          visits_title: "Traffic to %{name} (%{property})"
-          responses: Responses
-          visitors: Visitors
-          visits: Visits
-          pageviews: Pageviews
-          other: Other
-        table:
-          days_header: Days elapsed
-          days:
-            one: one day
-            other: "%{count} days"
-          responses_header: Number of submissions
-          responses:
-            one: one submission
-            other: "%{count} submissions"
-          download: Download
-          time_to_complete_header: Median time to complete
-          participation_rate_header: Participation rate
-          visitors_header: Visitors
-          visits_header: Visits
-          pageviews_header: Pageviews
-    admin_users:
-      form:
-        automatic: Automatic
   questionnaires:
     questionnaire:
       your_choice: Your choice
+
   responses:
     new:
       instructions: Change an activity to start
-      submit_your_choices: Submit your choices # Backwards-compatibility
       required: required
       submit: Submit
+      # For backwards-compatibility only. You don't need to translate this.
+      submit_your_choices: Submit your choices
     show:
-      header: "%{name} a rééquilibré le budget !"
+      header: "%{name} rebalanced the budget !"
       share: We encourage you to share and discuss your budget choices below with your friends and family.
       share_link: "Copy this link to share your budget choices:"
       copy_hint: copy to clipboard
@@ -162,6 +55,8 @@ en:
     footer:
       attribution: Get your own budget consultation from
 
+  # --- Both public and administrative sections --------------------------------
+
   formtastic:
     required: required
     placeholders:
@@ -169,12 +64,10 @@ en:
       response:
         email: name@example.com
         postal_code: H0H 0H0
-    labels:
-      question:
-        _destroy: Delete question
     hints:
       response:
         email: We will not share your e-mail address or other contact information with any third-parties.
+      # The remaining translations in this section are administrative only.
       questionnaire:
         description: This will be displayed on search engine results pages.
         starts_at: Set the time in UTC.
@@ -199,13 +92,127 @@ en:
         step: You can often set this to 1.
         default_value: If this is a check box, 1 is checked, 0 is unchecked.
         maxlength: The maximum length of the field in characters.
+    labels:
+      question:
+        _destroy: Delete question
     actions:
       create: "Save %{model}"
       update: "Save %{model}"
       cancel: Cancel
 
-  # Responders gem
-  # Documentation: https://github.com/plataformatec/responders
+  # --- Administrative section -------------------------------------------------
+  # The translations in this section are only visible to administrators. If you
+  # only want to translate the public-facing text, you may skip this section.
+
+  dashboard: Dashboard
+  new_questionnaire: Add a new consultation
+  new_section: Add a section to your consultation
+  new_question: Add a question to this section
+  example_name: John Doe
+  # Express the date format to be used in graphs in ICU format:
+  # http://userguide.icu-project.org/formatparse/datetime
+  icu_date_format: MMM d
+  language: Switch language
+  yes: Yes
+  no: No
+  default: Default
+
+  # These strings appear when editing a section and its questions.
+  legend:
+    question: Question
+    widget: Widget parameters
+    fiscal: Fiscal parameters
+    html: HTML
+
+  # Google API errors.
+  google_api:
+    authentication_error: Couldn't authenticate with the Google API.
+    code_exchange_error: Couldn't obtain a Google API access token.
+    no_authorization_code: No Google API authorization code was received.
+    no_state: No Google API state parameter was received.
+    not_authorized: Access to your Google Analytics account has not been authorized.
+    not_configured: This system is not configured for Google Analytics. Please contact your administrator.
+    access_revoked: Please re-authorize Google Analytics and try again.
+    api_error: A Google API error occurred. Please try again.
+
+  # Google API actions.
+  authorize_google_api: Authorize Google Analytics
+  deauthorize_google_api: Deauthorize Google Analytics
+  deauthorize_google_api_success: Access to your Google Analytics account has been successfully revoked.
+
+  # Google Analytics actions.
+  link_google_analytics: Link Google Analytics
+  link_google_analytics_success: "The Google Analytics profile %{property} is now linked to your consultation."
+  link_google_analytics_failure: "Couldn't find a matching domain in %{username}'s Google Analytics account."
+
+  questionnaire:
+    untitled: Untitled
+    period: "%{starts_at} to %{ends_at}"
+    starting: "starting %{date}"
+    ending: "ending %{date}"
+
+  # An administrator's role limits what actions they are authorized to perform.
+  role:
+    superuser: Superuser
+    administrator: Administrator
+
+  # Participants answers questions by using one of the following widgets.
+  widget:
+    readonly: Read-only
+    checkbox: Check box
+    checkboxes: Check boxes
+    onoff: On/off switch
+    radio: Radio buttons
+    select: Drop-down list
+    slider: Slider
+    text: Text box
+    textarea: Text area
+
+  admin:
+    dashboard:
+      future:
+        copy_hint: copy to clipboard
+        table:
+          # The consultations starts on...
+          starts_at: Starts on
+          url: URL
+      current:
+        chart:
+          responses_title: Responses per day
+          # Traffic to example.com (UA-XXXXXXXXX-X)
+          visits_title: "Traffic to %{name} (%{property})"
+          responses: Responses
+          visitors: Visitors
+          visits: Visits
+          pageviews: Pageviews
+          other: Other
+        table:
+          days_header: Days elapsed
+          responses_header: Number of submissions
+          time_to_complete_header: Median time to complete
+          participation_rate_header: Participation rate
+          visitors_header: Visitors
+          visits_header: Visits
+          pageviews_header: Pageviews
+          # If your language has more or fewer plural forms than English, you
+          # may need to add keys for :zero, :two, :few and/or :many.
+          days:
+            one: one day
+            other: "%{count} days"
+          responses:
+            one: one submission
+            other: "%{count} submissions"
+          download: Download
+    admin_users:
+      form:
+        automatic: Automatic
+
+  # https://github.com/ryanb/cancan/wiki/Translating-your-app
+  unauthorized:
+    # CanCan falls back to the 'manage.all' translation.
+    manage:
+      all: You are not authorized to access this page.
+
   # https://github.com/plataformatec/responders/blob/master/lib/responders/locales/en.yml
   flash:
     actions:
@@ -219,8 +226,53 @@ en:
         notice: '%{resource_name} was removed.'
         alert: '%{resource_name} could not be removed.'
 
+  active_admin:
+    # Administrators can filter current, future and past consultations.
+    scopes:
+      current: Current
+      future: Future
+      past: Past
+
+    # In English, we override the following Active Admin translations to be more
+    # concise. Check the Active Admin translations for your language in case you
+    # want to make changes, too. The original English translations are given in
+    # the comments below.
+    edit_model: Edit # "Edit %{model}"
+    update_model: Edit # "Edit %{model}"
+    delete_model: Delete # "Delete %{model}"
+    pagination:
+      one: "" # Displaying <b>1</b> %{model}"
+      one_page: "" # "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}-%{to}</b> of <b>%{total}</b>" # "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
+    has_many_delete: Remove # "Delete"
+
+  # We use Devise's "reset password" functionality to invite new administrators
+  # to access the app and set their password.
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: Set your Citizen Budget password
+
+  # In English, we override the following default Rails translations. Check the
+  # Rails translations for your language in case you need to change them, too.
+  # The original English translations are given in the comments below.
+  time:
+    formats:
+      long: "%B %e, %Y at %H:%M" # ! '%B %d, %Y %H:%M'
+      short: "%B %e, %Y" # ! '%d %b %H:%M'
+
+  # Validation errors.
+  errors:
+    messages:
+      ends_at_must_be_greater_than_starts_at: The end time must be after the start time
+      maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
+      default_value_must_be_between_minimum_and_maximum: Default value must be between minimum and maximum
+      domain_must_be_active: The domain name must be active
+      reply_to_must_be_valid: The reply-to address must be valid
+
   activerecord:
     models: &models
+      dashboard: Dashboard
       admin_user:
         one: Admin user
         other: Admin users
@@ -243,6 +295,8 @@ en:
       admin_user:
         email: Email
         locale: Locale
+        password: Password
+        password_confirmation: Password confirmation
       organization:
         name: Name
         questionnaires: Consultations
@@ -296,30 +350,48 @@ en:
       response:
         id: ID
         ip: IP address
+        created_at: Submitted
+        time_to_complete: Time to complete
+
+        # For backwards compatibility only. You don't need to translate these.
         email: Email
         postal_code: Postal code
-        gender: Gender
         age: Age
+        gender: Gender
         name: Name
         comments: Comments?
         newsletter: Add me to your newsletter
         subscribe: I'd like to participate in your future consultations and surveys
-        created_at: Submitted
-        time_to_complete: Time to complete
+
+  # --- Application branding ---------------------------------------------------
+  # Only change translations in this section if you are rebranding the app.
+
+  # This site title appears in the administrative section only.
+  site_title: Citizen Budget
+
+  app:
+    # The full default hostname of the app.
+    host: app.citizenbudget.com
+    # The default second-level domain (SLD) of the app.
+    domain: citizenbudget.com
+    product_name: Citizen Budget
+    product_url: http://www.citizenbudget.com/
+    author_name: Open North
+    author_url: http://opennorth.ca/
+
+  layouts:
+    application:
+      facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
+      google_analytics: UA-21866813-6 # citizenbudget.com
+
+  # --- MAKE NO CHANGES PAST THIS POINT ----------------------------------------
+
+  # For backwards compatibility only. You don't need to translate these.
+  gender:
+    male: Male
+    female: Female
+    no_answer: N/A
 
   mongoid:
     models: *models
     attributes: *attributes
-
-  time:
-    formats:
-      short: "%B %e, %Y"
-      long: "%B %e, %Y at %H:%M"
-
-  errors:
-    messages:
-      ends_at_must_be_greater_than_starts_at: The end time must be after the start time
-      maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
-      default_value_must_be_between_minimum_and_maximum: Default value must be between minimum and maximum
-      domain_must_be_active: The domain name must be active
-      reply_to_must_be_valid: The reply-to address must be valid

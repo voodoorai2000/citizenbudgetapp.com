@@ -1,10 +1,8 @@
+# activeadmin has a "fr.yml" file, but not an "fr-CA.yml" file.
+# https://github.com/gregbell/active_admin/blob/master/lib/active_admin/locales/fr.yml
+
 fr-CA:
   active_admin:
-    scopes:
-      current: Actuelles
-      future: Futures
-      past: Passées
-
     dashboard: Tableau de bord # "Tableau de Bord"
     dashboard_welcome:
       welcome: "Bienvenue dans Active Admin. Ceci est la page par défaut."
