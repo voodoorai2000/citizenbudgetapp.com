@@ -9,7 +9,7 @@ class Question
   # and select widgets, in which case we need a new :amounts array field?
   # @note The check box widget is used uniquely in non-budgetary questions. Use
   # the on/off switch for budgetary questions.
-  WIDGETS = %w(checkbox checkboxes onoff radio select slider text textarea)
+  WIDGETS = %w(checkbox checkboxes onoff radio readonly select slider text textarea)
 
   embedded_in :section
 
@@ -35,7 +35,8 @@ class Question
 
   attr_accessor :minimum_units, :maximum_units, :step, :options_as_list
 
-  validates_presence_of :title, :widget
+  validates_presence_of :widget
+  validates_presence_of :title, unless: :readonly?
   validates_inclusion_of :widget, in: WIDGETS, allow_blank: true
   validates_numericality_of :unit_amount, allow_blank: true
 
@@ -60,6 +61,17 @@ class Question
 
   default_scope asc(:position)
 
+  # @return [Boolean] whether the "Read more" content is a URL
+  def extra_url?
+    extra? && extra[%r{\Ahttps?://\S+\z}]
+  end
+
+  # @return [Boolean] whether the widget is read-only
+  def readonly?
+    widget == 'readonly'
+  end
+
+  # @return [Boolean] whether it is a survey question
   # @note Check boxes and radio buttons are currently used for survey questions,
   #   but that's not necessarily the case.
   def survey?

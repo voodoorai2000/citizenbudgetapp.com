@@ -25,15 +25,20 @@ class Section
   scope :nonbudgetary, where(group: 'other')
   default_scope asc(:position)
 
-  def position
-    read_attribute(:position) || _index
+  # @return [Boolean] whether the "Read more" content is a URL
+  def extra_url?
+    extra? && extra[%r{\Ahttps?://\S+\z}]
   end
 
-  # @return [Boolean] whether all questions are survey questions
+  # @return [Boolean] whether all questions are survey or readonly questions
   def survey?
     questions.all? do |question|
-      question.survey?
+      question.survey? || question.readonly?
     end
+  end
+
+  def position
+    read_attribute(:position) || _index
   end
 
 private
