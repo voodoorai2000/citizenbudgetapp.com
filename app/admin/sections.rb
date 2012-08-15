@@ -103,7 +103,7 @@ ActiveAdmin.register Section do
                 if can?(:update, q)
                   i(class: 'icon-move')
                 end
-                text_node link_to_if can?(:update, q), q.title, edit_admin_questionnaire_section_path(s.questionnaire, s, anchor: "section_questions_attributes_#{index}__destroy_input")
+                text_node link_to_if can?(:update, q), q.name, edit_admin_questionnaire_section_path(s.questionnaire, s, anchor: "section_questions_attributes_#{index}__destroy_input")
               end
             end
           end

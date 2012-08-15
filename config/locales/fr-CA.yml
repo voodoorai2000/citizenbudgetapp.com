@@ -98,6 +98,7 @@ fr-CA:
   language: Changer de langue
   yes: Oui
   no: Non
+  untitled: Sans titre
   default: Défaut
 
   legend:
@@ -125,7 +126,6 @@ fr-CA:
   link_google_analytics_failure: "Impossible de trouver un nom de domaine correspondant dans le compte Google Analytics de %{username}."
 
   questionnaire:
-    untitled: Untitled
     period: "du %{starts_at} au %{ends_at}"
     starting: "à partir du %{date}"
     ending: "se terminant le %{date}"

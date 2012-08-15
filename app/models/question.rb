@@ -61,6 +61,10 @@ class Question
 
   default_scope asc(:position)
 
+  def name
+    title? && title || I18n.t(:untitled)
+  end
+
   # @return [Boolean] whether the "Read more" content is a URL
   def extra_url?
     extra? && extra[%r{\Ahttps?://\S+\z}]

@@ -115,6 +115,7 @@ en:
   language: Switch language
   yes: Yes
   no: No
+  untitled: Untitled
   default: Default
 
   # These strings appear when editing a section and its questions.
@@ -146,7 +147,6 @@ en:
   link_google_analytics_failure: "Couldn't find a matching domain in %{username}'s Google Analytics account."
 
   questionnaire:
-    untitled: Untitled
     period: "%{starts_at} to %{ends_at}"
     starting: "starting %{date}"
     ending: "ending %{date}"
