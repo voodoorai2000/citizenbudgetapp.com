@@ -4,7 +4,7 @@
       %tr
         %th.category
           = render partial: 'title', locals: {object: section, placement: 'bottom'}
-        - unless section.survey?
+        - unless section.nonbudgetary?
           %th.column.highlight
             =t '.your_choice'
       - if section.description?
@@ -15,7 +15,15 @@
     %tbody
       - section.questions.each do |q|
         %tr
-          - if q.survey?
+          - if q.readonly?
+            %td.description(colspan="#{colspan(section)}")
+              - if q.title?
+                %h3
+                  = render partial: 'title', locals: {object: q, placement: 'bottom'}
+              - if q.description?
+                :markdown
+                  #{q.description}
+          - elsif q.nonbudgetary?
             %td.description(colspan="#{colspan(section)}")
               %h3
                 = render partial: 'title', locals: {object: q, placement: 'bottom'}

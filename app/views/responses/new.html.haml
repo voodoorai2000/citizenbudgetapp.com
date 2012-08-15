@@ -42,7 +42,7 @@
               = f.input :name
             - section.questions.each do |q|
               .control-group
-                - unless q.widget == 'checkbox'
+                - unless %w(checkbox readonly).include? q.widget
                   %label.control-label(for="#{q.id}")
                     = q.title
                     - if q.required?
@@ -71,6 +71,12 @@
                     = text_field_tag q.id, nil, html_attributes(q)
                   - elsif q.widget == 'textarea'
                     = text_area_tag q.id, nil, html_attributes(q)
+                  - elsif q.widget == 'readonly'
+                    - if q.title?
+                      %h3= q.title
+                    - if q.description?
+                      :markdown
+                        #{q.description}
       - else
         -# Backwards compatibility.
         = f.inputs name: t('.submit_your_choices') do

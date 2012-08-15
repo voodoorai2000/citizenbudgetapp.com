@@ -36,13 +36,13 @@ class Question
   attr_accessor :minimum_units, :maximum_units, :step, :options_as_list
 
   validates_presence_of :widget
-  validates_presence_of :title, unless: :readonly?
+  validates_presence_of :title, unless: ->(q){q.widget == 'readonly'}
   validates_inclusion_of :widget, in: WIDGETS, allow_blank: true
   validates_numericality_of :unit_amount, allow_blank: true
 
   # HTML attribute validations.
-  validates_numericality_of :size, :maxlength, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){%w(text).include? q.widget}
-  validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){%w(textarea).include? q.widget}
+  validates_numericality_of :size, :maxlength, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'text'}
+  validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'textarea'}
 
   # Budgetary widget validations.
   validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff slider).include? q.widget}
@@ -71,11 +71,11 @@ class Question
     widget == 'readonly'
   end
 
-  # @return [Boolean] whether it is a survey question
+  # @return [Boolean] whether it is a nonbudgetary question
   # @note Check boxes and radio buttons are currently used for survey questions,
   #   but that's not necessarily the case.
-  def survey?
-    %w(checkboxes radio).include? widget
+  def nonbudgetary?
+    %w(checkboxes radio readonly).include? widget
   end
 
   # @return [Boolean] whether the widget is checked by default

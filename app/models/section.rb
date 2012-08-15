@@ -30,10 +30,10 @@ class Section
     extra? && extra[%r{\Ahttps?://\S+\z}]
   end
 
-  # @return [Boolean] whether all questions are survey or readonly questions
-  def survey?
+  # @return [Boolean] whether all questions are nonbudgetary questions
+  def nonbudgetary?
     questions.all? do |question|
-      question.survey? || question.readonly?
+      question.nonbudgetary?
     end
   end
 

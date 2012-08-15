@@ -95,7 +95,7 @@ module ResponsesHelper
   end
 
   def colspan(section)
-    section.survey? && 1 || 2
+    section.nonbudgetary? && 1 || 2
   end
 
   # Display a menu if there are multiple groups and/or sections.
