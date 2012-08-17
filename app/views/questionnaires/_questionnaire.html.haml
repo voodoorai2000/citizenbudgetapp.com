@@ -61,7 +61,7 @@
                   .impact
                     %span.key
                     %span.value= number_to_currency 0, precision: 0
-                  - if q.unit_name == '$' && q.unit_amount == 1
+                  - if q.unit_name == '$' && q.unit_amount == 1 # @todo Make currency symbol more flexible.
                     .meta.maximum &nbsp;
                     .meta.minimum &nbsp;
                   - else
