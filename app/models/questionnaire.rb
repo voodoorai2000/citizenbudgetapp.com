@@ -67,6 +67,7 @@ class Questionnaire
   validates :reply_to, email: true, allow_blank: true
   validate :ends_at_must_be_greater_than_starts_at
   validate :domain_must_be_active
+  validate :domain_must_not_be_blacklisted
   validate :reply_to_must_be_valid
 
   before_validation :sanitize_domain
@@ -224,7 +225,7 @@ class Questionnaire
 
 private
 
-  # Removes the protocol and trailing slash, if present.
+  # Removes the protocol, "www" and trailing slash, if present.
   # @param [String] domain a domain name
   # @return [String] the domain without the protocol or trailing slash
   def self.sanitize_domain(domain)
@@ -253,6 +254,16 @@ private
     end
   end
 
+  def domain_must_not_be_blacklisted
+    if domain?
+      Locale.available_locales.each do |locale|
+        if [I18n.t('app.host', locale: locale), I18n.t('app.domain', locale: locale)].include? domain
+          errors.add :domain, I18n.t('errors.messages.domain_must_not_be_blacklisted')
+        end
+      end
+    end
+  end
+
   def reply_to_must_be_valid
     if reply_to?
       begin
@@ -274,7 +285,7 @@ private
   end
 
   # Adds the questionnaire's domain to the app's custom domains list on Heroku.
-  # @todo protect app and www subdomains of citizenbudget/budgetcitoyen
+  # @todo Will not add a "www" subdomain to domains ending in "co.uk"
   def add_domain
     if HerokuClient.configured? && domain_changed?
       domains = HerokuClient.list_domains
