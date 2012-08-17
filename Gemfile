@@ -62,4 +62,3 @@ group :development, :test do
 end
 
 gem 'unicorn'
-gem 'localeapp'

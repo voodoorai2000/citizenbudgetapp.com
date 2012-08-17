@@ -86,10 +86,3 @@ ENV['AWS_DIRECTORY'] = 'REPLACE_ME'
 # Used in:
 #   config/mongoid.yml
 ENV['MONGOLAB_URI'] = 'mongodb://127.0.0.1:27017/citizen_budget_development'
-
-# We are considering using localeapp.com as a friendly interface for non-
-# technical users to help translate Citizen Budget.
-#
-# Used in:
-#   config/initializers/localeapp.rb
-# ENV['LOCALEAPP_API_KEY'] = 'REPLACE_ME'
