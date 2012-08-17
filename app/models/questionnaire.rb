@@ -6,16 +6,6 @@ class Questionnaire
   include Mongoid::Paranoia
   include Mongoid::MultiParameterAttributes
 
-  # In "Services" mode, participants add, cut or modify specific services and
-  # activities, e.g. increase hourly parking fees from $3 to $4. The dashboard
-  # reports how close they are to balancing the budget. Only balanced budgets
-  # can be submitted.
-
-  # In "Taxes" mode, participants make percentage-wise increases or decreases to
-  # bundles of services, e.g. healthcare. Participants have an opportunity to
-  # enter their personal municipal assessment. The dashboard reports the impact
-  # of their changes on their taxes. Non-balanced budgets can be submitted.
-
   MODES = %w(services taxes)
 
   belongs_to :organization, index: true
