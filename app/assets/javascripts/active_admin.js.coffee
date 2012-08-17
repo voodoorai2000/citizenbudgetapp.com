@@ -39,8 +39,6 @@ $ ->
   setup_fieldset = (i) ->
     widget = $("#section_questions_attributes_#{i}_widget")
 
-    # @todo default_value should be rendered as a checkbox if widget is onoff or checkbox
-
     toggle_options = ->
       value = widget.val()
       $("#section_questions_attributes_#{i}_options_as_list_input"
