@@ -42,29 +42,32 @@ $ ->
     # @todo default_value should be rendered as a checkbox if widget is onoff or checkbox
 
     toggle_options = ->
+      value = widget.val()
       $("#section_questions_attributes_#{i}_options_as_list_input"
-      ).toggle(widget.val() in ['checkboxes', 'radio', 'select'])
+      ).toggle(value in ['checkboxes', 'radio', 'select'])
 
       $("#section_questions_attributes_#{i}_default_value_input"
-      ).toggle(widget.val() in ['checkbox', 'onoff', 'slider'])
+      ).toggle(value in ['checkbox', 'onoff', 'slider', 'scaler'])
 
       $("#section_questions_attributes_#{i}_unit_amount_input"
-      ).toggle(widget.val() in ['onoff', 'slider'])
+      ).toggle(value in ['onoff', 'slider', 'scaler'])
 
       $("#section_questions_attributes_#{i}_minimum_units_input,
          #section_questions_attributes_#{i}_maximum_units_input,
-         #section_questions_attributes_#{i}_step_input,
-         #section_questions_attributes_#{i}_unit_name_input"
-      ).toggle(widget.val() == 'slider')
+         #section_questions_attributes_#{i}_step_input"
+      ).toggle(value in ['slider', 'scaler'])
+
+      $("#section_questions_attributes_#{i}_unit_name_input"
+      ).toggle(value == 'slider')
 
       $("#section_questions_attributes_#{i}_size_input,
          #section_questions_attributes_#{i}_maxlength_input,
          #section_questions_attributes_#{i}_placeholder_input"
-      ).toggle(widget.val() == 'text')
+      ).toggle(value == 'text')
 
       $("#section_questions_attributes_#{i}_rows_input,
          #section_questions_attributes_#{i}_cols_input"
-      ).toggle(widget.val() == 'textarea')
+      ).toggle(value == 'textarea')
 
     widget.change toggle_options
     toggle_options()
