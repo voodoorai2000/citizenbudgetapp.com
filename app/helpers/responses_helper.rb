@@ -94,6 +94,7 @@ module ResponsesHelper
     number_to_currency(number).sub /#{escaped_separator}0+\b/, ''
   end
 
+  # @return [Integer] one column if the section has nonbudgetary questions only
   def colspan(section)
     section.nonbudgetary? && 1 || 2
   end

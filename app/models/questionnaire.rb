@@ -6,6 +6,18 @@ class Questionnaire
   include Mongoid::Paranoia
   include Mongoid::MultiParameterAttributes
 
+  # In "Services" mode, participants add, cut or modify specific services and
+  # activities, e.g. increase hourly parking fees from $3 to $4. The dashboard
+  # reports how close they are to balancing the budget. Only balanced budgets
+  # can be submitted.
+
+  # In "Taxes" mode, participants make percentage-wise increases or decreases to
+  # bundles of services, e.g. healthcare. Participants have an opportunity to
+  # enter their personal municipal assessment. The dashboard reports the impact
+  # of their changes on their taxes. Non-balanced budgets can be submitted.
+
+  MODES = %w(services taxes)
+
   belongs_to :organization, index: true
   embeds_many :sections
   has_many :responses
@@ -14,6 +26,7 @@ class Questionnaire
   mount_uploader :title_image, ImageUploader
 
   field :title, type: String
+  field :mode, type: String
   field :locale, type: String
   field :logo, type: String
   field :title_image, type: String
@@ -46,7 +59,8 @@ class Questionnaire
 
   index domain: 1
 
-  validates_presence_of :title, :organization_id
+  validates_presence_of :title, :organization_id, :mode
+  validates_inclusion_of :mode, in: MODES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true

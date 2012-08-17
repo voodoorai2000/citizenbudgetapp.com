@@ -13,8 +13,9 @@
 - @groups.each do |group,_|
   %li.group(id="#{group}")
     .inner
-      .chart
+      .chart-container
         .title=t group, scope: :group
-        .bar
-        .zero
-        .amount= number_to_currency 0, precision: 0
+        .chart
+          .bar
+          .zero
+          .amount= number_to_currency 0, precision: 0

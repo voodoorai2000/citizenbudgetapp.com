@@ -403,12 +403,14 @@ footer {
 
 /* Charts --------------------------------------------------------------------*/
 
-.chart {
-  position: relative;
+.chart-container {
   width: 199px;
   font-size: 0.85em;
   line-height: 1.5em;
   text-align: center;
+}
+.chart {
+  position: relative;
 }
 .bar {
   position: absolute;
@@ -428,7 +430,7 @@ footer {
 .amount {
   position: absolute;
   width: 199px;
-  top: 36px;
+  top: 20px;
   left: 0;
   color: #000;
   text-align: center;
@@ -556,8 +558,20 @@ nav.simple {
       padding: 0;
     }
   }
+  .chart-container {
+    width: auto;
+    font-size: 1.25em;
+    text-align: left;
+  }
+  .title {
+    float: left;
+    margin: 12px 30px 0 12px;
+    vertical-align: middle;
+  }
   .chart {
-    margin: 0 auto;
+    float: left;
+    margin-top: 12px;
+    font-size: 0.68em;
   }
 }
 
