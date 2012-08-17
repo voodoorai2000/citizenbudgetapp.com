@@ -389,12 +389,15 @@ footer {
 
 /* Dashboard -----------------------------------------------------------------*/
 
-.message {
+#message {
   padding: 10px 0;
   background-color: #666;
   color: #fff;
   font-size: 1.08em;
   text-align: center;
+}
+#reminder {
+  font-weight: bold;
 }
 
 #whitespace {

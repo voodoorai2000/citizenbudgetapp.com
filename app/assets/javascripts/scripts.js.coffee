@@ -121,8 +121,7 @@ $ ->
           -     # Hyphen
         ]
       )///g, '\\$1'
-      # Only strip zeroes if all are insignificant.
-      # formatted_number.replace(///(#{escaped_separator})(\d*[1-9])?0+$///, '$1$2').replace(///#{escaped_separator}$///, '')
+      # Only strip zeroes if all are insignificant. (Differs from Rails code.)
       formatted_number.replace ///#{escaped_separator}0+$///, ''
     else
       formatted_number
@@ -132,6 +131,12 @@ $ ->
     Mustache.render t('currency_format'),
       number: number_with_precision number, options
       unit: t 'currency_unit'
+
+  # Converts a number to a percentage.
+  number_to_percentage = (number, options = {}) ->
+    Mustache.render t('percentage_format'),
+      number: number_with_precision number, options
+      symbol: t 'percentage_symbol'
 
   number_to_human = (number) ->
     number = parseFloat(number)
@@ -225,20 +230,25 @@ $ ->
           left: Math.min(bar_left, bar_left - pixels)
           width: width
 
-    $message = $ '.message'
+    $messages = $ '.message'
+    $message = $ '#message'
+    $reminder = $ '#reminder'
     currency = number_to_currency balance, strip_insignificant_zeros: true
 
     # Update message.
     changed = $('.selected').length
     if balance < 0
-      $message.html t('deficit', number: currency)
+      $messages.html t("#{questionnaire_mode}_deficit", number: currency)
     else if balance == 0
       if changed
-        $message.html t('balanced')
+        $messages.html t("#{questionnaire_mode}_balanced")
       else
+        $reminder.html('&nbsp;')
         $message.html t('instructions')
     else
-      $message.html t('surplus', number: currency)
+      $messages.html t("#{questionnaire_mode}_surplus", number: currency)
+    if translationExists "#{questionnaire_mode}_submit"
+      $message.append t("#{questionnaire_mode}_submit")
 
     if balance >= 0 and changed
       $message.animate 'background-color': '#ff0', 'color': '#000'
@@ -248,7 +258,7 @@ $ ->
       $message.animate 'background-color': '#666', 'color': '#fff'
 
     # Enable or disable identification form.
-    if balance >= 0 and changed
+    if changed and (questionnaire_mode is 'taxes' or balance >= 0)
       enableForm()
     else
       disableForm()
