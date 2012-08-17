@@ -15,6 +15,7 @@ $ ->
   # Local globals.
   amount_left = 0
   bar_left = 100
+  assessment_period = 12.0 # monthly
 
   # Open non-Bootstrap links in new windows.
   $('.description a:not([class])').attr 'target', '_blank'
@@ -147,6 +148,10 @@ $ ->
       number = "#{number} k"
     number
 
+  # @return [Integer] the participant's property assessment
+  propertyAssessment = ->
+    parseInt($('#assessment input').val()) || default_assessment
+
   # @return [String] content for the tip on a slider
   tipContent = (slider, number) ->
     if slider.data('widget') is 'scaler'
@@ -173,7 +178,7 @@ $ ->
     $table.find('.onoff').each ->
       $this = $ this
       balance -= (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
-    balance *= default_assessment / 12.0 if questionnaire_mode is 'taxes' # @todo allow user to set assessment
+    balance *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
     balance
 
   # Updates within-category balance.
@@ -188,8 +193,8 @@ $ ->
   updateBalance = ->
     balance = 0
     current_maximum_difference = maximum_difference
-    current_maximum_difference *= default_assessment / 12.0 if questionnaire_mode is 'taxes' # @todo allow user to set assessment
-    monthly_payment = tax_rate * default_assessment / 12.0
+    current_maximum_difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
+    monthly_payment = tax_rate * propertyAssessment() / assessment_period
 
     $.each ['revenue', 'expense'], (i, group) ->
       amount = $ "##{group} .amount"
@@ -249,7 +254,7 @@ $ ->
 
     if questionnaire_mode is 'taxes'
       currency = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
-      percentage = number_to_percentage Math.abs(balance) / monthly_payment * 100, strip_insignificant_zeros: true # @todo allow user to set assessment
+      percentage = number_to_percentage Math.abs(balance) / monthly_payment * 100, strip_insignificant_zeros: true
     else
       currency = number_to_currency balance, strip_insignificant_zeros: true
       percentage = 0
@@ -313,7 +318,7 @@ $ ->
 
       $tr.find('.key').html key
       difference = Math.abs(current - initial) * value
-      difference *= default_assessment / 12.0 # @todo allow user to set assessment
+      difference *= propertyAssessment() / assessment_period
       $tr.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
       $tr.find('.impact').css('color', color).css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
@@ -393,6 +398,22 @@ $ ->
       options.checkedLabel = t 'yes'
       options.uncheckedLabel = t 'no'
     $this.iphoneStyle options
+
+  $('#assessment-submit').click ->
+    # Ignore invalid assessment values.
+    if parseInt($('#assessment input').val()) <= 0
+      $('#assessment input').val('')
+
+    updateBalance()
+    $('table').find('input:first').each ->
+      updateCategoryBalance $(this)
+
+    $('.widget-scaler').each ->
+      $widget = $ this
+      $slider = $widget.find '.slider'
+      multiplier = parseFloat($slider.data('value')) * propertyAssessment() / assessment_period
+      $widget.find('.minimum.under').html number_to_currency $slider.data('minimum') * multiplier
+      $widget.find('.maximum.under').html number_to_currency $slider.data('maximum') * multiplier
 
   if disabled?
     updateBalance()

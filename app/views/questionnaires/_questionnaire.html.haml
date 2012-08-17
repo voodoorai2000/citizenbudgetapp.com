@@ -83,14 +83,14 @@
                       .tick.initial
                       .tick.highest
                   - if @questionnaire.mode == 'taxes' && q.widget == 'scaler' # @note Special case.
-                    .meta.maximum
-                      = currency q.maximum_units * q.unit_amount * @questionnaire.default_assessment / 12.0
-                    .meta.minimum
-                      = currency q.minimum_units * q.unit_amount * @questionnaire.default_assessment / 12.0
+                    .meta.maximum.under
+                      = currency q.maximum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD
+                    .meta.minimum.under
+                      = currency q.minimum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD
                   - else
-                    .meta.maximum
+                    .meta.maximum.under
                       = currency q.maximum_amount
-                    .meta.minimum
+                    .meta.minimum.under
                       = currency q.minimum_amount
                 - elsif q.widget == 'onoff'
                   .impact

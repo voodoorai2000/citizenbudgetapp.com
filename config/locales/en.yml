@@ -8,6 +8,9 @@ en:
   left_quote: "“"
   right_quote: "”"
 
+  # Button text to set a variable.
+  set: Set
+
   # The width of the Facebook button in pixels. In English, the button will
   # have the short words "Like" and "Send", whereas in French it will have
   # "J'aime" and "Envoyer", which require 20 more pixels.
@@ -31,6 +34,7 @@ en:
   responses:
     new:
       instructions: Change an activity to start
+      assessment: "To know the impact of your changes on your municipal taxes, enter your property's current value assessment:"
       required: required
       submit: Submit
       # For backwards-compatibility only. You don't need to translate this.
@@ -378,6 +382,7 @@ en:
       response:
         id: ID
         ip: IP address
+        assessment: Property assessment
         created_at: Submitted
         time_to_complete: Time to complete
 

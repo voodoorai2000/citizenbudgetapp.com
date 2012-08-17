@@ -7,6 +7,7 @@ class Questionnaire
   include Mongoid::MultiParameterAttributes
 
   MODES = %w(services taxes)
+  ASSESSMENT_PERIOD = 12.0 # monthly
 
   belongs_to :organization, index: true
   embeds_many :sections
@@ -22,7 +23,7 @@ class Questionnaire
   field :ends_at, type: Time
   field :time_zone, type: String
   field :domain, type: String
-  field :email_required, type: Boolean
+  field :email_required, type: Boolean, default: true
 
   # Mode
   field :mode, type: String

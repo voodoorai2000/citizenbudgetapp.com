@@ -14,7 +14,7 @@ I18n =
     losses: 'Losses:'
     savings: 'Savings:'
     costs: 'Costs:'
-    instructions: 'Change an activity to start.'
+    instructions: 'Change an activity to start'
     services_surplus: """Your budget has a surplus of %{number}. If you're finished, <a href="#identification">submit your choices</a>. Otherwise, <b>add activities or cut revenues to balance the budget</b>."""
     services_balanced: """<b>Your budget is balanced!</b> If you're finished, <a href="#identification">submit your choices</a>."""
     services_deficit: 'Your budget is in deficit (%{number}). <b>Cut activities or add revenues to balance the budget.</b>'
@@ -39,7 +39,7 @@ I18n =
     losses: 'Pertes :'
     savings: 'Épargnes :'
     costs: 'Coûts :'
-    instructions: 'Modifiez une activité pour commencer.'
+    instructions: 'Modifiez une activité pour commencer'
     services_surplus: """Votre budget montre un surplus de %{number}. Vous pouvez <a href="#identification">soumettre vos choix</a>. Sinon, <b>ajoutez des activités ou reduisez les revenus pour équilibrer le budget</b>."""
     services_balanced: """<b>Vous avez atteint l'équilibre!</b> Si vous avez fini, <a href="#identification">soumettez vos choix</a>."""
     services_deficit: 'Votre budget est en déficit (%{number}). <b>Renoncez à des activités ou augmentez les revenus pour équilibrer le budget.</b>'

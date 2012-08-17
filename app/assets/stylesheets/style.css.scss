@@ -405,6 +405,16 @@ footer {
   display: none;
 }
 
+#assessment {
+  margin-top: 50px;
+  text-align: center;
+
+  label {
+    display: inline;
+    margin: 0;
+  }
+}
+
 /* Charts --------------------------------------------------------------------*/
 
 .chart-container {

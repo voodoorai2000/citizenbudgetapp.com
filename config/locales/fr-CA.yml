@@ -3,6 +3,7 @@ fr-CA:
 
   left_quote: "« "
   right_quote: " »"
+  set: Réglez
   facebook_width: 175
   create_response: Merci d'avoir participé à la consultation ! Votre opinion est importante pour nous.
   thank_you_subject: "%{organization} : Merci d'avoir participé à notre consultation !"
@@ -19,6 +20,7 @@ fr-CA:
   responses:
     new:
       instructions: Modifiez une activité pour commencer.
+      assessment: Pour connaître l'impact de vos modifications sur vos taxes foncières, entrez l'évaluation foncière de votre propriété
       required: requis
       submit: Envoyer
       submit_your_choices: Soumettez vos choix
@@ -319,6 +321,7 @@ fr-CA:
         id: Identifiant
         ip: Adresse IP
         created_at: Soumise
+        assessment: L'évaluation foncière de votre propriété
         time_to_complete: Temps requis
 
         email: Courriel

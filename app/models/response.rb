@@ -10,11 +10,17 @@ class Response
   field :initialized_at, type: Time
   field :answers, type: Hash
   field :ip, type: String
+  field :assessment, type: Float
+
   # The social sharing feature requires email and name.
   field :email, type: String
   field :name, type: String
 
+  # For reports.
+  attr_accessor :warnings
+
   validates_presence_of :questionnaire_id, :initialized_at, :answers, :ip
+  # We don't do more ambitious validation to avoid excluding valid responses.
 
   # Backwards-compatibility
   GENDERS = %w(male female)
