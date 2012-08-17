@@ -79,23 +79,14 @@ ActiveAdmin.register Questionnaire do
 
   show title: ->(q){truncate display_name(q), length: 35, separator: ' '} do
     attributes_table do
+      # Basic
       row :title
       row :organization do |q|
         auto_link q.organization
       end
-      row :mode do |q|
-        t(q.mode, scope: :mode) if q.mode?
-      end
       row :locale do |q|
         Locale.locale_name(q.locale) if q.locale?
       end
-      row :logo do |q|
-        link_to(image_tag(q.logo.large.url), q.logo_url) if q.logo?
-      end
-      row :title_image do |q|
-        link_to(image_tag(q.title_image.square.url), q.title_image_url) if q.title_image?
-      end
-      row :description
       row :starts_at do |q|
         l(q.starts_at.in_time_zone(q.time_zone), format: :long) if q.starts_at?
       end
@@ -105,25 +96,8 @@ ActiveAdmin.register Questionnaire do
       row :time_zone do |q|
         TimeZoneI18n[q.time_zone].human if q.time_zone?
       end
-      row :introduction do |q|
-        RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
-      end
       row :domain do |q|
         link_to(q.domain, q.domain_url) if q.domain?
-      end
-      row :google_analytics
-      row :google_analytics_profile
-      row :twitter_screen_name
-      row :twitter_text
-      row :twitter_share_text
-      row :facebook_app_id
-      row :reply_to do |q|
-        mail_to(q.reply_to) if q.reply_to?
-      end
-      row :thank_you_template do |q|
-        if q.thank_you_template?
-          simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')
-        end
       end
       row :email_required do |q|
         if q.email_required?
@@ -132,6 +106,42 @@ ActiveAdmin.register Questionnaire do
           t :no
         end
       end
+
+      # Mode
+      row :mode do |q|
+        t(q.mode, scope: :mode) if q.mode?
+      end
+
+      # Appearance
+      row :logo do |q|
+        link_to(image_tag(q.logo.large.url), q.logo_url) if q.logo?
+      end
+      row :title_image do |q|
+        link_to(image_tag(q.title_image.square.url), q.title_image_url) if q.title_image?
+      end
+      row :introduction do |q|
+        RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
+      end
+      row :description
+
+      # Thank-you email
+      row :reply_to do |q|
+        mail_to(q.reply_to) if q.reply_to?
+      end
+      row :thank_you_template do |q|
+        if q.thank_you_template?
+          simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')
+        end
+      end
+
+      # Third-party integration
+      row :google_analytics
+      row :google_analytics_profile
+      row :twitter_screen_name
+      row :twitter_text
+      row :twitter_share_text
+      row :facebook_app_id
+
       row :sections do |q|
         if q.sections.present?
           ul(class: can?(:update, q) ? 'sortable' : '') do

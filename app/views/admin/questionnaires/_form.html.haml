@@ -1,10 +1,20 @@
 - resource.organization_id ||= params[:organization_id] if params[:organization_id]
 = semantic_form_for [:admin, resource] do |f|
-  = f.inputs do
+  = f.inputs t('legend.basic') do
     = f.input :title
     = f.input :organization_id, collection: Organization.all.map{|o| [o.name, o.id]}
-    = f.input :mode, as: :radio, collection: Questionnaire::MODES.map{|m| [t(m, scope: :mode), m]}
     = f.input :locale, as: :radio, collection: Locale::LOCALES.map{|k,v| [v, k]}
+    -# @todo switch to labels: false when Formtastic 2.2.2 released https://github.com/justinfrench/formtastic/pull/866
+    = f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
+    = f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
+    = f.input :time_zone, priority_zones: /US & Canada/, model: TimeZoneI18n, include_blank: true
+    = f.input :domain, input_html: {size: 30}
+    = f.input :email_required
+
+  = f.inputs t('legend.mode') do
+    = f.input :mode, as: :radio, collection: Questionnaire::MODES.map{|m| [t(m, scope: :mode), m]}
+
+  = f.inputs t('legend.appearance') do
     - if resource.logo?
       = f.input :remove_logo, as: :boolean, hint: link_to(image_tag(resource.logo.large.url), resource.logo_url)
     = f.input :logo, as: :file
@@ -13,22 +23,21 @@
       = f.input :remove_title_image, as: :boolean, hint: link_to(image_tag(resource.title_image.large.url), resource.title_image_url)
     = f.input :title_image, as: :file
     = f.input :title_image_cache, as: :hidden
-    = f.input :description, as: :text, input_html: {rows: 3}
-    -# @todo switch to labels: false when Formtastic 2.2.2 released https://github.com/justinfrench/formtastic/pull/866
-    = f.input :starts_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
-    = f.input :ends_at, end_year: Time.now.year + 1, prompt: true, include_blank: false, labels: {year: nil, month: nil, day: nil, hour: nil, minute: nil, second: nil}
-    = f.input :time_zone, priority_zones: /US & Canada/, model: TimeZoneI18n, include_blank: true
     = f.input :introduction, as: :text
-    = f.input :domain, input_html: {size: 20}
+    = f.input :description, as: :text, input_html: {rows: 3}
+
+  = f.inputs t('legend.email') do
+    = f.input :reply_to, as: :email
+    = f.input :thank_you_template, as: :text
+
+  = f.inputs t('legend.integration') do
     = f.input :google_analytics, input_html: {size: 15}
     = f.input :google_analytics_profile, input_html: {size: 15}
     = f.input :twitter_screen_name, input_html: {size: 20}
     = f.input :twitter_text
     = f.input :twitter_share_text
     = f.input :facebook_app_id, input_html: {size: 20}
-    = f.input :reply_to, as: :email
-    = f.input :thank_you_template, as: :text
-    = f.input :email_required
+
   = f.actions do
     = f.action :submit
     %li.cancel

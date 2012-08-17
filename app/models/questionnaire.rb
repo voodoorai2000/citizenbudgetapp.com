@@ -15,22 +15,29 @@ class Questionnaire
   mount_uploader :logo, ImageUploader
   mount_uploader :title_image, ImageUploader
 
+  # Basic
   field :title, type: String
-  field :mode, type: String
   field :locale, type: String
-  field :logo, type: String
-  field :title_image, type: String
-  field :description, type: String
   field :starts_at, type: Time
   field :ends_at, type: Time
   field :time_zone, type: String
-  field :introduction, type: String
   field :domain, type: String
   field :email_required, type: Boolean
+
+  # Mode
+  field :mode, type: String
+
+  # Appearance
+  field :logo, type: String
+  field :title_image, type: String
+  field :introduction, type: String
+  field :description, type: String
+
+  # Thank-you email
   field :reply_to, type: String
   field :thank_you_template, type: String
 
-  # Third-party integration.
+  # Third-party integration
   field :google_analytics, type: String # tracking code
   field :google_analytics_profile, type: String # table ID
   field :twitter_screen_name, type: String
@@ -39,7 +46,7 @@ class Questionnaire
   field :facebook_app_id, type: String
   field :authorization_token, type: String
 
-  # Image uploaders.
+  # Image uploaders
   field :logo_width, type: Integer
   field :logo_height, type: Integer
   field :title_image_width, type: Integer
