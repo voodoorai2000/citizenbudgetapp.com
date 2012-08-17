@@ -59,6 +59,8 @@
 :javascript
   var questionnaire_mode = '#{@questionnaire.mode}';
   var maximum_difference = #{@maximum_difference};
+  var default_assessment = #{@questionnaire.default_assessment.to_i};
+  var tax_rate = #{@questionnaire.tax_rate.to_f};
   var disabled = true;
 
 - content_for :footer do

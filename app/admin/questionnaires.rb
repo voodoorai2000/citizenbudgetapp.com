@@ -114,6 +114,9 @@ ActiveAdmin.register Questionnaire do
       row :default_assessment do |q|
         number_to_currency(q.default_assessment, strip_insignificant_zeros: true) if q.default_assessment?
       end
+      row :tax_rate do |q|
+        number_to_percentage(q.tax_rate * 100, strip_insignificant_zeros: true) if q.tax_rate?
+      end
 
       # Appearance
       row :logo do |q|

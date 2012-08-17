@@ -56,18 +56,19 @@ fr-CA:
         email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.
       questionnaire:
         # @todo mode:
-        description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         starts_at: Utilisez l'heure UTC.
         ends_at: Utilisez l'heure UTC.
-        introduction: Vous pouvez utiliser la syntaxe Markdown.
         domain: Vous devez pointer vos DNS sur nos serveurs.
+        tax_rate: Exprimez le taux sous forme de fraction décimale.
+        introduction: Vous pouvez utiliser la syntaxe Markdown.
+        description: Ce texte sera affiché dans les résultats des moteurs de recherche.
+        thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
         google_analytics: Si vous utilisez Google Analytics.
         google_analytics_profile: Si vous utilisez Google Analytics.
         twitter_screen_name: Si vous utilisez Twitter.
         twitter_text: Le texte du Tweet pour partager la consultation.
         twitter_share_text: Le texte du Tweet pour partager les responses d'un participant.
         facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine
-        thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
       section:
         description: Vous pouvez utiliser la syntaxe Markdown.
         extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
@@ -153,6 +154,7 @@ fr-CA:
     radio: Boutons radio
     select: Liste déroulante
     slider: Curseur
+    scaler: Échelle en pourcentage
     text: Champ de saisie
     textarea: Zone de saisie
 
@@ -224,6 +226,7 @@ fr-CA:
       maximum_units_must_be_greater_than_minimum_units: Le nombre d'unités maximal doit être supérieur au nombre d'unités minimal
       default_value_must_be_between_minimum_and_maximum: La valeur par défaut doit être entre le minimum et le maximum
       domain_must_be_active: Le nom de domaine doit être actif
+      domain_must_not_be_blacklisted: Le nom de domaine est sur la liste noire
       reply_to_must_be_valid: L'adresse de courriel de correspondance doit être valide
 
   activerecord:
@@ -260,23 +263,32 @@ fr-CA:
         title: Titre
         organization: Organisation
         locale: Localisation
-        logo: Logo
-        title_image: Image d'en-tête
-        remove_logo: Supprimer logo
-        description: Description
         starts_at: Date de début
         ends_at: Date de fin
-        introduction: Texte de présentation
+        time_zone: Fuseau horaire
         domain: Nom de domaine
+        email_required: Les participants doivent fournir une adresse courriel
+
+        mode: Mode
+        default_assessment: Évaluation foncière par défaut
+        tax_rate: Taux d'imposition foncière
+
+        logo: Logo
+        remove_logo: Supprimer logo
+        title_image: Image d'en-tête
+        remove_title_image: Supprimer image d'en-tête
+        introduction: Texte de présentation
+        description: Description
+
+        reply_to: Adresse de courriel de correspondance
+        thank_you_template: Modèle de message de remerciement
+
         google_analytics: Code de suivi Google Analytics
         google_analytics_profile: Identifiant de profil Google Analytics
         twitter_screen_name: Nom d'écran Twitter
         twitter_text: Texte du Tweet
         twitter_share_text: Texte du Tweet
         facebook_app_id: Facebook App ID
-        reply_to: Adresse de courriel de correspondance
-        thank_you_template: Modèle de message de remerciement
-        email_required: Les participants doivent fournir une adresse courriel
         sections: Sections
       section:
         title: Titre

@@ -70,18 +70,19 @@ en:
       # The remaining translations in this section are administrative only.
       questionnaire:
         mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees; only balanced budgets are permitted. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes; non-balanced budgets are permitted.
-        description: This will be displayed on search engine results pages.
         starts_at: Set the time in UTC.
         ends_at: Set the time in UTC.
-        introduction: You can use Markdown syntax.
         domain: You must set your domain's DNS to point to our servers.
+        tax_rate: Enter the tax rate as a decimal fraction, not as a percentage.
+        introduction: You can use Markdown syntax.
+        description: This will be displayed on search engine results pages.
+        thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
         google_analytics: If you use Google Analytics.
         google_analytics_profile: If you use Google Analytics.
         twitter_screen_name: If you use Twitter.
         twitter_text: The default tweet for sharing the budget consultation.
         twitter_share_text: The default tweet for sharing an individual's responses.
         facebook_app_id: If you have a Facebook app for this domain name.
-        thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
       section:
         description: You can use Markdown syntax.
         extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.
@@ -176,6 +177,7 @@ en:
     radio: Radio buttons
     select: Drop-down list
     slider: Slider
+    scaler: Percentage scale
     text: Text box
     textarea: Text area
 
@@ -279,6 +281,7 @@ en:
       maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
       default_value_must_be_between_minimum_and_maximum: Default value must be between minimum and maximum
       domain_must_be_active: The domain name must be active
+      domain_must_not_be_blacklisted: The domain name is blacklisted
       reply_to_must_be_valid: The reply-to address must be valid
 
   activerecord:
@@ -312,26 +315,40 @@ en:
         name: Name
         questionnaires: Consultations
       questionnaire:
+        # Basic
         title: Title
         organization: Organization
         locale: Locale
-        logo: Logo
-        title_image: Header image
-        remove_logo: Remove logo
-        description: Description
         starts_at: Start date
         ends_at: End date
-        introduction: Introductory text
+        time_zone: Time zone
         domain: Domain name
+        email_required: Respondents must provide an email address
+
+        # Mode
+        mode: Mode
+        default_assessment: Default property assessment
+        tax_rate: Property tax rate
+
+        # Appearance
+        logo: Logo
+        remove_logo: Remove logo
+        title_image: Header image
+        remove_title_image: Remove header image
+        introduction: Introductory text
+        description: Description
+
+        # Thank-you email
+        reply_to: Reply-to address
+        thank_you_template: Thank-you email template
+
+        # Third-party integration
         google_analytics: Google Analytics tracking code
         google_analytics_profile: Google Analytics profile ID
         twitter_screen_name: Twitter screen name
         twitter_text: Tweet text to share consultation
         twitter_share_text: Tweet text to share response
         facebook_app_id: Facebook App ID
-        reply_to: Reply-to address
-        thank_you_template: Thank-you email template
-        email_required: Respondents must provide an email address
         sections: Sections
       section:
         title: Title

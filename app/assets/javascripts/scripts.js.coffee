@@ -138,12 +138,21 @@ $ ->
       number: number_with_precision number, options
       symbol: t 'percentage_symbol'
 
+  # Abbreviates a number.
+  # @todo use JavaScript I18n method.
   number_to_human = (number) ->
     number = parseFloat(number)
     if Math.abs(number) > 1000
       number /= 1000
       number = "#{number} k"
     number
+
+  # @return [String] content for the tip on a slider
+  tipContent = (slider, number) ->
+    if slider.data('widget') is 'scaler'
+      tip = number_to_percentage number * 100, strip_insignificant_zeros: true
+    else
+      tip = number_to_human number
 
   # Enables the identification form.
   enableForm = ->
@@ -160,10 +169,11 @@ $ ->
     balance = 0
     $table.find('.slider').each ->
       $this = $ this
-      balance -= ($this.slider('value') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
+      balance -= ($this.slider('value') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
     $table.find('.onoff').each ->
       $this = $ this
-      balance -= (+$this.prop('checked') - parseFloat($this.attr('data-initial'))) * parseFloat($this.attr('data-value'))
+      balance -= (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
+    balance *= default_assessment / 12.0 if questionnaire_mode is 'taxes' # @todo allow user to set assessment
     balance
 
   # Updates within-category balance.
@@ -177,6 +187,9 @@ $ ->
   # Updates within-group balance.
   updateBalance = ->
     balance = 0
+    current_maximum_difference = maximum_difference
+    current_maximum_difference *= default_assessment / 12.0 if questionnaire_mode is 'taxes' # @todo allow user to set assessment
+    monthly_payment = tax_rate * default_assessment / 12.0
 
     $.each ['revenue', 'expense'], (i, group) ->
       amount = $ "##{group} .amount"
@@ -184,7 +197,7 @@ $ ->
 
       # Revenue cuts remove money, whereas expenses custs add money.
       group_balance = calculateBalance $("""table[rel="#{group}"]""")
-      group_balance = -group_balance if group == 'revenue'
+      group_balance = -group_balance if group is 'revenue'
       balance += group_balance
 
       # Update group balance.
@@ -192,7 +205,7 @@ $ ->
       amount.html(currency).toggleClass 'negative', group_balance < 0
 
       # Move bar and balance.
-      pixels = -Math.round(tanh(3 * group_balance / maximum_difference) * 100)
+      pixels = -Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
       width = Math.abs pixels
 
       # If at zero.
@@ -233,12 +246,18 @@ $ ->
     $messages = $ '.message'
     $message = $ '#message'
     $reminder = $ '#reminder'
-    currency = number_to_currency balance, strip_insignificant_zeros: true
+
+    if questionnaire_mode is 'taxes'
+      currency = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
+      percentage = number_to_percentage Math.abs(balance) / monthly_payment * 100, strip_insignificant_zeros: true # @todo allow user to set assessment
+    else
+      currency = number_to_currency balance, strip_insignificant_zeros: true
+      percentage = 0
 
     # Update message.
     changed = $('.selected').length
     if balance < 0
-      $messages.html t("#{questionnaire_mode}_deficit", number: currency)
+      $messages.html t("#{questionnaire_mode}_deficit", number: currency, percentage: percentage)
     else if balance == 0
       if changed
         $messages.html t("#{questionnaire_mode}_balanced")
@@ -246,8 +265,8 @@ $ ->
         $reminder.html('&nbsp;')
         $message.html t('instructions')
     else
-      $messages.html t("#{questionnaire_mode}_surplus", number: currency)
-    if translationExists "#{questionnaire_mode}_submit"
+      $messages.html t("#{questionnaire_mode}_surplus", number: currency, percentage: percentage)
+    if changed and translationExists "#{questionnaire_mode}_submit"
       $message.append t("#{questionnaire_mode}_submit")
 
     if balance >= 0 and changed
@@ -265,8 +284,8 @@ $ ->
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'
-    initial = parseFloat $control.attr('data-initial')
-    value = parseFloat $control.attr('data-value')
+    initial = parseFloat $control.data('initial')
+    value = parseFloat $control.data('value')
     group = $control.parents('table').attr 'rel'
 
     if current == initial
@@ -274,10 +293,10 @@ $ ->
       if $tr.hasClass 'selected'
         $tr.removeClass 'selected'
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
-        $tr.find('td.highlight').animate {'background-color': if group == 'revenue' then '#ddf' else '#ff9'}, 'slow'
+        $tr.find('td.highlight').animate {'background-color': if group is 'revenue' then '#ddf' else '#ff9'}, 'slow'
     else
       lower = current - initial < 0
-      if group == 'revenue'
+      if group is 'revenue'
         if lower
           key = t('losses')
           color = '#d00'
@@ -293,7 +312,9 @@ $ ->
           color = '#d00'
 
       $tr.find('.key').html key
-      $tr.find('.value').html number_to_currency(Math.abs(current - initial) * value, strip_insignificant_zeros: true)
+      difference = Math.abs(current - initial) * value
+      difference *= default_assessment / 12.0 # @todo allow user to set assessment
+      $tr.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
       $tr.find('.impact').css('color', color).css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
         $tr.addClass 'selected'
@@ -301,9 +322,9 @@ $ ->
 
   slide = (event, ui) ->
     $this = $ this
-    $this.find('.tip-content').html number_to_human(ui.value)
+    $this.find('.tip-content').html tipContent($this, ui.value)
     # Display tooltip unless value is both zero and the minimum value.
-    $this.find('.tip').toggle ui.value != 0 || ui.value != parseFloat($this.attr('data-minimum'))
+    $this.find('.tip').toggle ui.value != 0 || ui.value != parseFloat($this.data('minimum'))
     highlight $this, ui.value
 
   change = (event, ui) ->
@@ -319,20 +340,20 @@ $ ->
   # Slider widget
   $('table .slider').each ->
     $this = $ this
-    initial = parseFloat $this.attr('data-initial')
-    minimum = parseFloat $this.attr('data-minimum')
-    maximum = parseFloat $this.attr('data-maximum')
-    actual = parseFloat $this.attr('data-actual')
+    initial = parseFloat $this.data('initial')
+    minimum = parseFloat $this.data('minimum')
+    maximum = parseFloat $this.data('maximum')
+    actual = parseFloat $this.data('actual')
 
     $this.slider
       animate: true
       max: maximum
       min: minimum
       range: 'min'
-      step: parseFloat $this.attr('data-step')
+      step: parseFloat $this.data('step')
       value: initial
       create: (event, ui) ->
-        $(this).find('a').append '<div class="tip"><div class="tip-content">' + initial + '</div><div class="tip-arrow"></div></div>'
+        $(this).find('a').append '<div class="tip"><div class="tip-content">' + tipContent($this, initial) + '</div><div class="tip-arrow"></div></div>'
         $(this).find('.tip').toggle initial != minimum
       slide: !disabled? && slide
       change: !disabled? && change
@@ -353,7 +374,7 @@ $ ->
   # On/off widget
   $('table .onoff').each ->
     $this = $ this
-    initial = parseFloat $this.attr('data-initial')
+    initial = parseFloat $this.data('initial')
 
     options =
       resizeContainer: false
@@ -377,12 +398,14 @@ $ ->
     updateBalance()
     $('table').find('input:first').each ->
       updateCategoryBalance $(this)
+
     $('table .slider').each ->
       $this = $ this
       value = $this.slider 'value'
-      $this.find('.tip-content').html number_to_human(value)
-      $this.find('.tip').toggle value != 0 || value != parseFloat($this.attr('data-minimum'))
+      $this.find('.tip-content').html tipContent($this, value)
+      $this.find('.tip').toggle value != 0 || value != parseFloat($this.data('minimum'))
       highlight $this, value
+
     $('table .onoff').each ->
       $this = $ this
       highlight $this, +$this.prop('checked')
@@ -392,14 +415,14 @@ $ ->
       $widget = $this.parents '.widget'
       $widget.find('.onoff').prop('checked', false).trigger 'change'
       $slider = $widget.find('.slider')
-      $slider.slider 'value', $slider.attr('data-minimum')
+      $slider.slider 'value', $slider.data('minimum')
 
     $('.maximum').click ->
       $this = $ this
       $widget = $this.parents '.widget'
       $widget.find('.onoff').prop('checked', true).trigger 'change'
       $slider = $widget.find '.slider'
-      $slider.slider 'value', $slider.attr('data-maximum')
+      $slider.slider 'value', $slider.data('maximum')
 
     $('#new_response').validationEngine()
     disableForm()
