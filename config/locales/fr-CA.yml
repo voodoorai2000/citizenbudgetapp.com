@@ -483,3 +483,7 @@ fr-CA:
     male: Masculin
     female: Féminin
     no_answer: S.O.
+
+  mongoid:
+    models: *models
+    attributes: *attributes
