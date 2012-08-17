@@ -13,6 +13,7 @@
 
   = f.inputs t('legend.mode') do
     = f.input :mode, as: :radio, collection: Questionnaire::MODES.map{|m| [t(m, scope: :mode), m]}
+    = f.input :default_assessment
 
   = f.inputs t('legend.appearance') do
     - if resource.logo?
@@ -27,7 +28,7 @@
     = f.input :description, as: :text, input_html: {rows: 3}
 
   = f.inputs t('legend.email') do
-    = f.input :reply_to, as: :email
+    = f.input :reply_to, as: :email, input_html: {size: 30}
     = f.input :thank_you_template, as: :text
 
   = f.inputs t('legend.integration') do

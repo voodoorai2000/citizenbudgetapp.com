@@ -77,6 +77,7 @@ en:
         domain: You must set your domain's DNS to point to our servers.
         google_analytics: If you use Google Analytics.
         google_analytics_profile: If you use Google Analytics.
+        twitter_screen_name: If you use Twitter.
         twitter_text: The default tweet for sharing the budget consultation.
         twitter_share_text: The default tweet for sharing an individual's responses.
         facebook_app_id: If you have a Facebook app for this domain name.
@@ -119,8 +120,13 @@ en:
   untitled: Untitled
   default: Default
 
-  # These strings appear when editing a section and its questions.
+  # These strings appear when editing a questionnaire, a section or its questions.
   legend:
+    basic: Basic
+    email: Thank-you email
+    mode: Mode
+    appearance: Appearance
+    integration: Third-party integration
     question: Question
     widget: Widget parameters
     fiscal: Fiscal parameters
@@ -320,10 +326,10 @@ en:
         google_analytics: Google Analytics tracking code
         google_analytics_profile: Google Analytics profile ID
         twitter_screen_name: Twitter screen name
-        twitter_text: Tweet text
-        twitter_share_text: Tweet text
+        twitter_text: Tweet text to share consultation
+        twitter_share_text: Tweet text to share response
         facebook_app_id: Facebook App ID
-        reply_to: Contact email
+        reply_to: Reply-to address
         thank_you_template: Thank-you email template
         email_required: Respondents must provide an email address
         sections: Sections

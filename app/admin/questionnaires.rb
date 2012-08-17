@@ -111,6 +111,9 @@ ActiveAdmin.register Questionnaire do
       row :mode do |q|
         t(q.mode, scope: :mode) if q.mode?
       end
+      row :default_assessment do |q|
+        number_to_currency(q.default_assessment, strip_insignificant_zeros: true) if q.default_assessment?
+      end
 
       # Appearance
       row :logo do |q|

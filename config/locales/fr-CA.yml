@@ -63,6 +63,7 @@ fr-CA:
         domain: Vous devez pointer vos DNS sur nos serveurs.
         google_analytics: Si vous utilisez Google Analytics.
         google_analytics_profile: Si vous utilisez Google Analytics.
+        twitter_screen_name: Si vous utilisez Twitter.
         twitter_text: Le texte du Tweet pour partager la consultation.
         twitter_share_text: Le texte du Tweet pour partager les responses d'un participant.
         facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine
@@ -103,6 +104,11 @@ fr-CA:
   default: Défaut
 
   legend:
+    basic: Paramètres de base
+    email: Message de remerciement
+    mode: Mode
+    appearance: Apparence
+    integration: Logiciels tierce partie
     question: Question
     widget: Paramètres # Composant d'interface graphique
     fiscal: Paramètres fiscaux

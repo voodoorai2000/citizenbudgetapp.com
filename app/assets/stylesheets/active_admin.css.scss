@@ -57,7 +57,8 @@ body.active_admin {
 
     // Reset
     input[type="text"][size],
-    input[type="number"][size] {
+    input[type="email"][size],
+    input[type="number"] {
       width: auto;
     }
 

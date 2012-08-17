@@ -26,6 +26,7 @@ class Questionnaire
 
   # Mode
   field :mode, type: String
+  field :default_assessment, type: Integer
 
   # Appearance
   field :logo, type: String
