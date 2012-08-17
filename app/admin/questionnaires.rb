@@ -83,6 +83,9 @@ ActiveAdmin.register Questionnaire do
       row :organization do |q|
         auto_link q.organization
       end
+      row :mode do |q|
+        t(q.mode, scope: :mode) if s.mode?
+      end
       row :locale do |q|
         Locale.locale_name(q.locale) if q.locale?
       end

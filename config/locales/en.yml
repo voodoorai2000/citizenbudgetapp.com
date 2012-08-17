@@ -69,6 +69,7 @@ en:
         email: We will not share your e-mail address or other contact information with any third-parties.
       # The remaining translations in this section are administrative only.
       questionnaire:
+        mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees; only balanced budgets are permitted. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes; non-balanced budgets are permitted.
         description: This will be displayed on search engine results pages.
         starts_at: Set the time in UTC.
         ends_at: Set the time in UTC.
@@ -150,6 +151,10 @@ en:
     period: "%{starts_at} to %{ends_at}"
     starting: "starting %{date}"
     ending: "ending %{date}"
+
+  mode:
+    services: Services
+    taxes: Taxes
 
   # An administrator's role limits what actions they are authorized to perform.
   role:

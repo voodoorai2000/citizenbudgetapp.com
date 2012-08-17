@@ -55,6 +55,7 @@ fr-CA:
       response:
         email: Nous ne partagerons pas votre adresse e-mail ou toute autre coordonnée avec un utilisateur tiers hors de vos relations directes.
       questionnaire:
+        # @todo mode:
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         starts_at: Utilisez l'heure UTC.
         ends_at: Utilisez l'heure UTC.
@@ -129,6 +130,10 @@ fr-CA:
     period: "du %{starts_at} au %{ends_at}"
     starting: "à partir du %{date}"
     ending: "se terminant le %{date}"
+
+  mode:
+    services: Services
+    taxes: Taxes
 
   role:
     superuser: Utilisateur root
