@@ -26,7 +26,7 @@ CSV.generate do |csv|
     end
     @questionnaire.sections.each do |section|
       section.questions.each do |question|
-        row << response.answer(question) # @todo escape newlines
+        row << response.answer(question)
       end
     end
     csv << row
