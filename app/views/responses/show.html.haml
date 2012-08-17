@@ -57,7 +57,8 @@
   = render 'footer'
 
 :javascript
-  var maximumDifference = #{@maximum_difference};
+  var questionnaire_mode = '#{@questionnaire.mode}';
+  var maximum_difference = #{@maximum_difference};
   var disabled = true;
 
 - content_for :footer do

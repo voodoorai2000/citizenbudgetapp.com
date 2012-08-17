@@ -94,7 +94,8 @@
   = render 'footer'
 
 :javascript
-  var maximumDifference = #{@maximum_difference};
+  var questionnaire_mode = '#{@questionnaire.mode}';
+  var maximum_difference = #{@maximum_difference};
 
 - content_for :footer do
   = render partial: 'hidden'

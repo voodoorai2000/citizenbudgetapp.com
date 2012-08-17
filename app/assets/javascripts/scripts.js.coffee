@@ -13,8 +13,8 @@ $ ->
     $('#' + args).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
 
   # Local globals.
-  amountLeft = 0
-  barLeft = 100
+  amount_left = 0
+  bar_left = 100
 
   # Open non-Bootstrap links in new windows.
   $('.description a:not([class])').attr 'target', '_blank'
@@ -187,20 +187,20 @@ $ ->
       amount.html(currency).toggleClass 'negative', group_balance < 0
 
       # Move bar and balance.
-      pixels = -Math.round(tanh(3 * group_balance / maximumDifference) * 100)
+      pixels = -Math.round(tanh(3 * group_balance / maximum_difference) * 100)
       width = Math.abs pixels
 
       # If at zero.
       if bar.width() == 0
-        amount.animate left: amountLeft - pixels
+        amount.animate left: amount_left - pixels
         bar.css('background-color', if group_balance < 0 then '#f00' else '#000').animate
-          left: Math.min(barLeft, barLeft - pixels)
+          left: Math.min(bar_left, bar_left - pixels)
           width: width
       # If going from negative to positive.
-      else if group_balance > 0 and bar.position().left < barLeft
-        amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
+      else if group_balance > 0 and bar.position().left < bar_left
+        amount.animate(left: amount_left).animate(left: amount_left - pixels)
         bar.animate
-          left: barLeft,
+          left: bar_left,
           width: 0
         ,
           complete: ->
@@ -208,21 +208,21 @@ $ ->
         .animate
           width: width
       # If going from positive to negative.
-      else if group_balance < 0 and bar.position().left == barLeft
-        amount.animate(left: amountLeft).animate(left: amountLeft - pixels)
+      else if group_balance < 0 and bar.position().left == bar_left
+        amount.animate(left: amount_left).animate(left: amount_left - pixels)
         bar.animate
           width: 0
         ,
           complete: ->
             $(this).css('background-color', '#f00')
         .animate
-          left: barLeft - pixels
+          left: bar_left - pixels
           width: width
       # If not crossing zero.
       else
-        amount.animate left: amountLeft - pixels
+        amount.animate left: amount_left - pixels
         bar.animate
-          left: Math.min(barLeft, barLeft - pixels)
+          left: Math.min(bar_left, bar_left - pixels)
           width: width
 
     $message = $ '.message'
