@@ -18,7 +18,7 @@ end
 gem 'girl_friday'
 
 # Database
-gem 'mongoid'
+gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git', branch: '3.0.0-stable' # wait for 3.0.5
 
 # Admin
 gem 'formtastic', '2.2.1'
