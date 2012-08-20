@@ -150,7 +150,7 @@ $ ->
 
   # @return [Integer] the participant's custom property assessment
   customAssessment = ->
-    parseInt $('#assessment input').val().replace(/[^0-9]/, '')
+    parseFloat $('#assessment input').val().replace(/[^0-9.]/, '')
 
   # @return [Integer] the participant's property assessment
   propertyAssessment = ->
