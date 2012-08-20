@@ -220,7 +220,9 @@ class Questionnaire
   # @return [Array] a list of CSV headers
   def csv_headers
     @headers ||= begin
-      headers = %w(id ip created_at time_to_complete email name)
+      # If the first two letters of a file are "ID", Microsoft Excel will try
+      # to open the file in the SYLK file format.
+      headers = %w(ip id created_at time_to_complete email name)
       if sections.nonbudgetary.none? # backwards compatibility
         headers += %w(postal_code gender age comments newsletter subscribe)
       end

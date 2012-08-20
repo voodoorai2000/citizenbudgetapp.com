@@ -98,6 +98,7 @@ fr-CA:
   new_section: Ajouter une section à votre consultation
   new_question: Ajouter une  question à cette section
   example_name: Monsieur Untel
+  unknown_format: Les données ne sont pas disponibles dans ce format.
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: d MMM
   language: Changer de langue
@@ -184,13 +185,14 @@ fr-CA:
           visitors_header: Visiteurs
           visits_header: Visites
           pageviews_header: Pages vues
+          download_summary_header: Télécharger données sommaires
+          download_raw_header: Télécharger données brutes
           days:
             one: "%{count} jour"
             other: "%{count} jours"
           responses:
             one: "%{count} soumission"
             other: "%{count} soumissions"
-          download: Télécharger
     admin_users:
       form:
         automatic: Automatique

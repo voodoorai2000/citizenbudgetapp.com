@@ -1,6 +1,6 @@
 <%=
-# Use tabs and Windows newline characters for best interoperability.
-CSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
+# Use Windows newline characters as row separator.
+CSV.generate(:col_sep => @col_sep, :row_sep => "\r\n") do |csv|
   headers = @questionnaire.csv_headers.map do |column|
     Response.human_attribute_name column
   end
@@ -16,7 +16,7 @@ CSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
   end
   @questionnaire.sections.each do |section|
     section.questions.each do |question|
-      defaults << question.default_value
+      defaults << question.default_value || t(:default)
     end
   end
   csv << defaults
@@ -27,7 +27,12 @@ CSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
     end
     @questionnaire.sections.each do |section|
       section.questions.each do |question|
-        row << response.answer(question)
+        answer = response.answer(question)
+        if Array === answer
+          row << answer.join "\r\n"
+        else
+          row << answer
+        end
       end
     end
     csv << row

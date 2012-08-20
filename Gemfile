@@ -42,6 +42,10 @@ gem 'haml-rails'
 gem 'rdiscount'
 gem 'unicode_utils'
 
+# Export
+gem 'spreadsheet'
+gem 'axlsx'
+
 # Heroku API
 gem 'oj'
 gem 'multi_json'
