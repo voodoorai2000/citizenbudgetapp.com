@@ -148,9 +148,13 @@ $ ->
       number = "#{number} k"
     number
 
+  # @return [Integer] the participant's custom property assessment
+  customAssessment = ->
+    parseInt $('#assessment input').val().replace(/[^0-9]/, '')
+
   # @return [Integer] the participant's property assessment
   propertyAssessment = ->
-    parseInt($('#assessment input').val()) || default_assessment
+    customAssessment() || default_assessment
 
   # @return [String] content for the tip on a slider
   tipContent = (slider, number) ->
@@ -401,7 +405,7 @@ $ ->
 
   $('#assessment-submit').click ->
     # Ignore invalid assessment values.
-    if parseInt($('#assessment input').val()) <= 0
+    if customAssessment() <= 0
       $('#assessment input').val('')
 
     updateBalance()
