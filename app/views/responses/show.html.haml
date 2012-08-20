@@ -1,16 +1,9 @@
 .container.disabled
   %header
-    - if @questionnaire.logo?
-      #logo
-        = link_to_unless_current image_tag(@questionnaire.logo.large.url, alt: ''), root_path
     - if @response.name?
-      %h1=t '.header', name: @response.display_name
+      = render partial: 'header', locals: {header: t('.header', name: @response.display_name)}
     - else
-      %h1= @questionnaire.title
-    #facebook
-      = facebook_button
-    #twitter
-      = twitter_button
+      = render partial: 'header'
 
   - if flash[:notice]
     .alert.alert-success.fade.in
