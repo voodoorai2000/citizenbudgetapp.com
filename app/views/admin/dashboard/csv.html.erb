@@ -1,5 +1,6 @@
 <%=
-CSV.generate do |csv|
+# Use tabs and Windows newline characters for best interoperability.
+CSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
   headers = @questionnaire.csv_headers.map do |column|
     Response.human_attribute_name column
   end
