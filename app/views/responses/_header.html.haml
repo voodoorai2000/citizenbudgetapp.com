@@ -9,8 +9,9 @@
       - if @questionnaire.title_image?
         = image_tag @questionnaire.title_image.square.url, width: @questionnaire.title_image_width, height: @questionnaire.title_image_height, alt: ''
       = @questionnaire.title
-  /[if gt IE 8]
-    #facebook
-      = facebook_button
+  <!--[if gt IE 9]><!-->
+  #facebook
+    = facebook_button
+  <!--<![endif]-->
   #twitter
     = twitter_button
