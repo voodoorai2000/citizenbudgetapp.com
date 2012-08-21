@@ -162,7 +162,7 @@ $ ->
   tipContent = ($slider, number) ->
     if $slider.data('widget') is 'scaler'
       if questionnaire_mode is 'taxes'
-        tip = number_to_human taxAmount($slider, number)
+        tip = number_to_currency taxAmount($slider, number), strip_insignificant_zeros: true
       else
         tip = number_to_percentage number * 100, strip_insignificant_zeros: true
     else
@@ -294,8 +294,6 @@ $ ->
         $message.html t('instructions')
     else
       $messages.html t("#{questionnaire_mode}_surplus", number: currency, percentage: percentage)
-    if changed and translationExists "#{questionnaire_mode}_submit"
-      $message.append t("#{questionnaire_mode}_submit")
 
     if balance >= 0 and changed
       $message.animate 'background-color': '#ff0', 'color': '#000'

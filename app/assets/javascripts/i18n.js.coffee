@@ -21,7 +21,6 @@ I18n =
     taxes_surplus: 'Your savings have decreased your tax dollars by %{number}/month. This may result in a service level reduction.'
     taxes_balanced: 'Your budget is balanced.'
     taxes_deficit: 'Your spending has increased your tax dollars by %{number}/month. This may result in enhanced service levels.'
-    taxes_submit: """ <a href="#identification" class="btn btn-inverse">Submit your choices</a>"""
     copy_hint: 'copy to clipboard'
     copied_hint: 'copied!'
   fr_CA:
@@ -46,7 +45,6 @@ I18n =
     taxes_surplus: 'Vos impôts diminueraient de %{number} par mois. Il peut en résulter une réduction du niveau de service.'
     taxes_balanced: "Vous avez atteint l'équilibre."
     taxes_deficit: 'Vos impôts augmenteraient de %{number} par mois. Cette augmentation peut se traduire par un niveau de service amélioré.'
-    taxes_submit: """ <a href="#identification" class="btn btn-inverse">Soumettez vos choix</a>"""
     copy_hint: 'copier dans le presse papier'
     copied_hint: 'copié!'
 
