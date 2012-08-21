@@ -51,7 +51,7 @@ module ResponsesHelper
 
     if question.required?
       attributes[:required] = Formtastic::FormBuilder.use_required_attribute
-      classes = 'validate[required]'
+      classes << 'validate[required]'
     end
 
     attributes[:class] = classes.join(' ') unless classes.empty?
