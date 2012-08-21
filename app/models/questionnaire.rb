@@ -34,6 +34,7 @@ class Questionnaire
   field :logo, type: String
   field :title_image, type: String
   field :introduction, type: String
+  field :instructions, type: String
   field :description, type: String
 
   # Thank-you email
@@ -64,6 +65,7 @@ class Questionnaire
   validates_inclusion_of :mode, in: MODES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
+  validates_length_of :instructions, maximum: 150, allow_blank: true
   validates_numericality_of :default_assessment, greater_than: 0, only_integer: true, allow_blank: true
   validates_numericality_of :tax_rate, greater_than: 0, less_than: 1, allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true

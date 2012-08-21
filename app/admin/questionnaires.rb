@@ -128,6 +128,7 @@ ActiveAdmin.register Questionnaire do
       row :introduction do |q|
         RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
       end
+      row :instructions
       row :description
 
       # Thank-you email

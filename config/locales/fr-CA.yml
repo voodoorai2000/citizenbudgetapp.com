@@ -286,6 +286,7 @@ fr-CA:
         title_image: Image d'en-tête
         remove_title_image: Supprimer image d'en-tête
         introduction: Texte de présentation
+        instructions: Instructions
         description: Description
 
         reply_to: Adresse de courriel de correspondance

@@ -348,6 +348,7 @@ en:
         title_image: Header image
         remove_title_image: Remove header image
         introduction: Introductory text
+        instructions: Instructions
         description: Description
 
         # Thank-you email

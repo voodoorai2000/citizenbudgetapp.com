@@ -14,7 +14,7 @@
             = render partial: 'nav'
 
       #message(class="message #{'simple' if simple_navigation?}")
-        =t '.instructions'
+        = @questionnaire.instructions || t('.instructions')
 
       #whitespace
 
