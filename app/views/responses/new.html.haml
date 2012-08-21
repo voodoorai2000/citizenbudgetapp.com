@@ -8,11 +8,13 @@
 
   = bootstrap_form_for @response, html: {class: 'form-horizontal'} do |f|
     %section#questionnaire
-      %nav(class="#{'simple' if simple_navigation?}")
-        %ul.nav.nav-pills
-          = render partial: 'nav'
+      - unless simple_navigation?
+        %nav
+          %ul.nav.nav-pills
+            = render partial: 'nav'
 
-      #message.message=t '.instructions'
+      #message(class="message #{'simple' if simple_navigation?}")
+        =t '.instructions'
 
       #whitespace
 
@@ -90,6 +92,7 @@
           = f.input :newsletter
           = f.input :subscribe
       = f.actions do
+        %p=t '.submit_text'
         = f.action :submit, label: t('.submit')
 
   = render 'footer'

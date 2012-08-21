@@ -35,7 +35,7 @@ en:
   responses:
     new:
       instructions: Change an activity to start
-      assessment: Enter your current property value assessment or use default
+      assessment: Enter your current property value assessment or use the pre-set value
       default_assessment: "(%{number})"
       # If the currency unit should appear before the number, populate
       # +currency_unit_pre+. Otherwise, populate +currency_unit_post+.
@@ -43,6 +43,7 @@ en:
       currency_unit_post: ""
       required: required
       submit: Submit
+      submit_text: If you are satisfied with your choices, click "Submit".
       # For backwards-compatibility only. You don't need to translate this.
       submit_your_choices: Submit your choices
     show:

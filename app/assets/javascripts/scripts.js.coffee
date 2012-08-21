@@ -46,21 +46,31 @@ $ ->
 
   # Navigation
   (->
-    if $('nav').length
+    # If we want a fixed top bar.
+    if $('#whitespace').length
       $window     = $ window
       $nav        = $ 'nav'
       $message    = $ '#message'
       $whitespace = $ '#whitespace'
-      offset      = $nav.length and $nav.offset().top
-      height      = $nav.outerHeight() + $message.outerHeight()
+
+      if $nav.length
+        target = 'nav'
+        offset = $nav.offset().top
+        height = $nav.outerHeight() + $message.outerHeight()
+        $receiver = $nav
+      else
+        target = '#message'
+        offset = $message.offset().top
+        height = $message.outerHeight()
+        $receiver = $message
 
       # Set active menu item.
       $('body').scrollspy
-        target: 'nav'
+        target: target
         offset: height
 
       # Smooth scrolling.
-      $nav.localScroll
+      $receiver.localScroll
         axis: 'y'
         duration: 500
         easing: 'easeInOutExpo'
@@ -72,7 +82,7 @@ $ ->
         boolean = $window.scrollTop() >= offset
         $nav.toggleClass 'nav-fixed', boolean
         $message.toggleClass 'message-fixed', boolean
-        $whitespace.css(height: $nav.outerHeight() + $message.outerHeight()).toggle boolean
+        $whitespace.css(height: height).toggle boolean
 
       $window.on 'scroll', processScroll
       processScroll()
@@ -211,81 +221,83 @@ $ ->
       monthly_payment = tax_rate * propertyAssessment() / assessment_period
 
     $.each ['revenue', 'expense'], (i, group) ->
-      amount = $ "##{group} .amount"
-      bar = $ "##{group} .bar"
-
       group_balance = calculateBalance $("""table[rel="#{group}"]""")
 
-      # Move bar and balance.
+      # Calculate pixels before we inverse the sign of +group_balance+. If
+      # pixels are less than zero, the bar moves right (increase).
       pixels = Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
-      width = Math.abs pixels
 
       # Revenue cuts remove money, whereas expenses custs add money.
       group_balance = -group_balance if group is 'revenue'
       balance += group_balance
 
-      # Update group balance.
-      currency = number_to_currency group_balance, strip_insignificant_zeros: true
-      amount.html(currency).toggleClass 'negative', group_balance < 0
+      # Update group balance, and move bar and balance.
+      if $("##{group}").length
+        $amount = $ "##{group} .amount"
+        $bar = $ "##{group} .bar"
 
-      # If pixels are less than zero, the bar moves right (increase).
-      if group is 'revenue'
-        decrease_color = '#f00'
-        increase_color = '#000'
-      else if group is 'expense'
-        decrease_color = '#000'
-        increase_color = '#f00'
+        amount = number_to_currency group_balance, strip_insignificant_zeros: true
+        $amount.html(amount).toggleClass 'negative', group_balance < 0
 
-      # If at zero.
-      if bar.width() == 0
-        amount.animate left: amount_left - pixels
-        bar.css('background-color', if pixels < 0 then increase_color else decrease_color).animate
-          left: Math.min(bar_left, bar_left - pixels)
-          width: width
-      # If going from negative to positive.
-      else if pixels < 0 and bar.position().left < bar_left
-        amount.animate(left: amount_left).animate(left: amount_left - pixels)
-        bar.animate
-          left: bar_left,
-          width: 0
-        ,
-          complete: ->
-            $(this).css('background-color', increase_color)
-        .animate
-          width: width
-      # If going from positive to negative.
-      else if pixels > 0 and bar.position().left == bar_left
-        amount.animate(left: amount_left).animate(left: amount_left - pixels)
-        bar.animate
-          width: 0
-        ,
-          complete: ->
-            $(this).css('background-color', decrease_color)
-        .animate
-          left: bar_left - pixels
-          width: width
-      # If not crossing zero.
-      else
-        amount.animate left: amount_left - pixels
-        bar.animate
-          left: Math.min(bar_left, bar_left - pixels)
-          width: width
+        if group is 'revenue'
+          decrease_color = '#f00'
+          increase_color = '#000'
+        else if group is 'expense'
+          decrease_color = '#000'
+          increase_color = '#f00'
 
+        width = Math.abs pixels
+
+        # If at zero.
+        if $bar.width() == 0
+          $amount.animate left: amount_left - pixels
+          $bar.css('background-color', if pixels < 0 then increase_color else decrease_color).animate
+            left: Math.min(bar_left, bar_left - pixels)
+            width: width
+        # If going from negative to positive.
+        else if pixels < 0 and $bar.position().left < bar_left
+          $amount.animate(left: amount_left).animate(left: amount_left - pixels)
+          $bar.animate
+            left: bar_left,
+            width: 0
+          ,
+            complete: ->
+              $(this).css('background-color', increase_color)
+          .animate
+            width: width
+        # If going from positive to negative.
+        else if pixels > 0 and $bar.position().left == bar_left
+          $amount.animate(left: amount_left).animate(left: amount_left - pixels)
+          $bar.animate
+            width: 0
+          ,
+            complete: ->
+              $(this).css('background-color', decrease_color)
+          .animate
+            left: bar_left - pixels
+            width: width
+        # If not crossing zero.
+        else
+          $amount.animate left: amount_left - pixels
+          $bar.animate
+            left: Math.min(bar_left, bar_left - pixels)
+            width: width
+
+    # Update message.
     $messages = $ '.message'
     $message = $ '#message'
     $reminder = $ '#reminder'
 
     if questionnaire_mode is 'taxes'
-      currency = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
+      number = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
       percentage = number_to_percentage Math.abs(balance) / monthly_payment * 100, strip_insignificant_zeros: true
     else
-      currency = number_to_currency balance, strip_insignificant_zeros: true
+      number = number_to_currency balance, strip_insignificant_zeros: true
       percentage = 0
 
-    # Update message.
     changed = $('.selected').length
     if balance < 0
-      $messages.html t("#{questionnaire_mode}_deficit", number: currency, percentage: percentage)
+      $messages.html t("#{questionnaire_mode}_deficit", number: number, percentage: percentage)
     else if balance == 0
       if changed
         $messages.html t("#{questionnaire_mode}_balanced")
@@ -293,7 +305,7 @@ $ ->
         $reminder.html('&nbsp;')
         $message.html t('instructions')
     else
-      $messages.html t("#{questionnaire_mode}_surplus", number: currency, percentage: percentage)
+      $messages.html t("#{questionnaire_mode}_surplus", number: number, percentage: percentage)
 
     if balance >= 0 and changed
       $message.animate 'background-color': '#ff0', 'color': '#000'

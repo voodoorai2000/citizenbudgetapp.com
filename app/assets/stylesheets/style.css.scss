@@ -561,34 +561,6 @@ nav {
   }
 }
 
-// If there is only one item in the menu.
-nav.simple {
-  .nav {
-    li {
-      float: none;
-    }
-    #revenue .inner,
-    #expense .inner {
-      padding: 0;
-    }
-  }
-  .chart-container {
-    width: auto;
-    font-size: 1.25em;
-    text-align: left;
-  }
-  .title {
-    float: left;
-    margin: 12px 30px 0 12px;
-    vertical-align: middle;
-  }
-  .chart {
-    float: left;
-    margin-top: 12px;
-    font-size: 0.68em;
-  }
-}
-
 .nav-fixed {
   position: fixed;
   top: 0;
@@ -619,6 +591,9 @@ nav.simple {
   top: 51px;
   left: 0;
   right: 0;
+}
+.message-fixed.simple {
+  top: 0;
 }
 
 /* Responsive ----------------------------------------------------------------*/

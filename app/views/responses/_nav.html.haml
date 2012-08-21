@@ -1,15 +1,14 @@
-- unless simple_navigation?
-  - @groups.each do |group,sections|
-    -# Display a dropdown if there are multiple sections within the group.
-    - if sections.one?
-      = render sections
-    - else
-      %li.dropdown
-        = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
-          = t(group, scope: :group)
-          %span.caret
-        %ul.dropdown-menu
-          = render sections
+- @groups.each do |group,sections|
+  -# Display a dropdown if there are multiple sections within the group.
+  - if sections.one?
+    = render sections
+  - else
+    %li.dropdown
+      = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
+        = t(group, scope: :group)
+        %span.caret
+      %ul.dropdown-menu
+        = render sections
 - @groups.each do |group,_|
   %li.group(id="#{group}")
     .inner
