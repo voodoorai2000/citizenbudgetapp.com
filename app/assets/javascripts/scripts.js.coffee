@@ -17,6 +17,36 @@ $ ->
   bar_left = 100
   assessment_period = 12.0 # monthly
 
+  colors =
+    revenue:
+      negative: '#f00'
+      positive: '#000'
+    expense:
+      negative: '#000'
+      positive: '#f00'
+    services:
+      message:
+        background:
+          negative: '#f00'
+          positive: '#ff0'
+        foreground:
+          negative: '#fff'
+          positive: '#000'
+      item:
+        negative: '#d00'
+        positive: '#000'
+    taxes:
+      message:
+        background:
+          negative: '#000'
+          positive: '#000'
+        foreground:
+          negative: '#fff'
+          positive: '#fff'
+      item:
+        positive: '#000'
+        negative: '#000'
+
   # Open non-Bootstrap links in new windows.
   $('.description a:not([class])').attr 'target', '_blank'
 
@@ -205,8 +235,8 @@ $ ->
 
   # Updates within-category balance.
   updateCategoryBalance = ($control) ->
-    $table  = $control.parents 'table'
-    $span   = $ '#' + $table.attr('id') + '_link span'
+    $table = $control.parents 'table'
+    $span  = $ '#' + $table.attr('id') + '_link span'
     if $span.parents('.dropdown-menu').length
       balance = calculateBalance $table
       $span.html(number_to_currency(balance, strip_insignificant_zeros: true)).css('color', if balance < 0 then '#f00' else '#000').toggle(balance != 0)
@@ -239,19 +269,12 @@ $ ->
         amount = number_to_currency group_balance, strip_insignificant_zeros: true
         $amount.html(amount).toggleClass 'negative', group_balance < 0
 
-        if group is 'revenue'
-          decrease_color = '#f00'
-          increase_color = '#000'
-        else if group is 'expense'
-          decrease_color = '#000'
-          increase_color = '#f00'
-
         width = Math.abs pixels
 
         # If at zero.
         if $bar.width() == 0
           $amount.animate left: amount_left - pixels
-          $bar.css('background-color', if pixels < 0 then increase_color else decrease_color).animate
+          $bar.css('background-color', if pixels < 0 then colors[group].positive else colors[group].negative).animate
             left: Math.min(bar_left, bar_left - pixels)
             width: width
         # If going from negative to positive.
@@ -262,7 +285,7 @@ $ ->
             width: 0
           ,
             complete: ->
-              $(this).css('background-color', increase_color)
+              $(this).css('background-color', colors[group].positive)
           .animate
             width: width
         # If going from positive to negative.
@@ -272,7 +295,7 @@ $ ->
             width: 0
           ,
             complete: ->
-              $(this).css('background-color', decrease_color)
+              $(this).css('background-color', colors[group].negative)
           .animate
             left: bar_left - pixels
             width: width
@@ -308,9 +331,9 @@ $ ->
       $messages.html t("#{questionnaire_mode}_surplus", number: number, percentage: percentage)
 
     if balance >= 0 and changed
-      $message.animate 'background-color': '#ff0', 'color': '#000'
+      $message.animate 'background-color': colors[questionnaire_mode].message.background.positive, 'color': colors[questionnaire_mode].message.foreground.positive
     else if balance < 0
-      $message.animate 'background-color': '#f00', 'color': '#fff'
+      $message.animate 'background-color': colors[questionnaire_mode].message.background.negative, 'color': colors[questionnaire_mode].message.foreground.negative
     else if balance == 0
       $message.animate 'background-color': '#666', 'color': '#fff'
 
@@ -336,18 +359,18 @@ $ ->
       lower = current - initial < 0
       if group is 'revenue'
         if lower
-          key = t('losses')
-          color = '#d00'
+          key = t("#{questionnaire_mode}_losses")
+          color = colors[questionnaire_mode].item.negative
         else
-          key = t('gains')
-          color = '#000'
+          key = t("#{questionnaire_mode}_gains")
+          color = colors[questionnaire_mode].item.positive
       else
         if lower
-          key = t('savings')
-          color = '#000'
+          key = t("#{questionnaire_mode}_savings")
+          color = colors[questionnaire_mode].item.positive
         else
-          key = t('costs')
-          color = '#d00'
+          key = t("#{questionnaire_mode}_costs")
+          color = colors[questionnaire_mode].item.negative
 
       $tr.find('.key').html key
       difference = Math.abs(current - initial) * value
