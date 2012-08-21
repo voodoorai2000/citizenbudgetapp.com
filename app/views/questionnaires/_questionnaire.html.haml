@@ -61,9 +61,11 @@
                   .impact
                     %span.key
                     %span.value= number_to_currency 0, precision: 0
-                  - if q.widget == 'scaler'
-                    .meta.maximum= number_to_percentage(q.maximum_units * 100, strip_insignificant_zeros: true)
-                    .meta.minimum= number_to_percentage(q.minimum_units * 100, strip_insignificant_zeros: true)
+                  - if q.widget == 'scaler' && @questionnaire.mode == 'taxes' # @note Special case.
+                    .meta.maximum.taxes
+                      = currency q.maximum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD
+                    .meta.minimum.taxes
+                      = currency q.minimum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD
                   - elsif q.unit_name == '$' && q.unit_amount == 1 # @todo Make currency symbol more flexible.
                     .meta.maximum &nbsp;
                     .meta.minimum &nbsp;
@@ -82,15 +84,14 @@
                       .tick.lowest
                       .tick.initial
                       .tick.highest
-                  - if @questionnaire.mode == 'taxes' && q.widget == 'scaler' # @note Special case.
-                    .meta.maximum.under
-                      = currency q.maximum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD
-                    .meta.minimum.under
-                      = currency q.minimum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD
+                  - if q.widget == 'scaler'
+                    - unless @questionnaire.mode == 'taxes'
+                      .meta.maximum= number_to_percentage(q.maximum_units * 100, strip_insignificant_zeros: true)
+                      .meta.minimum= number_to_percentage(q.minimum_units * 100, strip_insignificant_zeros: true)
                   - else
-                    .meta.maximum.under
+                    .meta.maximum
                       = currency q.maximum_amount
-                    .meta.minimum.under
+                    .meta.minimum
                       = currency q.minimum_amount
                 - elsif q.widget == 'onoff'
                   .impact

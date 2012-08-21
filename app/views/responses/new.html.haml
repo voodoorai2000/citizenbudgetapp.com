@@ -18,9 +18,9 @@
 
       - if @questionnaire.mode == 'taxes'
         #assessment.alert.alert-info
-          = f.label :assessment, t('.assessment')
-          =t 'number.currency.format.unit'
-          = f.text_field :assessment, placeholder: @questionnaire.default_assessment, class: 'span1'
+          %label(for="response_assessment")
+            #{t '.assessment'}<!--[if lt IE 10]> #{t '.default_assessment', number: number_to_currency(@questionnaire.default_assessment, strip_insignificant_zeros: true)}<![endif]-->#{t :colon}
+          #{t '.currency_unit_pre'}#{f.text_field :assessment, placeholder: @questionnaire.default_assessment, class: 'span1'}#{t '.currency_unit_post'}
           %a#assessment-submit.btn= t :set
 
       = render @questionnaire

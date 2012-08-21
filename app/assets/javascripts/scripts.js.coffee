@@ -141,12 +141,13 @@ $ ->
 
   # Abbreviates a number.
   # @todo use JavaScript I18n method.
-  number_to_human = (number) ->
+  number_to_human = (number, options = {}) ->
     number = parseFloat(number)
+    options.strip_insignificant_zeros ?= true
     if Math.abs(number) > 1000
-      number /= 1000
-      number = "#{number} k"
-    number
+      "#{number_with_precision number / 1000, options} k"
+    else
+      number_with_precision number, options
 
   # @return [Integer] the participant's custom property assessment
   # @todo Non-English participants may enter a comma as the decimal mark.
@@ -158,11 +159,17 @@ $ ->
     customAssessment() || default_assessment
 
   # @return [String] content for the tip on a slider
-  tipContent = (slider, number) ->
-    if slider.data('widget') is 'scaler'
-      tip = number_to_percentage number * 100, strip_insignificant_zeros: true
+  tipContent = ($slider, number) ->
+    if $slider.data('widget') is 'scaler'
+      if questionnaire_mode is 'taxes'
+        tip = number_to_human taxAmount($slider, number)
+      else
+        tip = number_to_percentage number * 100, strip_insignificant_zeros: true
     else
       tip = number_to_human number
+
+  taxAmount = ($slider, number) ->
+    parseFloat(number) * parseFloat($slider.data('value')) * propertyAssessment() / assessment_period
 
   # Enables the identification form.
   enableForm = ->
@@ -198,15 +205,22 @@ $ ->
   updateBalance = ->
     balance = 0
     current_maximum_difference = maximum_difference
-    current_maximum_difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
-    monthly_payment = tax_rate * propertyAssessment() / assessment_period
+
+    if questionnaire_mode is 'taxes'
+      current_maximum_difference *= propertyAssessment() / assessment_period
+      monthly_payment = tax_rate * propertyAssessment() / assessment_period
 
     $.each ['revenue', 'expense'], (i, group) ->
       amount = $ "##{group} .amount"
       bar = $ "##{group} .bar"
 
-      # Revenue cuts remove money, whereas expenses custs add money.
       group_balance = calculateBalance $("""table[rel="#{group}"]""")
+
+      # Move bar and balance.
+      pixels = Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
+      width = Math.abs pixels
+
+      # Revenue cuts remove money, whereas expenses custs add money.
       group_balance = -group_balance if group is 'revenue'
       balance += group_balance
 
@@ -214,35 +228,39 @@ $ ->
       currency = number_to_currency group_balance, strip_insignificant_zeros: true
       amount.html(currency).toggleClass 'negative', group_balance < 0
 
-      # Move bar and balance.
-      pixels = -Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
-      width = Math.abs pixels
+      # If pixels are less than zero, the bar moves right (increase).
+      if group is 'revenue'
+        decrease_color = '#f00'
+        increase_color = '#000'
+      else if group is 'expense'
+        decrease_color = '#000'
+        increase_color = '#f00'
 
       # If at zero.
       if bar.width() == 0
         amount.animate left: amount_left - pixels
-        bar.css('background-color', if group_balance < 0 then '#f00' else '#000').animate
+        bar.css('background-color', if pixels < 0 then increase_color else decrease_color).animate
           left: Math.min(bar_left, bar_left - pixels)
           width: width
       # If going from negative to positive.
-      else if group_balance > 0 and bar.position().left < bar_left
+      else if pixels < 0 and bar.position().left < bar_left
         amount.animate(left: amount_left).animate(left: amount_left - pixels)
         bar.animate
           left: bar_left,
           width: 0
         ,
           complete: ->
-            $(this).css('background-color', '#000')
+            $(this).css('background-color', increase_color)
         .animate
           width: width
       # If going from positive to negative.
-      else if group_balance < 0 and bar.position().left == bar_left
+      else if pixels > 0 and bar.position().left == bar_left
         amount.animate(left: amount_left).animate(left: amount_left - pixels)
         bar.animate
           width: 0
         ,
           complete: ->
-            $(this).css('background-color', '#f00')
+            $(this).css('background-color', decrease_color)
         .animate
           left: bar_left - pixels
           width: width
@@ -323,7 +341,7 @@ $ ->
 
       $tr.find('.key').html key
       difference = Math.abs(current - initial) * value
-      difference *= propertyAssessment() / assessment_period
+      difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
       $tr.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
       $tr.find('.impact').css('color', color).css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
@@ -404,6 +422,7 @@ $ ->
       options.uncheckedLabel = t 'no'
     $this.iphoneStyle options
 
+  # Questionnaire mode is "taxes" if "#assessment-submit" is present.
   $('#assessment-submit').click ->
     # Ignore invalid assessment values.
     if customAssessment() <= 0
@@ -416,9 +435,8 @@ $ ->
     $('.widget-scaler').each ->
       $widget = $ this
       $slider = $widget.find '.slider'
-      multiplier = parseFloat($slider.data('value')) * propertyAssessment() / assessment_period
-      $widget.find('.minimum.under').html number_to_currency $slider.data('minimum') * multiplier
-      $widget.find('.maximum.under').html number_to_currency $slider.data('maximum') * multiplier
+      $widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))
+      $widget.find('.maximum.taxes').html number_to_currency taxAmount($slider, $slider.data('maximum'))
 
   if disabled?
     updateBalance()

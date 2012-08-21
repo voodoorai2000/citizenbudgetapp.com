@@ -3,6 +3,7 @@ fr-CA:
 
   left_quote: "« "
   right_quote: " »"
+  colon: " :"
   set: Réglez
   facebook_width: 175
   create_response: Merci d'avoir participé à la consultation ! Votre opinion est importante pour nous.
@@ -20,7 +21,10 @@ fr-CA:
   responses:
     new:
       instructions: Modifiez une activité pour commencer.
-      assessment: Pour connaître l'impact de vos modifications sur vos taxes foncières, entrez l'évaluation foncière de votre propriété
+      assessment: Entrez l'évaluation foncière de votre propriété ou utilisez la valeur par défault
+      default_assessment: "(%{number})"
+      currency_unit_pre: ""
+      currency_unit_post: " $"
       required: requis
       submit: Envoyer
       submit_your_choices: Soumettez vos choix

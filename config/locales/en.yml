@@ -7,6 +7,7 @@ en:
   # http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks
   left_quote: "“"
   right_quote: "”"
+  colon: ":"
 
   # Button text to set a variable.
   set: Set
@@ -34,7 +35,12 @@ en:
   responses:
     new:
       instructions: Change an activity to start
-      assessment: "To know the impact of your changes on your municipal taxes, enter your property's current value assessment:"
+      assessment: Enter your current property value assessment or use default
+      default_assessment: "(%{number})"
+      # If the currency unit should appear before the number, populate
+      # +currency_unit_pre+. Otherwise, populate +currency_unit_post+.
+      currency_unit_pre: $
+      currency_unit_post: ""
       required: required
       submit: Submit
       # For backwards-compatibility only. You don't need to translate this.
