@@ -14,7 +14,8 @@ class Section
   field :position, type: Integer
   index position: 1
 
-  validates_presence_of :title, :group
+  validates_presence_of :group
+  validates_presence_of :title, if: ->(s){s.group == 'other'}
   validates_inclusion_of :group, in: GROUPS, allow_blank: true
 
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
@@ -24,6 +25,10 @@ class Section
   scope :budgetary, where(:group.in => %w(revenue expense))
   scope :nonbudgetary, where(group: 'other')
   default_scope asc(:position)
+
+  def name
+    title? && title || I18n.t(:untitled)
+  end
 
   # @return [Boolean] whether the "Read more" content is a URL
   def extra_url?

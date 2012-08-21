@@ -156,7 +156,7 @@ ActiveAdmin.register Questionnaire do
                 if can?(:update, s)
                   i(class: 'icon-move')
                 end
-                text_node link_to_if can?(:read, s), s.title, [:admin, q, s]
+                text_node link_to_if can?(:read, s), s.name, [:admin, q, s]
               end
             end
           end
