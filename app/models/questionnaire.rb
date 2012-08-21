@@ -217,8 +217,8 @@ class Questionnaire
     end
   end
 
-  # @return [Array] a list of CSV headers
-  def csv_headers
+  # @return [Array] a list of headers for a spreadsheet
+  def headers
     @headers ||= begin
       # If the first two letters of a file are "ID", Microsoft Excel will try
       # to open the file in the SYLK file format.
@@ -228,6 +228,53 @@ class Questionnaire
       end
       headers
     end
+  end
+
+  # @return [Array] rows for a spreadsheet
+  def rows
+    rows = []
+
+    # Add headers
+    row = headers.map do |column|
+      Response.human_attribute_name column
+    end
+    sections.each do |section|
+      section.questions.each do |question|
+        row << question.title
+      end
+    end
+    rows << row
+
+    # Add defaults
+    row = headers.map do |column|
+      I18n.t(:default)
+    end
+    sections.each do |section|
+      section.questions.each do |question|
+        row << question.default_value || I18n.t(:default)
+      end
+    end
+    rows << row
+
+    # Add data
+    responses.each do |response|
+      row = headers.map do |column|
+        response.send column
+      end
+      sections.each do |section|
+        section.questions.each do |question|
+          answer = response.answer(question)
+          if Array === answer
+            row << answer.to_sentence
+          else
+            row << answer
+          end
+        end
+      end
+      rows << row
+    end
+
+    rows
   end
 
 private

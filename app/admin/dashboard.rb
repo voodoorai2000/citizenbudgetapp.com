@@ -9,17 +9,62 @@ ActiveAdmin.register_page 'Dashboard' do
     render 'index'
   end
 
-  page_action 'summary' do
-    download 'summary'
-  end
-
+  # Excel doesn't properly decode UTF-8 CSV and TSV files. A UTF-8 byte order
+  # mark (BOM) can be added to fix the problem, but Excel for Mac will still
+  # have issues. XLS and XLSX are therefore offered.
   page_action 'raw' do
-    download 'raw'
+    @questionnaire = current_admin_user.questionnaires.find params[:id]
+    filename = "data-#{Time.now.strftime('%Y-%m-%d')}.#{params[:format]}"
+
+    # http://www.rfc-editor.org/rfc/rfc4180.txt
+    case params[:format]
+    when 'csv'
+      @col_sep = ','
+      headers['Content-Type'] = 'text/csv; charset=utf-8; header=present'
+      headers['Content-Disposition'] = %(attachment; filename="#{filename}")
+      render layout: false
+
+    when 'tsv'
+      @col_sep = "\t"
+      headers['Content-Type'] = 'text/tab-delimited-values; charset=utf-8; header=present'
+      headers['Content-Disposition'] = %(attachment; filename="#{filename}")
+      render layout: false
+
+    when 'xls'
+      io = StringIO.new
+
+      book = Spreadsheet::Workbook.new
+      sheet = book.create_worksheet
+      @questionnaire.rows.each_with_index do |row,i|
+        sheet.row(i).concat row
+      end
+      book.write io
+
+      send_data io.string, filename: filename
+
+    when 'xlsx'
+      io = StringIO.new
+
+      xlsx = Axlsx::Package.new do |package|
+        package.workbook.add_worksheet do |sheet|
+          @questionnaire.rows.each do |row|
+            sheet.add_row row
+          end
+        end
+      end
+
+      send_data xlsx.to_stream.string, filename: filename
+
+    else
+      redirect_to admin_root_path, notice: t(:unknown_format)
+    end
   end
 
   controller do
+    AVAILABLE_FORMATS = %w(csv tsv xls xlsx)
+
     def index
-      @available_formats = %w(csv tsv) # @todo xls xlsx
+      @available_formats = AVAILABLE_FORMATS
       @questionnaires = current_admin_user.questionnaires
 
       # @todo Add fragment caching.
@@ -89,32 +134,6 @@ ActiveAdmin.register_page 'Dashboard' do
     end
 
   protected
-
-    def download(template)
-      @questionnaire = current_admin_user.questionnaires.find params[:id]
-
-      @col_sep = case params[:format]
-      when 'csv'
-        ','
-      when 'tsv'
-        "\t"
-      end
-
-      # Excel doesn't properly decode UTF-8 CSV and TSV files. A UTF-8 byte
-      # order mark (BOM) can be added to fix the problem, but Excel for Mac will
-      # still have issues. XLS and XLSX are therefore offered.
-      case params[:format]
-      when 'csv', 'tsv'
-        # http://www.rfc-editor.org/rfc/rfc4180.txt
-        headers['Content-Type'] = 'text/csv; charset=utf-8; header=present'
-        headers['Content-Disposition'] = %(attachment; filename="data-#{Time.now.strftime('%Y-%m-%d')}.#{params[:format]}")
-        render template, layout: false
-      when 'xls', 'xlsx'
-        # @todo
-      else
-        redirect_to admin_root_path, notice: t(:unknown_format)
-      end
-    end
 
     # Google Charts needs a Date object, so we can't use #to_json.
     #

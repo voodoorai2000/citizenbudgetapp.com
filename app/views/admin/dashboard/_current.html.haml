@@ -24,15 +24,10 @@
                   %th=t '.table.participation_rate_header'
                   %td= number_to_percentage @charts[questionnaire.id.to_s][:responses][:count] / @charts[questionnaire.id.to_s][:visits][:visitors].to_f * 100, precision: 1
               %tr
-                %th=t '.table.download_summary_header'
-                %td
-                  - @available_formats.each do |format|
-                    = link_to format.upcase, admin_dashboard_summary_path(id: questionnaire, format: format)
-              %tr
                 %th=t '.table.download_raw_header'
                 %td
                   - @available_formats.each do |format|
-                    = link_to format.upcase, admin_dashboard_raw_path(id: questionnaire, format: format)
+                    = link_to format, admin_dashboard_raw_path(id: questionnaire, format: format)
       .column
         %div(id="#{dom_id(questionnaire)}_responses" style="width:600px;height:250px;")
     - if @charts[questionnaire.id.to_s][:visits]

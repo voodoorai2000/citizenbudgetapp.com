@@ -185,7 +185,6 @@ fr-CA:
           visitors_header: Visiteurs
           visits_header: Visites
           pageviews_header: Pages vues
-          download_summary_header: Télécharger données sommaires
           download_raw_header: Télécharger données brutes
           days:
             one: "%{count} jour"

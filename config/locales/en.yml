@@ -212,7 +212,6 @@ en:
           visitors_header: Visitors
           visits_header: Visits
           pageviews_header: Pageviews
-          download_summary_header: Download trends summary
           download_raw_header: Download raw data
           # If your language has more or fewer plural forms than English, you
           # may need to add keys for :zero, :two, :few and/or :many.
