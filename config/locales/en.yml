@@ -86,6 +86,7 @@ en:
         domain: You must set your domain's DNS to point to our servers.
         tax_rate: Enter the tax rate as a decimal fraction, not as a percentage.
         introduction: You can use Markdown syntax.
+        instructions: This text must fit within one line.
         description: This will be displayed on search engine results pages.
         thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
         google_analytics: If you use Google Analytics.

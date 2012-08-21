@@ -68,6 +68,7 @@ fr-CA:
         domain: Vous devez pointer vos DNS sur nos serveurs.
         tax_rate: Exprimez le taux sous forme de fraction décimale.
         introduction: Vous pouvez utiliser la syntaxe Markdown.
+        instructions: Ce texte doit tenir sur une ligne.
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
         google_analytics: Si vous utilisez Google Analytics.
