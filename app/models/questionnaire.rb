@@ -259,7 +259,11 @@ class Questionnaire
     # Add data
     responses.each do |response|
       row = headers.map do |column|
-        response.send column
+        if column == 'id'
+          response.id.to_s # axlsx may error when trying to convert Moped::BSON::ObjectId
+        else
+          response.send column
+        end
       end
       sections.each do |section|
         section.questions.each do |question|
