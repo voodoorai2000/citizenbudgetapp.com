@@ -455,8 +455,8 @@ $ ->
       options.uncheckedLabel = t 'no'
     $this.iphoneStyle options
 
-  # Questionnaire mode is "taxes" if "#assessment-submit" is present.
-  $('#assessment-submit').click ->
+  # Questionnaire mode is "taxes" if "#assessment" is present.
+  $('#assessment input').blur ->
     # Ignore invalid assessment values.
     if customAssessment() <= 0
       $('#assessment input').val('')
