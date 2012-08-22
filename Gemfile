@@ -61,6 +61,11 @@ end
 
 gem 'jquery-rails'
 
+# For maintenance scripts to run in development console.
+group :development do
+  gem 'mechanize'
+end
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.6'
 end
