@@ -61,6 +61,7 @@ class Question
 
   default_scope asc(:position)
 
+  # @return [String] the name to display in the administrative interface
   def name
     title? && title || I18n.t(:untitled)
   end
