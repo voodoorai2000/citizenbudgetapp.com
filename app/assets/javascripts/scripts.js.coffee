@@ -16,6 +16,7 @@ $ ->
   amount_left = 0
   bar_left = 100
   assessment_period = 12.0 # monthly
+  instructions = $('#message').text()
 
   colors =
     revenue:
@@ -322,13 +323,10 @@ $ ->
     if balance < 0
       $messages.html t("#{questionnaire_mode}_deficit", number: number, percentage: percentage)
     else if balance == 0
-      if changed
-        $messages.html t("#{questionnaire_mode}_balanced")
-      else
-        $reminder.html('&nbsp;')
-        $message.html t('instructions')
+      $messages.html if changed then t("#{questionnaire_mode}_balanced") else instructions
     else
       $messages.html t("#{questionnaire_mode}_surplus", number: number, percentage: percentage)
+    $reminder.toggleClass 'hide', !changed
 
     if balance >= 0 and changed
       $message.animate 'background-color': colors[questionnaire_mode].message.background.positive, 'color': colors[questionnaire_mode].message.foreground.positive
@@ -468,6 +466,7 @@ $ ->
     $('.widget-scaler').each ->
       $widget = $ this
       $slider = $widget.find '.slider'
+      $slider.find('.tip-content').html tipContent($slider, $slider.slider('value'))
       $widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))
       $widget.find('.maximum.taxes').html number_to_currency taxAmount($slider, $slider.data('maximum'))
 
@@ -477,11 +476,11 @@ $ ->
       updateCategoryBalance $(this)
 
     $('table .slider').each ->
-      $this = $ this
-      value = $this.slider 'value'
-      $this.find('.tip-content').html tipContent($this, value)
-      $this.find('.tip').toggle value != 0 || value != parseFloat($this.data('minimum'))
-      highlight $this, value
+      $slider = $ this
+      value = $slider.slider 'value'
+      $slider.find('.tip-content').html tipContent($slider, value)
+      $slider.find('.tip').toggle value != 0 || value != parseFloat($slider.data('minimum'))
+      highlight $slider, value
 
     $('table .onoff').each ->
       $this = $ this

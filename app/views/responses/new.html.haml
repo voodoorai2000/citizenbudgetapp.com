@@ -26,15 +26,14 @@
 
       = render @questionnaire
 
+    - if @questionnaire.mode == 'taxes'
+      #reminder.message.alert.alert-info.hide
+
     %section#identification
       = f.input :initialized_at, as: :hidden
       - if @fields.any?
         - @fields.each_with_index do |section,index|
           = f.inputs name: section.title do
-            - if @questionnaire.mode == 'taxes'
-              .control-group
-                .controls
-                  #reminder.message &nbsp;
             -# @todo It's not very flexible to add email and name like this, but it works for now.
             - if index.zero?
               - if @questionnaire.email_required?
