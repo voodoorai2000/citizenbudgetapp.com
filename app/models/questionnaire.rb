@@ -102,15 +102,11 @@ class Questionnaire
     responses.map_reduce(%Q{
       function () {
         var date = new Date(this.created_at.getTime() + this.created_at.getTimezoneOffset() * 60000 + #{offset} * 1000);
-        emit({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}, {count: 1});
+        emit({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}, 1);
       }
     }, %Q{
       function (key, values) {
-        var result = {count: 0};
-        values.forEach(function (value) {
-          result.count += value.count;
-        });
-        return result;
+        return Array.sum(values);
       }
     }).out(inline: true)
   end

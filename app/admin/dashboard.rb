@@ -78,7 +78,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
         data = []
         hash = q.count_by_date.each_with_object({}) do |row,memo|
-          memo[Date.new(row['_id']['year'], row['_id']['month'], row['_id']['day'])] = row['value']['count']
+          memo[Date.new(row['_id']['year'], row['_id']['month'], row['_id']['day'])] = row['value']
         end
         starts_on.upto(ends_on).each do |date|
           data << %([#{date_to_js(date)}, #{hash[date] || 0}])
