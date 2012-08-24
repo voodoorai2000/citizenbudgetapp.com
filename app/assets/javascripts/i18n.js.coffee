@@ -22,9 +22,9 @@ I18n =
     services_surplus: """Your budget has a surplus of %{number}. If you're finished, <a href="#identification">submit your choices</a>. Otherwise, <b>add activities or cut revenues to balance the budget</b>."""
     services_balanced: """<b>Your budget is balanced!</b> If you're finished, <a href="#identification">submit your choices</a>."""
     services_deficit: 'Your budget is in deficit (%{number}). <b>Cut activities or add revenues to balance the budget.</b>'
-    taxes_surplus: 'You have decreased your tax dollars by %{number}/month. This could result in a service level reduction.'
+    taxes_surplus: 'You have decreased your tax dollars by %{number}/month or %{percentage}. This could result in a service level reduction.'
     taxes_balanced: 'Your budget is balanced.'
-    taxes_deficit: 'You have increased your tax dollars by %{number}/month. This could result in a service level enhancement.'
+    taxes_deficit: 'You have increased your tax dollars by %{number}/month or %{percentage}. This could result in a service level enhancement.'
     copy_hint: 'copy to clipboard'
     copied_hint: 'copied!'
   fr_CA:
@@ -50,9 +50,9 @@ I18n =
     services_surplus: """Votre budget montre un surplus de %{number}. Vous pouvez <a href="#identification">soumettre vos choix</a>. Sinon, <b>ajoutez des activités ou reduisez les revenus pour équilibrer le budget</b>."""
     services_balanced: """<b>Vous avez atteint l'équilibre!</b> Si vous avez fini, <a href="#identification">soumettez vos choix</a>."""
     services_deficit: 'Votre budget est en déficit (%{number}). <b>Renoncez à des activités ou augmentez les revenus pour équilibrer le budget.</b>'
-    taxes_surplus: 'Vos impôts diminueraient de %{number} par mois. Il peut en résulter une réduction du niveau de service.'
+    taxes_surplus: 'Vos impôts diminueraient de %{number} par mois, donc %{percentage}. Il peut en résulter une réduction du niveau de service.'
     taxes_balanced: "Vous avez atteint l'équilibre."
-    taxes_deficit: 'Vos impôts augmenteraient de %{number} par mois. Cette augmentation peut se traduire par un niveau de service amélioré.'
+    taxes_deficit: 'Vos impôts augmenteraient de %{number} par mois, donc %{percentage}. Cette augmentation peut se traduire par un niveau de service amélioré.'
     copy_hint: 'copier dans le presse papier'
     copied_hint: 'copié!'
 
