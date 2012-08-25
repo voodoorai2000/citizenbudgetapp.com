@@ -106,12 +106,15 @@ class Response
         end
       end
     end
+
+    base = []
     unless changed
-      errors[:base] = I18n.t('errors.messages.response_must_change_at_least_one_value')
+      base << I18n.t('errors.messages.response_must_change_at_least_one_value')
     end
     if questionnaire.balance? && balance < 0
-      errors[:base] = I18n.t('errors.messages.response_must_balance')
+      base << I18n.t('errors.messages.response_must_balance')
     end
+    errors[:base] = base unless base.empty?
 
     errors
   end

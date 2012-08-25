@@ -91,8 +91,79 @@ namespace :data do
       errors = response.validates?
 
       unless errors.empty?
-        puts response.id
-        puts puts_recursive_hash errors
+        puts "Validation failed on Response #{response.id}:"
+
+        base = errors.delete :base
+        if base
+          base.each do |error|
+            puts "- #{error}"
+          end
+        end
+
+        # @todo The following messages can be made more helpful by listing the
+        #   possible values along with the invalid value
+        errors.each do |id,error|
+          puts "- #{id} #{error}: #{response.answers[id]}"
+        end
+      end
+    end
+  end
+
+  # @note If we need to be more sophisticated, we can run non-numeric values through a spam filter.
+  desc 'Displays potential spam answers for the end-user to decide whether to keep or reject'
+  task ham: :environment do
+    class Hash
+      # @return [Hash] spam key-value pairs
+      def spam
+        spam = {}
+        each do |k,v|
+          if Hash === v || Array === v
+            output = v.spam
+            spam[k] = output unless output.empty?
+          elsif v.to_s[/http|href|src/]
+            spam[k] = v
+          end
+        end
+        spam
+      end
+    end
+
+    # @return [Array] spam values
+    class Array
+      def spam
+        spam = []
+        each do |v|
+          if Hash === v || Array === v
+            output = v.spam
+            spam << output unless output.empty?
+          elsif v.to_s[/http|href|src/]
+            spam << v
+          end
+        end
+        spam
+      end
+    end
+
+    if ENV['ID'].blank?
+      abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
+    end
+
+    responses = Questionnaire.find(ENV['ID']).responses.to_a
+
+    # If we process items in-order with #each_with_index, #delete_at will cause
+    # items to be skipped. If we process items in reverse order, deleted items
+    # will have already been processed.
+    (responses.size - 1).downto(0).each do |i|
+      response = responses[i]
+      spam = response.attributes.spam
+
+      unless spam.empty?
+        puts puts_recursive_hash spam
+        puts "Is this spam? (y/n)"
+        if STDIN.gets == "y\n"
+          response.destroy
+          puts "Deleted #{response.id}\n\n"
+        end
       end
     end
   end
@@ -201,64 +272,5 @@ namespace :data do
       end
     end
     File.open(Rails.root.join('tmp', 'duplicates.json'), 'w'){|f| f.write MultiJson.dump json}
-  end
-
-  # @note If we need to be more sophisticated, we can run non-numeric values through a spam filter.
-  desc 'Displays potential spam answers for the end-user to decide whether to keep or reject'
-  task ham: :environment do
-    class Hash
-      # @return [Hash] spam key-value pairs
-      def spam
-        spam = {}
-        each do |k,v|
-          if Hash === v || Array === v
-            output = v.spam
-            spam[k] = output unless output.empty?
-          elsif v.to_s[/http|href|src/]
-            spam[k] = v
-          end
-        end
-        spam
-      end
-    end
-
-    # @return [Array] spam values
-    class Array
-      def spam
-        spam = []
-        each do |v|
-          if Hash === v || Array === v
-            output = v.spam
-            spam << output unless output.empty?
-          elsif v.to_s[/http|href|src/]
-            spam << v
-          end
-        end
-        spam
-      end
-    end
-
-    if ENV['ID'].blank?
-      abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
-    end
-
-    responses = Questionnaire.find(ENV['ID']).responses.to_a
-
-    # If we process items in-order with #each_with_index, #delete_at will cause
-    # items to be skipped. If we process items in reverse order, deleted items
-    # will have already been processed.
-    (responses.size - 1).downto(0).each do |i|
-      response = responses[i]
-      spam = response.attributes.spam
-
-      unless spam.empty?
-        puts puts_recursive_hash spam
-        puts "Is this spam? (y/n)"
-        if STDIN.gets == "y\n"
-          response.destroy
-          puts "Deleted #{response.id}\n\n"
-        end
-      end
-    end
   end
 end
