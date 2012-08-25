@@ -448,7 +448,6 @@ $ ->
       options.labelOffClass = 'iPhoneCheckLabelOff reverse'
       options.labelOnClass = 'iPhoneCheckLabelOn reverse'
     else
-      options.resizeContainer = false
       options.checkedLabel = t 'yes'
       options.uncheckedLabel = t 'no'
     $this.iphoneStyle options
