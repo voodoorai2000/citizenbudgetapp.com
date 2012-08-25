@@ -237,7 +237,6 @@ namespace :data do
     responses = Questionnaire.find(ENV['ID']).responses.to_a
     progressbar = ProgressBar.create format: '%a |%B| %p%% %e', length: 80, smoothing: 0.5, total: responses.size.combinations(2)
 
-    json = []
     (responses.size - 2).downto(0).each do |i|
       a = responses[i]
 
@@ -245,15 +244,15 @@ namespace :data do
         progressbar.increment
         difference = a.diff b
 
-        fragment = [a.id.to_s, b.id.to_s, difference.size, difference]
-        json << fragment
-
         case difference.size
         when 0
           b.destroy
           responses.delete_at i + j + 1
           puts "Deleted #{b.id} (duplicates #{a.id})\n"
-        when 1..3 # Experience suggest 3 is an appropriate threshold.
+        # Experience suggest 3 is an appropriate threshold until we add more
+        # fields. A threshold of 4 found no additional duplicates in a sample of
+        # nearly 600.
+        when 1..3
           if difference.keys.all?{|key| Response::NON_PERSONAL_KEYS.include? key}
             b.destroy
             responses.delete_at i + j + 1
@@ -271,6 +270,5 @@ namespace :data do
         end
       end
     end
-    File.open(Rails.root.join('tmp', 'duplicates.json'), 'w'){|f| f.write MultiJson.dump json}
   end
 end
