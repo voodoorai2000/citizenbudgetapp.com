@@ -77,10 +77,15 @@ class Question
   end
 
   # @return [Boolean] whether it is a nonbudgetary question
-  # @note Check boxes and radio buttons are currently used for survey questions,
-  #   but that's not necessarily the case.
+  # @note Check boxes, radio buttons and select lists are currently used for
+  #   non-budgetary questions, but that will not necessarily the case.
   def nonbudgetary?
-    %w(checkboxes radio readonly).include? widget
+    %w(checkbox checkboxes radio readonly select text textarea).include? widget
+  end
+
+  # @return [Boolean] whether it is a budgetary question
+  def budgetary?
+    !nonbudgetary?
   end
 
   # @return [Boolean] whether the widget is checked by default
@@ -107,7 +112,7 @@ class Question
     end
   end
 
-  # Casts a value to an appropriate type according to the question's widget.
+  # Casts a value according to the question's widget.
   #
   # @param value a value
   # @return the cast value
@@ -119,6 +124,13 @@ class Question
     else
       value
     end
+  end
+
+  # Casts the default value according to the question's widget.
+  #
+  # @return the cast default value
+  def cast_default_value
+    cast_value default_value
   end
 
   def position
