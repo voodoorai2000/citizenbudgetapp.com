@@ -231,6 +231,10 @@ $ ->
     $table.find('.onoff').each ->
       $this = $ this
       balance -= (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
+
+    # Revenue cuts remove money, whereas expenses custs add money.
+    balance = -balance if $table.attr('rel') is 'revenue'
+
     balance *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
     balance
 
@@ -253,13 +257,6 @@ $ ->
 
     $.each ['revenue', 'expense'], (i, group) ->
       group_balance = calculateBalance $("""table[rel="#{group}"]""")
-
-      # Calculate pixels before we inverse the sign of +group_balance+. If
-      # pixels are less than zero, the bar moves right (increase).
-      pixels = Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
-
-      # Revenue cuts remove money, whereas expenses custs add money.
-      group_balance = -group_balance if group is 'revenue'
       balance += group_balance
 
       # Update group balance, and move bar and balance.
@@ -270,6 +267,9 @@ $ ->
         amount = number_to_currency group_balance, strip_insignificant_zeros: true
         $amount.html(amount).toggleClass 'negative', group_balance < 0
 
+        # If pixels are less than zero, the bar moves right (increase).
+        pixels = Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
+        pixels = -pixels if group is 'revenue'
         width = Math.abs pixels
 
         # If at zero.
