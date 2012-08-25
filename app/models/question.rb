@@ -134,6 +134,8 @@ private
       self.options = [0, 1]
     elsif %w(checkboxes radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
+    else
+      self.options = nil
     end
   end
 
