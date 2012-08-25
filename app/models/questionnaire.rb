@@ -265,7 +265,7 @@ class Questionnaire
       end
       sections.each do |section|
         section.questions.each do |question|
-          answer = response.answer(question)
+          answer = response.cast_answer question
           if Array === answer
             row << answer.to_sentence
           else
