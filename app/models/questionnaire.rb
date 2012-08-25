@@ -165,26 +165,37 @@ class Questionnaire
     end
   end
 
+  # @return [String,nil] the consultation's URL, or nil
   def domain_url
     domain? && "http://#{domain}"
   end
 
+  # @return [Boolean] whether respondents must submit balanced budgets
+  def balance?
+    mode == 'services'
+  end
+
+  # @return [Boolean] whether the consultation is currently running
   def current?
     starts_at? && ends_at? && starts_at <= Time.now && Time.now <= ends_at
   end
 
+  # @return [Boolean] whether the consultation will start in the future
   def future?
     starts_at? && starts_at > Time.now
   end
 
+  # @return [Boolean] whether the consultation started in the past
   def started?
     starts_at? && starts_at <= Time.now
   end
 
+  # @return [Boolean] whether the consultation will end in the future
   def active?
     ends_at? && ends_at >= Time.now
   end
 
+  # @return [Boolean] whether the consultation ended in the past
   def past?
     ends_at? && ends_at < Time.now
   end
