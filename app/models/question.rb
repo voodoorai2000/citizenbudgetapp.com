@@ -9,7 +9,7 @@ class Question
   # and select widgets, in which case we need a new :amounts array field?
   # @note The check box widget is used uniquely in non-budgetary questions. Use
   # the on/off switch for budgetary questions.
-  WIDGETS = %w(checkbox checkboxes onoff radio readonly select slider scaler text textarea)
+  WIDGETS = %w(checkbox checkboxes onoff radio readonly scaler select slider text textarea)
 
   embedded_in :section
 
@@ -45,16 +45,16 @@ class Question
   validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'textarea'}
 
   # Budgetary widget validations.
-  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff slider scaler).include? q.widget}
-  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff slider scaler).include? q.widget}
-  validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio select slider scaler).include? q.widget}
+  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff scaler slider).include? q.widget}
+  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff scaler slider).include? q.widget}
+  validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio scaler select slider).include? q.widget}
 
   # Slider validations.
-  validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){%w(slider scaler).include? q.widget}
-  validates_numericality_of :minimum_units, :maximum_units, allow_blank: true, if: ->(q){%w(slider scaler).include? q.widget}
-  validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){%w(slider scaler).include? q.widget}
-  validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){%w(slider scaler).include? q.widget}
-  validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){%w(slider scaler).include? q.widget}
+  validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){%w(scaler slider).include? q.widget}
+  validates_numericality_of :minimum_units, :maximum_units, allow_blank: true, if: ->(q){%w(scaler slider).include? q.widget}
+  validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){%w(scaler slider).include? q.widget}
+  validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){%w(scaler slider).include? q.widget}
+  validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){%w(scaler slider).include? q.widget}
 
   after_initialize :get_options
   before_validation :set_options
@@ -95,15 +95,29 @@ class Question
 
   # @return [Float] the maximum value of the widget
   def maximum_amount
-    if %w(onoff slider scaler).include? widget
+    if %w(onoff scaler slider).include? widget
       (maximum_units - default_value.to_f) * unit_amount
     end
   end
 
   # @return [Float] the minimum value of the widget
   def minimum_amount
-    if %w(onoff slider scaler).include? widget
+    if %w(onoff scaler slider).include? widget
       (minimum_units - default_value.to_f) * unit_amount
+    end
+  end
+
+  # Casts a value to an appropriate type according to the question's widget.
+  #
+  # @param value a value
+  # @return the cast value
+  def cast_value(value)
+    if %w(checkbox onoff).include? widget
+      Integer value.to_s rescue value
+    elsif %w(scaler slider).include? widget
+      Float value.to_s rescue value
+    else
+      value
     end
   end
 
@@ -113,7 +127,7 @@ class Question
 
 private
   def get_options
-    if %w(slider scaler).include?(widget) && options.present?
+    if %w(scaler slider).include?(widget) && options.present?
       @minimum_units = options.first.to_f
       @maximum_units = options.last.to_f
       @step = (options[1] - options[0]).round(2)
@@ -127,7 +141,7 @@ private
   end
 
   def set_options
-    if %w(slider scaler).include?(widget) && minimum_units.present? && maximum_units.present? && step.present?
+    if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && step.present?
       self.options = (minimum_units.to_f..maximum_units.to_f).step(step.to_f).to_a
       self.options << maximum_units.to_f unless options.last == maximum_units.to_f
     elsif %w(checkbox onoff).include?(widget)
@@ -140,13 +154,13 @@ private
   end
 
   def maximum_units_must_be_greater_than_minimum_units
-    if %w(slider scaler).include?(widget) && minimum_units.present? && maximum_units.present? && minimum_units.to_f >= maximum_units.to_f
+    if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && minimum_units.to_f >= maximum_units.to_f
       errors.add :maximum_units, I18n.t('errors.messages.maximum_units_must_be_greater_than_minimum_units')
     end
   end
 
   def default_value_must_be_between_minimum_and_maximum
-    if %w(slider scaler).include?(widget) && minimum_units.present? && maximum_units.present? && default_value.present? && minimum_units.to_f < maximum_units.to_f
+    if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && default_value.present? && minimum_units.to_f < maximum_units.to_f
       if default_value.to_f < minimum_units.to_f || default_value.to_f > maximum_units.to_f
         errors.add :default_value, I18n.t('errors.messages.default_value_must_be_between_minimum_and_maximum')
       end
