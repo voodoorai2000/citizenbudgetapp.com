@@ -43,7 +43,13 @@ class Response
     answers[question.id.to_s] || question.default_value
   end
 
-  # @returns [String] the full first name and last name initial
+  # @param [Question] question a question
+  # @return the answer to the question, cast to an appropriate type
+  def cast_answer(question)
+    question.cast_value answer(question)
+  end
+
+  # @return [String] the full first name and last name initial
   def display_name
     if name?
       parts = name.strip.split(' ', 2)
@@ -51,6 +57,63 @@ class Response
       parts[1] = "#{UnicodeUtils.upcase(parts[1][0])}." if parts[1]
       parts.join ' '
     end
+  end
+
+  # Performs validations outside create or update operations.
+  #
+  # @return [Hash] any validation errors
+  # @note Not named #valid? to not override ActiveModel method.
+  def validates?
+    errors = {}
+
+    changed = false
+    balance = 0
+    questionnaire.sections.each do |section|
+      section.questions.each do |question|
+        value = answer question
+
+        # We don't need to cast values here, as both are strings.
+        unless changed || section.group == 'other' || value == question.default_value
+          changed = true
+        end
+
+        cast_value = cast_answer question
+
+        if questionnaire.balance? && question.budgetary?
+          impact = (cast_value - question.cast_default_value) * question.unit_amount
+          if section.group == 'revenue'
+            balance += impact
+          else
+            balance -= impact
+          end
+        end
+
+        if value.blank?
+          if question.required?
+            errors[question.id.to_s] = I18n.t('errors.messages.blank')
+          end
+        elsif question.multiple?
+          invalid = value.reject do |v|
+            question.options.include? v
+          end
+          unless invalid.empty?
+            errors[question.id.to_s] = I18n.t('errors.messages.inclusion')
+          end
+        elsif question.options?
+          unless question.options.include? cast_value
+            errors[question.id.to_s] = I18n.t('errors.messages.inclusion')
+          end
+        end
+      end
+    end
+    unless changed
+      errors[:base] = I18n.t('errors.messages.response_must_change_at_least_one_value')
+    end
+    if questionnaire.balance? && balance < 0
+      errors[:base] = I18n.t('errors.messages.response_must_balance')
+    end
+
+    errors
   end
 
   # @see http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
