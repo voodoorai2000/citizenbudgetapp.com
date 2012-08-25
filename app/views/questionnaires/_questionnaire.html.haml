@@ -30,6 +30,7 @@
               - if q.description?
                 :markdown
                   #{q.description}
+              - # @todo Implement checkbox, readonly, select, text, textarea widgets.
               - if %w(checkboxes radio).include? q.widget
                 %fieldset
                   .control-group
