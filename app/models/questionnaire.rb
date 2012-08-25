@@ -2,8 +2,8 @@ require 'mail'
 
 class Questionnaire
   include Mongoid::Document
-  include Mongoid::Timestamps
   include Mongoid::Paranoia
+  include Mongoid::Timestamps
   include Mongoid::MultiParameterAttributes
 
   MODES = %w(services taxes)

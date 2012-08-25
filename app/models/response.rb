@@ -2,6 +2,7 @@
 
 class Response
   include Mongoid::Document
+  include Mongoid::Paranoia
   include Mongoid::Timestamps
 
   # Don't embed, as a popular questionnaire may be over 16MB in size.
