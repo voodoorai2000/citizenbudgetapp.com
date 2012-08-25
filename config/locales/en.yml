@@ -296,6 +296,8 @@ en:
       domain_must_be_active: The domain name must be active
       domain_must_not_be_blacklisted: The domain name is blacklisted
       reply_to_must_be_valid: The reply-to address must be valid
+      response_must_change_at_least_one_value: The response must change at least one value
+      response_must_balance: The response must balance
 
   activerecord:
     models: &models

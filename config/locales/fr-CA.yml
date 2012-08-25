@@ -237,6 +237,8 @@ fr-CA:
       domain_must_be_active: Le nom de domaine doit être actif
       domain_must_not_be_blacklisted: Le nom de domaine est sur la liste noire
       reply_to_must_be_valid: L'adresse de courriel de correspondance doit être valide
+      response_must_change_at_least_one_value: La réponse doit changer au moins une valeur
+      response_must_balance: La réponse doit être balancée
 
   activerecord:
     models: &models

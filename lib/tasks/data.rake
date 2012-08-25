@@ -1,16 +1,131 @@
+# coding: utf-8
+
 namespace :data do
-  desc 'Finds duplicate responses'
-  task duplicate: :environment do
+  # @param [Hash] hash a hash
+  # @param [Hash] opts optional arguments
+  # @option opts [Integer] :offset the number of spaces to indent
+  # @option opts [Boolean] :quiet quiet output
+  # @return [String]
+  def puts_recursive_hash(hash, options = {})
+    options[:offset] ||= 0
+
+    out = ''
+    hash.each do |k,v|
+      case v
+      when Hash
+        append = puts_recursive_hash v, options.merge(offset: options[:offset] + 2)
+        if append.present?
+          out << "#{' ' * options[:offset]}#{k}\n#{append}"
+        elsif !options[:quiet] || options[:offset].zero?
+          out << "#{' ' * options[:offset]}#{k}\n"
+        end
+      when Array
+        append = puts_recursive_array v, options.merge(offset: options[:offset] + 2)
+        if append.present?
+          out << "#{' ' * options[:offset]}#{k}\n#{append}"
+        elsif !options[:quiet] || options[:offset].zero?
+          out << "#{' ' * options[:offset]}#{k}\n"
+        end
+      else
+        out << puts_recursive_string(v, options.merge(prefix: k.to_s.ljust(24)))
+      end
+    end
+    out
+  end
+
+  # @param [Array] array an array
+  # @param [Hash] opts optional arguments
+  # @option opts [Integer] :offset the number of spaces to indent
+  # @option opts [Boolean] :quiet quiet output
+  # @return [String]
+  def puts_recursive_array(array, options = {})
+    options[:offset] ||= 0
+
+    out = ''
+    array.each do |v|
+      case v
+      when Hash
+        append = puts_recursive_hash(v, options.merge(offset: options[:offset] + 2))
+        if append.present?
+          out << "#{' ' * options[:offset]}-\n#{append}"
+        end
+      when Array
+        append = puts_recursive_array(v, options.merge(offset: options[:offset] + 2))
+        if append.present?
+          out << "#{' ' * options[:offset]}-\n#{append}"
+        end
+      else
+        out << puts_recursive_string(v, options)
+      end
+    end
+    out
+  end
+
+  # @param [String] string a string
+  # @param [Hash] opts arguments
+  # @option opts [Integer] :offset the number of spaces to indent
+  # @option opts [Boolean] :quiet quiet output
+  # @option opts [String] :prefix text to print before the value
+  # @return [String]
+  def puts_recursive_string(string, options = {})
+    out = ''
+    unless options[:quiet] && options[:offset] > 2 && string.to_s[/\A-?(0|[1-9]\d*)(\.\d+)?\z/]
+      out << ' ' * options[:offset]
+      out << "#{options[:prefix]} " if options[:prefix]
+      out << "#{string.inspect}\n"
+    end
+    out
+  end
+
+  desc 'Deletes invalid responses'
+  task validate: :environment do
+
+    if ENV['ID'].blank?
+      abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
+    end
+
+    responses = Questionnaire.find(ENV['ID']).responses.to_a
+
+    (responses.size - 1).downto(0).each do |i|
+      response = responses[i]
+      errors = response.validates?
+
+      unless errors.empty?
+        puts response.id
+        puts puts_recursive_hash errors
+      end
+    end
+  end
+
+  desc 'Deletes duplicate responses. If close matches are found, displays the differences for the end-user to decide.'
+  task deduplicate: :environment do
+    class Response
+      DIFF_EXCLUDE_KEYS = %w(_id initialized_at created_at updated_at)
+      NON_PERSONAL_KEYS = %w(subscribe newsletter answers)
+
+      # @param [Response] other another response
+      # @return [Hash] a hash of differences between this and another response
+      def diff(other)
+        attributes.except(*DIFF_EXCLUDE_KEYS).diff other.attributes.except(*DIFF_EXCLUDE_KEYS)
+      end
+    end
+
     class Hash
       # @param [Hash] other another hash
-      # @returns [Hash] a hash of differences between this and another hash
+      # @return [Hash] a hash of differences between this and another hash
       # @see http://stackoverflow.com/a/7178108
       def diff(other)
         set = keys + other.keys
         set.uniq.each_with_object({}) do |key,memo|
           old_value = self[key]
           new_value = other[key]
-          unless old_value == new_value
+
+          # The fingerprint effectively pairs tokens with alternative spacing,
+          # punctuation and capitalization, e.g. postal codes.
+          old_test = String === old_value ? old_value.fingerprint : old_value
+          new_test = String === new_value ? new_value.fingerprint : new_value
+
+          unless old_test == new_test
             memo[key] = if Hash === old_value && Hash === new_value
               old_value.diff new_value
             else
@@ -22,22 +137,25 @@ namespace :data do
     end
 
     class Fixnum
+      # @return [Integer] the factorial of the number
+      # @note This implementation only works for numbers greater than one.
       def factorial
         (2..self).reduce(:*)
       end
 
-      def combinations(r)
-        self.factorial / (r.factorial * (self - r).factorial)
+      # @param [Integer] k the size of a combination
+      # @return [Integer] the number of k-combinations of a set of n elements
+      def combinations(k)
+        self.factorial / (k.factorial * (self - k).factorial)
       end
     end
 
-    class Response
-      EXCLUDE_KEYS = ['_id', 'initialized_at', 'created_at', 'updated_at']
-
-      # @param [Response] other another response
-      # @returns [Hash] a hash of differences between this and another response
-      def diff(other)
-        attributes.except(*EXCLUDE_KEYS).diff other.attributes.except(*EXCLUDE_KEYS)
+    class String
+      # Downcases and removes whitespace, punctuation and control characters.
+      #
+      # @return [String] the fingerprint of the string
+      def fingerprint
+        UnicodeUtils.downcase(gsub(/[[:space:]]|\p{Punct}|\p{Cntrl}/, ''))
       end
     end
 
@@ -47,7 +165,6 @@ namespace :data do
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a
     progressbar = ProgressBar.create format: '%a |%B| %p%% %e', length: 80, smoothing: 0.5, total: responses.size.combinations(2)
-    nonpersonal = %w(subscribe newletter answers)
 
     json = []
     (responses.size - 2).downto(0).each do |i|
@@ -56,25 +173,30 @@ namespace :data do
       responses[i + 1..-1].each_with_index do |b,j|
         progressbar.increment
         difference = a.diff b
-        fragment = [a.id.to_s, b.id.to_s, difference.size, difference]
 
-        # Destroy duplicates, e.g.:
-        # * all differences are non-personal
+        fragment = [a.id.to_s, b.id.to_s, difference.size, difference]
+        json << fragment
+
         case difference.size
         when 0
           b.destroy
           responses.delete_at i + j + 1
-        when 1, 2
-          if difference.keys.all?{|key| nonpersonal.include? key}
+          puts "Deleted #{b.id} (duplicates #{a.id})\n"
+        when 1..3 # Experience suggest 3 is an appropriate threshold.
+          if difference.keys.all?{|key| Response::NON_PERSONAL_KEYS.include? key}
             b.destroy
             responses.delete_at i + j + 1
+            puts "Deleted #{b.id} (duplicates #{a.id} except on #{difference.keys.to_sentence})\n"
           else
-            # @todo
-            json << fragment
+            puts
+            puts puts_recursive_hash difference, skip_numeric_children: true
+            puts "Are these duplicates (difference on #{difference.keys.to_sentence})? (y/n)"
+            if STDIN.gets == "y\n"
+              b.destroy
+              responses.delete_at i + j + 1
+              puts "Deleted #{b.id}\n\n"
+            end
           end
-        else
-          # @todo
-          json << fragment
         end
       end
     end
@@ -82,8 +204,8 @@ namespace :data do
   end
 
   # @note If we need to be more sophisticated, we can run non-numeric values through a spam filter.
-  desc 'Finds spam responses'
-  task spam: :environment do
+  desc 'Displays potential spam answers for the end-user to decide whether to keep or reject'
+  task ham: :environment do
     class Hash
       # @return [Hash] spam key-value pairs
       def spam
@@ -116,34 +238,6 @@ namespace :data do
       end
     end
 
-    def puts_recursive_hash(spam, offset = 0)
-      spam.each do |k,v|
-        print ' ' * offset
-        if Hash === v
-          puts "#{k}"
-          puts_recursive_hash v, offset + 2
-        elsif Array === v
-          puts "#{k}"
-          puts_recursive_array v, offset + 2
-        else
-          puts "#{k.ljust(24)} #{v.gsub(/[[:space:]]/, ' ')}"
-        end
-      end
-    end
-
-    def puts_recursive_array(spam, offset = 0)
-      spam.each do |v|
-        if Hash === v
-          puts_recursive_hash v, offset + 2
-        elsif Array === v
-          puts_recursive_array v, offset + 2
-        else
-          print ' ' * offset
-          puts v.gsub(/[[:space:]]/, ' ')
-        end
-      end
-    end
-
     if ENV['ID'].blank?
       abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
     end
@@ -158,11 +252,11 @@ namespace :data do
       spam = response.attributes.spam
 
       unless spam.empty?
-        puts_recursive_hash spam
+        puts puts_recursive_hash spam
         puts "Is this spam? (y/n)"
         if STDIN.gets == "y\n"
           response.destroy
-          puts "Deleted #{response.id}\n"
+          puts "Deleted #{response.id}\n\n"
         end
       end
     end
