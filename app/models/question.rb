@@ -47,7 +47,7 @@ class Question
   # Budgetary widget validations.
   validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff slider scaler).include? q.widget}
   validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff slider scaler).include? q.widget}
-  validates_presence_of :options, if: ->(q){%w(checkboxes onoff radio select slider scaler).include? q.widget}
+  validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio select slider scaler).include? q.widget}
 
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){%w(slider scaler).include? q.widget}
@@ -117,7 +117,7 @@ private
       @minimum_units = options.first.to_f
       @maximum_units = options.last.to_f
       @step = (options[1] - options[0]).round(2)
-    elsif widget == 'onoff'
+    elsif %w(checkbox onoff).include?(widget)
       @minimum_units = 0
       @maximum_units = 1
       @step = 1
@@ -130,7 +130,7 @@ private
     if %w(slider scaler).include?(widget) && minimum_units.present? && maximum_units.present? && step.present?
       self.options = (minimum_units.to_f..maximum_units.to_f).step(step.to_f).to_a
       self.options << maximum_units.to_f unless options.last == maximum_units.to_f
-    elsif widget == 'onoff'
+    elsif %w(checkbox onoff).include?(widget)
       self.options = [0, 1]
     elsif %w(checkboxes radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
