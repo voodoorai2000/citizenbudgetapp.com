@@ -88,6 +88,11 @@ class Question
     !nonbudgetary?
   end
 
+  # @return [Boolean] whether multiple values can be selected
+  def multiple?
+    widget == 'checkboxes'
+  end
+
   # @return [Boolean] whether the widget is checked by default
   def checked?
     %w(checkbox onoff).include?(widget) && default_value.to_f == 1
