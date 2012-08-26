@@ -17,9 +17,6 @@ class Response
   field :email, type: String
   field :name, type: String
 
-  # For reports.
-  attr_accessor :warnings
-
   validates_presence_of :questionnaire_id, :initialized_at, :answers, :ip
   # We don't do more ambitious validation to avoid excluding valid responses.
 
@@ -66,6 +63,16 @@ class Response
   def validates?
     errors = {}
 
+    # Validate fields.
+    if questionnaire.email_required? && email.blank?
+      errors[:email] = I18n.t('errors.messages.blank')
+    end
+    # Backwards-compatibility.
+    if questionnaire.sections.nonbudgetary.none? && postal_code.blank?
+      errors[:postal_code] = I18n.t('errors.messages.blank')
+    end
+
+    # Validate answers.
     changed = false
     balance = 0
     questionnaire.sections.each do |section|
