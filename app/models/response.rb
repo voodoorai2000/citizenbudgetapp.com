@@ -115,7 +115,7 @@ class Response
     end
 
     base = []
-    unless changed
+    if questionnaire.change_required? && !changed
       base << I18n.t('errors.messages.response_must_change_at_least_one_value')
     end
     if questionnaire.balance? && balance < 0

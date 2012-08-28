@@ -170,13 +170,13 @@ $ ->
 
   # Converts a number to a currency.
   number_to_currency = (number, options = {}) ->
-    Mustache.render t('currency_format'),
+    t 'currency_format'
       number: number_with_precision number, options
       unit: t 'currency_unit'
 
   # Converts a number to a percentage.
   number_to_percentage = (number, options = {}) ->
-    Mustache.render t('percentage_format'),
+    t 'percentage_format'
       number: number_with_precision number, options
       symbol: t 'percentage_symbol'
 
@@ -332,14 +332,15 @@ $ ->
       $message.animate 'background-color': colors[questionnaire_mode].message.background.positive, 'color': colors[questionnaire_mode].message.foreground.positive
     else if balance < 0
       $message.animate 'background-color': colors[questionnaire_mode].message.background.negative, 'color': colors[questionnaire_mode].message.foreground.negative
-    else if balance == 0
+    else # balance is zero and budget is unchanged
       $message.animate 'background-color': '#666', 'color': '#fff'
 
     # Enable or disable identification form.
-    if changed and (questionnaire_mode is 'taxes' or balance >= 0)
-      enableForm()
-    else
-      disableForm()
+    if change_required
+      if changed and (questionnaire_mode is 'taxes' or balance >= 0)
+        enableForm()
+      else
+        disableForm()
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'
@@ -500,4 +501,4 @@ $ ->
       $slider.slider 'value', $slider.data('maximum')
 
     $('#new_response').validationEngine()
-    disableForm()
+    disableForm() if change_required

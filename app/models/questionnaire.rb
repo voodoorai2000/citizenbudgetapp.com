@@ -29,6 +29,7 @@ class Questionnaire
   field :mode, type: String
   field :default_assessment, type: Integer
   field :tax_rate, type: Float
+  field :change_required, type: Boolean, default: true
 
   # Appearance
   field :logo, type: String
@@ -133,6 +134,11 @@ class Questionnaire
   # @return [Integer] the number of days elapsed
   def days_elapsed
     (today - starts_on).to_i
+  end
+
+  # @return [Integer] the number of days left
+  def days_left
+    (ends_on - today).to_i
   end
 
   # @return [Date] the consultation's start date in its time zone

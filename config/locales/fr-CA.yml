@@ -184,14 +184,17 @@ fr-CA:
           pageviews: Pages vues
           other: Autres
         table:
-          days_header: Jours écoulés
+          days_elapsed_header: Jours écoulés
+          days_left_header: Jours restants
           responses_header: Nombre de soumissions
           time_to_complete_header: Temps médian requis
           participation_rate_header: Taux de participation
           visitors_header: Visiteurs
           visits_header: Visites
           pageviews_header: Pages vues
+          summary_report_header: Rapport sommaire
           download_raw_header: Télécharger données brutes
+          view: Afficher
           days:
             one: "%{count} jour"
             other: "%{count} jours"
@@ -283,6 +286,7 @@ fr-CA:
         mode: Mode
         default_assessment: Évaluation foncière par défaut
         tax_rate: Taux d'imposition foncière
+        change_required: Les participants doivent changer le budget
 
         logo: Logo
         remove_logo: Supprimer logo

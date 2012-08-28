@@ -15,6 +15,7 @@
     = f.input :mode, as: :radio, collection: Questionnaire::MODES.map{|m| [t(m, scope: :mode), m]}
     = f.input :default_assessment
     = f.input :tax_rate, min: 0, max: 1
+    = f.input :change_required
 
   = f.inputs t('legend.appearance') do
     - if resource.logo?

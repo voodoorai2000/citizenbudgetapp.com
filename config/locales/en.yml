@@ -213,14 +213,17 @@ en:
           pageviews: Pageviews
           other: Other
         table:
-          days_header: Days elapsed
+          days_elapsed_header: Days elapsed
+          days_left_header: Days left
           responses_header: Number of submissions
           time_to_complete_header: Median time to complete
           participation_rate_header: Participation rate
           visitors_header: Visitors
           visits_header: Visits
           pageviews_header: Pageviews
+          summary_report_header: Summary report
           download_raw_header: Download raw data
+          view: View
           # If your language has more or fewer plural forms than English, you
           # may need to add keys for :zero, :two, :few and/or :many.
           days:
@@ -344,6 +347,7 @@ en:
         mode: Mode
         default_assessment: Default property assessment
         tax_rate: Property tax rate
+        change_required: Respondents must change the budget to submit
 
         # Appearance
         logo: Logo

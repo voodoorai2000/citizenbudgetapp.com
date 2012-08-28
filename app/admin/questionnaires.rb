@@ -117,6 +117,13 @@ ActiveAdmin.register Questionnaire do
       row :tax_rate do |q|
         number_to_percentage(q.tax_rate * 100, strip_insignificant_zeros: true) if q.tax_rate?
       end
+      row :change_required do |q|
+        if q.change_required?
+          t :yes
+        else
+          t :no
+        end
+      end
 
       # Appearance
       row :logo do |q|
