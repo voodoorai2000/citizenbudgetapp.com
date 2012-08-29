@@ -338,8 +338,11 @@ body.summary {
     }
   }
   .subdue {
-    opacity: 0.6;
-    filter: alpha(opacity=60);
+    h5,
+    p,
+    table {
+      color: #666;
+    }
   }
   .positive {
     color: #090;

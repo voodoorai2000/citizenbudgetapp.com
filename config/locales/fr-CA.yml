@@ -201,10 +201,10 @@ fr-CA:
             onoff:
               revenue:
                 positive: des participants l'ont choisi, représentant un gain de %{maximum_amount}.
-                negative: des participants l'ont choisi, représentant une perte de %{maximum_amount}.
+                negative: des participants l'ont choisi, représentant une perte de %{minimum_amount}.
               expense:
                 positive: des participants l'ont choisi au coût de %{maximum_amount}.
-                negative: des participants l'ont choisi pour faire une économie de %{maximum_amount}.
+                negative: des participants l'ont choisi pour faire une économie de %{minimum_amount}.
             slider: des participants l'ont modifié. Ils ont dû choisir une valeur entre %{minimum_units} (%{minimum_amount}) et %{maximum_units} (%{maximum_amount}), avec une valeur de départ de %{default_value}.
             nonbudgetary: des participants ont répondu à cette question.
           choice_and_impact:

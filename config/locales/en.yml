@@ -229,11 +229,11 @@ en:
           widget:
             onoff:
               revenue:
-                positive: chose it for a gain of %{maximum_amount}.
-                negative: chose it at a loss of %{maximum_amount}.
+                positive: chose it for a gain of <strong class="positive">%{maximum_amount}</strong>.
+                negative: chose it at a loss of <strong class="negative">%{minimum_amount}</strong>.
               expense:
-                positive: chose it at a cost of %{maximum_amount}.
-                negative: chose it for a savings of %{maximum_amount}.
+                positive: chose it at a cost of <strong class="negative">%{maximum_amount}</strong>.
+                negative: chose it for a savings of <strong class="positive">%{minimum_amount}</strong>.
             slider: modified it. Participants chose a value between %{minimum_units} (%{minimum_amount}) and %{maximum_units} (%{maximum_amount}), with a starting value of %{default_value}.
             nonbudgetary: answered this question.
           choice_and_impact:
