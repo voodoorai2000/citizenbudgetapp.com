@@ -88,6 +88,7 @@ en:
         introduction: You can use Markdown syntax.
         instructions: This text must fit within one line.
         description: This will be displayed on search engine results pages.
+        attribution: This will be displayed in the footer before a link to the product.
         thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
         google_analytics: If you use Google Analytics.
         google_analytics_profile: If you use Google Analytics.
@@ -415,6 +416,7 @@ en:
         introduction: Introductory text
         instructions: Instructions
         description: Description
+        attribution: Attribution
 
         # Thank-you email
         reply_to: Reply-to address

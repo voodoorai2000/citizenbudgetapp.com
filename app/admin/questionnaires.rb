@@ -137,6 +137,7 @@ ActiveAdmin.register Questionnaire do
       end
       row :instructions
       row :description
+      row :attribution
 
       # Thank-you email
       row :reply_to do |q|

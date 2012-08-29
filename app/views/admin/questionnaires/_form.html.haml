@@ -29,6 +29,7 @@
     = f.input :introduction, as: :text
     = f.input :instructions
     = f.input :description, as: :text, input_html: {rows: 3}
+    = f.input :attribution
 
   = f.inputs t('legend.email') do
     = f.input :reply_to, as: :email, input_html: {size: 30}

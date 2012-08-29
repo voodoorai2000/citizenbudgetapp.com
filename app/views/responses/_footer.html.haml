@@ -1,3 +1,6 @@
 %footer
-  =t '.attribution'
+  - if @questionnaire && @questionnaire.attribution.present?
+    = @questionnaire.attribution
+  - else
+    =t '.attribution'
   = link_to t('app.product_name'), t('app.product_url')

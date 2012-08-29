@@ -70,6 +70,7 @@ fr-CA:
         introduction: Vous pouvez utiliser la syntaxe Markdown.
         instructions: Ce texte doit tenir sur une ligne.
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
+        attribution: Ce texte sera affiché en bas de page avant un lien vers le produit.
         thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
         google_analytics: Si vous utilisez Google Analytics.
         google_analytics_profile: Si vous utilisez Google Analytics.
@@ -352,6 +353,7 @@ fr-CA:
         introduction: Texte de présentation
         instructions: Instructions
         description: Description
+        attribution: Attribution
 
         reply_to: Adresse de courriel de correspondance
         thank_you_template: Modèle de message de remerciement
