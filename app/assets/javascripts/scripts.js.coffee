@@ -466,9 +466,13 @@ $ ->
     $('.widget-scaler').each ->
       $widget = $ this
       $slider = $widget.find '.slider'
-      $slider.find('.tip-content').html tipContent($slider, $slider.slider('value'))
+
+      difference = Math.abs($slider.slider('value') - $slider.data('initial')) * $slider.data('value')
+      difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
+      $widget.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
       $widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))
       $widget.find('.maximum.taxes').html number_to_currency taxAmount($slider, $slider.data('maximum'))
+      $slider.find('.tip-content').html tipContent($slider, $slider.slider('value'))
 
   if disabled?
     updateBalance()
