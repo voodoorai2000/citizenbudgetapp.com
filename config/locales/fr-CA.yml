@@ -107,11 +107,16 @@ fr-CA:
   unknown_format: Les données ne sont pas disponibles dans ce format.
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: d MMM
+  percentage_format: "### %"
   language: Changer de langue
   yes: Oui
   no: Non
   untitled: Sans titre
   default: Défaut
+
+  breadcrumb:
+    admin: Admin
+    dashboard: Tableau de bord
 
   legend:
     basic: Paramètres de base
@@ -167,22 +172,58 @@ fr-CA:
     text: Champ de saisie
     textarea: Zone de saisie
 
+  statistics:
+    participation_rate: "participation de %{percentage}"
+    time_to_complete: Temps médian requis
+    responses_title: Nombre de soumissions par jour
+    visits_title: "Fréquentation de %{name} (%{property})"
+    responses: Soumissions
+    mean_number_of_changes: "Nombre moyenne de services changés, parmi %{count} services"
+    mean_magnitude_of_changes: Largeur moyenne d'un changement
+    visitors: Visiteurs
+    visits: Visites
+    pageviews: Pages vues
+    other: Autres
+
   admin:
     dashboard:
+      summary:
+        header: Rapport sommaire sur la consultation budgétaire en ligne
+        period: "Pour la période du %{starts_on} au %{ends_on}"
+        by: "Preparé par %{author} pour : %{organization}"
+
+        summary: Tendances
+        description: Le prochain tableau illustre dans quelle proportion les participants ont augmenté, réduit ou n’ont pas modifié le budget pour chaque activité ou service. Le rouge représente la proportion de participants ayant réduit le budget d’une activité. Le noir représente la proportion de personnes ayant augmenté le financement dans ce secteur. Finalement, le gris représente la proportion de personnes n’ayant pas modifié le budget du service en question. Il est possible de voir en un clin d’oeil quelles augmentations sont les plus populaires, quelles coupures sont les mieux acceptées, et les services sur lesquels il y avait plus de désaccords.
+
+        detail:
+          header: Réponses détaillées
+          widget:
+            onoff:
+              revenue:
+                positive: des participants l'ont choisi, représentant un gain de %{maximum_amount}.
+                negative: des participants l'ont choisi, représentant une perte de %{maximum_amount}.
+              expense:
+                positive: des participants l'ont choisi au coût de %{maximum_amount}.
+                negative: des participants l'ont choisi pour faire une économie de %{maximum_amount}.
+            slider: des participants l'ont modifié. Ils ont dû choisir une valeur entre %{minimum_units} (%{minimum_amount}) et %{maximum_units} (%{maximum_amount}), avec une valeur de départ de %{default_value}.
+            nonbudgetary: des participants ont répondu à cette question.
+          choice_and_impact:
+            revenue:
+              positive: Le choix moyen, incluant ceux qui n'ont pas modifié ce service, était de <strong>%{choice}</strong>, représentant un gain de <strong class="positive">%{impact}</strong>.
+              negative: Le choix moyen, incluant ceux qui n'ont pas modifié ce service, était de <strong>%{choice}</strong>, représentant une perte de <strong class="negative">%{impact}</strong>.
+            expense:
+              positive: Le choix moyen, incluant ceux qui n'ont pas modifié ce service, était de <strong>%{choice}</strong>, représentant un coût de <strong class="negative">%{impact}</strong>.
+              negative: Le choix moyen, incluant ceux qui n'ont pas modifié ce service, était de <strong>%{choice}</strong>, représentant une économie de <strong class="positive">%{impact}</strong>.
+          bidirectional: "De ceux qui l'ont modifié, %{proportion_who_decrease} l'ont réduit avec un choix moyen de %{mean_decrease}; %{proportion_who_increase} l'ont augmenté avec un choix moyen de %{mean_increase}."
+
+        demography: Démographie, etc.
+        response_rates: Taux de réponses
       future:
         copy_hint: copier dans le presse papier
         table:
           starts_at: Date de début
           url: Lien
       current:
-        chart:
-          responses_title: Nombre de soumissions par jour
-          visits_title: "Fréquentation de %{name} (%{property})"
-          responses: Soumissions
-          visitors: Visiteurs
-          visits: Visites
-          pageviews: Pages vues
-          other: Autres
         table:
           days_elapsed_header: Jours écoulés
           days_left_header: Jours restants
@@ -228,6 +269,22 @@ fr-CA:
       future: Futures
       past: Passées
 
+  number:
+    currency:
+      format:
+        precision: 0
+        strip_insignificant_zeros: true
+    percentage:
+      format:
+        precision: 1
+        strip_insignificant_zeros: true
+    precision:
+      format:
+        delimiter: ' ' # non-breaking space
+        strip_insignificant_zeros: true
+  date:
+    formats:
+      short: "%e %B"
   time:
     formats:
       short: "%e %b %Y"

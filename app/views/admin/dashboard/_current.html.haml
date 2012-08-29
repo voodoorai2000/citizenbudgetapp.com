@@ -10,19 +10,26 @@
           %table
             %tbody
               %tr
-                %th=t '.table.days_header'
+                %th=t '.table.days_elapsed_header'
                 %td=t '.table.days', count: questionnaire.days_elapsed
+              %tr
+                %th=t '.table.days_left_header'
+                %td=t '.table.days', count: questionnaire.days_left
               %tr
                 %th=t '.table.responses_header'
                 %td
-                  =t '.table.responses', count: @charts[questionnaire.id.to_s][:responses][:count]
+                  =t '.table.responses', count: number_with_delimiter(@statistics[questionnaire.id.to_s][:responses])
               %tr
                 %th=t '.table.time_to_complete_header'
                 %td= distance_of_time_in_words questionnaire.time_to_complete
               - if @charts[questionnaire.id.to_s][:visits]
                 %tr
                   %th=t '.table.participation_rate_header'
-                  %td= number_to_percentage @charts[questionnaire.id.to_s][:responses][:count] / @charts[questionnaire.id.to_s][:visits][:visitors].to_f * 100, precision: 1
+                  %td= number_to_percentage @statistics[questionnaire.id.to_s][:responses] / @statistics[questionnaire.id.to_s][:visitors].to_f * 100
+              %tr
+                %th=t '.table.summary_report_header'
+                %td
+                  = link_to t('.table.view'), admin_dashboard_summary_path(id: questionnaire)
               %tr
                 %th=t '.table.download_raw_header'
                 %td
@@ -38,13 +45,13 @@
               %tbody
                 %tr
                   %th=t '.table.visitors_header'
-                  %td= @charts[questionnaire.id.to_s][:visits][:visitors]
+                  %td= number_with_delimiter @statistics[questionnaire.id.to_s][:visitors]
                 %tr
                   %th=t '.table.visits_header'
-                  %td= @charts[questionnaire.id.to_s][:visits][:visits]
+                  %td= number_with_delimiter @statistics[questionnaire.id.to_s][:visits]
                 %tr
                   %th=t '.table.pageviews_header'
-                  %td= @charts[questionnaire.id.to_s][:visits][:pageviews]
+                  %td= number_with_delimiter @statistics[questionnaire.id.to_s][:pageviews]
         .column
           %div(id="#{dom_id(questionnaire)}_visits" style="width:600px;height:250px;")
     - if @charts[questionnaire.id.to_s][:sources]
@@ -56,8 +63,10 @@
 -# https://developers.google.com/chart/interactive/docs/gallery/linechart
 :javascript
   draw('LineChart', '#{dom_id(questionnaire)}_responses', [
-    "#{t '.chart.responses'}"
-  ], [#{@charts[questionnaire.id.to_s][:responses][:rows]}], {
+    "#{t 'statistics.responses'}"
+  ], [#{@charts[questionnaire.id.to_s][:responses]}], {
+    backgroundColor: '#f4f4f4',
+    gridlineColor: '#f4f4f4',
     hAxis: {
       baselineColor: '#f4f4f4',
       format: '#{t :icu_date_format}'
@@ -65,15 +74,17 @@
     legend: {
       position: 'none'
     },
-    title: "#{t '.chart.responses_title'}"
+    title: "#{t 'statistics.responses_title'}"
   });
 - if @charts[questionnaire.id.to_s][:visits]
   :javascript
     draw('LineChart', '#{dom_id(questionnaire)}_visits', [
-      "#{t '.chart.visitors'}",
-      "#{t '.chart.visits'}",
-      "#{t '.chart.pageviews'}"
-    ], [#{@charts[questionnaire.id.to_s][:visits][:rows]}], {
+      "#{t 'statistics.visitors'}",
+      "#{t 'statistics.visits'}",
+      "#{t 'statistics.pageviews'}"
+    ], [#{@charts[questionnaire.id.to_s][:visits]}], {
+      backgroundColor: '#f4f4f4',
+      gridlineColor: '#f4f4f4',
       hAxis: {
         baselineColor: '#f4f4f4',
         format: '#{t :icu_date_format}'
@@ -81,13 +92,15 @@
       legend: {
         position: 'bottom'
       },
-      title: "#{t '.chart.visits_title', name: @charts[questionnaire.id.to_s][:visits][:name], property: @charts[questionnaire.id.to_s][:visits][:property]}"
+      title: "#{t 'statistics.visits_title', name: @statistics[questionnaire.id.to_s][:name], property: @statistics[questionnaire.id.to_s][:property]}"
     });
 - if @charts[questionnaire.id.to_s][:sources]
   :javascript
     draw('PieChart', '#{dom_id(questionnaire)}_sources', [
-      "#{t '.chart.visitors'}"
-    ], [#{@charts[questionnaire.id.to_s][:sources][:rows]}], {
-      pieResidueSliceLabel: "#{t '.chart.other'}",
-      sliceVisibilityThreshold: 1 / 90
+      "#{t 'statistics.visitors'}"
+    ], [#{@charts[questionnaire.id.to_s][:sources]}], {
+      backgroundColor: '#f4f4f4',
+      gridlineColor: '#f4f4f4',
+      pieResidueSliceLabel: "#{t 'statistics.other'}",
+      sliceVisibilityThreshold: 1 / 180
     });

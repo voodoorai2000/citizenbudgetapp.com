@@ -87,11 +87,11 @@ module ResponsesHelper
   end
 
   # Only strip zeroes if all are insignificant.
-  def currency(number)
+  def currency(number, options = {})
     escaped_separator = Regexp.escape t(:'number.currency.format.separator', default: [:'number.format.separator', '.'])
     # This logic should be in number_with_precision, but as long as the
     # separator occurs only once, this is safe.
-    number_to_currency(number).sub /#{escaped_separator}0+\b/, ''
+    number_to_currency(number, options).sub /#{escaped_separator}0+\b/, ''
   end
 
   # @return [Integer] one column if the section has nonbudgetary questions only

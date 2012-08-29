@@ -128,11 +128,17 @@ en:
   # Express the date format to be used in graphs in ICU format:
   # http://userguide.icu-project.org/formatparse/datetime
   icu_date_format: MMM d
+  # https://developers.google.com/chart/interactive/docs/reference#numberformatter
+  percentage_format: "###%"
   language: Switch language
   yes: Yes
   no: No
   untitled: Untitled
   default: Default
+
+  breadcrumb:
+    admin: Admin
+    dashboard: Dashboard
 
   # These strings appear when editing a questionnaire, a section or its questions.
   legend:
@@ -194,8 +200,53 @@ en:
     text: Text box
     textarea: Text area
 
+  statistics:
+    participation_rate: "%{percentage} participation"
+    time_to_complete: Median time to complete
+    responses_title: Responses per day
+    # Traffic to example.com (UA-XXXXXXXXX-X)
+    visits_title: "Traffic to %{name} (%{property})"
+    responses: Responses
+    mean_number_of_changes: "Average number of services changed, out of %{count}"
+    mean_magnitude_of_changes: Average magnitude of a change
+    visitors: Visitors
+    visits: Visits
+    pageviews: Pageviews
+    other: Other
+
   admin:
     dashboard:
+      summary:
+        header: Online Budget Consultation Summary Report
+        period: "For the period %{starts_on} to %{ends_on}"
+        by: "Prepared by %{author} for: %{organization}"
+
+        summary: Trends
+        description: The next table shows what proportion of participants increased, decreased or did not change the budget for each service. The red section of each bar represents the proportion of participants who decreased that activity’s budget. The black section is the proportion that increased it, and the grey section is the proportion that did not change it. It is easy to see at a glance which activities had the most support, which cuts were most popular, and which were contentious.
+
+        detail:
+          header: Responses for each question
+          widget:
+            onoff:
+              revenue:
+                positive: chose it for a gain of %{maximum_amount}.
+                negative: chose it at a loss of %{maximum_amount}.
+              expense:
+                positive: chose it at a cost of %{maximum_amount}.
+                negative: chose it for a savings of %{maximum_amount}.
+            slider: modified it. Participants chose a value between %{minimum_units} (%{minimum_amount}) and %{maximum_units} (%{maximum_amount}), with a starting value of %{default_value}.
+            nonbudgetary: answered this question.
+          choice_and_impact:
+            revenue:
+              positive: 'The average choice, including participants who did not modify this activity, was <strong>%{choice}</strong>, a gain of <strong class="positive">%{impact}</strong>.'
+              negative: 'The average choice, including participants who did not modify this activity, was <strong>%{choice}</strong>, a loss of <strong class="negative">%{impact}</strong>.'
+            expense:
+              positive: 'The average choice, including participants who did not modify this activity, was <strong>%{choice}</strong>, a cost of <strong class="negative">%{impact}</strong>.'
+              negative: 'The average choice, including participants who did not modify this activity, was <strong>%{choice}</strong>, a savings of <strong class="positive">%{impact}</strong>.'
+          bidirectional: "Of those who modified it, %{proportion_who_decrease} decreased it with an average choice of %{mean_decrease}, and %{proportion_who_increase} increased it with an average choice of %{mean_increase}."
+
+        demography: Demography, etc.
+        response_rates: Response rates
       future:
         copy_hint: copy to clipboard
         table:
@@ -203,15 +254,6 @@ en:
           starts_at: Starts on
           url: URL
       current:
-        chart:
-          responses_title: Responses per day
-          # Traffic to example.com (UA-XXXXXXXXX-X)
-          visits_title: "Traffic to %{name} (%{property})"
-          responses: Responses
-          visitors: Visitors
-          visits: Visits
-          pageviews: Pageviews
-          other: Other
         table:
           days_elapsed_header: Days elapsed
           days_left_header: Days left
@@ -285,6 +327,22 @@ en:
   # In English, we override the following default Rails translations. Check the
   # Rails translations for your language in case you need to change them, too.
   # The original English translations are given in the comments below.
+  number:
+    currency:
+      format:
+        precision: 0
+        strip_insignificant_zeros: true
+    percentage:
+      format:
+        precision: 1
+        strip_insignificant_zeros: true
+    precision:
+      format:
+        delimiter: ','
+        strip_insignificant_zeros: true
+  date:
+    formats:
+      short: "%B %e" # ! '%b %e'
   time:
     formats:
       long: "%B %e, %Y at %H:%M" # ! '%B %d, %Y %H:%M'

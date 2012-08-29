@@ -11,6 +11,10 @@ class Question
   # the on/off switch for budgetary questions.
   WIDGETS = %w(checkbox checkboxes onoff radio readonly scaler select slider text textarea)
 
+  # @note Check boxes, radio buttons and select lists are currently used for
+  #   non-budgetary questions, but that will not necessarily the case.
+  NONBUDGETARY_WIDGETS = %w(checkbox checkboxes radio readonly select text textarea)
+
   embedded_in :section
 
   # Drupal Form API keys
@@ -59,6 +63,8 @@ class Question
   after_initialize :get_options
   before_validation :set_options
 
+  scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS)
+  scope :nonbudgetary, where(:widget.in => NONBUDGETARY_WIDGETS)
   default_scope asc(:position)
 
   # @return [String] the name to display in the administrative interface
@@ -77,10 +83,8 @@ class Question
   end
 
   # @return [Boolean] whether it is a nonbudgetary question
-  # @note Check boxes, radio buttons and select lists are currently used for
-  #   non-budgetary questions, but that will not necessarily the case.
   def nonbudgetary?
-    %w(checkbox checkboxes radio readonly select text textarea).include? widget
+    NONBUDGETARY_WIDGETS.include? widget
   end
 
   # @return [Boolean] whether it is a budgetary question

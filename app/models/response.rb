@@ -20,7 +20,7 @@ class Response
   validates_presence_of :questionnaire_id, :initialized_at, :answers, :ip
   # We don't do more ambitious validation to avoid excluding valid responses.
 
-  # Backwards-compatibility
+  # Backwards compatibility.
   GENDERS = %w(male female)
   field :postal_code, type: String
   field :gender, type: String
@@ -46,6 +46,12 @@ class Response
     question.cast_value answer(question)
   end
 
+  # @param [Question] question a question
+  # @return the financial impact of the answer to the question
+  def impact(question)
+    (cast_answer(question) - question.cast_default_value) * question.unit_amount
+  end
+
   # @return [String] the full first name and last name initial
   def display_name
     if name?
@@ -67,7 +73,7 @@ class Response
     if questionnaire.email_required? && email.blank?
       errors[:email] = I18n.t('errors.messages.blank')
     end
-    # Backwards-compatibility.
+    # Backwards compatibility.
     if questionnaire.sections.nonbudgetary.none? && postal_code.blank?
       errors[:postal_code] = I18n.t('errors.messages.blank')
     end
@@ -84,14 +90,11 @@ class Response
           changed = true
         end
 
-        cast_value = cast_answer question
-
         if questionnaire.balance? && question.budgetary?
-          impact = (cast_value - question.cast_default_value) * question.unit_amount
           if section.group == 'revenue'
-            balance += impact
+            balance += impact question
           else
-            balance -= impact
+            balance -= impact question
           end
         end
 
@@ -107,7 +110,7 @@ class Response
             errors[question.id.to_s] = I18n.t('errors.messages.inclusion')
           end
         elsif question.options?
-          unless question.options.include? cast_value
+          unless question.options.include? cast_answer(question)
             errors[question.id.to_s] = I18n.t('errors.messages.inclusion')
           end
         end

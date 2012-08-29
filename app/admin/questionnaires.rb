@@ -112,10 +112,10 @@ ActiveAdmin.register Questionnaire do
         t(q.mode, scope: :mode) if q.mode?
       end
       row :default_assessment do |q|
-        number_to_currency(q.default_assessment, strip_insignificant_zeros: true) if q.default_assessment?
+        number_to_currency(q.default_assessment) if q.default_assessment?
       end
       row :tax_rate do |q|
-        number_to_percentage(q.tax_rate * 100, strip_insignificant_zeros: true) if q.tax_rate?
+        number_to_percentage(q.tax_rate * 100, precision: 6) if q.tax_rate?
       end
       row :change_required do |q|
         if q.change_required?

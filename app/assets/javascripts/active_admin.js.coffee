@@ -82,12 +82,10 @@ window.draw = (chart_type, id, headers, rows, options) ->
     data = new google.visualization.DataTable()
     data.addColumn if chart_type is 'LineChart' then 'date' else 'string'
     data.addColumn('number', header) for header in headers
+    data.addColumn({type: 'string', role: 'tooltip'}) if options.tooltip?
     data.addRows(rows)
     new google.visualization.drawChart
       chartType: chart_type
       containerId: id
       dataTable: data
-      options: $.extend
-        backgroundColor: '#f4f4f4'
-        gridlineColor: '#f4f4f4'
-      , options
+      options: options
