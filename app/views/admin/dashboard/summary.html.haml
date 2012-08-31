@@ -51,7 +51,8 @@
         %p
           %strong= number_to_percentage @details[q.id.to_s][:percentage_of_population] * 100
           - if q.widget == 'scaler'
-            -# @todo
+            =t '.detail.widget.scaler', minimum_units: number_to_percentage(q.minimum_units * 100), maximum_units: number_to_percentage(q.maximum_units * 100), default_value: number_to_percentage(q.cast_default_value * 100)
+            =t('.detail.choice', choice: number_to_percentage(@details[q.id.to_s][:mean_choice] * 100)).html_safe
           - elsif q.widget == 'slider'
             -# @todo Figure out where ActiveAdmin puts its helpers.
             =t '.detail.widget.slider', minimum_units: number_with_precision(q.minimum_units), minimum_amount: number_to_currency(q.minimum_amount), maximum_units: number_with_precision(q.maximum_units), maximum_amount: number_to_currency(q.maximum_amount), default_value: q.default_value
@@ -90,7 +91,7 @@
   - gender_count = gender.count.to_f
   - gender_data  = Response::GENDERS.map{|g| v = @responses.where(gender: g).count; [t(g, scope: :gender), v / gender_count, number_to_percentage(v / gender_count * 100)]}
 
-  - age       = @responses.where(:age.nin => [nil, 0])
+  - age       = @responses.where(:age.exists => true, :age.nin => [nil, 0])
   - age_count = age.count.to_f
   - age_data  = age.min(:age).to_i.upto(age.max(:age).to_i).map{|a| v = @responses.where(age: a).count; [a.to_s, v / age_count, number_to_percentage(v / age_count * 100)]}
 
@@ -183,10 +184,11 @@
       = @statistics[:mean_number_of_changes].round
     .title
       =t 'statistics.mean_number_of_changes', count: @number_of_budgetary_questions
-  .bar
-    .number
-      = number_to_currency @statistics[:mean_magnitude_of_changes]
-    .title
-      =t 'statistics.mean_magnitude_of_changes'
+  - unless @questionnaire.mode == 'taxes'
+    .bar
+      .number
+        = number_to_currency @statistics[:mean_magnitude_of_changes]
+      .title
+        =t 'statistics.mean_magnitude_of_changes'
 
 -# @todo Add timeline and web traffic.

@@ -206,6 +206,7 @@ fr-CA:
               expense:
                 positive: des participants l'ont choisi au coût de <strong class="negative">%{maximum_amount}</strong>.
                 negative: des participants l'ont choisi pour faire une économie de <strong class="positive">%{minimum_amount}</strong>.
+            scaler: des participants l'ont modifié. Ils ont dû choisir une valeur entre %{minimum_units} et %{maximum_units}, avec une valeur de départ de %{default_value}.
             slider: des participants l'ont modifié. Ils ont dû choisir une valeur entre %{minimum_units} (%{minimum_amount}) et %{maximum_units} (%{maximum_amount}), avec une valeur de départ de %{default_value}.
             nonbudgetary: des participants ont répondu à cette question.
           choice_and_impact:
