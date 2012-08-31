@@ -1,1 +1,1 @@
-ENV['RAILS_APP_VERSION'] = 'affc938'
+ENV['RAILS_APP_VERSION'] = '6ecd2bf'
