@@ -91,7 +91,7 @@
   - gender_count = gender.count.to_f
   - gender_data  = Response::GENDERS.map{|g| v = @responses.where(gender: g).count; [t(g, scope: :gender), v / gender_count, number_to_percentage(v / gender_count * 100)]}
 
-  - age       = @responses.where(:age.exists => true, :age.nin => [nil, 0])
+  - age       = @responses.where(:age.exists => true, :age.nin => [nil, 0, 1])
   - age_count = age.count.to_f
   - age_data  = age.min(:age).to_i.upto(age.max(:age).to_i).map{|a| v = @responses.where(age: a).count; [a.to_s, v / age_count, number_to_percentage(v / age_count * 100)]}
 
