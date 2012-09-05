@@ -17,6 +17,7 @@ $ ->
   bar_left = 100
   assessment_period = 12.0 # monthly
   instructions = $('#message').text()
+  pulsated = false
 
   colors =
     revenue:
@@ -327,6 +328,10 @@ $ ->
     else
       $messages.html t("#{questionnaire_mode}_surplus", number: number, percentage: percentage)
     $reminder.toggleClass 'hide', !changed
+
+    if changed and not pulsated
+      pulsated = true
+      $message.effect 'pulsate', times: 2
 
     if balance >= 0 and changed
       $message.animate 'background-color': colors[questionnaire_mode].message.background.positive, 'color': colors[questionnaire_mode].message.foreground.positive

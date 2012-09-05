@@ -352,7 +352,7 @@ label.iOSCheckLabelOff.reverse {
   box-shadow: none;
 }
 
-/* Identification ------------------------------------------------------------*/
+/* Submit --------------------------------------------------------------------*/
 
 legend span {
   padding-left: 160px;
@@ -399,6 +399,10 @@ footer {
 }
 #reminder {
   font-weight: bold;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: #ff0;
+  color: #000;
 }
 
 #whitespace {
