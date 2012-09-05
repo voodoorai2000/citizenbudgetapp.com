@@ -14,13 +14,13 @@ class ResponsesController < ApplicationController
   def new
     @response = @questionnaire.responses.build initialized_at: Time.now.utc
     build_questionnaire
-    fresh_when @questionnaire, public: true
+    fresh_when @questionnaire, public: true if Rails.env.production?
   end
 
   def show
     @response = @questionnaire.responses.find params[:id]
     build_questionnaire
-    fresh_when @response, public: true
+    fresh_when @response, public: true if Rails.env.production?
   end
 
   def create
