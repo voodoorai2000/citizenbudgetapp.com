@@ -17,6 +17,7 @@ fr-CA:
   questionnaires:
     questionnaire:
       your_choice: Votre choix
+      assessment_period: $ par mois
 
   responses:
     new:

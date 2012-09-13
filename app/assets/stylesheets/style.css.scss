@@ -177,17 +177,23 @@ $widget-margin: 50px;
 .widget {
   width: $column-width - $widget-margin * 2;
   margin: 0 $widget-margin;
+  .note {
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+  }
   .taxes {
     color: #000;
     font-size: 1.5em;
   }
 }
 .impact {
+  visibility: hidden;
+  padding-bottom: 5px;
   color: #000;
   font-size: 1.08em;
   font-weight: bold;
-  padding-bottom: 5px;
-  visibility: hidden;
+  text-align: center;
 }
 .widget-slider .impact,
 .widget-scaler .impact {

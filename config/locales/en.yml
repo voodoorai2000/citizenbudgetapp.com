@@ -31,6 +31,7 @@ en:
   questionnaires:
     questionnaire:
       your_choice: Your choice
+      assessment_period: $/month
 
   responses:
     new:
