@@ -73,6 +73,9 @@ fr-CA:
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         attribution: Ce texte sera affiché en bas de page avant un lien vers le produit.
         thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
+        response_notice: Court message de remerciement affiché lors d'une soumission.
+        response_preamble: Vous pouvez utiliser la syntaxe Markdown.
+        response_body: Vous pouvez utiliser la syntaxe Markdown.
         google_analytics: Si vous utilisez Google Analytics.
         google_analytics_profile: Si vous utilisez Google Analytics.
         twitter_screen_name: Si vous utilisez Twitter.
@@ -123,6 +126,7 @@ fr-CA:
   legend:
     basic: Paramètres de base
     email: Message de remerciement
+    response: Page personnelle
     mode: Mode
     appearance: Apparence
     integration: Logiciels tierce partie
@@ -358,7 +362,11 @@ fr-CA:
         attribution: Attribution
 
         reply_to: Adresse de courriel de correspondance
-        thank_you_template: Modèle de message de remerciement
+        thank_you_template: Modèle de courriel de remerciement
+
+        response_notice: Message de remerciement
+        response_preamble: Texte avant les options de partage social
+        response_body: Texte avant les choix budgétaires
 
         google_analytics: Code de suivi Google Analytics
         google_analytics_profile: Identifiant de profil Google Analytics

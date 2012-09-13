@@ -91,6 +91,9 @@ en:
         description: This will be displayed on search engine results pages.
         attribution: This will be displayed in the footer before a link to the product.
         thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
+        response_notice: Short thank-you message shown after each submission.
+        response_preamble: You can use Markdown syntax.
+        response_body: You can use Markdown syntax.
         google_analytics: If you use Google Analytics.
         google_analytics_profile: If you use Google Analytics.
         twitter_screen_name: If you use Twitter.
@@ -146,6 +149,7 @@ en:
   legend:
     basic: Basic
     email: Thank-you email
+    response: Personal page
     mode: Mode
     appearance: Appearance
     integration: Third-party integration
@@ -409,7 +413,7 @@ en:
         mode: Mode
         default_assessment: Default property assessment
         tax_rate: Property tax rate
-        change_required: Respondents must change the budget to submit
+        change_required: Respondents must change the budget
 
         # Appearance
         logo: Logo
@@ -424,6 +428,11 @@ en:
         # Thank-you email
         reply_to: Reply-to address
         thank_you_template: Thank-you email template
+
+        # Individual response
+        response_notice: Thank-you message
+        response_preamble: Text before social sharing options
+        response_body: Text before budget choices
 
         # Third-party integration
         google_analytics: Google Analytics tracking code

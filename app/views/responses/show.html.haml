@@ -13,7 +13,11 @@
     .alert.invitation
       =t('.invitation', url: root_path).html_safe
 
-  %p=t '.share'
+  - if @questionnaire.response_preamble.present?
+    :markdown
+      #{@questionnaire.response_preamble}
+  - else
+    %p=t '.share'
 
   .well.share-well
     %p
@@ -27,6 +31,10 @@
       %p
         = curly_quote @questionnaire.twitter_share_text
         = twitter_button 'data-count' => 'none', 'data-size' => 'large', 'data-text' => @questionnaire.twitter_share_text, 'data-url' => response_url(@response)
+
+  - if @questionnaire.response_body.present?
+    :markdown
+      #{@questionnaire.response_body}
 
   %nav
     %ul.nav.nav-pills

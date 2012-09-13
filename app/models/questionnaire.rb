@@ -43,6 +43,11 @@ class Questionnaire
   field :reply_to, type: String
   field :thank_you_template, type: String
 
+  # Individual response
+  field :response_notice, type: String
+  field :response_preamble, type: String
+  field :response_body, type: String
+
   # Third-party integration
   field :google_analytics, type: String # tracking code
   field :google_analytics_profile, type: String # table ID

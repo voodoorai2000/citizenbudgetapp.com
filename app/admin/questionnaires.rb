@@ -149,6 +149,15 @@ ActiveAdmin.register Questionnaire do
         end
       end
 
+      # Individual response
+      row :response_notice
+      row :response_preamble do |q|
+        RDiscount.new(q.response_preamble).to_html.html_safe if q.response_preamble?
+      end
+      row :response_body do |q|
+        RDiscount.new(q.response_body).to_html.html_safe if q.response_body?
+      end
+
       # Third-party integration
       row :google_analytics
       row :google_analytics_profile
