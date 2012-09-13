@@ -30,7 +30,7 @@
               - if q.description?
                 :markdown
                   #{q.description}
-              - # @todo Implement checkbox, readonly, select, text, textarea widgets.
+              - # @todo Implement checkbox, readonly, select widgets.
               - if %w(checkboxes radio).include? q.widget
                 %fieldset
                   .control-group
@@ -51,6 +51,11 @@
                             - else
                               = radio_button_tag q.id, option
                             = option
+              - elsif %w(text textarea).include? q.widget
+                - if q.widget == 'text'
+                  = text_field_tag q.id, nil, html_attributes(q)
+                - elsif q.widget == 'textarea'
+                  = text_area_tag q.id, nil, html_attributes(q)
           - else
             %td.description
               %h3
