@@ -65,10 +65,8 @@
                     %span.key
                     %span.value= number_to_currency 0
                   - if q.widget == 'scaler' && @questionnaire.mode == 'taxes' # @note Special case.
-                    .meta.maximum.taxes
-                      = currency q.maximum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD, precision: 2, strip_insignificant_zeros: false
-                    .meta.minimum.taxes
-                      = currency q.minimum_units * q.unit_amount * @questionnaire.default_assessment / Questionnaire::ASSESSMENT_PERIOD, precision: 2, strip_insignificant_zeros: false
+                    .meta.maximum.taxes +
+                    .meta.minimum.taxes -
                   - elsif q.unit_name == '$' && q.unit_amount == 1 # @todo Make currency symbol more flexible.
                     .meta.maximum &nbsp;
                     .meta.minimum &nbsp;

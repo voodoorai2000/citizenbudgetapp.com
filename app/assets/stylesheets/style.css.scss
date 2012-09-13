@@ -177,6 +177,10 @@ $widget-margin: 50px;
 .widget {
   width: $column-width - $widget-margin * 2;
   margin: 0 $widget-margin;
+  .taxes {
+    color: #000;
+    font-size: 1.5em;
+  }
 }
 .impact {
   color: #000;
