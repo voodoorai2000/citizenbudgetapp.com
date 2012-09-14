@@ -61,7 +61,7 @@
               =t '.detail.bidirectional', proportion_who_decrease: number_to_percentage(@details[q.id.to_s][:proportion_who_decrease] * 100, precision: 0), mean_decrease: number_with_precision(@details[q.id.to_s][:mean_decrease], precision: 1), proportion_who_increase: number_to_percentage(@details[q.id.to_s][:proportion_who_increase] * 100, precision: 0), mean_increase: number_with_precision(@details[q.id.to_s][:mean_increase], precision: 1)
           - elsif q.widget == 'onoff'
             =t(".detail.widget.onoff.#{q.section.group}.#{@details[q.id.to_s][:mean_impact] >= 0 ? :positive : :negative}", minimum_amount: number_to_currency(q.minimum_amount.abs), maximum_amount: number_to_currency(q.maximum_amount.abs)).html_safe
-    - else
+    - elsif q.options?
       %div.question.stress
         %h5
           %span= i += 1
