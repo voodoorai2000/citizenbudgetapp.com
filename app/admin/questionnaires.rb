@@ -78,111 +78,133 @@ ActiveAdmin.register Questionnaire do
   form partial: 'form'
 
   show title: ->(q){truncate display_name(q), length: 35, separator: ' '} do
-    attributes_table do
-      # Basic
-      row :title
-      row :organization do |q|
-        auto_link q.organization
-      end
-      row :locale do |q|
-        Locale.locale_name(q.locale) if q.locale?
-      end
-      row :starts_at do |q|
-        l(q.starts_at.in_time_zone(q.time_zone), format: :long) if q.starts_at?
-      end
-      row :ends_at do |q|
-        l(q.ends_at.in_time_zone(q.time_zone), format: :long) if q.ends_at?
-      end
-      row :time_zone do |q|
-        TimeZoneI18n[q.time_zone].human if q.time_zone?
-      end
-      row :domain do |q|
-        link_to(q.domain, q.domain_url) if q.domain?
-      end
-      row :email_required do |q|
-        if q.email_required?
-          t :yes
-        else
-          t :no
+    panel t('legend.basic') do
+      attributes_table_for questionnaire do
+        row :title
+        row :organization do |q|
+          auto_link q.organization
+        end
+        row :locale do |q|
+          Locale.locale_name(q.locale) if q.locale?
+        end
+        row :starts_at do |q|
+          l(q.starts_at.in_time_zone(q.time_zone), format: :long) if q.starts_at?
+        end
+        row :ends_at do |q|
+          l(q.ends_at.in_time_zone(q.time_zone), format: :long) if q.ends_at?
+        end
+        row :time_zone do |q|
+          TimeZoneI18n[q.time_zone].human if q.time_zone?
+        end
+        row :domain do |q|
+          link_to(q.domain, q.domain_url) if q.domain?
+        end
+        row :email_required do |q|
+          if q.email_required?
+            t :yes
+          else
+            t :no
+          end
         end
       end
+    end
 
-      # Mode
-      row :mode do |q|
-        t(q.mode, scope: :mode) if q.mode?
-      end
-      row :default_assessment do |q|
-        number_to_currency(q.default_assessment) if q.default_assessment?
-      end
-      row :tax_rate do |q|
-        number_to_percentage(q.tax_rate * 100, precision: 6) if q.tax_rate?
-      end
-      row :change_required do |q|
-        if q.change_required?
-          t :yes
-        else
-          t :no
+    panel  t('legend.mode') do
+      attributes_table_for questionnaire do
+        row :mode do |q|
+          t(q.mode, scope: :mode) if q.mode?
+        end
+        if questionnaire.mode == 'taxes'
+          row :default_assessment do |q|
+            number_to_currency(q.default_assessment) if q.default_assessment?
+          end
+          row :tax_rate do |q|
+            number_to_percentage(q.tax_rate * 100, precision: 6) if q.tax_rate?
+          end
+        end
+        row :change_required do |q|
+          if q.change_required?
+            t :yes
+          else
+            t :no
+          end
         end
       end
+    end
 
-      # Appearance
-      row :logo do |q|
-        link_to(image_tag(q.logo.large.url), q.logo_url) if q.logo?
+    panel t('legend.appearance') do
+      attributes_table_for questionnaire do
+        row :logo do |q|
+          link_to(image_tag(q.logo.large.url), q.logo_url) if q.logo?
+        end
+        row :title_image do |q|
+          link_to(image_tag(q.title_image.square.url), q.title_image_url) if q.title_image?
+        end
+        row :introduction do |q|
+          RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
+        end
+        row :instructions
+        row :description
+        row :attribution
       end
-      row :title_image do |q|
-        link_to(image_tag(q.title_image.square.url), q.title_image_url) if q.title_image?
-      end
-      row :introduction do |q|
-        RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
-      end
-      row :instructions
-      row :description
-      row :attribution
+    end
 
-      # Thank-you email
-      row :reply_to do |q|
-        mail_to(q.reply_to) if q.reply_to?
-      end
-      row :thank_you_template do |q|
-        if q.thank_you_template?
-          simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')
+    panel t('legend.email') do
+      attributes_table_for questionnaire do
+        row :reply_to do |q|
+          mail_to(q.reply_to) if q.reply_to?
+        end
+        row :thank_you_template do |q|
+          if q.thank_you_template?
+            simple_format Mustache.render(q.thank_you_template, name: t(:example_name), url: 'http://example.com/xxxxxx')
+          end
         end
       end
+    end
 
-      # Individual response
-      row :response_notice
-      row :response_preamble do |q|
-        RDiscount.new(q.response_preamble).to_html.html_safe if q.response_preamble?
+    panel t('legend.response') do
+      attributes_table_for questionnaire do
+        row :response_notice
+        row :response_preamble do |q|
+          RDiscount.new(q.response_preamble).to_html.html_safe if q.response_preamble?
+        end
+        row :response_body do |q|
+          RDiscount.new(q.response_body).to_html.html_safe if q.response_body?
+        end
       end
-      row :response_body do |q|
-        RDiscount.new(q.response_body).to_html.html_safe if q.response_body?
+    end
+
+    panel t('legend.integration') do
+      attributes_table_for questionnaire do
+        row :google_analytics
+        row :google_analytics_profile
+        row :twitter_screen_name
+        row :twitter_text
+        row :twitter_share_text
+        row :facebook_app_id
       end
+    end
 
-      # Third-party integration
-      row :google_analytics
-      row :google_analytics_profile
-      row :twitter_screen_name
-      row :twitter_text
-      row :twitter_share_text
-      row :facebook_app_id
-
-      row :sections do |q|
-        if q.sections.present?
-          ul(class: can?(:update, q) ? 'sortable' : '') do
-            q.sections.each do |s|
-              li(id: dom_id(s)) do
-                if can?(:update, s)
-                  i(class: 'icon-move')
+    panel Question.model_name.human(count: 1.1) do
+      attributes_table_for questionnaire do
+        row :sections do |q|
+          if q.sections.present?
+            ul(class: can?(:update, q) ? 'sortable' : '') do
+              q.sections.each do |s|
+                li(id: dom_id(s)) do
+                  if can?(:update, s)
+                    i(class: 'icon-move')
+                  end
+                  text_node link_to_if can?(:read, s), s.name, [:admin, q, s]
                 end
-                text_node link_to_if can?(:read, s), s.name, [:admin, q, s]
               end
             end
           end
+          if can? :create, Section
+            div link_to t(:new_section), [:new, :admin, q, :section], class: 'button'
+          end
+          '@todo https://github.com/gregbell/active_admin/pull/1479'
         end
-        if can? :create, Section
-          div link_to t(:new_section), [:new, :admin, q, :section], class: 'button'
-        end
-        '@todo https://github.com/gregbell/active_admin/pull/1479'
       end
     end
   end
