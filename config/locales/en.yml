@@ -112,7 +112,8 @@ en:
       question:
         description: You can use Markdown syntax.
         extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.
-        unit_name: Use the plural form.
+        unit_amount: Omit currency signs.
+        unit_name: Use the lowercase plural form.
         options_as_list: Put each option on a separate line.
         step: You can often set this to 1.
         default_value: If this is a check box, 1 is checked, 0 is unchecked.

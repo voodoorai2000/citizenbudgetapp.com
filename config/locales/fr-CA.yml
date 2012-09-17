@@ -94,7 +94,8 @@ fr-CA:
       question:
         description: Vous pouvez utiliser la syntaxe Markdown.
         extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
-        unit_name: Utilisez la forme plurielle.
+        unit_amount: Omettez le signe monétaire.
+        unit_name: Utilisez la forme plurielle en minuscule.
         options_as_list: Mettez chaque option sur une nouvelle ligne.
         step: Généralement vous pouvez utiliser une tranche de 1.
         default_value: Si le composant est une case à cocher, mettez 1 pour qu'elle soit cochée par défault ou 0 pour qu'elle ne le soit pas.
