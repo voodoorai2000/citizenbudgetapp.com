@@ -35,6 +35,15 @@ $ ->
       .done (request) ->
         $target.effect 'highlight'
 
+  toggle_mode = ->
+    value = $('input[name="questionnaire[mode]"]:checked').val()
+    $("#questionnaire_default_assessment_input,
+       #questionnaire_tax_rate_input"
+    ).toggle(value == 'taxes')
+
+  $('input[name="questionnaire[mode]"]').change toggle_mode
+  toggle_mode()
+
   # Display the appropriate options for the selected widget.
   setup_fieldset = (i) ->
     widget = $("#section_questions_attributes_#{i}_widget")

@@ -18,7 +18,7 @@ en:
   facebook_width: 155
 
   # This message appears after the participant submits their response.
-  create_response: Thank you for your participation! Your opinion is important to us.
+  create_response: &response_notice Thank you for your participation! Your opinion is important to us.
 
   # The subject of the thank-you email that is sent to participants.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
@@ -35,7 +35,7 @@ en:
 
   responses:
     new:
-      instructions: Change an activity to start
+      instructions: &instructions Change an activity to start
       assessment: Enter your current property value assessment or use the pre-set value
       default_assessment: "(%{number})"
       # If the currency unit should appear before the number, populate
@@ -49,7 +49,7 @@ en:
       submit_your_choices: Submit your choices
     show:
       header: "%{name} rebalanced the budget !"
-      share: We encourage you to share and discuss your budget choices below with your friends and family.
+      share: &response_preamble We encourage you to share and discuss your budget choices below with your friends and family.
       share_link: "Copy this link to share your budget choices:"
       copy_hint: copy to clipboard
       tweet: Tweet
@@ -65,7 +65,7 @@ en:
     modal:
       close: Close
     footer:
-      attribution: Get your own budget consultation from
+      attribution: &attribution Get your own budget consultation from
 
   # --- Both public and administrative sections --------------------------------
 
@@ -76,15 +76,20 @@ en:
       response:
         email: name@example.com
         postal_code: H0H 0H0
+      questionnaire:
+        instructions: *instructions
+        attribution: *attribution
+        response_notice: *response_notice
+        response_preamble: *response_preamble
     hints:
       response:
         email: We will not share your e-mail address or other contact information with any third-parties.
       # The remaining translations in this section are administrative only.
       questionnaire:
-        mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees; only balanced budgets are permitted. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes; non-balanced budgets are permitted.
         starts_at: Set the time in UTC.
         ends_at: Set the time in UTC.
         domain: You must set your domain's DNS to point to our servers.
+        mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees; only balanced budgets are permitted. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes; non-balanced budgets are permitted.
         tax_rate: Enter the tax rate as a decimal fraction, not as a percentage.
         introduction: You can use Markdown syntax.
         instructions: This text must fit within one line.
