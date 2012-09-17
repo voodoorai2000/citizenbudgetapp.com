@@ -108,7 +108,7 @@ en:
       section:
         description: You can use Markdown syntax.
         extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.
-        embed: Paste the embed code from Speaker Deck, etc.
+        embed: This content will appear in a modal window. Paste the embed code from Speaker Deck, etc.
       question:
         description: You can use Markdown syntax.
         extra: This text will appear in a small overlay when people click for more information. You can use Markdown syntax.

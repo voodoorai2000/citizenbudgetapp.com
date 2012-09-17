@@ -90,7 +90,7 @@ fr-CA:
       section:
         description: Vous pouvez utiliser la syntaxe Markdown.
         extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
-        embed: Collez le code embed de Speaker Deck, etc.
+        embed: Ce contenu apparaîtra dans une fenêtre modale. Collez le code embed de Speaker Deck, etc.
       question:
         description: Vous pouvez utiliser la syntaxe Markdown.
         extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
