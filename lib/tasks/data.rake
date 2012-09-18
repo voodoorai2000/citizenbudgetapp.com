@@ -91,7 +91,7 @@ namespace :data do
       errors = response.validates?
 
       unless errors.empty?
-        puts "Validation failed on Response #{response.id}:"
+        puts "#{response.id} is invalid:"
 
         base = errors.delete :base
         if base
@@ -104,6 +104,12 @@ namespace :data do
         #   possible values along with the invalid value
         errors.each do |id,error|
           puts "- #{id} #{error}: #{response.answers[id]}"
+        end
+
+        puts "Delete? (y/n)"
+        if STDIN.gets == "y\n"
+          response.destroy
+          puts "Deleted #{response.id}\n\n"
         end
       end
     end
@@ -171,13 +177,28 @@ namespace :data do
   desc 'Deletes duplicate responses. If close matches are found, displays the differences for the end-user to decide.'
   task deduplicate: :environment do
     class Response
-      DIFF_EXCLUDE_KEYS = %w(_id initialized_at created_at updated_at)
+      DIFF_EXCLUDE_KEYS = %w(_id questionnaire_id initialized_at created_at updated_at)
       NON_PERSONAL_KEYS = %w(subscribe newsletter answers)
+
+      # @return [Hash] the attributes with which to calculate the difference
+      #   between responses
+      def comparable
+        attributes.except(*DIFF_EXCLUDE_KEYS)
+      end
 
       # @param [Response] other another response
       # @return [Hash] a hash of differences between this and another response
       def diff(other)
-        attributes.except(*DIFF_EXCLUDE_KEYS).diff other.attributes.except(*DIFF_EXCLUDE_KEYS)
+        comparable.diff other.comparable
+      end
+
+      # @param [Response] other another response
+      # @param [Hash] difference a hash of differences between this and the
+      #   other response
+      # @return [Array] a list of attributes that are non-empty and shared by
+      #   both responses
+      def shared(other, difference)
+        ((comparable.keys + other.comparable.keys).uniq - difference.keys).select{|key| self[key].present?}
       end
     end
 
@@ -260,7 +281,7 @@ namespace :data do
           else
             puts
             puts puts_recursive_hash difference, skip_numeric_children: true
-            puts "Are these duplicates (difference on #{difference.keys.to_sentence})? (y/n)"
+            puts "Are #{a.id} and #{b.id} duplicates (difference on #{difference.keys.to_sentence})? (y/n)\n- Same and non-empty on #{a.shared(b, difference).to_sentence}"
             if STDIN.gets == "y\n"
               b.destroy
               responses.delete_at i + j + 1
