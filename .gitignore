@@ -14,5 +14,8 @@
 /log/*.log
 /tmp
 
+# Sets environment variables that are set in the production environment.
 /config/initializers/_heroku.rb
+
+# CarrierWave saves files to this directory in the development environment.
 /public/uploads
