@@ -1,4 +1,5 @@
 class ResponsesController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   prepend_before_filter :find_questionnaire # run before #set_locale
 
   # http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
