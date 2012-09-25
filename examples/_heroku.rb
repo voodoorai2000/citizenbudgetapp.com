@@ -1,7 +1,3 @@
-# Used in:
-#   config/initializers/secret_token.rb
-ENV['SECRET_TOKEN'] = '0f335277346092f873dd7e15546fcd65fc44b2192def45cbf0a777c54dce9b2bd896b44d5ace1d4e1ddeacee9bb538de30772a55dfb37584dfeaf507c1fa390f'
-
 # The default From: address for both mailers, and the default Reply-to: address
 # for the admin mailer.
 #
