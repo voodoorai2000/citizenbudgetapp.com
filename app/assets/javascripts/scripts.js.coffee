@@ -198,7 +198,8 @@ $ ->
   # @return [Integer] the participant's custom property assessment
   # @todo Non-English participants may enter a comma as the decimal mark.
   customAssessment = ->
-    parseFloat $('#assessment input').val().replace(/[^0-9.]/, '')
+    if $('#assessment input').length
+      parseFloat $('#assessment input').val().replace(/[^0-9.]/, '')
 
   # @return [Integer] the participant's property assessment
   propertyAssessment = ->

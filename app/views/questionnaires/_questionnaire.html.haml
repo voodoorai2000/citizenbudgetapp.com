@@ -14,104 +14,105 @@
               #{section.description}
     %tbody
       - section.questions.each do |q|
-        %tr
-          - if q.readonly?
-            %td.description(colspan="#{colspan(section)}")
-              - if q.title?
+        - unless @response.persisted? && %w(text textarea).include?(q.widget)
+          %tr
+            - if q.readonly?
+              %td.description(colspan="#{colspan(section)}")
+                - if q.title?
+                  %h3
+                    = render partial: 'title', locals: {object: q, placement: 'bottom'}
+                - if q.description?
+                  :markdown
+                    #{q.description}
+            - elsif q.nonbudgetary?
+              %td.description(colspan="#{colspan(section)}")
                 %h3
                   = render partial: 'title', locals: {object: q, placement: 'bottom'}
-              - if q.description?
-                :markdown
-                  #{q.description}
-          - elsif q.nonbudgetary?
-            %td.description(colspan="#{colspan(section)}")
-              %h3
-                = render partial: 'title', locals: {object: q, placement: 'bottom'}
-              - if q.description?
-                :markdown
-                  #{q.description}
-              - # @todo Implement checkbox, readonly, select widgets.
-              - if %w(checkboxes radio).include? q.widget
-                %fieldset
-                  .control-group
-                    .controls
-                      - if q.widget == 'checkboxes'
-                        - q.options.each do |option|
-                          = label_tag nil, class: 'checkbox' do
-                            - if @response.persisted?
-                              = check_box_tag "#{q.id}[]", option, @response.answer(q).include?(option), disabled: true
-                            - else
-                              = check_box_tag "#{q.id}[]", option
-                            = option
-                      - elsif q.widget == 'radio'
-                        - q.options.each do |option|
-                          = label_tag nil, class: 'radio' do
-                            - if @response.persisted?
-                              = radio_button_tag q.id, option, @response.answer(q) == option, disabled: true
-                            - else
-                              = radio_button_tag q.id, option
-                            = option
-              - elsif %w(text textarea).include? q.widget
-                - if q.widget == 'text'
-                  = text_field_tag q.id, nil, html_attributes(q)
-                - elsif q.widget == 'textarea'
-                  = text_area_tag q.id, nil, html_attributes(q)
-          - else
-            %td.description
-              %h3
-                = render partial: 'title', locals: {object: q, placement: 'top'}
-              - if q.description?
-                :markdown
-                  #{q.description}
-            %td.highlight
-              %div(class="widget widget-#{q.widget}")
-                - if %w(scaler slider).include? q.widget
-                  .impact
-                    %span.key
-                    %span.value= number_to_currency 0
-                  - if @questionnaire.mode == 'taxes'
-                    .note=t '.assessment_period'
-                  - if q.widget == 'scaler' && @questionnaire.mode == 'taxes' # @note Special case.
-                    .meta.maximum.taxes +
-                    .meta.minimum.taxes -
-                  - elsif q.unit_name == '$' && q.unit_amount == 1 # @todo Make currency symbol more flexible.
-                    .meta.maximum &nbsp;
-                    .meta.minimum &nbsp;
-                  - else
-                    .meta.maximum=  number_with_precision(q.maximum_units)
-                    .meta.minimum= [number_with_precision(q.minimum_units), q.unit_name].compact.join ' '
-                  - if @response.persisted?
-                    .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled")
-                      = hidden_field_tag q.id, @response.answer(q)
-                      .tick.lowest
-                      .tick.initial
-                      .tick.highest
-                  - else
-                    .control.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}")
-                      = hidden_field_tag q.id, q.default_value
-                      .tick.lowest
-                      .tick.initial
-                      .tick.highest
-                  - if q.widget == 'scaler'
-                    - unless @questionnaire.mode == 'taxes'
-                      .meta.maximum= number_to_percentage(q.maximum_units * 100)
-                      .meta.minimum= number_to_percentage(q.minimum_units * 100)
-                  - else
-                    .meta.maximum
-                      = currency q.maximum_amount
-                    .meta.minimum
-                      = currency q.minimum_amount
-                - elsif q.widget == 'onoff'
-                  .impact
-                    %span.key
-                    %span.value= number_to_currency 0
-                  .control.control-onoff
-                    = hidden_field_tag q.id, '0' # Mimic an unchecked box.
-                    - if @response.persisted?
-                      = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                - if q.description?
+                  :markdown
+                    #{q.description}
+                - # @todo Implement checkbox, readonly, select widgets.
+                - if %w(checkboxes radio).include? q.widget
+                  %fieldset
+                    .control-group
+                      .controls
+                        - if q.widget == 'checkboxes'
+                          - q.options.each do |option|
+                            = label_tag nil, class: 'checkbox' do
+                              - if @response.persisted?
+                                = check_box_tag "#{q.id}[]", option, @response.answer(q).include?(option), disabled: true
+                              - else
+                                = check_box_tag "#{q.id}[]", option
+                              = option
+                        - elsif q.widget == 'radio'
+                          - q.options.each do |option|
+                            = label_tag nil, class: 'radio' do
+                              - if @response.persisted?
+                                = radio_button_tag q.id, option, @response.answer(q) == option, disabled: true
+                              - else
+                                = radio_button_tag q.id, option
+                              = option
+                - elsif %w(text textarea).include? q.widget
+                  - if q.widget == 'text'
+                    = text_field_tag q.id, nil, html_attributes(q)
+                  - elsif q.widget == 'textarea'
+                    = text_area_tag q.id, nil, html_attributes(q)
+            - else
+              %td.description
+                %h3
+                  = render partial: 'title', locals: {object: q, placement: 'top'}
+                - if q.description?
+                  :markdown
+                    #{q.description}
+              %td.highlight
+                %div(class="widget widget-#{q.widget}")
+                  - if %w(scaler slider).include? q.widget
+                    .impact
+                      %span.key
+                      %span.value= number_to_currency 0
+                    - if @questionnaire.mode == 'taxes'
+                      .note=t '.assessment_period'
+                    - if q.widget == 'scaler' && @questionnaire.mode == 'taxes' # @note Special case.
+                      .meta.maximum.taxes +
+                      .meta.minimum.taxes -
+                    - elsif q.unit_name == '$' && q.unit_amount == 1 # @todo Make currency symbol more flexible.
+                      .meta.maximum &nbsp;
+                      .meta.minimum &nbsp;
                     - else
-                      = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value
-                  %div(class="meta maximum#{' changed' if q.unchecked?}")
-                    = currency q.maximum_amount
-                  %div(class="meta minimum#{' changed' if q.checked?}")
-                    = currency q.minimum_amount
+                      .meta.maximum=  number_with_precision(q.maximum_units)
+                      .meta.minimum= [number_with_precision(q.minimum_units), q.unit_name].compact.join ' '
+                    - if @response.persisted?
+                      .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled")
+                        = hidden_field_tag q.id, @response.answer(q)
+                        .tick.lowest
+                        .tick.initial
+                        .tick.highest
+                    - else
+                      .control.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}")
+                        = hidden_field_tag q.id, q.default_value
+                        .tick.lowest
+                        .tick.initial
+                        .tick.highest
+                    - if q.widget == 'scaler'
+                      - unless @questionnaire.mode == 'taxes'
+                        .meta.maximum= number_to_percentage(q.maximum_units * 100)
+                        .meta.minimum= number_to_percentage(q.minimum_units * 100)
+                    - else
+                      .meta.maximum
+                        = currency q.maximum_amount
+                      .meta.minimum
+                        = currency q.minimum_amount
+                  - elsif q.widget == 'onoff'
+                    .impact
+                      %span.key
+                      %span.value= number_to_currency 0
+                    .control.control-onoff
+                      = hidden_field_tag q.id, '0' # Mimic an unchecked box.
+                      - if @response.persisted?
+                        = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                      - else
+                        = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value
+                    %div(class="meta maximum#{' changed' if q.unchecked?}")
+                      = currency q.maximum_amount
+                    %div(class="meta minimum#{' changed' if q.checked?}")
+                      = currency q.minimum_amount
