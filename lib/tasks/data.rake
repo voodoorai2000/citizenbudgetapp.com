@@ -177,8 +177,9 @@ namespace :data do
   desc 'Deletes duplicate responses. If close matches are found, displays the differences for the end-user to decide.'
   task deduplicate: :environment do
     class Response
-      DIFF_EXCLUDE_KEYS = %w(_id questionnaire_id initialized_at created_at updated_at)
-      NON_PERSONAL_KEYS = %w(subscribe newsletter answers)
+      # Remove "newsletter" and "subscribe" after breaking backwards compatibility.
+      DIFF_EXCLUDE_KEYS = %w(_id questionnaire_id initialized_at created_at updated_at newsletter subscribe)
+      NON_PERSONAL_KEYS = %w(answers)
 
       # @return [Hash] the attributes with which to calculate the difference
       #   between responses
@@ -197,7 +198,7 @@ namespace :data do
       #   other response
       # @return [Array] a list of attributes that are non-empty and shared by
       #   both responses
-      def shared(other, difference)
+      def intersection(other, difference)
         ((comparable.keys + other.comparable.keys).uniq - difference.keys).select{|key| self[key].present?}
       end
     end
@@ -252,7 +253,7 @@ namespace :data do
     end
 
     if ENV['ID'].blank?
-      abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
+      abort 'Usage: bundle exec rake data:clean [MODE=interactive] ID=47cc67093475061e3d95369d # Questionnaire ID'
     end
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a
@@ -264,16 +265,17 @@ namespace :data do
       responses[i + 1..-1].each_with_index do |b,j|
         progressbar.increment
         difference = a.diff b
+        intersection = a.intersection b, difference
 
-        case difference.size
-        when 0
+        # If all values are shared:
+        if difference.size.zero?
           b.destroy
           responses.delete_at i + j + 1
           puts "Deleted #{b.id} (duplicates #{a.id})\n"
-        # Experience suggest 3 is an appropriate threshold until we add more
-        # fields. A threshold of 4 found no additional duplicates in a sample of
-        # nearly 600.
-        when 1..3
+        # If some values are shared:
+        elsif ENV['MODE'] == 'interactive' && intersection.size.nonzero? && (1..3) === difference.size
+          # Experience suggests 3 is an appropriate threshold. A threshold of 4
+          # found no additional duplicates in a sample of nearly 600.
           if difference.keys.all?{|key| Response::NON_PERSONAL_KEYS.include? key}
             b.destroy
             responses.delete_at i + j + 1
@@ -281,7 +283,8 @@ namespace :data do
           else
             puts
             puts puts_recursive_hash difference, skip_numeric_children: true
-            puts "Are #{a.id} and #{b.id} duplicates (difference on #{difference.keys.to_sentence})? (y/n)\n- Same and non-empty on #{a.shared(b, difference).to_sentence}"
+            puts "Are #{a.id} and #{b.id} duplicates (difference on #{difference.keys.to_sentence})? (y/n)"
+            puts "- Same and non-empty on #{intersection.to_sentence}"
             if STDIN.gets == "y\n"
               b.destroy
               responses.delete_at i + j + 1
