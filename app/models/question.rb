@@ -163,7 +163,7 @@ private
 
   def set_options
     if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && step.present?
-      self.options = (minimum_units.to_f..maximum_units.to_f).step(step.to_f).to_a
+      self.options = (BigDecimal(minimum_units.to_s)..BigDecimal(maximum_units.to_s)).step(BigDecimal(step.to_s)).map(&:to_f)
       self.options << maximum_units.to_f unless options.last == maximum_units.to_f
     elsif %w(checkbox onoff).include?(widget)
       self.options = [0, 1]
