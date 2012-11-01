@@ -79,9 +79,8 @@ namespace :data do
 
   desc 'Deletes invalid responses'
   task validate: :environment do
-
     if ENV['ID'].blank?
-      abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
+      abort 'Usage: bundle exec rake data:validate ID=47cc67093475061e3d95369d # Questionnaire ID'
     end
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a
@@ -151,7 +150,7 @@ namespace :data do
     end
 
     if ENV['ID'].blank?
-      abort 'Usage: bundle exec rake data:clean ID=47cc67093475061e3d95369d # Questionnaire ID'
+      abort 'Usage: bundle exec rake data:ham ID=47cc67093475061e3d95369d # Questionnaire ID'
     end
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a
@@ -253,7 +252,7 @@ namespace :data do
     end
 
     if ENV['ID'].blank?
-      abort 'Usage: bundle exec rake data:clean [MODE=interactive] ID=47cc67093475061e3d95369d # Questionnaire ID'
+      abort 'Usage: bundle exec rake data:deduplicate [MODE=interactive] ID=47cc67093475061e3d95369d # Questionnaire ID'
     end
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a

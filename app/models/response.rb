@@ -47,9 +47,15 @@ class Response
   end
 
   # @param [Question] question a question
+  # @return the difference from the default value
+  def difference(question)
+    cast_answer(question) - question.cast_default_value
+  end
+
+  # @param [Question] question a question
   # @return the financial impact of the answer to the question
   def impact(question)
-    (cast_answer(question) - question.cast_default_value) * question.unit_amount
+    difference(question) * question.unit_amount
   end
 
   # @return [String] the full first name and last name initial
