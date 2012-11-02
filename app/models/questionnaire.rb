@@ -243,6 +243,9 @@ class Questionnaire
       # If the first two letters of a file are "ID", Microsoft Excel will try
       # to open the file in the SYLK file format.
       headers = %w(ip id created_at time_to_complete email name)
+      if mode == 'taxes'
+        headers += %w(assessment)
+      end
       if sections.nonbudgetary.none? # backwards compatibility
         headers += %w(postal_code gender age comments newsletter subscribe)
       end
