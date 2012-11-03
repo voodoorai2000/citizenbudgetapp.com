@@ -58,6 +58,22 @@ class Response
     difference(question) * question.unit_amount
   end
 
+  def balance
+    balance = 0
+    questionnaire.sections.each do |section|
+      section.questions.each do |question|
+        if question.budgetary?
+          if questionnaire.mode == 'taxes' || section.group == 'revenue'
+            balance += impact question
+          else
+            balance -= impact question
+          end
+        end
+      end
+    end
+    balance
+  end
+
   # @return [String] the full first name and last name initial
   def display_name
     if name?
@@ -86,7 +102,6 @@ class Response
 
     # Validate answers.
     changed = false
-    balance = 0
     questionnaire.sections.each do |section|
       section.questions.each do |question|
         value = answer question
@@ -94,14 +109,6 @@ class Response
         # We don't need to cast values here, as both are strings.
         unless changed || section.group == 'other' || value == question.default_value
           changed = true
-        end
-
-        if questionnaire.balance? && question.budgetary?
-          if section.group == 'revenue'
-            balance += impact question
-          else
-            balance -= impact question
-          end
         end
 
         if value.blank?
