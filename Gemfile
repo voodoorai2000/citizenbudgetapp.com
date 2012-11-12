@@ -18,12 +18,11 @@ end
 gem 'girl_friday'
 
 # Database
-gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git', branch: '3.0.0-stable' # wait for 3.0.5
+gem 'mongoid', '~> 3.0.12'
 
 # Admin
 gem 'formtastic', '2.2.1'
-# 0.4.4 is buggy
-gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
+gem 'activeadmin', '~> 0.5.0'
 gem 'activeadmin-mongoid', '~> 0.0.2.jpmckinney.0'
 gem 'cancan'
 gem 'devise'
@@ -53,6 +52,9 @@ gem 'faraday'
 
 # Rake
 gem 'ruby-progressbar'
+
+# Reports
+gem 'hashie', git: 'git://github.com/intridea/hashie.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
