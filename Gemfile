@@ -53,9 +53,6 @@ gem 'faraday'
 # Rake
 gem 'ruby-progressbar'
 
-# Reports
-gem 'hashie', git: 'git://github.com/intridea/hashie.git'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
