@@ -62,6 +62,7 @@ class Question
 
   after_initialize :get_options
   before_validation :set_options
+  before_save :strip_title
 
   scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS)
   scope :nonbudgetary, where(:widget.in => NONBUDGETARY_WIDGETS)
@@ -172,6 +173,10 @@ private
     else
       self.options = nil
     end
+  end
+
+  def strip_title
+    self.title = title.strip if title?
   end
 
   def maximum_units_must_be_greater_than_minimum_units

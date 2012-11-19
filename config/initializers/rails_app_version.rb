@@ -1,1 +1,1 @@
-ENV['RAILS_APP_VERSION'] = 'fedbcda'
+ENV['RAILS_APP_VERSION'] = '325ce3c'
