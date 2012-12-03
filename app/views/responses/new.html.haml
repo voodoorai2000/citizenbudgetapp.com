@@ -16,7 +16,7 @@
       #message(class="message #{'simple' if simple_navigation?}")
         - if @questionnaire.instructions.present?
           :markdown
-            #{@questionnaire.instructions}
+            <div>#{@questionnaire.instructions}</div>
         - elsif @questionnaire.starting_balance && @questionnaire.starting_balance.nonzero?
           - if @questionnaire.starting_balance > 0
             =t '.positive_balance_instructions', starting_balance: number_to_currency(@questionnaire.starting_balance)
@@ -84,9 +84,9 @@
                   - elsif q.widget == 'readonly'
                     - if q.title?
                       %h3= q.title
-                    - if q.description?
-                      :markdown
-                        #{q.description}
+                  - if q.description?
+                    :markdown
+                      <p class="inline-hints">#{q.description}</p>
       - else
         -# Backwards compatibility.
         = f.inputs name: t('.submit_your_choices') do
