@@ -45,6 +45,11 @@
           = f.inputs name: section.title do
             -# @todo It's not very flexible to add email and name like this, but it works for now.
             - if index.zero?
+              - if section.description?
+                .control-group
+                  .controls
+                    :markdown
+                      #{section.description}
               - if @questionnaire.email_required?
                 = f.input :email, required: true, input_html: {class: 'validate[required,custom[email]]'}
               - else
@@ -85,8 +90,12 @@
                     - if q.title?
                       %h3= q.title
                   - if q.description?
-                    :markdown
-                      <p class="inline-hints">#{q.description}</p>
+                    - if q.widget == 'readonly'
+                      :markdown
+                        #{q.description}
+                    - else
+                      :markdown
+                        <p class="inline-hints">#{q.description}</p>
       - else
         -# Backwards compatibility.
         = f.inputs name: t('.submit_your_choices') do
