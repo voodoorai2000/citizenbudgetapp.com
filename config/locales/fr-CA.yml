@@ -22,6 +22,8 @@ fr-CA:
   responses:
     new:
       instructions: &instructions Modifiez une activité pour commencer.
+      positive_balance_instructions: "Vous avez %{starting_balance} à depenser. Modifiez une activité pour commencer."
+      negative_balance_instructions: "Le budget est en déficit de %{starting_balance}. Modifiez une activité pour commencer."
       assessment: Entrez l'évaluation foncière de votre propriété ou utilisez la valeur par défault
       default_assessment: "(%{number})"
       currency_unit_pre: ""

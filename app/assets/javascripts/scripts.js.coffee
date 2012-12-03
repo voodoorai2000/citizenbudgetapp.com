@@ -325,18 +325,21 @@ $ ->
       number = number_to_currency balance, strip_insignificant_zeros: true
       percentage = 0
 
+    if questionnaire_mode == 'taxes'
+      prefix = 'taxes'
+    else if starting_balance == 0
+      prefix = 'services'
+    else
+      prefix = 'services_balance'
+
     changed = $('.selected').length
     if balance < 0
-      $messages.html t("#{questionnaire_mode}_deficit", number: number, percentage: percentage)
-    else if balance == 0
-      $messages.html if changed then t("#{questionnaire_mode}_balanced") else instructions
+      $messages.html t("#{prefix}_deficit", number: number, percentage: percentage)
+    else if balance == starting_balance
+      $messages.html if changed then t("#{prefix}_balanced") else instructions
     else
-      $messages.html t("#{questionnaire_mode}_surplus", number: number, percentage: percentage)
+      $messages.html t("#{prefix}_surplus", number: number, percentage: percentage)
     $reminder.toggleClass 'hide', !changed
-
-    if changed and not pulsated
-      pulsated = true
-      $message.effect 'pulsate', times: 1
 
     if balance >= 0 and changed
       $message.animate 'background-color': colors[questionnaire_mode].message.background.positive, 'color': colors[questionnaire_mode].message.foreground.positive
@@ -344,6 +347,10 @@ $ ->
       $message.animate 'background-color': colors[questionnaire_mode].message.background.negative, 'color': colors[questionnaire_mode].message.foreground.negative
     else # balance is zero and budget is unchanged
       $message.animate 'background-color': '#666', 'color': '#fff'
+
+    if changed and not pulsated
+      pulsated = true
+      $message.effect 'pulsate', times: 1
 
     # Enable or disable identification form.
     if change_required

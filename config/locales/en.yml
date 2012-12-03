@@ -36,6 +36,8 @@ en:
   responses:
     new:
       instructions: &instructions Change an activity to start
+      positive_balance_instructions: "You have %{starting_balance} to spend. Change an activity to start."
+      negative_balance_instructions: "The budget is %{starting_balance} in deficit. Change an activity to start."
       assessment: Enter your current property value assessment or use the pre-set value
       default_assessment: "(%{number})"
       # If the currency unit should appear before the number, populate

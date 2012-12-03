@@ -100,6 +100,20 @@ table {
   width: 100%;
   margin: 50px 0;
   border-collapse: collapse;
+
+  table {
+    width: auto;
+    margin: 0 auto 1em;
+    caption {
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+    td {
+      padding-right: 1em;
+      border: none;
+      padding-bottom: 1em;
+    }
+  }
 }
 
 th {
