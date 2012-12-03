@@ -59,7 +59,7 @@ class Response
   end
 
   def balance
-    balance = 0
+    balance = questionnaire.starting_balance || 0
     questionnaire.sections.each do |section|
       section.questions.each do |question|
         if question.budgetary?

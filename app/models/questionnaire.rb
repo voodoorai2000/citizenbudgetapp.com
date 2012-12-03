@@ -27,6 +27,7 @@ class Questionnaire
 
   # Mode
   field :mode, type: String
+  field :starting_balance, type: Integer
   field :default_assessment, type: Integer
   field :tax_rate, type: Float
   field :change_required, type: Boolean, default: true
@@ -72,7 +73,7 @@ class Questionnaire
   validates_inclusion_of :mode, in: MODES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
-  validates_numericality_of :default_assessment, greater_than: 0, only_integer: true, allow_blank: true
+  validates_numericality_of :starting_balance, :default_assessment, greater_than: 0, only_integer: true, allow_blank: true
   validates_numericality_of :tax_rate, greater_than: 0, less_than: 1, allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validates_length_of :twitter_share_text, maximum: 140, allow_blank: true

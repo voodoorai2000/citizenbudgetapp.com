@@ -354,6 +354,7 @@ fr-CA:
         email_required: Les participants doivent fournir une adresse courriel
 
         mode: Mode
+        starting_balance: Solde initial
         default_assessment: Évaluation foncière par défaut
         tax_rate: Taux d'imposition foncière
         change_required: Les participants doivent changer le budget

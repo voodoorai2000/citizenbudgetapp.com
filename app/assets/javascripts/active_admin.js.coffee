@@ -37,6 +37,8 @@ $ ->
 
   toggle_mode = ->
     value = $('input[name="questionnaire[mode]"]:checked').val()
+    $("#questionnaire_starting_balance_input"
+    ).toggle(value == 'taxes')
     $("#questionnaire_default_assessment_input,
        #questionnaire_tax_rate_input"
     ).toggle(value == 'taxes')

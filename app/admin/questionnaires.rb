@@ -121,6 +121,10 @@ ActiveAdmin.register Questionnaire do
           row :tax_rate do |q|
             number_to_percentage(q.tax_rate * 100, precision: 6) if q.tax_rate?
           end
+        else
+          row :starting_balance do |q|
+            number_to_currency(q.starting_balance) if q.starting_balance?
+          end
         end
         row :change_required do |q|
           if q.change_required?

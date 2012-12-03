@@ -190,7 +190,7 @@ $ ->
   number_to_human = (number, options = {}) ->
     number = parseFloat(number)
     options.strip_insignificant_zeros ?= true
-    if Math.abs(number) > 1000
+    if Math.abs(number) >= 1000
       "#{number_with_precision number / 1000, options} k"
     else
       number_with_precision number, options
@@ -254,7 +254,7 @@ $ ->
 
   # Updates within-group balance.
   updateBalance = ->
-    balance = 0
+    balance = starting_balance
     current_maximum_difference = maximum_difference
 
     if questionnaire_mode is 'taxes'

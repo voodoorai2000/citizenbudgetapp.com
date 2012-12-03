@@ -60,6 +60,7 @@
 :javascript
   var questionnaire_mode = '#{@questionnaire.mode}';
   var maximum_difference = #{@maximum_difference};
+  var starting_balance   = #{@questionnaire.starting_balance.to_i};
   var default_assessment = #{@questionnaire.default_assessment.to_i};
   var tax_rate = #{@questionnaire.tax_rate.to_f};
   var change_required = true;

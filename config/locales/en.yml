@@ -65,7 +65,7 @@ en:
     modal:
       close: Close
     footer:
-      attribution: &attribution Get your own budget consultation from
+      attribution: &attribution This online budget consultation is powered by
 
   # --- Both public and administrative sections --------------------------------
 
@@ -417,6 +417,7 @@ en:
 
         # Mode
         mode: Mode
+        starting_balance: Starting balance
         default_assessment: Default property assessment
         tax_rate: Property tax rate
         change_required: Respondents must change the budget
