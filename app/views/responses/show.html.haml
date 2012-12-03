@@ -45,7 +45,8 @@
         %ul.dropdown-menu
           %li
             .fb-comments(data-href="#{response_url(@response)}" data-num-posts="2" data-width="470")
-      = render partial: 'nav'
+      - unless simple_navigation?
+        = render partial: 'nav'
 
   #whitespace
 
