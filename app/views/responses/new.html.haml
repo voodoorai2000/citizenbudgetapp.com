@@ -16,7 +16,7 @@
       #message(class="message #{'simple' if simple_navigation?}")
         - if @questionnaire.instructions.present?
           :markdown
-            = @questionnaire.instructions
+            #{@questionnaire.instructions}
         - elsif @questionnaire.starting_balance && @questionnaire.starting_balance.nonzero?
           - if @questionnaire.starting_balance > 0
             =t '.positive_balance_instructions', starting_balance: number_to_currency(@questionnaire.starting_balance)
