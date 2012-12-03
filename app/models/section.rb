@@ -15,7 +15,6 @@ class Section
   index position: 1
 
   validates_presence_of :group
-  validates_presence_of :title, unless: ->(s){s.group == 'other'}
   validates_inclusion_of :group, in: GROUPS, allow_blank: true
 
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
