@@ -61,7 +61,7 @@
                   %label.control-label(for="#{q.id}")
                     = q.title
                     - if q.required?
-                      %abbr(title="#{t '.required'}") *
+                      %abbr(title="#{t '.required'}")*
                 .controls
                   - if q.widget == 'checkbox'
                     = hidden_field_tag q.id, '0' # Mimic an unchecked box.
@@ -69,7 +69,7 @@
                       = check_box_tag q.id, '1', q.checked?, html_attributes(q)
                       = q.title
                       - if q.required?
-                        %abbr(title="#{t '.required'}") *
+                        %abbr(title="#{t '.required'}")*
                   - elsif q.widget == 'checkboxes'
                     - q.options.each do |option|
                       %label.checkbox.inline
