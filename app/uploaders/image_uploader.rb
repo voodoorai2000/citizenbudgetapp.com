@@ -45,10 +45,10 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   version :large do
     process :resize_to_limit => [940, 200]
+    process :set_width_and_height
   end
   version :medium do
     process :resize_to_limit => [470, 100]
-    process :set_width_and_height
   end
   version :square do
     process :resize_and_pad => [72, 72]
