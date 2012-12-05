@@ -353,11 +353,15 @@ $ ->
       $message.effect 'pulsate', times: 1
 
     # Enable or disable identification form.
-    if change_required
-      if changed and (questionnaire_mode is 'taxes' or balance >= 0)
+    if change_required and not changed
+      disableForm()
+    else if questionnaire_mode == 'services'
+      if balance >= 0
         enableForm()
       else
         disableForm()
+    else
+      enableForm()
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'
@@ -523,4 +527,4 @@ $ ->
       $slider.slider 'value', $slider.data('maximum')
 
     $('#new_response').validationEngine()
-    disableForm() if change_required
+    disableForm() if change_required or (questionnaire_mode == 'services' and balance < 0)
