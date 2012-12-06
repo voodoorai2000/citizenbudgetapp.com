@@ -195,7 +195,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-ssh (2.5.2)
     netrc (0.7.5)
-    newrelic_rpm (3.4.0.1)
+    newrelic_rpm (3.5.3.25)
     nokogiri (1.5.5)
     ntlm-http (0.1.1)
     oj (1.2.11)
@@ -318,7 +318,7 @@ DEPENDENCIES
   mongoid (~> 3.0.12)
   multi_json
   mustache
-  newrelic_rpm
+  newrelic_rpm (= 3.5.3.25)
   oj
   rails (= 3.2.8)
   rails-i18n
