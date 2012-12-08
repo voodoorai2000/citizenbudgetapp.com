@@ -77,7 +77,7 @@ module ApplicationHelper
   # Used in both public and private controllers.
 
   def token_url(questionnaire)
-    root_url(token: questionnaire.authorization_token)
+    root_url(token: questionnaire.authorization_token, domain: questionnaire.domain)
   end
 
   MAX_DIMENSION = 560 # As for Bootstrap's .modal
