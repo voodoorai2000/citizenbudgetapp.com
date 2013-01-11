@@ -273,20 +273,21 @@ $control-height: 25px;
   -moz-border-radius: 0;
   border-radius: 0;
 }
-.ui-slider-horizontal .ui-slider-handle,
 .ui-slider .ui-slider-handle {
   z-index: 5;
   cursor: pointer;
   outline: none;
-  top: -3px;
   width: 16px;
   height: 16px;
-  margin-left: -8px;
   border: none;
   background: url(/assets/slider_16.png) no-repeat 0 0;
   color: #000;
   font: bold 12px helvetica, sans-serif;
   text-decoration: none;
+}
+.ui-slider-horizontal .ui-slider-handle {
+  top: -3px;
+  margin-left: -8px;
 }
 .ui-slider .ui-slider-handle.ui-state-default {
   border: none;
@@ -312,8 +313,6 @@ $control-height: 25px;
 }
 .ui-slider .ui-slider-handle .tip {
   position: absolute;
-  top: -30px;
-  left: -13px;
   width: 40px;
   padding: 4px 0;
   border: 1px solid #999;
@@ -323,15 +322,36 @@ $control-height: 25px;
   background-color: #fff;
   text-align: center;
 }
+.ui-slider-horizontal .tip {
+  top: -30px;
+  left: -13px;
+}
+.ui-slider-vertical .tip {
+  top: -5px;
+  left: 30px;
+}
 .ui-slider .tip-arrow {
   position: absolute;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+.ui-slider-horizontal .tip-arrow {
   top: 100%;
   left: 50%;
   width: 14px;
   height: 7px;
-  background: url(/assets/arrow.gif) no-repeat 0 0;
   margin-left: -7px;
+  background-image: url(/assets/arrow.gif);
 }
+.ui-slider-vertical .tip-arrow {
+  top: 50%;
+  width: 7px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -6px;
+  background-image: url(/assets/arrow-left.gif);
+}
+
 .ui-state-disabled {
   .tip,
   .tip-arrow {

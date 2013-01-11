@@ -527,4 +527,4 @@ $ ->
       $slider.slider 'value', $slider.data('maximum')
 
     $('#new_response').validationEngine()
-    disableForm() if change_required or (questionnaire_mode == 'services' and balance < 0)
+    disableForm() if change_required or (questionnaire_mode == 'services' and starting_balance < 0)
