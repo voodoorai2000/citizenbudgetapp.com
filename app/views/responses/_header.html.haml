@@ -1,7 +1,7 @@
 %header
   - if @questionnaire.logo?
     #logo
-      = link_to_unless_current image_tag(@questionnaire.logo.large.url, height: [@questionnaire.logo_height, 100].min, alt: ''), root_path
+      = link_to_unless_current image_tag(@questionnaire.logo.large.url, height: [@questionnaire.logo_height, 100].compact.min, alt: ''), root_path
   %h1
     - if local_assigns[:header]
       = header
