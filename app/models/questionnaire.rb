@@ -65,7 +65,8 @@ class Questionnaire
   field :title_image_width, type: Integer
   field :title_image_height, type: Integer
 
-  attr_protected :authorization_token, :logo_width, :logo_height
+  attr_protected :authorization_token, :logo_width, :logo_height,
+    :title_image_width, :title_image_height
 
   index domain: 1
 

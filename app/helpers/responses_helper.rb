@@ -1,4 +1,12 @@
 module ResponsesHelper
+  def logo
+    options = {alt: ''}
+    if @questionnaire.logo_height?
+      options[:height] = [@questionnaire.logo_height, 100].min
+    end
+    link_to_unless_current image_tag(@questionnaire.logo.large.url, options), root_path
+  end
+
   # Surrounds a string with locale-appropriate curly quotes.
   def curly_quote(string)
     "#{t(:left_quote)}#{string}#{t(:right_quote)}"
