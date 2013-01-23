@@ -233,9 +233,14 @@ $widget-margin: 50px;
 .minimum {
   margin-left: -$widget-margin;
 }
-.selected .changed {
-  color: #000;
-  font-weight: bold;
+.selected {
+  td {
+    background-color: #add5f7;
+  }
+  .changed {
+    color: #000;
+    font-weight: bold;
+  }
 }
 
 /* Slider widget -------------------------------------------------------------*/

@@ -49,6 +49,13 @@ $ ->
         positive: '#000'
         negative: '#000'
 
+  # Administrators can override the CSS.
+  message_background_color = $('#message').css 'background-color'
+  # XXX hack to read CSS rule.
+  $element = $('<tr class="selected"><td></td></tr>').appendTo('body')
+  change_background_color = $element.find('td').css('background-color')
+  $element.remove()
+
   # If the page is cached, initialized_at will not be set appropriately.
   now = new Date()
   $('#response_initialized_at').val("#{now.getUTCFullYear()}-#{now.getUTCMonth()}-#{now.getUTCDate()} #{now.getUTCHours()}:#{now.getUTCMinutes()}:#{now.getUTCSeconds()} UTC")
@@ -346,7 +353,7 @@ $ ->
     else if balance < 0
       $message.animate 'background-color': colors[questionnaire_mode].message.background.negative, 'color': colors[questionnaire_mode].message.foreground.negative
     else # balance is zero and budget is unchanged
-      $message.animate 'background-color': '#666', 'color': '#fff'
+      $message.animate 'background-color': message_background_color, 'color': '#fff'
 
     if changed and not pulsated
       pulsated = true
@@ -399,7 +406,7 @@ $ ->
       $tr.find('.impact').css('color', color).css 'visibility', 'visible'
       unless $tr.hasClass 'selected'
         $tr.addClass 'selected'
-        $tr.find('td').animate 'background-color': '#add5f7', 'fast'
+        $tr.find('td').animate 'background-color': change_background_color, 'fast'
 
   slide = (event, ui) ->
     $this = $ this

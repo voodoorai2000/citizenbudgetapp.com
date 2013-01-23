@@ -433,6 +433,7 @@ en:
         instructions: Instructions
         description: Description
         attribution: Attribution
+        stylesheet: Custom CSS
 
         # Thank-you email
         reply_to: Reply-to address

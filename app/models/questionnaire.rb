@@ -39,6 +39,7 @@ class Questionnaire
   field :instructions, type: String
   field :description, type: String
   field :attribution, type: String
+  field :stylesheet, type: String
 
   # Thank-you email
   field :reply_to, type: String

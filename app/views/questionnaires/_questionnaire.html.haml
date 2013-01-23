@@ -1,3 +1,6 @@
+- content_for :head do
+  %style
+    = @questionnaire.stylesheet
 - @questionnaire.sections.budgetary.each do |section|
   %table(id="#{section.title.parameterize}" rel="#{section.group}" class="#{section.group}")
     %thead

@@ -369,6 +369,7 @@ fr-CA:
         instructions: Instructions
         description: Description
         attribution: Attribution
+        stylesheet: CSS personnalisé
 
         reply_to: Adresse de courriel de correspondance
         thank_you_template: Modèle de courriel de remerciement

@@ -31,6 +31,7 @@
     = f.input :instructions
     = f.input :description, as: :text, input_html: {rows: 3}
     = f.input :attribution
+    = f.input :stylesheet, as: :text, input_html: {rows: 5}
 
   = f.inputs t('legend.email') do
     = f.input :reply_to, as: :email, input_html: {size: 30}

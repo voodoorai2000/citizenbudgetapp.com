@@ -150,6 +150,13 @@ ActiveAdmin.register Questionnaire do
         row :instructions
         row :description
         row :attribution
+        row :stylesheet do |q|
+          if q.stylesheet?
+            pre do
+              q.stylesheet
+            end
+          end
+        end
       end
     end
 
