@@ -58,7 +58,7 @@ $ ->
 
   # If the page is cached, initialized_at will not be set appropriately.
   now = new Date()
-  $('#response_initialized_at').val("#{now.getUTCFullYear()}-#{now.getUTCMonth()}-#{now.getUTCDate()} #{now.getUTCHours()}:#{now.getUTCMinutes()}:#{now.getUTCSeconds()} UTC")
+  $('#response_initialized_at').val("#{now.getUTCFullYear()}-#{now.getUTCMonth() + 1}-#{now.getUTCDate()} #{now.getUTCHours()}:#{now.getUTCMinutes()}:#{now.getUTCSeconds()} UTC")
 
   # Open non-Bootstrap links in new windows.
   $('.description a:not([class])').attr 'target', '_blank'
