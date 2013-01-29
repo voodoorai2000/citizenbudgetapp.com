@@ -5,6 +5,9 @@ gem 'rails', '3.2.11'
 gem 'rails-i18n'
 
 group :production do
+  # Non-Heroku deployments
+  gem 'foreman'
+
   # Error logging
   gem 'airbrake'
   gem 'heroku'
@@ -56,6 +59,9 @@ gem 'ruby-progressbar'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  # Non-Heroku deployments
+  gem 'therubyracer', require: 'v8'
+
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
