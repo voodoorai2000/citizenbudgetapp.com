@@ -89,11 +89,21 @@
   -# Backwards compatibility.
   - gender       = @responses.where(:gender.in => Response::GENDERS)
   - gender_count = gender.count.to_f
-  - gender_data  = Response::GENDERS.map{|g| v = @responses.where(gender: g).count; [t(g, scope: :gender), v / gender_count, number_to_percentage(v / gender_count * 100)]}
+  - gender_data  = Response::GENDERS.map do |g|
+    - v = @responses.where(gender: g).count
+    - if gender_count.zero?
+      - [t(g, scope: :gender), 0.0, number_to_percentage(0.0)]
+    - else
+      - [t(g, scope: :gender), v / gender_count, number_to_percentage(v / gender_count * 100)]
 
   - age       = @responses.where(:age.exists => true, :age.nin => [nil, 0, 1])
   - age_count = age.count.to_f
-  - age_data  = age.min(:age).to_i.upto(age.max(:age).to_i).map{|a| v = @responses.where(age: a).count; [a.to_s, v / age_count, number_to_percentage(v / age_count * 100)]}
+  - age_data  = age.min(:age).to_i.upto(age.max(:age).to_i).map do |a|
+    - v = @responses.where(age: a).count
+    - if age_count.zero?
+      - [a.to_s, 0.0, number_to_percentage(0.0)]
+    - else
+      - [a.to_s, v / age_count, number_to_percentage(v / age_count * 100)]
 
   .charts.clearfix
     .chart.chart-small

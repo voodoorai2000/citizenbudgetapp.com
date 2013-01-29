@@ -61,12 +61,22 @@ ActiveAdmin.register_page 'Dashboard' do
         @statistics[:mean_magnitude_of_changes] += magnitude_of_changes
 
         increases = choices.select{|v| v > question.cast_default_value}
-        details[:proportion_who_increase] = increases.size / number_of_changes.to_f
-        details[:mean_increase] = increases.sum / increases.size.to_f
+        if increases.empty?
+          details[:proportion_who_increase] = 0.0
+          details[:mean_increase] = 0.0
+        else
+          details[:proportion_who_increase] = increases.size / number_of_changes.to_f
+          details[:mean_increase] = increases.sum / increases.size.to_f
+        end
 
         decreases = choices.select{|v| v < question.cast_default_value}
-        details[:proportion_who_decrease] = decreases.size / number_of_changes.to_f
-        details[:mean_decrease] = decreases.sum / decreases.size.to_f
+        if decreases.empty?
+          details[:proportion_who_decrease] = 0.0
+          details[:mean_decrease] = 0.0
+        else
+          details[:proportion_who_decrease] = decreases.size / number_of_changes.to_f
+          details[:mean_decrease] = decreases.sum / decreases.size.to_f
+        end
       elsif question.options?
         changes = @responses.where(:"answers.#{question.id}".ne => nil)
         number_of_changes = changes.count
@@ -90,7 +100,11 @@ ActiveAdmin.register_page 'Dashboard' do
         end
 
         details[:counts].each do |answer,count|
-          details[:counts][answer] /= changes.size.to_f
+          if changes.empty?
+            details[:counts][answer] = 0
+          else
+            details[:counts][answer] /= changes.size.to_f
+          end
         end
       end
       @details[question.id.to_s] = details

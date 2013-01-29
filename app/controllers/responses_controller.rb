@@ -30,7 +30,7 @@ class ResponsesController < ApplicationController
     @response.ip      = request.ip
     @response.save! # There shouldn't be errors.
     Notifier.thank_you(@response).deliver if @response.email.present?
-    redirect_to @response, notice: @questionnaire.response_notice.present? && @questionnaire.response_notice || t(:create_response)
+    redirect_to response_path(@response, params.slice(:token)), notice: @questionnaire.response_notice.present? && @questionnaire.response_notice || t(:create_response)
   end
 
 private
