@@ -85,7 +85,7 @@ fr-CA:
         response_body: Vous pouvez utiliser la syntaxe Markdown.
         google_analytics: Si vous utilisez Google Analytics.
         google_analytics_profile: Si vous utilisez Google Analytics.
-        twitter_screen_name: Si vous utilisez Twitter.
+        twitter_screen_name: Si vous utilisez Twitter. Ne pas inclure l'arobase « @ ».
         twitter_text: Le texte du Tweet pour partager la consultation.
         twitter_share_text: Le texte du Tweet pour partager les responses d'un participant.
         facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine

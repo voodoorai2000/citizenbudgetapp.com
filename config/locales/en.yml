@@ -103,7 +103,7 @@ en:
         response_body: You can use Markdown syntax.
         google_analytics: If you use Google Analytics.
         google_analytics_profile: If you use Google Analytics.
-        twitter_screen_name: If you use Twitter.
+        twitter_screen_name: If you use Twitter. Do not include the "@" symbol.
         twitter_text: The default tweet for sharing the budget consultation.
         twitter_share_text: The default tweet for sharing an individual's responses.
         facebook_app_id: If you have a Facebook app for this domain name.
