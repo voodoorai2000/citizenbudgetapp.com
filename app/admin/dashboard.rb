@@ -99,8 +99,6 @@ ActiveAdmin.register_page 'Dashboard' do
     @statistics[:mean_magnitude_of_changes] /= @statistics[:mean_number_of_changes].to_f # perform first
     @statistics[:mean_number_of_changes] /= @statistics[:responses].to_f
 
-
-
     # @see https://github.com/gregbell/active_admin/issues/1362
     render 'summary', layout: 'active_admin'
   end
