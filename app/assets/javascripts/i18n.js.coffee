@@ -2,8 +2,6 @@ I18n =
   en_US:
     overlay_title: 'Sample overlay'
     overlay_text: 'This is where the explanatory text would appear.'
-    yes: 'YES'
-    no: 'NO'
     currency_delimiter: ','
     currency_format: '{{unit}}{{number}}'
     currency_separator: '.'
@@ -33,8 +31,6 @@ I18n =
   fr_CA:
     overlay_title: 'Échantillon de bulle'
     overlay_text: 'Votre texte apparaîtrait ici.'
-    yes: 'OUI'
-    no: 'NON'
     currency_delimiter: ' '
     currency_format: '{{number}} {{unit}}'
     currency_separator: ','

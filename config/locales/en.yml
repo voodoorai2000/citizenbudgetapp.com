@@ -115,6 +115,7 @@ en:
         unit_amount: Omit currency signs.
         unit_name: Use the lowercase plural form.
         options_as_list: Put each option on a separate line.
+        labels_as_list: Put the "NO" and "YES" display labels on separate lines in that order.
         step: You can often set this to 1.
         default_value: If this is a check box, 1 is checked, 0 is unchecked.
         maxlength: The maximum length of the field in characters.
@@ -211,6 +212,10 @@ en:
     scaler: Percentage scale
     text: Text box
     textarea: Text area
+
+  labels:
+    no: NO
+    yes: YES
 
   statistics:
     participation_rate: "%{percentage} participation"
@@ -461,7 +466,9 @@ en:
         description: Description
         extra: Additional information
         options: Options
+        labels: Labels
         options_as_list: Options as list
+        labels_as_list: Labels as list
         minimum_units: Minimum units
         maximum_units: Maximum units
         step: Step

@@ -5,8 +5,6 @@
 class Question
   include Mongoid::Document
 
-  # @todo Need to be able to map an amount to each option for checkboxes, radio
-  # and select widgets, using the :options and :labels fields.
   # @note The check box widget is used uniquely in non-budgetary questions. Use
   # the on/off switch for budgetary questions.
   WIDGETS = %w(checkbox checkboxes onoff radio readonly scaler select slider text textarea)
@@ -14,6 +12,8 @@ class Question
   # @note Check boxes, radio buttons and select lists are currently used for
   #   non-budgetary questions, but that will not necessarily the case. Lines
   #   related to this issue are tagged "@feature widgets".
+  # @todo Need to be able to map an amount to each option for checkboxes, radio
+  # and select widgets, using the :options and :labels fields.
   NONBUDGETARY_WIDGETS = %w(checkbox checkboxes radio readonly select text textarea)
 
   embedded_in :section
@@ -22,6 +22,7 @@ class Question
   field :title, type: String
   field :description, type: String
   field :options, type: Array
+  field :labels, type: Array # labels are for display only
   field :default_value # default_value needs to be cast before use
   field :size, type: Integer
   field :maxlength, type: Integer
@@ -38,7 +39,7 @@ class Question
   field :position, type: Integer
   index position: 1
 
-  attr_accessor :minimum_units, :maximum_units, :step, :options_as_list
+  attr_accessor :minimum_units, :maximum_units, :step, :options_as_list, :labels_as_list
 
   validates_presence_of :widget
   validates_presence_of :title, unless: ->(q){q.widget == 'readonly'}
@@ -61,8 +62,8 @@ class Question
   validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){%w(scaler slider).include? q.widget}
   validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){%w(scaler slider).include? q.widget}
 
-  after_initialize :get_options
-  before_validation :set_options
+  after_initialize :get_options, :get_labels
+  before_validation :set_options, :set_labels
   before_save :strip_title
 
   scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS) # @feature widgets
@@ -107,6 +108,16 @@ class Question
   # @return [Boolean] whether the widget is unchecked by default
   def unchecked?
     %w(checkbox onoff).include?(widget) && default_value.to_f == 0
+  end
+
+  # @return [String] the "No" label for an on-off widget
+  def no_label
+    widget == 'onoff' && labels? && labels.first || I18n.t('labels.no')
+  end
+
+  # @return [String] the "Yes" label for an on-off widget
+  def yes_label
+    widget == 'onoff' && labels? && labels.last || I18n.t('labels.yes')
   end
 
   # @return [Float] the maximum value of the widget
@@ -163,6 +174,12 @@ private
     end
   end
 
+  def get_labels
+    if widget == 'onoff' && labels.present?
+      @labels_as_list = labels.join "\n"
+    end
+  end
+
   def set_options
     if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && step.present?
       self.options = (BigDecimal(minimum_units.to_s)..BigDecimal(maximum_units.to_s)).step(BigDecimal(step.to_s)).map(&:to_f)
@@ -173,6 +190,12 @@ private
       self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
     else
       self.options = nil
+    end
+  end
+
+  def set_labels
+    if widget == 'onoff' && labels_as_list.present?
+      self.labels = labels_as_list.split("\n").map(&:strip).reject(&:empty?)
     end
   end
 

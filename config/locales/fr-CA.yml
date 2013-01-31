@@ -98,6 +98,7 @@ fr-CA:
         unit_amount: Omettez le signe monétaire.
         unit_name: Utilisez la forme plurielle en minuscule.
         options_as_list: Mettez chaque option sur une nouvelle ligne.
+        labels_as_list: Mettez les étiquettes "NON" et "OUI" sur différentes lignes et dans cette ordre.
         step: Généralement vous pouvez utiliser une tranche de 1.
         default_value: Si le composant est une case à cocher, mettez 1 pour qu'elle soit cochée par défault ou 0 pour qu'elle ne le soit pas.
         maxlength: La longueur maximale du champ en nombre de caractères.
@@ -184,6 +185,10 @@ fr-CA:
     scaler: Échelle en pourcentage
     text: Champ de saisie
     textarea: Zone de saisie
+
+  labels:
+    no: NON
+    yes: OUI
 
   statistics:
     participation_rate: "participation de %{percentage}"
@@ -395,7 +400,9 @@ fr-CA:
         description: Description
         extra: Informations supplémentaires
         options: Options
+        labels: Étiquettes
         options_as_list: Liste d'options
+        labels_as_list: Liste d'étiquettes
         minimum_units: Nombre d'unités minimal
         maximum_units: Nombre d'unités maximal
         step: Par tranche de

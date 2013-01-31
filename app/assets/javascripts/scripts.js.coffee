@@ -466,19 +466,20 @@ $ ->
 
     options =
       resizeContainer: false
+      resizeHandle: false
       onChange: (input, checked) ->
         highlight input, +checked
         updateCategoryBalance input
         updateBalance()
 
     if initial == 1
-      options.checkedLabel = t 'no'
-      options.uncheckedLabel = t 'yes'
+      options.checkedLabel = $this.data('no-label')
+      options.uncheckedLabel = $this.data('yes-label')
       options.labelOffClass = 'iPhoneCheckLabelOff reverse'
       options.labelOnClass = 'iPhoneCheckLabelOn reverse'
     else
-      options.checkedLabel = t 'yes'
-      options.uncheckedLabel = t 'no'
+      options.checkedLabel = $this.data('yes-label')
+      options.uncheckedLabel = $this.data('no-label')
     $this.iphoneStyle options
 
   # Questionnaire mode is "taxes" if "#assessment" is present.

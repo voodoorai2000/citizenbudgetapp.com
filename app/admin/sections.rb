@@ -52,6 +52,7 @@ ActiveAdmin.register Section do
         g.input :embed, as: :text, input_html: {rows: 2}
         g.input :widget, collection: Question::WIDGETS.map{|w| [t(w, scope: :widget), w]}
         g.input :options_as_list, as: :text, input_html: {rows: 5}
+        g.input :labels_as_list, as: :text, input_html: {rows: 5}
       end
 
       g.inputs t('legend.widget'), class: 'inputs inline' do

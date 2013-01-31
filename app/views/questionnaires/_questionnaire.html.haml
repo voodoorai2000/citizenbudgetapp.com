@@ -112,9 +112,9 @@
                     .control.control-onoff
                       = hidden_field_tag q.id, '0' # Mimic an unchecked box.
                       - if @response.persisted?
-                        = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                        = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-no-label' => q.no_label, 'data-yes-label' => q.yes_label, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
                       - else
-                        = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value
+                        = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-no-label' => q.no_label, 'data-yes-label' => q.yes_label
                     %div(class="meta maximum#{' changed' if q.unchecked?}")
                       = currency q.maximum_amount
                     %div(class="meta minimum#{' changed' if q.checked?}")

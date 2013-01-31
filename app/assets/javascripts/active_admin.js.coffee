@@ -55,6 +55,9 @@ $ ->
       $("#section_questions_attributes_#{i}_options_as_list_input"
       ).toggle(value in ['checkboxes', 'radio', 'select'])
 
+      $("#section_questions_attributes_#{i}_labels_as_list_input"
+      ).toggle(value == 'onoff')
+
       $("#section_questions_attributes_#{i}_default_value_input"
       ).toggle(value in ['checkbox', 'onoff', 'slider', 'scaler'])
 
