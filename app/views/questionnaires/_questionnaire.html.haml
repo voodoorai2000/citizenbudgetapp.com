@@ -7,7 +7,7 @@
       %tr
         %th.category
           = render partial: 'title', locals: {object: section, placement: 'bottom'}
-        - unless section.nonbudgetary?
+        - unless section.nonbudgetary? # @feature widgets
           %th.column.highlight
             =t '.your_choice'
       - if section.description?
@@ -27,7 +27,7 @@
                 - if q.description?
                   :markdown
                     #{q.description}
-            - elsif q.nonbudgetary?
+            - elsif q.nonbudgetary? # @feature widgets
               %td.description(colspan="#{colspan(section)}")
                 %h3
                   = render partial: 'title', locals: {object: q, placement: 'bottom'}

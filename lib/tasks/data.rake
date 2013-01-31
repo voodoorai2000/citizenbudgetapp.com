@@ -176,8 +176,7 @@ namespace :data do
   desc 'Deletes duplicate responses. If close matches are found, displays the differences for the end-user to decide.'
   task deduplicate: :environment do
     class Response
-      # Remove "newsletter" and "subscribe" after breaking backwards compatibility.
-      DIFF_EXCLUDE_KEYS = %w(_id questionnaire_id initialized_at created_at updated_at newsletter subscribe)
+      DIFF_EXCLUDE_KEYS = %w(_id questionnaire_id initialized_at created_at updated_at)
       NON_PERSONAL_KEYS = %w(answers)
 
       # @return [Hash] the attributes with which to calculate the difference

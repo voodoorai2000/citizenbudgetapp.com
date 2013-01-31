@@ -22,7 +22,7 @@ ActiveAdmin.register_page 'Dashboard' do
     @responses = @questionnaire.responses
     @questions = @questionnaire.sections.budgetary.map(&:questions).flatten
     @fields    = @questionnaire.sections.nonbudgetary
-    @number_of_budgetary_questions = @questions.count(&:budgetary?)
+    @number_of_budgetary_questions = @questions.count(&:budgetary?) # @feature widgets
 
     # Timeline and web traffic
     @charts, @statistics = charts @questionnaire
@@ -34,7 +34,7 @@ ActiveAdmin.register_page 'Dashboard' do
     @details = {}
     @questions.each do |question|
       details = {}
-      if question.budgetary?
+      if question.budgetary? # @feature widgets
         changes = @responses.where(:"answers.#{question.id}".ne => question.default_value)
         number_of_changes = changes.count
         number_of_nonchanges = @statistics[:responses] - number_of_changes
@@ -77,6 +77,7 @@ ActiveAdmin.register_page 'Dashboard' do
           details[:proportion_who_decrease] = decreases.size / number_of_changes.to_f
           details[:mean_decrease] = decreases.sum / decreases.size.to_f
         end
+      # Multiple choice survey questions.
       elsif question.options?
         changes = @responses.where(:"answers.#{question.id}".ne => nil)
         number_of_changes = changes.count

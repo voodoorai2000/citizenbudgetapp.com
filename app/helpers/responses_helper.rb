@@ -104,7 +104,7 @@ module ResponsesHelper
 
   # @return [Integer] one column if the section has nonbudgetary questions only
   def colspan(section)
-    section.nonbudgetary? && 1 || 2
+    section.nonbudgetary? && 1 || 2 # @feature widgets
   end
 
   # Display a menu if there are multiple groups and/or sections.

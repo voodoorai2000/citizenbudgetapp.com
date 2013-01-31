@@ -37,7 +37,7 @@ class Section
 
   # @return [Boolean] whether all questions are nonbudgetary questions
   def nonbudgetary?
-    questions.all?(&:nonbudgetary?)
+    questions.all?(&:nonbudgetary?) # @feature widgets
   end
 
   def position

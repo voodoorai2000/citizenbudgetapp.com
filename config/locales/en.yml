@@ -47,8 +47,6 @@ en:
       required: required
       submit: Submit
       submit_text: If you are satisfied with your choices, click "Submit".
-      # For backwards-compatibility only. You don't need to translate this.
-      submit_your_choices: Submit your choices
     show:
       header: "%{name} rebalanced the budget !"
       share: &response_preamble We encourage you to share and discuss your budget choices below with your friends and family.
@@ -484,16 +482,6 @@ en:
         created_at: Submitted
         time_to_complete: Time to complete
 
-        # For backwards compatibility only. You don't need to translate these.
-        email: Email
-        postal_code: Postal code
-        age: Age
-        gender: Gender
-        name: Name
-        comments: Comments?
-        newsletter: Add me to your newsletter
-        subscribe: I'd like to participate in your future consultations and surveys
-
   # --- Application branding ---------------------------------------------------
   # Only change translations in this section if you are rebranding the app.
 
@@ -666,12 +654,6 @@ en:
     "Tokelau Is.": "Tokelau Is."
 
   # --- MAKE NO CHANGES PAST THIS POINT ----------------------------------------
-
-  # For backwards compatibility only. You don't need to translate these.
-  gender:
-    male: Male
-    female: Female
-    no_answer: N/A
 
   mongoid:
     models: *models

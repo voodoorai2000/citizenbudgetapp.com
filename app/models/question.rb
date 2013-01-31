@@ -6,13 +6,14 @@ class Question
   include Mongoid::Document
 
   # @todo Need to be able to map an amount to each option for checkboxes, radio
-  # and select widgets, in which case we need a new :amounts array field?
+  # and select widgets, using the :options and :labels fields.
   # @note The check box widget is used uniquely in non-budgetary questions. Use
   # the on/off switch for budgetary questions.
   WIDGETS = %w(checkbox checkboxes onoff radio readonly scaler select slider text textarea)
 
   # @note Check boxes, radio buttons and select lists are currently used for
-  #   non-budgetary questions, but that will not necessarily the case.
+  #   non-budgetary questions, but that will not necessarily the case. Lines
+  #   related to this issue are tagged "@feature widgets".
   NONBUDGETARY_WIDGETS = %w(checkbox checkboxes radio readonly select text textarea)
 
   embedded_in :section
@@ -64,8 +65,8 @@ class Question
   before_validation :set_options
   before_save :strip_title
 
-  scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS)
-  scope :nonbudgetary, where(:widget.in => NONBUDGETARY_WIDGETS)
+  scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS) # @feature widgets
+  scope :nonbudgetary, where(:widget.in => NONBUDGETARY_WIDGETS) # @feature widgets
   default_scope asc(:position)
 
   # @return [String] the name to display in the administrative interface
@@ -85,7 +86,7 @@ class Question
 
   # @return [Boolean] whether it is a nonbudgetary question
   def nonbudgetary?
-    NONBUDGETARY_WIDGETS.include? widget
+    NONBUDGETARY_WIDGETS.include? widget # @feature widgets
   end
 
   # @return [Boolean] whether it is a budgetary question

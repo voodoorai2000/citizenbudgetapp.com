@@ -250,9 +250,6 @@ class Questionnaire
       if mode == 'taxes'
         headers += %w(assessment)
       end
-      if sections.nonbudgetary.none? # backwards compatibility
-        headers += %w(postal_code gender age comments newsletter subscribe)
-      end
       headers
     end
   end

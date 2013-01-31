@@ -20,15 +20,6 @@ class Response
   validates_presence_of :questionnaire_id, :initialized_at, :answers, :ip
   # We don't do more ambitious validation to avoid excluding valid responses.
 
-  # Backwards compatibility.
-  GENDERS = %w(male female)
-  field :postal_code, type: String
-  field :gender, type: String
-  field :age, type: Integer
-  field :comments, type: String
-  field :newsletter, type: Boolean, default: true
-  field :subscribe, type: Boolean, default: true
-
   # @return [Float] the time to submit the response in seconds
   def time_to_complete
     persisted? && created_at - initialized_at
@@ -62,7 +53,7 @@ class Response
     balance = questionnaire.starting_balance || 0
     questionnaire.sections.each do |section|
       section.questions.each do |question|
-        if question.budgetary?
+        if question.budgetary? # @feature widgets
           if questionnaire.mode == 'taxes' || section.group == 'revenue'
             balance += impact question
           else
@@ -94,10 +85,6 @@ class Response
     # Validate fields.
     if questionnaire.email_required? && email.blank?
       errors[:email] = I18n.t('errors.messages.blank')
-    end
-    # Backwards compatibility.
-    if questionnaire.sections.nonbudgetary.none? && postal_code.blank?
-      errors[:postal_code] = I18n.t('errors.messages.blank')
     end
 
     # Validate answers.
