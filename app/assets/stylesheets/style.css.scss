@@ -411,11 +411,17 @@ label.iOSCheckLabelOff.reverse {
 
 /* Submit --------------------------------------------------------------------*/
 
+
 legend span {
   padding-left: 160px;
 }
-#identification select {
-  width: auto; // override Bootstrap
+#identification {
+  select {
+    width: auto; // override Bootstrap
+  }
+  .radio.inline {
+    min-width: 75px;
+  }
 }
 .formError .formErrorContent {
   width: 200px;
