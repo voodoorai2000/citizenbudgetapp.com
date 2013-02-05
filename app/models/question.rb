@@ -112,12 +112,12 @@ class Question
 
   # @return [String] the "No" label for an on-off widget
   def no_label
-    widget == 'onoff' && labels? && labels.first || I18n.t('labels.no')
+    widget == 'onoff' && labels? && labels.first || I18n.t('labels.no_label')
   end
 
   # @return [String] the "Yes" label for an on-off widget
   def yes_label
-    widget == 'onoff' && labels? && labels.last || I18n.t('labels.yes')
+    widget == 'onoff' && labels? && labels.last || I18n.t('labels.yes_label')
   end
 
   # @return [Float] the maximum value of the widget
