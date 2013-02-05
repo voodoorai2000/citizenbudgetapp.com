@@ -243,15 +243,9 @@ class Questionnaire
 
   # @return [Array] a list of headers for a spreadsheet
   def headers
-    @headers ||= begin
-      # If the first two letters of a file are "ID", Microsoft Excel will try
-      # to open the file in the SYLK file format.
-      headers = %w(ip id created_at time_to_complete email name)
-      if mode == 'taxes'
-        headers += %w(assessment)
-      end
-      headers
-    end
+    # If the first two letters of a file are "ID", Microsoft Excel will try
+    # to open the file in the SYLK file format.
+    %w(ip id created_at time_to_complete email name assessment)
   end
 
   # @return [Array] rows for a spreadsheet
