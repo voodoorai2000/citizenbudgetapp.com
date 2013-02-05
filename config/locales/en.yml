@@ -23,6 +23,11 @@ en:
   # The subject of the thank-you email that is sent to participants.
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
+  labels:
+    # YAML doesn't like "no" and "yes" keys. Lame!
+    no_label: NO
+    yes_label: YES
+
   group:
     revenue: Revenues
     expense: Expenses
@@ -212,10 +217,6 @@ en:
     scaler: Percentage scale
     text: Text box
     textarea: Text area
-
-  labels:
-    no: NO
-    yes: YES
 
   statistics:
     participation_rate: "%{percentage} participation"

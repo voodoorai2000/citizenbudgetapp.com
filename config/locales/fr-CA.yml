@@ -9,6 +9,10 @@ fr-CA:
   create_response: &response_notice Merci d'avoir participé à la consultation ! Votre opinion est importante pour nous.
   thank_you_subject: "%{organization} : Merci d'avoir participé à notre consultation !"
 
+  labels:
+    no_label: NON
+    yes_label: OUI
+
   group:
     revenue: Revenus
     expense: Dépenses
@@ -185,10 +189,6 @@ fr-CA:
     scaler: Échelle en pourcentage
     text: Champ de saisie
     textarea: Zone de saisie
-
-  labels:
-    no: NON
-    yes: OUI
 
   statistics:
     participation_rate: "participation de %{percentage}"
