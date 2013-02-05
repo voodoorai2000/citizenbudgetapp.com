@@ -28,7 +28,7 @@
 
       #whitespace
 
-      - if @questionnaire.mode == 'taxes'
+      - if @questionnaire.default_assessment? && @questionnaire.tax_rate?
         #assessment.alert.alert-info
           %label(for="response_assessment")
             #{t '.assessment'}<!--[if lt IE 10]> #{t '.default_assessment', number: number_to_currency(@questionnaire.default_assessment)}<![endif]-->#{t :colon}
