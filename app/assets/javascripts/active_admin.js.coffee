@@ -37,7 +37,8 @@ $ ->
 
   toggle_mode = ->
     value = $('input[name="questionnaire[mode]"]:checked').val()
-    $("#questionnaire_starting_balance_input"
+    $("#questionnaire_starting_balance_input",
+      "#questionnaire_tax_revenue_input"
     ).toggle(value != 'taxes')
 
   $('input[name="questionnaire[mode]"]').change toggle_mode

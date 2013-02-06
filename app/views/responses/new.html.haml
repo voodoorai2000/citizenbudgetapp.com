@@ -109,6 +109,7 @@
   var starting_balance   = #{@questionnaire.starting_balance.to_i};
   var default_assessment = #{@questionnaire.default_assessment.to_i};
   var tax_rate = #{@questionnaire.tax_rate.to_f};
+  var tax_revenue = #{@questionnaire.tax_revenue.to_i};
   var change_required = #{!!@questionnaire.change_required};
 
 - content_for :footer do

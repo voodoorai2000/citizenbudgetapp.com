@@ -24,9 +24,9 @@ en:
   thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
 
   labels:
-    # YAML doesn't like "no" and "yes" keys. Lame!
-    no_label: NO
-    yes_label: YES
+    # YAML doesn't like "no" and "yes" keys and values. Lame!
+    no_label: "NO"
+    yes_label: "YES"
 
   group:
     revenue: Revenues
@@ -94,7 +94,7 @@ en:
         starts_at: Set the time in UTC.
         ends_at: Set the time in UTC.
         domain: You must set your domain's DNS to point to our servers.
-        mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees; only balanced budgets are permitted. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes; non-balanced budgets are permitted.
+        mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes.
         tax_rate: Enter the tax rate as a decimal fraction, not as a percentage.
         introduction: You can use Markdown syntax.
         instructions: This text must fit within one line.
@@ -240,7 +240,6 @@ en:
         by: "Prepared by %{author} for: %{organization}"
 
         summary: Trends
-        description: The next table shows what proportion of participants increased, decreased or did not change the budget for each service. The red section of each bar represents the proportion of participants who decreased that activity’s budget. The black section is the proportion that increased it, and the grey section is the proportion that did not change it. It is easy to see at a glance which activities had the most support, which cuts were most popular, and which were contentious.
 
         detail:
           header: Responses for each question
@@ -426,6 +425,7 @@ en:
         starting_balance: Starting balance
         default_assessment: Default property assessment
         tax_rate: Property tax rate
+        tax_revenue: Property tax revenue
         change_required: Respondents must change the budget
 
         # Appearance

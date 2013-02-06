@@ -222,9 +222,11 @@ $ ->
     else
       tip = number_to_human number
 
+  # @note Only used in taxes mode.
   taxAmount = ($slider, number) ->
     parseFloat(number) * parseFloat($slider.data('value')) * propertyAssessment() / assessment_period
 
+  # @note Only used to report personal impact.
   monthlyPayment = () ->
     tax_rate * propertyAssessment() / assessment_period
 
@@ -327,6 +329,10 @@ $ ->
     $message = $ '#message'
     $reminder = $ '#reminder'
 
+    # Services mode with tax impact.
+    if questionnaire_mode == 'services' and default_assessment >= 0 and tax_rate >= 0
+      $messages = $ '#message'
+
     if questionnaire_mode is 'taxes'
       number = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
       percentage = number_to_percentage Math.abs(balance) / monthlyPayment() * 100, strip_insignificant_zeros: true
@@ -336,10 +342,10 @@ $ ->
 
     if questionnaire_mode is 'taxes'
       prefix = 'taxes'
-    else if starting_balance == 0
+    else if $("""table[rel="revenue"]""").length
       prefix = 'services'
     else
-      prefix = 'services_balance'
+      prefix = 'cuts'
 
     changed = $('.selected').length
     if balance < 0
@@ -348,6 +354,19 @@ $ ->
       $messages.html if changed then t("#{prefix}_balanced") else instructions
     else
       $messages.html t("#{prefix}_surplus", number: number, percentage: percentage)
+
+    # Services mode with tax impact.
+    if questionnaire_mode == 'services' and default_assessment >= 0 and tax_rate >= 0
+      impact = Math.abs(balance) / tax_revenue
+      number = number_to_currency monthlyPayment() * impact, strip_insignificant_zeros: true
+      percentage = number_to_percentage impact * 100, strip_insignificant_zeros: true
+      if balance < 0
+        $reminder.html t('taxes_deficit', number: number, percentage: percentage)
+      else if balance == starting_balance
+        $reminder.html if changed then t('taxes_deficit') else instructions
+      else
+        $reminder.html t('taxes_deficit', number: number, percentage: percentage)
+
     $reminder.toggleClass 'hide', !changed
 
     if balance >= 0 and changed
@@ -367,7 +386,8 @@ $ ->
     else if questionnaire_mode == 'services'
       if balance >= 0
         enableForm()
-      else
+      # Services mode without tax impact.
+      else if default_assessment == 0 or tax_rate == 0
         disableForm()
     else
       enableForm()
@@ -484,13 +504,15 @@ $ ->
       options.uncheckedLabel = $this.data('no-label')
     $this.iphoneStyle options
 
-  if questionnaire_mode is 'taxes'
-    $('#assessment input').blur ->
-      # Ignore invalid assessment values.
-      if customAssessment() <= 0
-        $('#assessment input').val('')
+  $('#assessment input').blur ->
+    # Ignore invalid assessment values.
+    if customAssessment() <= 0
+      $('#assessment input').val('')
 
-      updateBalance()
+    updateBalance()
+
+    # In taxes mode, several figures change according to the assessment.
+    if questionnaire_mode is 'taxes'
       $('table').find('input:first').each ->
         updateCategoryBalance $(this)
 
@@ -499,7 +521,8 @@ $ ->
         $slider = $widget.find '.slider'
 
         difference = Math.abs($slider.slider('value') - $slider.data('initial')) * $slider.data('value')
-        difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
+        difference *= propertyAssessment() / assessment_period
+
         $widget.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
         # In case we display minimum and maximum values again:
         #$widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))

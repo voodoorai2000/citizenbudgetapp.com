@@ -10,8 +10,8 @@ fr-CA:
   thank_you_subject: "%{organization} : Merci d'avoir participé à notre consultation !"
 
   labels:
-    no_label: NON
-    yes_label: OUI
+    no_label: "NON"
+    yes_label: "OUI"
 
   group:
     revenue: Revenus
@@ -76,7 +76,7 @@ fr-CA:
         starts_at: Utilisez l'heure UTC.
         ends_at: Utilisez l'heure UTC.
         domain: Vous devez pointer vos DNS sur nos serveurs.
-        mode: "" # @todo
+        mode: Dans le mode "Services", le participant ajoute, coupe ou modifie des services and activités. Dans le mode "Taxes", le participant fait des changements en points de pourcentage aux budgets des services et le simulateur l'informe de l'impact sur ses taxes.
         tax_rate: Exprimez le taux sous forme de fraction décimale.
         introduction: Vous pouvez utiliser la syntaxe Markdown.
         instructions: Ce texte doit tenir sur une ligne.
@@ -211,7 +211,6 @@ fr-CA:
         by: "Preparé par %{author} pour : %{organization}"
 
         summary: Tendances
-        description: Le prochain tableau illustre dans quelle proportion les participants ont augmenté, réduit ou n’ont pas modifié le budget pour chaque activité ou service. Le rouge représente la proportion de participants ayant réduit le budget d’une activité. Le noir représente la proportion de personnes ayant augmenté le financement dans ce secteur. Finalement, le gris représente la proportion de personnes n’ayant pas modifié le budget du service en question. Il est possible de voir en un clin d’oeil quelles augmentations sont les plus populaires, quelles coupures sont les mieux acceptées, et les services sur lesquels il y avait plus de désaccords.
 
         detail:
           header: Réponses détaillées
@@ -363,6 +362,7 @@ fr-CA:
         starting_balance: Solde initial
         default_assessment: Évaluation foncière par défaut
         tax_rate: Taux d'imposition foncière
+        tax_revenue: Impôts fonciers
         change_required: Les participants doivent changer le budget
 
         logo: Logo

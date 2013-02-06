@@ -114,16 +114,19 @@ ActiveAdmin.register Questionnaire do
         row :mode do |q|
           t(q.mode, scope: :mode) if q.mode?
         end
+        unless questionnaire.mode == 'taxes'
+          row :starting_balance do |q|
+            number_to_currency(q.starting_balance) if q.starting_balance?
+          end
+        end
         row :default_assessment do |q|
           number_to_currency(q.default_assessment) if q.default_assessment?
         end
         row :tax_rate do |q|
           number_to_percentage(q.tax_rate * 100, precision: 6) if q.tax_rate?
         end
-        unless questionnaire.mode == 'taxes'
-          row :starting_balance do |q|
-            number_to_currency(q.starting_balance) if q.starting_balance?
-          end
+        row :tax_revenue do |q|
+          number_to_currency(q.tax_revenue) if q.tax_revenue?
         end
         row :change_required do |q|
           if q.change_required?

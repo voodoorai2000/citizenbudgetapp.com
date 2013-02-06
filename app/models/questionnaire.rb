@@ -30,6 +30,7 @@ class Questionnaire
   field :starting_balance, type: Integer
   field :default_assessment, type: Integer
   field :tax_rate, type: Float
+  field :tax_revenue, type: Integer
   field :change_required, type: Boolean, default: true
 
   # Appearance
@@ -72,11 +73,12 @@ class Questionnaire
 
   validates_presence_of :title, :organization_id, :mode
   validates_presence_of :default_assessment, :tax_rate, if: ->(q){q.mode == 'taxes'}
+  validates_presence_of :tax_revenue, if: ->(q){q.mode == 'services' && q.default_assessment? && q.tax_rate?}
   validates_inclusion_of :mode, in: MODES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
   validates_numericality_of :starting_balance, greater_than_or_equal_to: 0, only_integer: true, allow_blank: true
-  validates_numericality_of :default_assessment, greater_than: 0, only_integer: true, allow_blank: true
+  validates_numericality_of :default_assessment, :tax_revenue, greater_than: 0, only_integer: true, allow_blank: true
   validates_numericality_of :tax_rate, greater_than: 0, less_than: 1, allow_blank: true
   validates_length_of :twitter_text, maximum: 140, allow_blank: true
   validates_length_of :twitter_share_text, maximum: 140, allow_blank: true
@@ -187,7 +189,7 @@ class Questionnaire
 
   # @return [Boolean] whether respondents must submit balanced budgets
   def balance?
-    mode == 'services'
+    mode == 'services' && (q.default_assessment.blank? || q.tax_rate.blank?)
   end
 
   # @return [Boolean] whether the consultation is currently running
