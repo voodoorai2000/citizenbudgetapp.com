@@ -198,7 +198,7 @@ $ ->
     number = parseFloat(number)
     options.strip_insignificant_zeros ?= true
     if Math.abs(number) >= 1000
-      "#{number_with_precision number / 1000, precision: 0} k"
+      "#{number_with_precision number / 1000, precision: 1} k"
     else
       number_with_precision number, options
 
@@ -224,6 +224,9 @@ $ ->
 
   taxAmount = ($slider, number) ->
     parseFloat(number) * parseFloat($slider.data('value')) * propertyAssessment() / assessment_period
+
+  monthlyPayment = () ->
+    tax_rate * propertyAssessment() / assessment_period
 
   # Enables the identification form.
   enableForm = ->
@@ -266,7 +269,6 @@ $ ->
 
     if questionnaire_mode is 'taxes'
       current_maximum_difference *= propertyAssessment() / assessment_period
-      monthly_payment = tax_rate * propertyAssessment() / assessment_period
 
     $.each ['revenue', 'expense'], (i, group) ->
       group_balance = calculateBalance $("""table[rel="#{group}"]""")
@@ -327,12 +329,12 @@ $ ->
 
     if questionnaire_mode is 'taxes'
       number = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
-      percentage = number_to_percentage Math.abs(balance) / monthly_payment * 100, strip_insignificant_zeros: true
+      percentage = number_to_percentage Math.abs(balance) / monthlyPayment() * 100, strip_insignificant_zeros: true
     else
       number = number_to_currency balance, strip_insignificant_zeros: true
       percentage = 0
 
-    if questionnaire_mode == 'taxes'
+    if questionnaire_mode is 'taxes'
       prefix = 'taxes'
     else if starting_balance == 0
       prefix = 'services'
@@ -482,27 +484,27 @@ $ ->
       options.uncheckedLabel = $this.data('no-label')
     $this.iphoneStyle options
 
-  # Questionnaire mode is "taxes" if "#assessment" is present.
-  $('#assessment input').blur ->
-    # Ignore invalid assessment values.
-    if customAssessment() <= 0
-      $('#assessment input').val('')
+  if questionnaire_mode is 'taxes'
+    $('#assessment input').blur ->
+      # Ignore invalid assessment values.
+      if customAssessment() <= 0
+        $('#assessment input').val('')
 
-    updateBalance()
-    $('table').find('input:first').each ->
-      updateCategoryBalance $(this)
+      updateBalance()
+      $('table').find('input:first').each ->
+        updateCategoryBalance $(this)
 
-    $('.widget-scaler').each ->
-      $widget = $ this
-      $slider = $widget.find '.slider'
+      $('.widget-scaler').each ->
+        $widget = $ this
+        $slider = $widget.find '.slider'
 
-      difference = Math.abs($slider.slider('value') - $slider.data('initial')) * $slider.data('value')
-      difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
-      $widget.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
-      # In case we display minimum and maximum values again:
-      #$widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))
-      #$widget.find('.maximum.taxes').html number_to_currency taxAmount($slider, $slider.data('maximum'))
-      $slider.find('.tip-content').html tipContent($slider, $slider.slider('value'))
+        difference = Math.abs($slider.slider('value') - $slider.data('initial')) * $slider.data('value')
+        difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
+        $widget.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
+        # In case we display minimum and maximum values again:
+        #$widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))
+        #$widget.find('.maximum.taxes').html number_to_currency taxAmount($slider, $slider.data('maximum'))
+        $slider.find('.tip-content').html tipContent($slider, $slider.slider('value'))
 
   if disabled?
     updateBalance()

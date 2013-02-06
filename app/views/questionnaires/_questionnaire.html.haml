@@ -75,9 +75,13 @@
                       %span.value= number_to_currency 0
                     - if @questionnaire.mode == 'taxes'
                       .note=t '.assessment_period'
-                    - if q.widget == 'scaler' && @questionnaire.mode == 'taxes' # @note Special case.
-                      .meta.maximum.taxes +
-                      .meta.minimum.taxes -
+                    - if q.widget == 'scaler'
+                      - if @questionnaire.mode == 'taxes'
+                        .meta.maximum.taxes +
+                        .meta.minimum.taxes -
+                      - else
+                        .meta.maximum= number_to_percentage(q.maximum_units * 100)
+                        .meta.minimum= number_to_percentage(q.minimum_units * 100)
                     - elsif q.unit_name == '$' && q.unit_amount == 1 # @todo Make currency symbol more flexible.
                       .meta.maximum &nbsp;
                       .meta.minimum &nbsp;
@@ -96,11 +100,7 @@
                         .tick.lowest
                         .tick.initial
                         .tick.highest
-                    - if q.widget == 'scaler'
-                      - unless @questionnaire.mode == 'taxes'
-                        .meta.maximum= number_to_percentage(q.maximum_units * 100)
-                        .meta.minimum= number_to_percentage(q.minimum_units * 100)
-                    - else
+                    - unless q.widget == 'scaler' && @questionnaire.mode == 'taxes'
                       .meta.maximum
                         = currency q.maximum_amount
                       .meta.minimum
