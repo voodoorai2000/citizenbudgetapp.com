@@ -26,6 +26,9 @@ I18n =
     taxes_surplus: 'You have decreased your tax dollars by {{number}}/month or {{percentage}}. This could result in a service level reduction.'
     taxes_balanced: 'Your budget is balanced.'
     taxes_deficit: 'You have increased your tax dollars by {{number}}/month or {{percentage}}. This could result in a service level enhancement.'
+    impact_surplus: 'Your choices have decreased the amount of property tax revenue required to balance by {{number}} or {{percentage}}.'
+    impact_balanced: 'Your budget is balanced.'
+    impact_deficit: 'Your choices have increased the amount of property tax revenue required to balance by {{number}} or {{percentage}}.'
     copy_hint: 'copy to clipboard'
     copied_hint: 'copied!'
   fr_CA:

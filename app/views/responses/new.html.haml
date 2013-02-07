@@ -36,7 +36,7 @@
 
       = render @questionnaire
 
-    - if @questionnaire.default_assessment? && @questionnaire.tax_rate?
+    - if @questionnaire.tax_rate?
       #reminder.message.hide
 
     %section#identification

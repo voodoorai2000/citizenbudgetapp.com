@@ -330,7 +330,7 @@ $ ->
     $reminder = $ '#reminder'
 
     # Services mode with tax impact.
-    if questionnaire_mode == 'services' and default_assessment >= 0 and tax_rate >= 0
+    if questionnaire_mode == 'services' and tax_rate >= 0
       $messages = $ '#message'
 
     if questionnaire_mode is 'taxes'
@@ -356,16 +356,16 @@ $ ->
       $messages.html t("#{prefix}_surplus", number: number, percentage: percentage)
 
     # Services mode with tax impact.
-    if questionnaire_mode == 'services' and default_assessment >= 0 and tax_rate >= 0
+    if questionnaire_mode == 'services' and tax_rate >= 0
       impact = Math.abs(balance) / tax_revenue
-      number = number_to_currency monthlyPayment() * impact, strip_insignificant_zeros: true
+      number = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
       percentage = number_to_percentage impact * 100, strip_insignificant_zeros: true
       if balance < 0
-        $reminder.html t('taxes_deficit', number: number, percentage: percentage)
+        $reminder.html t('impact_deficit', number: number, percentage: percentage)
       else if balance == starting_balance
-        $reminder.html if changed then t('taxes_balanced') else instructions
+        $reminder.html if changed then t('impact_balanced') else instructions
       else
-        $reminder.html t('taxes_surplus', number: number, percentage: percentage)
+        $reminder.html t('impact_surplus', number: number, percentage: percentage)
 
     $reminder.toggleClass 'hide', !changed
 
@@ -387,7 +387,7 @@ $ ->
       if balance >= 0
         enableForm()
       # Services mode without tax impact.
-      else if default_assessment == 0 or tax_rate == 0
+      else if tax_rate == 0
         disableForm()
     else
       enableForm()

@@ -73,7 +73,7 @@ class Questionnaire
 
   validates_presence_of :title, :organization_id, :mode
   validates_presence_of :default_assessment, :tax_rate, if: ->(q){q.mode == 'taxes'}
-  validates_presence_of :tax_revenue, if: ->(q){q.mode == 'services' && q.default_assessment? && q.tax_rate?}
+  validates_presence_of :tax_revenue, if: ->(q){q.mode == 'services' && q.tax_rate?}
   validates_inclusion_of :mode, in: MODES, allow_blank: true
   validates_inclusion_of :locale, in: Locale.available_locales, allow_blank: true
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
@@ -189,7 +189,7 @@ class Questionnaire
 
   # @return [Boolean] whether respondents must submit balanced budgets
   def balance?
-    mode == 'services' && (q.default_assessment.blank? || q.tax_rate.blank?)
+    mode == 'services' && q.tax_rate.blank?
   end
 
   # @return [Boolean] whether the consultation is currently running
