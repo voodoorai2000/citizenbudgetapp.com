@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/jnicklas/carrierwave-mongoid.git
-  revision: ccbec883f6443a6bc05341a4863c0ffe8db40d05
-  branch: mongoid-3.0
-  specs:
-    carrierwave-mongoid (0.3.0.alpha)
-      carrierwave (~> 0.6.1)
-      mongoid (~> 3.0.0.rc)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -74,9 +65,13 @@ GEM
       sass (>= 3.1)
     builder (3.0.4)
     cancan (1.6.8)
-    carrierwave (0.6.2)
+    carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+    carrierwave-mongoid (0.4.0)
+      carrierwave (~> 0.8.0)
+      mongoid (~> 3.0)
+      mongoid-grid_fs (~> 1.3)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -188,6 +183,9 @@ GEM
       moped (~> 1.1)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
+    mongoid-grid_fs (1.7.0)
+      mime-types (~> 1.19)
+      mongoid (~> 3.0)
     moped (1.2.9)
     multi_json (1.5.0)
     multipart-post (1.1.5)
@@ -307,7 +305,7 @@ DEPENDENCIES
   airbrake
   axlsx
   cancan
-  carrierwave-mongoid!
+  carrierwave-mongoid (~> 0.4.0)
   coffee-rails (~> 3.2.1)
   dalli
   devise

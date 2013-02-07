@@ -36,8 +36,7 @@ gem 'mustache'
 # Image uploads
 gem 'fog'
 gem 'rmagick'
-# @see https://github.com/jnicklas/carrierwave-mongoid/pull/29#issuecomment-7249357
-gem 'carrierwave-mongoid', git: 'git://github.com/jnicklas/carrierwave-mongoid.git', branch: 'mongoid-3.0'
+gem 'carrierwave-mongoid', '~> 0.4.0'
 
 # Views
 gem 'haml-rails'
