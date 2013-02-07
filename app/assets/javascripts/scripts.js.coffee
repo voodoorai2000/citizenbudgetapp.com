@@ -363,9 +363,9 @@ $ ->
       if balance < 0
         $reminder.html t('taxes_deficit', number: number, percentage: percentage)
       else if balance == starting_balance
-        $reminder.html if changed then t('taxes_deficit') else instructions
+        $reminder.html if changed then t('taxes_balanced') else instructions
       else
-        $reminder.html t('taxes_deficit', number: number, percentage: percentage)
+        $reminder.html t('taxes_surplus', number: number, percentage: percentage)
 
     $reminder.toggleClass 'hide', !changed
 
