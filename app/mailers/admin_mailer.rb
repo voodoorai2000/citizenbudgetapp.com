@@ -10,6 +10,15 @@ class AdminMailer < Devise::Mailer
   def reset_password_instructions(record)
     I18n.with_locale(record.locale) do
       initialize_from_record(record)
+
+      @host = ActionMailer::Base.default_url_options[:host] || I18n.t('app.host')
+      if record.organization
+        questionnaire = record.organization.questionnaires.first
+        if questionnaire && questionnaire.domain?
+          @host = questionnaire.domain
+        end
+      end
+
       headers = headers_for(:reset_password_instructions)
       headers.merge! reply_to: ENV['ACTION_MAILER_REPLY_TO']
       headers.delete :template_path
