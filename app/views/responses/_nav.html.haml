@@ -1,7 +1,13 @@
 - @groups.each do |group,sections|
   -# Display a dropdown if there are multiple sections within the group.
   - if sections.one?
-    = render sections
+    - if sections.first.title.length > 15
+      %li(id="#{sections.first.title.parameterize}_link")
+        = link_to "##{sections.first.title.parameterize}" do
+          %span
+          = t(group, scope: :group)
+    - else
+      = render sections
   - else
     %li.dropdown
       = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do

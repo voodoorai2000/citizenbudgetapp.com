@@ -189,7 +189,7 @@ class Questionnaire
 
   # @return [Boolean] whether respondents must submit balanced budgets
   def balance?
-    mode == 'services' && q.tax_rate.blank?
+    mode == 'services' && tax_rate.blank?
   end
 
   # @return [Boolean] whether the consultation is currently running
