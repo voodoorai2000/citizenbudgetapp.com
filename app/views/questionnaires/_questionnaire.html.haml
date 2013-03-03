@@ -2,14 +2,15 @@
   %style
     = @questionnaire.stylesheet
 - @questionnaire.sections.budgetary.each do |section|
-  %table(id="#{section.title.parameterize}" rel="#{section.group}" class="#{section.group}")
+  %table(id="#{table_id(section)}" rel="#{section.group}" class="#{section.group}")
     %thead
-      %tr
-        %th.category
-          = render partial: 'title', locals: {object: section, placement: 'bottom'}
-        - unless section.nonbudgetary? # @feature widgets
-          %th.column.highlight
-            =t '.your_choice'
+      - unless section.title.blank? && section.nonbudgetary?
+        %tr
+          %th.category
+            = render partial: 'title', locals: {object: section, placement: 'bottom'}
+          - unless section.nonbudgetary? # @feature widgets
+            %th.column.highlight
+              =t '.your_choice'
       - if section.description?
         %tr
           %td.description(colspan="#{colspan(section)}")

@@ -18,6 +18,14 @@ module ApplicationHelper
     locale.to_s.split('-', 2).first
   end
 
+  def table_id(section)
+    parts = []
+    parts << 'section'
+    parts << section.position + 1
+    parts << section.title.parameterize if section.title.present?
+    parts.map(&:to_s) * '-'
+  end
+
   # <head> tags
 
   def title
