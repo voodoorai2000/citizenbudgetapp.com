@@ -157,7 +157,11 @@ ActiveAdmin.register_page 'Dashboard' do
       xlsx = Axlsx::Package.new do |package|
         package.workbook.add_worksheet do |sheet|
           @questionnaire.rows.each do |row|
-            sheet.add_row row
+            begin
+              sheet.add_row row
+            rescue ArgumentError => e
+              logger.error "#{e.inspect}: #{row.inspect}"
+            end
           end
         end
       end
