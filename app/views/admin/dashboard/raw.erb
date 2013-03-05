@@ -2,7 +2,11 @@
 # Use Windows newline characters as row separator.
 CSV.generate(:col_sep => @col_sep, :row_sep => "\r\n") do |csv|
   @questionnaire.rows.each do |row|
-    csv << row
+    begin
+      csv << row
+    rescue ArgumentError => e # non-UTF8 characters from spammers
+      logger.error "#{e.inspect}: #{row.inspect}"
+    end
   end
 end.html_safe
 %>

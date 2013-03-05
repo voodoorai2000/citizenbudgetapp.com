@@ -159,7 +159,7 @@ ActiveAdmin.register_page 'Dashboard' do
           @questionnaire.rows.each do |row|
             begin
               sheet.add_row row
-            rescue ArgumentError => e
+            rescue ArgumentError => e # non-UTF8 characters from spammers
               logger.error "#{e.inspect}: #{row.inspect}"
             end
           end
