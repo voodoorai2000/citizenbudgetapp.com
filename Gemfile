@@ -45,7 +45,7 @@ gem 'unicode_utils'
 
 # Export
 gem 'spreadsheet'
-gem 'axlsx'
+gem 'axlsx', '1.3.5'
 
 # Heroku API
 gem 'oj'
