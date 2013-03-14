@@ -1,4 +1,5 @@
-%li(id="#{section.title.parameterize}_link")
-  = link_to "##{table_id(section)}" do
-    %span
-    = section.title
+- if section.title?
+  %li(id="#{section.title.parameterize}_link")
+    = link_to "##{table_id(section)}" do
+      %span
+      = section.title

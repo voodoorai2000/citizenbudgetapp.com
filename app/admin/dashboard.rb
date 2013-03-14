@@ -152,8 +152,6 @@ ActiveAdmin.register_page 'Dashboard' do
       send_data io.string, filename: filename
 
     when 'xlsx'
-      io = StringIO.new
-
       xlsx = Axlsx::Package.new do |package|
         package.workbook.add_worksheet do |sheet|
           @questionnaire.rows.each do |row|
