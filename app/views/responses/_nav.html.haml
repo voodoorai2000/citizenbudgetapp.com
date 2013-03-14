@@ -3,7 +3,7 @@
   - if sections.one?
     - if sections.first.title.length > 15
       %li(id="#{sections.first.title.parameterize}_link")
-        = link_to "##{table_id(section)}" do
+        = link_to "##{table_id(sections.first)}" do
           %span
           = t(group, scope: :group)
     - else
