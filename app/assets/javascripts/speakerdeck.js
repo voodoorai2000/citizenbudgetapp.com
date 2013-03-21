@@ -88,7 +88,7 @@
             for (c = 0, d = b.length; c < d; c++) a = b[c], e.push((new f(a)).setup());
             return e
         }, f.prototype.url = function () {
-            return "//speakerdeck.com/embed/" + this.id + "?" + this.toParam()
+            return "https://speakerdeck.com/player/" + this.id + "?" + this.toParam()
         }, f.prototype.toParam = function () {
             var a, b;
             return function () {
