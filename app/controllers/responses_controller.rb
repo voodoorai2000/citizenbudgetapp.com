@@ -33,13 +33,16 @@ class ResponsesController < ApplicationController
     redirect_to response_path(@response, params.slice(:token)), notice: @questionnaire.response_notice.present? && @questionnaire.response_notice || t(:create_response)
   end
 
+  def offline
+  end
+
 private
 
   def find_questionnaire
     @questionnaire = Questionnaire.where(authorization_token: params[:token]).first if params[:token]
     @questionnaire ||= Questionnaire.find_by_domain(request.host)
     @questionnaire ||= Questionnaire.last if Rails.env.development?
-    redirect_to t('app.product_url') if @questionnaire.nil?
+    render 'offline' if @questionnaire.nil?
   end
 
   def set_locale

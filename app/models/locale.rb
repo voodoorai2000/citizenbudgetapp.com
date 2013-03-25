@@ -1,8 +1,8 @@
 # coding: utf-8
 class Locale
   LOCALES = {
-    'en' => 'English (United States)',
     'fr-CA' => 'Français (Canada)',
+    'en' => 'English (United States)',
   }
 
   class << self
