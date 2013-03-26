@@ -202,17 +202,22 @@ ActiveAdmin.register_page 'Dashboard' do
       starts_on = q.starts_on - 3.days
       ends_on = [q.today, q.ends_on].min
 
-      # Responses per day.
-      data = []
-      hash = q.count_by_date.each_with_object({}) do |row,memo|
-        memo[Date.new(row['_id']['year'], row['_id']['month'], row['_id']['day'])] = row['value']
-      end
-      # Add zeroes so that the chart doesn't interpolate between values.
-      starts_on.upto(ends_on).each do |date|
-        data << %([#{date_to_js(date)}, #{hash[date] || 0}])
+      begin
+        # Responses per day.
+        data = []
+        hash = q.count_by_date.each_with_object({}) do |row,memo|
+          memo[Date.new(row['_id']['year'], row['_id']['month'], row['_id']['day'])] = row['value']
+        end
+        # Add zeroes so that the chart doesn't interpolate between values.
+        starts_on.upto(ends_on).each do |date|
+          data << %([#{date_to_js(date)}, #{hash[date] || 0}])
+        end
+
+        charts[:responses] = data.join(',')
+      rescue Moped::Errors::OperationFailure
+        # Do nothing. JS engine is off.
       end
 
-      charts[:responses] = data.join(',')
       statistics[:responses] = q.responses.count
 
       if q.google_analytics_profile? && q.google_api_authorization.authorized?

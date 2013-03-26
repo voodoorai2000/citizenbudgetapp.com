@@ -62,6 +62,7 @@
 -# Google Charts adds null values for missing dates in the time series.
 -# https://developers.google.com/chart/interactive/docs/gallery/linechart
 :javascript
+- if @charts[questionnaire.id.to_s][:responses]
   draw('LineChart', '#{dom_id(questionnaire)}_responses', [
     "#{t 'statistics.responses'}"
   ], [#{@charts[questionnaire.id.to_s][:responses]}], {
