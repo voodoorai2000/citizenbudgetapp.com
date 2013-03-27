@@ -405,16 +405,16 @@ $ ->
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
         $tr.find('td.highlight').animate {'background-color': if group is 'revenue' then '#ddf' else '#ff9'}, 'slow'
     else
-      lower = (current - initial) * value < 0
+      difference = (current - initial) * value
       if group is 'revenue'
-        if lower
+        if difference < 0
           key = t("#{questionnaire_mode}_losses")
           color = colors[questionnaire_mode].item.negative
         else
           key = t("#{questionnaire_mode}_gains")
           color = colors[questionnaire_mode].item.positive
       else
-        if lower
+        if difference < 0
           key = t("#{questionnaire_mode}_savings")
           color = colors[questionnaire_mode].item.positive
         else
@@ -422,7 +422,7 @@ $ ->
           color = colors[questionnaire_mode].item.negative
 
       $tr.find('.key').html key
-      difference = Math.abs(current - initial) * value
+      difference = Math.abs difference
       difference *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
       $tr.find('.value').html number_to_currency(difference, strip_insignificant_zeros: true)
       $tr.find('.impact').css('color', color).css 'visibility', 'visible'
