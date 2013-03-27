@@ -405,7 +405,7 @@ $ ->
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
         $tr.find('td.highlight').animate {'background-color': if group is 'revenue' then '#ddf' else '#ff9'}, 'slow'
     else
-      lower = current - initial < 0
+      lower = (current - initial) * value < 0
       if group is 'revenue'
         if lower
           key = t("#{questionnaire_mode}_losses")
