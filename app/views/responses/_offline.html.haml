@@ -1,5 +1,6 @@
-.row
-  - locales.each do |locale|
-    .span6
-      %h1=t :offline_header, locale: locale
-      %p=t :offline_body, locale: locale
+- Locale.available_locales.each_slice(2).each do |locales|
+  .row
+    - locales.each do |locale|
+      .span6
+        %h1=t :offline_header, locale: locale
+        %p=t :offline_body, locale: locale
