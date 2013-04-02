@@ -1,0 +1,5 @@
+.row
+  - locales.each do |locale|
+    .span6
+      %h1=t :offline_header, locale: locale
+      %p=t :offline_body, locale: locale

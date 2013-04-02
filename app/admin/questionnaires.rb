@@ -150,6 +150,12 @@ ActiveAdmin.register Questionnaire do
           RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
         end
         row :instructions
+        row :content_before do |q|
+          RDiscount.new(q.content_before).to_html.html_safe if q.content_before?
+        end
+        row :content_after do |q|
+          RDiscount.new(q.content_after).to_html.html_safe if q.content_after?
+        end
         row :description
         row :attribution
         row :stylesheet do |q|

@@ -82,6 +82,8 @@ fr-CA:
         tax_rate: Exprimez le taux sous forme de fraction décimale.
         introduction: Vous pouvez utiliser la syntaxe Markdown.
         instructions: Ce texte doit tenir sur une ligne.
+        content_before: Personnaliser la page affiché avant la date de début.
+        content_after: Personnaliser la page affiché après la date de fin.
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         attribution: Ce texte sera affiché en bas de page avant un lien vers le produit.
         thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
@@ -374,6 +376,8 @@ fr-CA:
         introduction: Texte de présentation
         instructions: Instructions
         description: Description
+        description_before: Avant la consultation
+        description_after: Après la consultation
         attribution: Attribution
         stylesheet: CSS personnalisé
 

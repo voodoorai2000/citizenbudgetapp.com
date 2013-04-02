@@ -7,20 +7,47 @@ module ResponsesHelper
     link_to_unless_current image_tag(@questionnaire.logo.large.url, options), root_path
   end
 
-  # Surrounds a string with locale-appropriate curly quotes.
+  # @param [String] string a string
+  # # @return [String] the string surrounded by locale-appropriate curly quotes
   def curly_quote(string)
     "#{t(:left_quote)}#{string}#{t(:right_quote)}"
   end
 
+  # @param [String] string a Markdown string that may contain HTML
+  # @return [String] the HTML output
   def markdown(string)
     RDiscount.new(string).to_html.html_safe
   end
 
-  # Escapes double-quotes for inclusion in HTML attributes.
+  # @param [String] string a string
+  # @return [String] the string with escaped double-quotes for use in HTML attributes
   def escape_attribute(string)
     string.gsub '"', '&quot;'
   end
 
+  # @param [Section] section a questionnaire section
+  # @return [Integer] one column if the section has nonbudgetary questions only
+  def colspan(section)
+    section.nonbudgetary? && 1 || 2 # @feature widgets
+  end
+
+  # @return [Boolean] whether there is a single group with a single section
+  def simple_navigation?
+    @groups.one? && @groups.values[0].one?
+  end
+
+  # @param [Section] section a questionnaire section
+  # @return [String] the value of the HTML `id` attribute for the section
+  def table_id(section)
+    parts = []
+    parts << 'section'
+    parts << section.position + 1
+    parts << section.title.parameterize if section.title.present?
+    parts.map(&:to_s) * '-'
+  end
+
+  # @param [Question] question a questionnaire question
+  # @return [Hash] the HTML attributes for the question's `input` tag
   def html_attributes(question)
     attributes = {}
     classes = []
@@ -100,15 +127,5 @@ module ResponsesHelper
     # This logic should be in number_with_precision, but as long as the
     # separator occurs only once, this is safe.
     number_to_currency(number, options).sub /#{escaped_separator}0+\b/, ''
-  end
-
-  # @return [Integer] one column if the section has nonbudgetary questions only
-  def colspan(section)
-    section.nonbudgetary? && 1 || 2 # @feature widgets
-  end
-
-  # Display a menu if there are multiple groups and/or sections.
-  def simple_navigation?
-    @groups.one? && @groups.values[0].one?
   end
 end

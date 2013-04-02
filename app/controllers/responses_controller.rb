@@ -41,8 +41,14 @@ private
   def find_questionnaire
     @questionnaire = Questionnaire.where(authorization_token: params[:token]).first if params[:token]
     @questionnaire ||= Questionnaire.find_by_domain(request.host)
+
+    # In development, we generally work on the latest questionnaire.
     @questionnaire ||= Questionnaire.last if Rails.env.development?
-    render 'offline' if @questionnaire.nil?
+
+    if @questionnaire.nil?
+      @questionnaire = Questionnaire.by_domain(request.host).first
+      render 'offline'
+    end
   end
 
   def set_locale

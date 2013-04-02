@@ -38,6 +38,8 @@ class Questionnaire
   field :title_image, type: String
   field :introduction, type: String
   field :instructions, type: String
+  field :content_before, type: String
+  field :content_after, type: String
   field :description, type: String
   field :attribution, type: String
   field :stylesheet, type: String
@@ -99,10 +101,17 @@ class Questionnaire
   scope :active, where(:ends_at.ne => nil, :ends_at.gte => Time.now)
 
   # @param [String] domain a domain name
+  # @return [Enumerable] questionnaires whose domain name matches
+  # @note No two active questionnaires should have the same domain.
+  def self.by_domain(domain)
+    any_in(domain: [domain, sanitize_domain(domain)])
+  end
+
+  # @param [String] domain a domain name
   # @return [Questionnaire,nil] a questionnaire whose domain name matches
   # @note No two active questionnaires should have the same domain.
   def self.find_by_domain(domain)
-    domain && current.any_in(domain: [domain, sanitize_domain(domain)]).first
+    domain && current.by_domain(domain).first
   end
 
   # @return [Integer] the number of responses by date in the local time zone

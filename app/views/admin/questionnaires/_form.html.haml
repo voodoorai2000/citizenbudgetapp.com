@@ -30,6 +30,8 @@
     = f.input :title_image_cache, as: :hidden
     = f.input :introduction, as: :text
     = f.input :instructions
+    = f.input :content_before, as: :text, input_html: {rows: 3}
+    = f.input :content_after, as: :text, input_html: {rows: 3}
     = f.input :description, as: :text, input_html: {rows: 3}
     = f.input :attribution
     = f.input :stylesheet, as: :text, input_html: {rows: 5}

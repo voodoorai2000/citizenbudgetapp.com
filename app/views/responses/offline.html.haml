@@ -1,7 +1,13 @@
 .container
   - Locale.available_locales.each_slice(2).each do |locales|
-    .row
-      - locales.each do |locale|
-        .span6
-          %h1=t :offline_header, locale: locale
-          %p=t :offline_body, locale: locale
+    - if @questionnaire
+      - if @questionnaire.future? && @questionnaire.content_before
+        :markdown
+          #{@questionnaire.content_before}
+      - elsif @questionnaire.past? && @questionnaire.content_after
+        :markdown
+          #{@questionnaire.content_after}
+      - else
+        = render partial: 'offline'
+    - else
+      = render partial: 'offline'
