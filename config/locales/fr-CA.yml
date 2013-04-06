@@ -73,7 +73,7 @@ fr-CA:
         response_preamble: *response_preamble
     hints:
       response:
-        email: Nous ne diffuserons pas votre adresse courriel ou toute autres données personnelles à une tierce partie.
+        email: Nous ne diffuserons pas votre adresse courriel ou toute autres données personnelles à une tierce personne.
       questionnaire:
         starts_at: Utilisez l'heure UTC.
         ends_at: Utilisez l'heure UTC.
