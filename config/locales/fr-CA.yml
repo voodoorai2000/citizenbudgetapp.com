@@ -425,6 +425,8 @@ fr-CA:
       response:
         id: Identifiant
         ip: Adresse IP
+        email: Courriel
+        name: Nom
         created_at: Soumise
         assessment: L'évaluation foncière de votre propriété
         time_to_complete: Temps requis
