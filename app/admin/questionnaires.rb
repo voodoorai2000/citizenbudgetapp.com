@@ -118,6 +118,9 @@ ActiveAdmin.register Questionnaire do
           row :starting_balance do |q|
             number_to_currency(q.starting_balance) if q.starting_balance?
           end
+          row :maximum_deviation do |q|
+            number_to_currency(q.maximum_deviation) if q.maximum_deviation?
+          end
         end
         row :default_assessment do |q|
           number_to_currency(q.default_assessment) if q.default_assessment?

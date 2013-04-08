@@ -364,6 +364,7 @@ fr-CA:
 
         mode: Mode
         starting_balance: Solde initial
+        maximum_deviation: Écart maximal
         default_assessment: Évaluation foncière par défaut
         tax_rate: Taux d'imposition foncière
         tax_revenue: Impôts fonciers

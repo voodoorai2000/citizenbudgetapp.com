@@ -386,7 +386,12 @@ $ ->
     if change_required and not changed
       disableForm()
     else if questionnaire_mode == 'services'
-      if balance >= 0
+      if maximum_deviation
+        if Math.abs(balance) <= maximum_deviation
+          enableForm()
+        else
+          disableForm()
+      else if balance >= 0
         enableForm()
       # Services mode without tax impact.
       else if tax_rate == 0

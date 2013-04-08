@@ -429,6 +429,7 @@ en:
         # Mode
         mode: Mode
         starting_balance: Starting balance
+        maximum_deviation: Maximum imbalance
         default_assessment: Default property assessment
         tax_rate: Property tax rate
         tax_revenue: Property tax revenue
