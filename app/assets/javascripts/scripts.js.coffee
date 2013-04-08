@@ -332,7 +332,7 @@ $ ->
     $reminder = $ '#reminder'
 
     # Services mode with tax impact.
-    if questionnaire_mode == 'services' and tax_rate >= 0
+    if questionnaire_mode is 'services' and tax_rate >= 0
       $messages = $ '#message'
 
     if questionnaire_mode is 'taxes'
@@ -350,24 +350,36 @@ $ ->
       prefix = 'cuts'
 
     changed = $('.selected').length
-    if balance < 0
-      $messages.html t("#{prefix}_deficit", number: number, percentage: percentage)
-    else if balance == starting_balance
+    options = {number: number, percentage: percentage}
+    if balance == 0
       $messages.html if changed then t("#{prefix}_balanced") else instructions
+    else if maximum_deviation
+      if Math.abs(balance) <= maximum_deviation
+        if balance < 0
+          $messages.html t("deviation_deficit", options)
+        else
+          $messages.html t("deviation_surplus", options)
+      else
+        if balance < 0
+          $messages.html t("deviation_large_deficit", options)
+        else
+          $messages.html t("deviation_large_surplus", options)
+    else if balance < 0
+      $messages.html t("#{prefix}_deficit", options)
     else
-      $messages.html t("#{prefix}_surplus", number: number, percentage: percentage)
+      $messages.html t("#{prefix}_surplus", options)
 
     # Services mode with tax impact.
-    if questionnaire_mode == 'services' and tax_rate >= 0
+    if questionnaire_mode is 'services' and tax_rate >= 0
       impact = Math.abs(balance) / tax_revenue
       number = number_to_currency Math.abs(balance), strip_insignificant_zeros: true
       percentage = number_to_percentage impact * 100, strip_insignificant_zeros: true
       if balance < 0
-        $reminder.html t('impact_deficit', number: number, percentage: percentage)
-      else if balance == starting_balance
+        $reminder.html t('impact_deficit', options)
+      else if balance == 0
         $reminder.html if changed then t('impact_balanced') else instructions
       else
-        $reminder.html t('impact_surplus', number: number, percentage: percentage)
+        $reminder.html t('impact_surplus', options)
 
     $reminder.toggleClass 'hide', !changed
 
@@ -385,17 +397,17 @@ $ ->
     # Enable or disable identification form.
     if change_required and not changed
       disableForm()
-    else if questionnaire_mode == 'services'
+    else if questionnaire_mode is 'services'
       if maximum_deviation
         if Math.abs(balance) <= maximum_deviation
           enableForm()
         else
           disableForm()
-      else if balance >= 0
-        enableForm()
-      # Services mode without tax impact.
-      else if tax_rate == 0
-        disableForm()
+      else
+        if balance >= 0
+          enableForm()
+        else if tax_rate == 0 # services mode without tax impact
+          disableForm()
     else
       enableForm()
 
@@ -567,4 +579,4 @@ $ ->
       $slider.slider 'value', $slider.data('maximum')
 
     $('#new_response').validationEngine()
-    disableForm() if change_required or (questionnaire_mode == 'services' and starting_balance < 0)
+    disableForm() if change_required or (questionnaire_mode is 'services' and starting_balance < 0)
