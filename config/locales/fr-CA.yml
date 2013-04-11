@@ -361,6 +361,7 @@ fr-CA:
         time_zone: Fuseau horaire
         domain: Nom de domaine
         email_required: Les participants doivent fournir une adresse courriel
+        authorization_token: Lien privé
 
         mode: Mode
         starting_balance: Solde initial

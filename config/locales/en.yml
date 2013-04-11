@@ -425,6 +425,7 @@ en:
         time_zone: Time zone
         domain: Domain name
         email_required: Respondents must provide an email address
+        authorization_token: Private URL
 
         # Mode
         mode: Mode

@@ -84,6 +84,9 @@ ActiveAdmin.register Questionnaire do
         row :organization do |q|
           auto_link q.organization
         end
+        row :authorization_token do |q|
+          link_to token_url(questionnaire), token_url(questionnaire)
+        end
         row :locale do |q|
           Locale.locale_name(q.locale) if q.locale?
         end
