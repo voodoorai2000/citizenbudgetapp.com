@@ -14,7 +14,7 @@ class Notifier < ActionMailer::Base
     headers = {
       from: from.format,
       to: to.format,
-      subject: t(:thank_you_subject, organization: organization.name),
+      subject: t(:thank_you_subject, organization: organization.name, locale: questionnaire.locale),
     }
 
     if questionnaire.reply_to?
