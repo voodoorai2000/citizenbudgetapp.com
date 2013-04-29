@@ -191,7 +191,7 @@ td.description {
   }
 }
 
-$widget-margin: 50px;
+$widget-margin: 45px;
 
 .widget {
   width: $column-width - $widget-margin * 2;
@@ -384,6 +384,12 @@ label.iOSCheckLabelOff.reverse {
   width: 40px;
 }
 /* Popovers ------------------------------------------------------------------*/
+
+.popover-toggle {
+  margin: -4px;
+  padding: 4px;
+  background-color: #ff9;
+}
 
 .popover-title {
   display: none;

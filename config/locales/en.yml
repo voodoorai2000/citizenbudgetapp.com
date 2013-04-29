@@ -65,7 +65,7 @@ en:
       invitation: Have you already submitted your own budget proposal? If not, <b><a href="%{url}">click here to participate.</a></b>
       comments: Comments
     title:
-      read_more: Learn more
+      read_more: &read_more Learn more
       read_more_tip: Click for more info
       view_media: View media
       view_media_tip: Click to view media
@@ -87,6 +87,7 @@ en:
         postal_code: H0H 0H0
       questionnaire:
         instructions: *instructions
+        read_more: *read_more
         attribution: *attribution
         response_notice: *response_notice
         response_preamble: *response_preamble
@@ -100,13 +101,13 @@ en:
         domain: You must set your domain's DNS to point to our servers.
         mode: In "Services" mode, participants add, cut or modify services and activities, like increasing parking fees. In "Taxes" mode, participants make percentage-wise changes to the budgets of bundles of services, like healthcare, and the simulator reports the impact on their taxes.
         tax_rate: Enter the tax rate as a decimal fraction, not as a percentage.
-        introduction: You can use Markdown syntax.
+        introduction: "You can use Markdown syntax. Use {{number_of_participants}} for the number of participants."
         instructions: This text must fit within one line.
         content_before: Customize the page shown before the start date.
         content_after: Customize the page shown after the end date.
         description: This will be displayed on search engine results pages.
         attribution: This will be displayed in the footer before a link to the product.
-        thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL"
+        thank_you_template: "Use {{name}} for the respondent's name and {{url}} for the response URL."
         response_notice: Short thank-you message shown after each submission.
         response_preamble: You can use Markdown syntax.
         response_body: You can use Markdown syntax.
@@ -154,8 +155,8 @@ en:
   # https://developers.google.com/chart/interactive/docs/reference#numberformatter
   percentage_format: "###%"
   language: Switch language
-  yes: Yes
-  no: No
+  'yes': Yes
+  'no': No
   untitled: Untitled
   default: Default
 
@@ -443,7 +444,8 @@ en:
         remove_title_image: Remove header image
         introduction: Introductory text
         instructions: Instructions
-        description: Description
+        read_more: '"Learn more" link text'
+        description: Meta description
         description_before: Before consultation
         description_after: After consultation
         attribution: Attribution

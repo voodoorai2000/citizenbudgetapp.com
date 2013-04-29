@@ -199,7 +199,7 @@ $ ->
     options.strip_insignificant_zeros ?= true
     if Math.abs(number) >= 1000000
       "#{number_with_precision number / 1000000, precision: 1, strip_insignificant_zeros: true} M"
-    if Math.abs(number) >= 1000
+    else if Math.abs(number) >= 1000
       "#{number_with_precision number / 1000, precision: 1, strip_insignificant_zeros: true} k"
     else
       number_with_precision number, options
@@ -221,7 +221,7 @@ $ ->
         tip = number_to_currency taxAmount($slider, number), strip_insignificant_zeros: true
       else
         tip = number_to_percentage number * 100, strip_insignificant_zeros: true
-    else
+    else if not $slider.data('yes-no')
       tip = number_to_human number
 
   # @note Only used in taxes mode.
@@ -451,7 +451,8 @@ $ ->
 
   slide = (event, ui) ->
     $this = $ this
-    $this.find('.tip-content').html tipContent($this, ui.value)
+    content = tipContent($this, ui.value)
+    $this.find('.tip-content').html(content) if content
     # Display tooltip unless value is both zero and the minimum value.
     $this.find('.tip').toggle ui.value != 0 || ui.value != parseFloat($this.data('minimum'))
     highlight $this, ui.value
@@ -482,8 +483,9 @@ $ ->
       step: parseFloat $this.data('step')
       value: initial
       create: (event, ui) ->
-        $(this).find('a').append '<div class="tip"><div class="tip-content">' + tipContent($this, initial) + '</div><div class="tip-arrow"></div></div>'
-        $(this).find('.tip').toggle initial != minimum
+        content = tipContent($this, initial)
+        $(this).find('a').append('<div class="tip"><div class="tip-content">' + content + '</div><div class="tip-arrow"></div></div>') if content
+        $(this).find('.tip').toggle(initial != minimum)
       slide: !disabled? && slide
       change: !disabled? && change
       disabled: disabled?
@@ -546,7 +548,8 @@ $ ->
         # In case we display minimum and maximum values again:
         #$widget.find('.minimum.taxes').html number_to_currency taxAmount($slider, $slider.data('minimum'))
         #$widget.find('.maximum.taxes').html number_to_currency taxAmount($slider, $slider.data('maximum'))
-        $slider.find('.tip-content').html tipContent($slider, $slider.slider('value'))
+        content = tipContent($slider, $slider.slider('value'))
+        $slider.find('.tip-content').html(content) if content
 
   if disabled?
     updateBalance()
@@ -556,7 +559,8 @@ $ ->
     $('table .slider').each ->
       $slider = $ this
       value = $slider.slider 'value'
-      $slider.find('.tip-content').html tipContent($slider, value)
+      content = tipContent($slider, value)
+      $slider.find('.tip-content').html(content) if content
       $slider.find('.tip').toggle value != 0 || value != parseFloat($slider.data('minimum'))
       highlight $slider, value
 

@@ -39,6 +39,7 @@ class Questionnaire
   field :title_image, type: String
   field :introduction, type: String
   field :instructions, type: String
+  field :read_more, type: String
   field :content_before, type: String
   field :content_after, type: String
   field :description, type: String

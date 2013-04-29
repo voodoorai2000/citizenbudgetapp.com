@@ -46,7 +46,7 @@ fr-CA:
       invitation: "Vous n'avez pas encore soumis vos propres choix budgétaires ? <b><a href=\"%{url}\">Cliquez ici pour participer.</a></b>"
       comments: Commentaires
     title:
-      read_more: En savoir plus
+      read_more: &read_more En savoir plus
       read_more_tip: Cliquez pour en savoir plus
       view_media: Consultez le contenu média
       view_media_tip: Cliquez pour consulter le contenu média
@@ -68,6 +68,7 @@ fr-CA:
         postal_code: H0H 0H0
       questionnaire:
         instructions: *instructions
+        read_more: *read_more
         attribution: *attribution
         response_notice: *response_notice
         response_preamble: *response_preamble
@@ -80,13 +81,13 @@ fr-CA:
         domain: Vous devez pointer vos DNS sur nos serveurs.
         mode: Dans le mode "Services", le participant ajoute, coupe ou modifie des services and activités. Dans le mode "Taxes", le participant fait des changements en points de pourcentage aux budgets des services et le simulateur l'informe de l'impact sur ses taxes.
         tax_rate: Exprimez le taux sous forme de fraction décimale.
-        introduction: Vous pouvez utiliser la syntaxe Markdown.
+        introduction: "Vous pouvez utiliser la syntaxe Markdown. Utilisez {{number_of_participants}} pour le nombre de participants."
         instructions: Ce texte doit tenir sur une ligne.
         content_before: Personnaliser la page affiché avant la date de début.
         content_after: Personnaliser la page affiché après la date de fin.
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
         attribution: Ce texte sera affiché en bas de page avant un lien vers le produit.
-        thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle"
+        thank_you_template: "Utilisez {{name}} pour le nom du participant et {{url}} pour le URL de sa page personnelle."
         response_notice: Court message de remerciement affiché lors d'une soumission.
         response_preamble: Vous pouvez utiliser la syntaxe Markdown.
         response_body: Vous pouvez utiliser la syntaxe Markdown.
@@ -130,8 +131,8 @@ fr-CA:
   icu_date_format: d MMM
   percentage_format: "### %"
   language: Changer de langue
-  yes: Oui
-  no: Non
+  'yes': Oui
+  'no': Non
   untitled: Sans titre
   default: Défaut
 
@@ -377,6 +378,7 @@ fr-CA:
         remove_title_image: Supprimer image d'en-tête
         introduction: Texte de présentation
         instructions: Instructions
+        read_more: 'Texte des liens "En savoir plus"'
         description: Description
         description_before: Avant la consultation
         description_after: Après la consultation

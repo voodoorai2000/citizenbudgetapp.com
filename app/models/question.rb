@@ -100,6 +100,16 @@ class Question
     widget == 'checkboxes'
   end
 
+  # @return [Boolean] whether to omit slider labels
+  def omit_labels?
+    unit_name == '$' && unit_amount == 1 # @todo Make currency symbol more flexible.
+  end
+
+  # @return [Boolean] whether it is a yes-no question
+  def yes_no?
+    unit_name.blank? && minimum_units == 0 && maximum_units == 1 && step == 1
+  end
+
   # @return [Boolean] whether the widget is checked by default
   def checked?
     %w(checkbox onoff).include?(widget) && default_value.to_f == 1

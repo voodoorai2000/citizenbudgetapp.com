@@ -7,6 +7,17 @@ module ResponsesHelper
     link_to_unless_current image_tag(@questionnaire.logo.large.url, options), root_path
   end
 
+  # @param [String] custom a custom string
+  # @param [String] default a default string
+  # @return [String] the custom string if present, the default string otherwise
+  def custom_or_default(custom, default)
+    if custom.present?
+      custom
+    else
+      default
+    end
+  end
+
   # @param [String] string a string
   # # @return [String] the string surrounded by locale-appropriate curly quotes
   def curly_quote(string)

@@ -153,9 +153,10 @@ ActiveAdmin.register Questionnaire do
           link_to(image_tag(q.title_image.square.url), q.title_image_url) if q.title_image?
         end
         row :introduction do |q|
-          RDiscount.new(q.introduction).to_html.html_safe if q.introduction?
+          RDiscount.new(Mustache.render(q.introduction, number_of_participants: 12345)).to_html.html_safe if q.introduction?
         end
         row :instructions
+        row :read_more
         row :content_before do |q|
           RDiscount.new(q.content_before).to_html.html_safe if q.content_before?
         end
