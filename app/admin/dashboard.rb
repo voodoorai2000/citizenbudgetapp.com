@@ -172,10 +172,8 @@ ActiveAdmin.register_page 'Dashboard' do
   end
 
   controller do
-    AVAILABLE_FORMATS = %w(csv tsv xls xlsx)
-
     def index
-      @available_formats = AVAILABLE_FORMATS
+      @available_formats = %w(csv tsv xls xlsx)
       @questionnaires = current_admin_user.questionnaires
 
       @charts = {}
