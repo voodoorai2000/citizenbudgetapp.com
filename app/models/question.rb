@@ -5,15 +5,22 @@
 class Question
   include Mongoid::Document
 
-  # @note The check box widget is used uniquely in non-budgetary questions. Use
-  # the on/off switch for budgetary questions.
-  WIDGETS = %w(checkbox checkboxes onoff radio readonly scaler select slider text textarea)
+  # Budgetary widgets
+  # * onoff
+  # * scaler
+  # * slider
+  # * option
+  #
+  # Non-budgetary widgets
+  # * checkbox
+  # * checkboxes
+  # * radio
+  # * readonly
+  # * select
+  # * text
+  # * textarea
+  WIDGETS = %w(checkbox checkboxes onoff radio option readonly scaler select slider text textarea)
 
-  # @note Check boxes, radio buttons and select lists are currently used for
-  #   non-budgetary questions, but that will not necessarily the case. Lines
-  #   related to this issue are tagged "@feature widgets".
-  # @todo Need to be able to map an amount to each option for checkboxes, radio
-  # and select widgets, using the :options and :labels fields.
   NONBUDGETARY_WIDGETS = %w(checkbox checkboxes radio readonly select text textarea)
 
   embedded_in :section
@@ -21,7 +28,7 @@ class Question
   # Drupal Form API keys
   field :title, type: String
   field :description, type: String
-  field :options, type: Array
+  field :options, type: Array # nonbudgetary widgets still use options as labels for backwards compatibility
   field :labels, type: Array # labels are for display only
   field :default_value # default_value needs to be cast before use
   field :size, type: Integer
@@ -51,9 +58,10 @@ class Question
   validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'textarea'}
 
   # Budgetary widget validations.
-  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff scaler slider).include? q.widget}
-  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff scaler slider).include? q.widget}
-  validates_presence_of :options, if: ->(q){%w(checkbox checkboxes onoff radio scaler select slider).include? q.widget}
+  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff option scaler slider).include? q.widget}
+  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff option scaler slider).include? q.widget}
+  validates_presence_of :options, if: ->(q){%w(checkboxes onoff option radio scaler select slider).include? q.widget}
+  validates_presence_of :labels, if: ->(q){q.widget == 'option'}
 
   # Slider validations.
   validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){%w(scaler slider).include? q.widget}
@@ -61,13 +69,15 @@ class Question
   validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){%w(scaler slider).include? q.widget}
   validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){%w(scaler slider).include? q.widget}
   validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){%w(scaler slider).include? q.widget}
+  validate :default_value_must_be_an_option, if: ->(q){q.widget == 'option'}
+  validate :options_and_labels_must_agree, if: ->(q){q.widget == 'option'}
 
   after_initialize :get_options, :get_labels
-  before_validation :set_options, :set_labels
+  before_validation :set_options, :set_labels, :set_unit_amount
   before_save :strip_title
 
-  scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS) # @feature widgets
-  scope :nonbudgetary, where(:widget.in => NONBUDGETARY_WIDGETS) # @feature widgets
+  scope :budgetary, where(:widget.nin => NONBUDGETARY_WIDGETS)
+  scope :nonbudgetary, where(:widget.in => NONBUDGETARY_WIDGETS)
   default_scope asc(:position)
 
   # @return [String] the name to display in the administrative interface
@@ -87,7 +97,7 @@ class Question
 
   # @return [Boolean] whether it is a nonbudgetary question
   def nonbudgetary?
-    NONBUDGETARY_WIDGETS.include? widget # @feature widgets
+    NONBUDGETARY_WIDGETS.include?(widget)
   end
 
   # @return [Boolean] whether it is a budgetary question
@@ -102,7 +112,7 @@ class Question
 
   # @return [Boolean] whether to omit slider labels
   def omit_labels?
-    unit_name == '$' && unit_amount == 1 # @todo Make currency symbol more flexible.
+    unit_name == '$' && unit_amount == 1
   end
 
   # @return [Boolean] whether it is a yes-no question
@@ -120,6 +130,11 @@ class Question
     %w(checkbox onoff).include?(widget) && default_value.to_f == 0
   end
 
+  # @return [Boolean] whether the widget option is selected
+  def selected?(option)
+    widget == 'option' && default_value.to_f == option.to_f
+  end
+
   # @return [String] the "No" label for an on-off widget
   def no_label
     widget == 'onoff' && labels? && labels.first || I18n.t('labels.no_label')
@@ -132,15 +147,21 @@ class Question
 
   # @return [Float] the maximum value of the widget
   def maximum_amount
-    if %w(onoff scaler slider).include? widget
+    case widget
+    when 'onoff', 'scaler', 'slider'
       (maximum_units - default_value.to_f) * unit_amount
+    when 'option'
+      options.map(&:to_f).max
     end
   end
 
   # @return [Float] the minimum value of the widget
   def minimum_amount
-    if %w(onoff scaler slider).include? widget
+    case widget
+    when 'onoff', 'scaler', 'slider'
       (minimum_units - default_value.to_f) * unit_amount
+    when 'option'
+      options.map(&:to_f).min
     end
   end
 
@@ -149,11 +170,12 @@ class Question
   # @param value a value
   # @return the cast value
   def cast_value(value)
-    if %w(checkbox onoff).include? widget
+    case widget
+    when 'onoff'
       Integer value.to_s rescue value
-    elsif %w(scaler slider).include? widget
+    when 'scaler', 'slider'
       Float value.to_s rescue value
-    else
+    when 'option'
       value
     end
   end
@@ -162,7 +184,7 @@ class Question
   #
   # @return the cast default value
   def cast_default_value
-    cast_value default_value
+    cast_value(default_value)
   end
 
   def position
@@ -175,18 +197,18 @@ private
       @minimum_units = options.first.to_f
       @maximum_units = options.last.to_f
       @step = (options[1] - options[0]).round(2)
-    elsif %w(checkbox onoff).include?(widget)
+    elsif widget == 'onoff'
       @minimum_units = 0
       @maximum_units = 1
       @step = 1
-    elsif %w(checkboxes radio select).include?(widget) && options.present?
-      @options_as_list = options.join "\n"
+    elsif %w(checkboxes option radio select).include?(widget) && options.present?
+      @options_as_list = options.join("\n")
     end
   end
 
   def get_labels
-    if widget == 'onoff' && labels.present?
-      @labels_as_list = labels.join "\n"
+    if %w(onoff option).include?(widget) && labels.present?
+      @labels_as_list = labels.join("\n")
     end
   end
 
@@ -194,9 +216,9 @@ private
     if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && step.present?
       self.options = (BigDecimal(minimum_units.to_s)..BigDecimal(maximum_units.to_s)).step(BigDecimal(step.to_s)).map(&:to_f)
       self.options << maximum_units.to_f unless options.last == maximum_units.to_f
-    elsif %w(checkbox onoff).include?(widget)
+    elsif widget == 'onoff'
       self.options = [0, 1]
-    elsif %w(checkboxes radio select).include?(widget) && options_as_list.present?
+    elsif %w(checkboxes option radio select).include?(widget) && options_as_list.present?
       self.options = options_as_list.split("\n").map(&:strip).reject(&:empty?)
     else
       self.options = nil
@@ -204,8 +226,14 @@ private
   end
 
   def set_labels
-    if widget == 'onoff' && labels_as_list.present?
+    if %w(onoff option).include?(widget) && labels_as_list.present?
       self.labels = labels_as_list.split("\n").map(&:strip).reject(&:empty?)
+    end
+  end
+
+  def set_unit_amount
+    if widget == 'option'
+      self.unit_amount = 1
     end
   end
 
@@ -223,6 +251,22 @@ private
     if %w(scaler slider).include?(widget) && minimum_units.present? && maximum_units.present? && default_value.present? && minimum_units.to_f < maximum_units.to_f
       if default_value.to_f < minimum_units.to_f || default_value.to_f > maximum_units.to_f
         errors.add :default_value, I18n.t('errors.messages.default_value_must_be_between_minimum_and_maximum')
+      end
+    end
+  end
+
+  def default_value_must_be_an_option
+    if widget == 'option' && options.present? && default_value.present?
+      unless options.include?(default_value)
+        errors.add :default_value, I18n.t('errors.messages.default_value_must_be_an_option')
+      end
+    end
+  end
+
+  def options_and_labels_must_agree
+    if widget == 'option' && labels.present? && options.present?
+      unless labels.size == options.size
+        errors.add :labels_as_list, I18n.t('errors.messages.options_and_labels_must_agree')
       end
     end
   end

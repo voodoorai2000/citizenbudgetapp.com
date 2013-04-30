@@ -35,7 +35,8 @@ en:
   group:
     revenue: Revenues
     expense: Expenses
-    other: Other
+    custom: Custom
+    other: Non-budgetary
 
   questionnaires:
     questionnaire:
@@ -214,14 +215,17 @@ en:
 
   # Participants answers questions by using one of the following widgets.
   widget:
-    readonly: Read-only
-    checkbox: Check box
-    checkboxes: Check boxes
-    onoff: On/off switch
-    radio: Radio buttons
-    select: Drop-down list
+    # Budgetary.
     slider: Slider
     scaler: Percentage scale
+    onoff: On/off switch
+    option: Radio buttons (budgetary)
+    # Non-budgetary.
+    checkbox: Check box
+    checkboxes: Check boxes
+    readonly: Read-only
+    radio: Radio buttons (non-budgetary)
+    select: Drop-down list
     text: Text box
     textarea: Text area
 
@@ -380,6 +384,8 @@ en:
       ends_at_must_be_greater_than_starts_at: The end time must be after the start time
       maximum_units_must_be_greater_than_minimum_units: Maximum units must be greater than minimum units
       default_value_must_be_between_minimum_and_maximum: Default value must be between minimum and maximum
+      default_value_must_be_an_option: Default value must be a valid option
+      options_and_labels_must_agree: The number of options and labels must be the same
       domain_must_be_active: The domain name must be active
       domain_must_not_be_blacklisted: The domain name is blacklisted
       reply_to_must_be_valid: The reply-to address must be valid

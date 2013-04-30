@@ -8,7 +8,7 @@
         %tr
           %th.category
             = render partial: 'title', locals: {object: section, placement: 'bottom'}
-          - unless section.nonbudgetary? # @feature widgets
+          - unless section.nonbudgetary?
             %th.column.highlight
               =t '.your_choice'
       - if section.description?
@@ -28,7 +28,7 @@
                 - if q.description?
                   :markdown
                     #{q.description}
-            - elsif q.nonbudgetary? # @feature widgets
+            - elsif q.nonbudgetary?
               %td.description(colspan="#{colspan(section)}")
                 %h3
                   = render partial: 'title', locals: {object: q, placement: 'bottom'}
@@ -61,6 +61,24 @@
                     = text_field_tag q.id, nil, html_attributes(q)
                   - elsif q.widget == 'textarea'
                     = text_area_tag q.id, nil, html_attributes(q)
+            - elsif q.widget == 'option'
+              %td.description(colspan="#{colspan(section)}")
+                %h3
+                  = render partial: 'title', locals: {object: q, placement: 'top'}
+                - if q.description?
+                  :markdown
+                    #{q.description}
+                %fieldset
+                  .control-group
+                    .controls
+                      - q.options.each_with_index do |option,i|
+                        .control.control-option
+                          = label_tag nil, class: 'radio' do
+                            - if @response.persisted?
+                              = radio_button_tag q.id, option, @response.answer(q) == option, 'class' => 'option', 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                            - else
+                              = radio_button_tag q.id, option, q.selected?(option), 'class' => 'option', 'data-initial' => q.default_value
+                            = q.labels[i]
             - else
               %td.description
                 %h3
@@ -99,7 +117,7 @@
                         .tick.initial
                         .tick.highest
                     - else
-                      .control.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-yes-no="#{q.yes_no? && 1}")
+                      .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-yes-no="#{q.yes_no? && 1}")
                         = hidden_field_tag q.id, q.default_value
                         .tick.lowest
                         .tick.initial

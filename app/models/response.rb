@@ -56,7 +56,7 @@ class Response
         if question.budgetary?
           if questionnaire.mode == 'taxes' || section.group == 'revenue'
             balance += impact question
-          else
+          elsif section.group == 'expense'
             balance -= impact question
           end
         end

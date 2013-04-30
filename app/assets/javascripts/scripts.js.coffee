@@ -251,6 +251,9 @@ $ ->
     $table.find('.onoff').each ->
       $this = $ this
       balance -= (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
+    $table.find('.option').each ->
+      $this = $ this
+      balance -= +$this.prop('checked') * ($this.val() - parseFloat($this.data('initial')))
 
     # Revenue cuts remove money, whereas expenses custs add money.
     balance = -balance if $table.attr('rel') is 'revenue'
@@ -525,6 +528,13 @@ $ ->
       options.uncheckedLabel = $this.data('no-label')
     $this.iphoneStyle options
 
+  # Budgetary radio buttons
+  $('table .option').change ->
+    $this = $ this
+    highlight $this, $this.val()
+    updateCategoryBalance $this
+    updateBalance()
+
   $('#assessment input').blur ->
     # Ignore invalid assessment values.
     if customAssessment() <= 0
@@ -567,6 +577,10 @@ $ ->
     $('table .onoff').each ->
       $this = $ this
       highlight $this, +$this.prop('checked')
+
+    $('table .option:checked').each ->
+      $this = $ this
+      highlight $this, $this.val()
   else
     $('.minimum').click ->
       $this = $ this

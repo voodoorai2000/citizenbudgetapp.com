@@ -52,13 +52,13 @@ $ ->
     toggle_options = ->
       value = widget.val()
       $("#section_questions_attributes_#{i}_options_as_list_input"
-      ).toggle(value in ['checkboxes', 'radio', 'select'])
+      ).toggle(value in ['checkboxes', 'option', 'radio', 'select'])
 
       $("#section_questions_attributes_#{i}_labels_as_list_input"
-      ).toggle(value == 'onoff')
+      ).toggle(value in ['onoff', 'option'])
 
       $("#section_questions_attributes_#{i}_default_value_input"
-      ).toggle(value in ['checkbox', 'onoff', 'slider', 'scaler'])
+      ).toggle(value in ['checkbox', 'onoff', 'option', 'slider', 'scaler'])
 
       $("#section_questions_attributes_#{i}_unit_amount_input"
       ).toggle(value in ['onoff', 'slider', 'scaler'])
