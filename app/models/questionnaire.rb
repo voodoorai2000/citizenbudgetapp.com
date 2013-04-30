@@ -233,7 +233,7 @@ class Questionnaire
     sum = 0
     sections.budgetary.each do |section|
       section.questions.budgetary.each do |question|
-        sum + question.maximum_amount
+        sum += question.maximum_amount
       end
     end
     sum
@@ -244,7 +244,7 @@ class Questionnaire
     sum = 0
     sections.budgetary.each do |section|
       section.questions.budgetary.each do |question|
-        sum + question.minimum_amount
+        sum += question.minimum_amount
       end
     end
     sum

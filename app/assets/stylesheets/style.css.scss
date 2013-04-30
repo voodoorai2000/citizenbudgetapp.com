@@ -574,6 +574,9 @@ nav {
       padding: 0;
       height: 50px;
     }
+    #simulator .inner {
+      padding-right: 30px;
+    }
 
     // @see https://gist.github.com/1275792 re: hover state
     & > .active {
@@ -679,6 +682,10 @@ nav {
   nav,
   .nav-fixed .nav {
     width: 722px;
+  }
+
+  #simulator .inner {
+    padding-right: 10px;
   }
 
   .container,

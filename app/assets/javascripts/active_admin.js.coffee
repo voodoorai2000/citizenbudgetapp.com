@@ -60,6 +60,9 @@ $ ->
       $("#section_questions_attributes_#{i}_default_value_input"
       ).toggle(value in ['checkbox', 'onoff', 'option', 'slider', 'scaler'])
 
+      $("#section_questions_attributes_#{i}_revenue_input"
+      ).toggle(value in ['onoff', 'option', 'slider', 'scaler'])
+
       $("#section_questions_attributes_#{i}_unit_amount_input"
       ).toggle(value in ['onoff', 'slider', 'scaler'])
 

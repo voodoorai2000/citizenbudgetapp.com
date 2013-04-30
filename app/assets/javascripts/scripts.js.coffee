@@ -236,18 +236,18 @@ $ ->
     $('#identification').css 'opacity', 0.5
     $('#identification input,#identification textarea').prop 'disabled', true
 
-  # Calculates within-group or within-category balance.
+  # Calculates global and within-category balance.
   calculateBalance = ($table) ->
     balance = 0
     $table.find('.slider').each ->
       $this = $ this
-      balance -= ($this.slider('value') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
+      balance += ($this.slider('value') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
     $table.find('.onoff').each ->
       $this = $ this
-      balance -= (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
+      balance += (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
     $table.find('.option').each ->
       $this = $ this
-      balance -= +$this.prop('checked') * ($this.val() - parseFloat($this.data('initial')))
+      balance += +$this.prop('checked') * ($this.val() - parseFloat($this.data('initial')))
 
     balance *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
     balance
@@ -260,64 +260,59 @@ $ ->
       balance = calculateBalance $table
       $span.html(number_to_currency(balance, strip_insignificant_zeros: true)).css('color', if balance < 0 then '#f00' else '#000').toggle(balance != 0)
 
-  # Updates within-group balance.
+  # Updates global balance.
   updateBalance = ->
-    balance = starting_balance
+    balance = starting_balance + calculateBalance $('table')
     current_maximum_difference = maximum_difference
 
     if questionnaire_mode is 'taxes'
       current_maximum_difference *= propertyAssessment() / assessment_period
 
-    $.each ['revenue', 'expense'], (i, group) -> # YYY
-      group_balance = calculateBalance $("""table[rel="#{group}"]""")
-      balance += group_balance
+    # Update graph and move bar and balance.
+    $amount = $ "#simulator .amount"
+    $bar = $ "#simulator .bar"
 
-      # Update group balance, and move bar and balance.
-      if $("##{group}").length
-        $amount = $ "##{group} .amount"
-        $bar = $ "##{group} .bar"
+    amount = number_to_currency balance, strip_insignificant_zeros: true
+    $amount.html(amount).toggleClass 'negative', balance < 0
 
-        amount = number_to_currency group_balance, strip_insignificant_zeros: true
-        $amount.html(amount).toggleClass 'negative', group_balance < 0
+    # If pixels are less than zero, the bar moves right (increase).
+    pixels = -Math.round(tanh(3 * balance / current_maximum_difference) * 100)
+    width = Math.abs pixels
 
-        # If pixels are less than zero, the bar moves right (increase).
-        pixels = Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
-        width = Math.abs pixels
-
-        # If at zero.
-        if $bar.width() == 0
-          $amount.animate left: amount_left - pixels
-          $bar.css('background-color', if pixels < 0 then '#000' else '#f00').animate
-            left: Math.min(bar_left, bar_left - pixels)
-            width: width
-        # If going from negative to positive.
-        else if pixels < 0 and $bar.position().left < bar_left
-          $amount.animate(left: amount_left).animate(left: amount_left - pixels)
-          $bar.animate
-            left: bar_left,
-            width: 0
-          ,
-            complete: ->
-              $(this).css('background-color', '#000')
-          .animate
-            width: width
-        # If going from positive to negative.
-        else if pixels > 0 and $bar.position().left == bar_left
-          $amount.animate(left: amount_left).animate(left: amount_left - pixels)
-          $bar.animate
-            width: 0
-          ,
-            complete: ->
-              $(this).css('background-color', '#f00')
-          .animate
-            left: bar_left - pixels
-            width: width
-        # If not crossing zero.
-        else
-          $amount.animate left: amount_left - pixels
-          $bar.animate
-            left: Math.min(bar_left, bar_left - pixels)
-            width: width
+    # If at zero.
+    if $bar.width() == 0
+      $amount.animate left: amount_left - pixels
+      $bar.css('background-color', if pixels < 0 then '#000' else '#f00').animate
+        left: Math.min(bar_left, bar_left - pixels)
+        width: width
+    # If going from negative to positive.
+    else if pixels < 0 and $bar.position().left < bar_left
+      $amount.animate(left: amount_left).animate(left: amount_left - pixels)
+      $bar.animate
+        left: bar_left,
+        width: 0
+      ,
+        complete: ->
+          $(this).css('background-color', '#000')
+      .animate
+        width: width
+    # If going from positive to negative.
+    else if pixels > 0 and $bar.position().left == bar_left
+      $amount.animate(left: amount_left).animate(left: amount_left - pixels)
+      $bar.animate
+        width: 0
+      ,
+        complete: ->
+          $(this).css('background-color', '#f00')
+      .animate
+        left: bar_left - pixels
+        width: width
+    # If not crossing zero.
+    else
+      $amount.animate left: amount_left - pixels
+      $bar.animate
+        left: Math.min(bar_left, bar_left - pixels)
+        width: width
 
     # Update message.
     $messages = $ '.message'
@@ -406,6 +401,7 @@ $ ->
 
   highlight = ($control, current) ->
     $tr = $control.parents 'tr'
+    current = parseFloat current
     initial = parseFloat $control.data('initial')
     value = parseFloat $control.data('value')
     revenue = $control.data('revenue')

@@ -75,9 +75,9 @@
                         .control.control-option
                           = label_tag nil, class: 'radio' do
                             - if @response.persisted?
-                              = radio_button_tag q.id, option, @response.answer(q) == option, 'class' => 'option', 'data-initial' => q.default_value, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                              = radio_button_tag q.id, option, @response.answer(q) == option, 'class' => 'option', 'data-initial' => q.default_value, 'data-revenue' => q.revenue?, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
                             - else
-                              = radio_button_tag q.id, option, q.selected?(option), 'class' => 'option', 'data-initial' => q.default_value
+                              = radio_button_tag q.id, option, q.selected?(option), 'class' => 'option', 'data-initial' => q.default_value, 'data-revenue' => q.revenue?
                             = q.labels[i]
             - else
               %td.description
@@ -111,13 +111,13 @@
                       .meta.maximum=  number_with_precision(q.maximum_units)
                       .meta.minimum= [number_with_precision(q.minimum_units), q.unit_name].compact.join ' '
                     - if @response.persisted?
-                      .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-actual="#{@response.answer(q)}" disabled="disabled" data-yes-no="#{q.yes_no? && 1}")
+                      .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-yes-no="#{q.yes_no? && 1}" data-revenue="#{q.revenue?}" data-actual="#{@response.answer(q)}" disabled="disabled")
                         = hidden_field_tag q.id, @response.answer(q)
                         .tick.lowest
                         .tick.initial
                         .tick.highest
                     - else
-                      .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-yes-no="#{q.yes_no? && 1}")
+                      .control.control-slider.slider(data-widget="#{q.widget}" data-value="#{q.unit_amount}" data-initial="#{q.default_value}" data-minimum="#{q.minimum_units}" data-maximum="#{q.maximum_units}" data-step="#{q.step}" data-yes-no="#{q.yes_no? && 1}" data-revenue="#{q.revenue?}")
                         = hidden_field_tag q.id, q.default_value
                         .tick.lowest
                         .tick.initial
@@ -134,9 +134,9 @@
                     .control.control-onoff
                       = hidden_field_tag q.id, '0' # Mimic an unchecked box.
                       - if @response.persisted?
-                        = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-no-label' => q.no_label, 'data-yes-label' => q.yes_label, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
+                        = check_box_tag q.id, '1', @response.answer(q) == '1', 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-no-label' => q.no_label, 'data-yes-label' => q.yes_label, 'data-revenue' => q.revenue?, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
                       - else
-                        = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-no-label' => q.no_label, 'data-yes-label' => q.yes_label
+                        = check_box_tag q.id, '1', q.checked?, 'class' => 'onoff', 'data-value' => q.unit_amount, 'data-initial' => q.default_value, 'data-no-label' => q.no_label, 'data-yes-label' => q.yes_label, 'data-revenue' => q.revenue?
                     %div(class="meta maximum#{' changed' if q.unchecked?}")
                       = currency q.maximum_amount
                     %div(class="meta minimum#{' changed' if q.checked?}")
