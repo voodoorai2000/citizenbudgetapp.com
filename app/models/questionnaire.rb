@@ -232,9 +232,10 @@ class Questionnaire
   def maximum_amount
     sections.budgetary.reduce(0) do |sum,section|
       sum + section.questions.reduce(0) do |sum,q|
-        if section.group == 'revenue'
+        case section.group
+        when 'revenue'
           sum + (q.maximum_amount || 0)
-        else
+        when 'expense'
           sum - (q.minimum_amount || 0)
         end
       end
@@ -245,9 +246,10 @@ class Questionnaire
   def minimum_amount
     sections.budgetary.reduce(0) do |sum,section|
       sum + section.questions.reduce(0) do |sum,q|
-        if section.group == 'revenue'
+        case section.group
+        when 'revenue'
           sum + (q.minimum_amount || 0)
-        else
+        when 'expense'
           sum - (q.maximum_amount || 0)
         end
       end
@@ -298,7 +300,7 @@ class Questionnaire
       end
       sections.each do |section|
         section.questions.each do |question|
-          answer = response.cast_answer question
+          answer = response.cast_answer(question)
           if Array === answer
             row << answer.to_sentence
           else
