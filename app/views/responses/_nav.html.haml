@@ -1,26 +1,14 @@
-- @groups.each do |group,sections|
-  -# Display a dropdown if there are multiple sections within the group.
-  - if sections.one?
-    - if sections.first.title.length > 15
-      %li(id="#{sections.first.title.parameterize}_link")
-        = link_to "##{table_id(sections.first)}" do
-          %span
-          = t(group, scope: :group)
-    - else
-      = render sections
-  - else
-    %li.dropdown
-      = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
-        = t(group, scope: :group)
-        %span.caret
-      %ul.dropdown-menu
-        = render sections
-- @groups.each do |group,_|
-  %li.group(id="#{group}")
-    .inner
-      .chart-container
-        .title=t group, scope: :group
-        .chart
-          .bar
-          .zero
-          .amount= number_to_currency 0
+%li.dropdown
+  = link_to('#', {'class' => 'dropdown-toggle', 'data-toggle' => 'dropdown'}) do
+    =t '.sections'
+    %span.caret
+  %ul.dropdown-menu
+    = render @sections
+%li#simulator
+  .inner
+    .chart-container
+      .title=t '.balance'
+      .chart
+        .bar
+        .zero
+        .amount= number_to_currency 0

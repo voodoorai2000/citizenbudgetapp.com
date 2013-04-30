@@ -185,12 +185,6 @@ td.description {
   }
 }
 
-.revenue {
-  .highlight {
-    background-color: #ddf;
-  }
-}
-
 $widget-margin: 45px;
 
 .widget {
@@ -580,12 +574,6 @@ nav {
       padding: 0;
       height: 50px;
     }
-    #revenue .inner {
-      padding-right: 30px;
-    }
-    #expense .inner {
-      padding-left: 30px;
-    }
 
     // @see https://gist.github.com/1275792 re: hover state
     & > .active {
@@ -691,13 +679,6 @@ nav {
   nav,
   .nav-fixed .nav {
     width: 722px;
-  }
-
-  #revenue .inner {
-    padding-right: 10px;
-  }
-  #expense .inner {
-    padding-left: 10px;
   }
 
   .container,

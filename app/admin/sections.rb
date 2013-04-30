@@ -69,6 +69,7 @@ ActiveAdmin.register Section do
 
       g.inputs t('legend.html'), class: 'inputs inline' do
         g.input :required
+        g.input :revenue
         g.input :maxlength, as: :string, input_html: {size: 4}
         g.input :size, as: :string, input_html: {size: 4}
         g.input :rows, as: :string, input_html: {size: 4}

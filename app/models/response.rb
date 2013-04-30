@@ -52,14 +52,8 @@ class Response
   def balance
     balance = questionnaire.starting_balance || 0
     questionnaire.sections.each do |section|
-      section.questions.each do |question|
-        if question.budgetary?
-          if questionnaire.mode == 'taxes' || section.group == 'revenue'
-            balance += impact question
-          elsif section.group == 'expense'
-            balance -= impact question
-          end
-        end
+      section.questions.budgetary.each do |question|
+        balance += impact question
       end
     end
     balance

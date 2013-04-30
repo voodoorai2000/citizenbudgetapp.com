@@ -230,30 +230,24 @@ class Questionnaire
 
   # @return [Float] the largest surplus possible
   def maximum_amount
-    sections.budgetary.reduce(0) do |sum,section|
-      sum + section.questions.reduce(0) do |sum,q|
-        case section.group
-        when 'revenue'
-          sum + (q.maximum_amount || 0)
-        when 'expense'
-          sum - (q.minimum_amount || 0)
-        end
+    sum = 0
+    sections.budgetary.each do |section|
+      section.questions.budgetary.each do |question|
+        sum + question.maximum_amount
       end
     end
+    sum
   end
 
   # @return [Float] the largest deficit possible
   def minimum_amount
-    sections.budgetary.reduce(0) do |sum,section|
-      sum + section.questions.reduce(0) do |sum,q|
-        case section.group
-        when 'revenue'
-          sum + (q.minimum_amount || 0)
-        when 'expense'
-          sum - (q.maximum_amount || 0)
-        end
+    sum = 0
+    sections.budgetary.each do |section|
+      section.questions.budgetary.each do |question|
+        sum + question.minimum_amount
       end
     end
+    sum
   end
 
   # @return [Array] a list of headers for a spreadsheet

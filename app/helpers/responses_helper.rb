@@ -42,9 +42,9 @@ module ResponsesHelper
     section.nonbudgetary? && 1 || 2
   end
 
-  # @return [Boolean] whether there is a single group with a single section
+  # @return [Boolean] whether there is a single section
   def simple_navigation?
-    @groups.one? && @groups.values[0].one?
+    @sections.one?
   end
 
   # @param [Section] section a questionnaire section

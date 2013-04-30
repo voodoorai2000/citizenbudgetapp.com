@@ -57,7 +57,7 @@ private
   end
 
   def build_questionnaire
-    @groups = @questionnaire.sections.budgetary.group_by(&:group)
+    @sections = @questionnaire.sections.budgetary
     @fields = @questionnaire.sections.nonbudgetary
     @maximum_difference = [
       @questionnaire.maximum_amount.abs,

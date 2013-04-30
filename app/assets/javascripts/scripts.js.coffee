@@ -20,12 +20,6 @@ $ ->
   pulsated = false
 
   colors =
-    revenue:
-      negative: '#f00'
-      positive: '#000'
-    expense:
-      negative: '#000'
-      positive: '#f00'
     services:
       message:
         background:
@@ -255,9 +249,6 @@ $ ->
       $this = $ this
       balance -= +$this.prop('checked') * ($this.val() - parseFloat($this.data('initial')))
 
-    # Revenue cuts remove money, whereas expenses custs add money.
-    balance = -balance if $table.attr('rel') is 'revenue'
-
     balance *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
     balance
 
@@ -277,7 +268,7 @@ $ ->
     if questionnaire_mode is 'taxes'
       current_maximum_difference *= propertyAssessment() / assessment_period
 
-    $.each ['revenue', 'expense'], (i, group) ->
+    $.each ['revenue', 'expense'], (i, group) -> # YYY
       group_balance = calculateBalance $("""table[rel="#{group}"]""")
       balance += group_balance
 
@@ -291,13 +282,12 @@ $ ->
 
         # If pixels are less than zero, the bar moves right (increase).
         pixels = Math.round(tanh(3 * group_balance / current_maximum_difference) * 100)
-        pixels = -pixels if group is 'revenue'
         width = Math.abs pixels
 
         # If at zero.
         if $bar.width() == 0
           $amount.animate left: amount_left - pixels
-          $bar.css('background-color', if pixels < 0 then colors[group].positive else colors[group].negative).animate
+          $bar.css('background-color', if pixels < 0 then '#000' else '#f00').animate
             left: Math.min(bar_left, bar_left - pixels)
             width: width
         # If going from negative to positive.
@@ -308,7 +298,7 @@ $ ->
             width: 0
           ,
             complete: ->
-              $(this).css('background-color', colors[group].positive)
+              $(this).css('background-color', '#000')
           .animate
             width: width
         # If going from positive to negative.
@@ -318,7 +308,7 @@ $ ->
             width: 0
           ,
             complete: ->
-              $(this).css('background-color', colors[group].negative)
+              $(this).css('background-color', '#f00')
           .animate
             left: bar_left - pixels
             width: width
@@ -347,7 +337,7 @@ $ ->
 
     if questionnaire_mode is 'taxes'
       prefix = 'taxes'
-    else if $("""table[rel="revenue"]""").length
+    else if $('[data-revenue]').length
       prefix = 'services'
     else
       prefix = 'cuts'
@@ -418,30 +408,22 @@ $ ->
     $tr = $control.parents 'tr'
     initial = parseFloat $control.data('initial')
     value = parseFloat $control.data('value')
-    group = $control.parents('table').attr 'rel'
+    revenue = $control.data('revenue')
 
     if current == initial
       $tr.find('.impact').css 'visibility', 'hidden'
       if $tr.hasClass 'selected'
         $tr.removeClass 'selected'
         $tr.find('td.description').animate 'background-color': '#fff', 'slow'
-        $tr.find('td.highlight').animate {'background-color': if group is 'revenue' then '#ddf' else '#ff9'}, 'slow'
+        $tr.find('td.highlight').animate 'background-color': '#ff9', 'slow'
     else
       difference = (current - initial) * value
-      if group is 'revenue'
-        if difference < 0
-          key = t("#{questionnaire_mode}_losses")
-          color = colors[questionnaire_mode].item.negative
-        else
-          key = t("#{questionnaire_mode}_gains")
-          color = colors[questionnaire_mode].item.positive
+      if difference < 0
+        key = if revenue then t("#{questionnaire_mode}_losses") else t("#{questionnaire_mode}_costs")
+        color = colors[questionnaire_mode].item.negative
       else
-        if difference < 0
-          key = t("#{questionnaire_mode}_savings")
-          color = colors[questionnaire_mode].item.positive
-        else
-          key = t("#{questionnaire_mode}_costs")
-          color = colors[questionnaire_mode].item.negative
+        key = if revenue then t("#{questionnaire_mode}_gains") else t("#{questionnaire_mode}_savings")
+        color = colors[questionnaire_mode].item.positive
 
       $tr.find('.key').html key
       difference = Math.abs difference

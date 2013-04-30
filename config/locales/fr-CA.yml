@@ -16,10 +16,8 @@ fr-CA:
     yes_label: "OUI"
 
   group:
-    revenue: Revenus
-    expense: Dépenses
-    custom: Sur mesure
-    other: Non budgétaire
+    simulator: Simulateur
+    other: Autre
 
   questionnaires:
     questionnaire:
@@ -51,6 +49,9 @@ fr-CA:
       read_more_tip: Cliquez pour en savoir plus
       view_media: Consultez le contenu média
       view_media_tip: Cliquez pour consulter le contenu média
+    nav:
+      sections: Sections
+      balance: Solde
     modals:
       close: Fermer
     modal:
@@ -430,6 +431,7 @@ fr-CA:
         placeholder: Espace réservé
         rows: Rangées
         cols: Colonnes
+        revenue: Revenu?
       response:
         id: Identifiant
         ip: Adresse IP

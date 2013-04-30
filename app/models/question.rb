@@ -37,6 +37,7 @@ class Question
   field :rows, type: Integer
   field :cols, type: Integer
   field :required, type: Boolean
+  field :revenue, type: Boolean
 
   field :widget, type: String
   field :extra, type: String
