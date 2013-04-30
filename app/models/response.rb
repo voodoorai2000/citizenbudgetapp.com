@@ -53,7 +53,7 @@ class Response
     balance = questionnaire.starting_balance || 0
     questionnaire.sections.each do |section|
       section.questions.each do |question|
-        if question.budgetary? # @feature widgets
+        if question.budgetary?
           if questionnaire.mode == 'taxes' || section.group == 'revenue'
             balance += impact question
           else

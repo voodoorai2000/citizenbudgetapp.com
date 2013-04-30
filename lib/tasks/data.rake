@@ -99,8 +99,6 @@ namespace :data do
           end
         end
 
-        # @todo The following messages can be made more helpful by listing the
-        #   possible values along with the invalid value
         errors.each do |id,error|
           puts "- #{id} #{error}: #{response.answers[id]}"
         end

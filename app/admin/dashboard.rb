@@ -22,7 +22,7 @@ ActiveAdmin.register_page 'Dashboard' do
     @responses = @questionnaire.responses
     @questions = @questionnaire.sections.budgetary.map(&:questions).flatten
     @fields    = @questionnaire.sections.nonbudgetary
-    @number_of_budgetary_questions = @questions.count(&:budgetary?) # @feature widgets
+    @number_of_budgetary_questions = @questions.count(&:budgetary?)
 
     # Timeline and web traffic
     @charts, @statistics = charts @questionnaire
@@ -34,7 +34,7 @@ ActiveAdmin.register_page 'Dashboard' do
     @details = {}
     @questions.each do |question|
       details = {}
-      if question.budgetary? # @feature widgets
+      if question.budgetary?
         changes = @responses.where(:"answers.#{question.id}".ne => question.default_value)
         number_of_changes = changes.count
         number_of_nonchanges = @statistics[:responses] - number_of_changes
@@ -191,7 +191,6 @@ ActiveAdmin.register_page 'Dashboard' do
     #
     # @see http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/docs/user-documentation.html
     # @see http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/demos/set-demo.html
-    # @todo Add fragment caching.
     def charts(q)
       charts = {}
       statistics = {}

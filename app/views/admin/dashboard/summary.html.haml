@@ -39,7 +39,7 @@
   %h4= section.title
 
   - section.questions.each do |q|
-    - if q.budgetary? # @feature widgets
+    - if q.budgetary?
       -# @todo The proportion of participants who must be in favor of a change for
       -#   it to be significant depends on the sample size.
       %div(class="question #{@details[q.id.to_s][:percentage_of_population] >= 0.55 ? 'stress' : 'subdue'}")
