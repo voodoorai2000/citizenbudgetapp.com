@@ -1,5 +1,5 @@
 - if section.title?
-  %li(id="#{section.title.parameterize}_link")
+  %li(id="#{table_id(section)}_link")
     = link_to "##{table_id(section)}" do
       %span
       = section.title

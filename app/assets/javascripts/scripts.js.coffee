@@ -236,7 +236,7 @@ $ ->
     $('#identification').css 'opacity', 0.5
     $('#identification input,#identification textarea').prop 'disabled', true
 
-  # Calculates global and within-category balance.
+  # Calculates global and section balance.
   calculateBalance = ($table) ->
     balance = 0
     $table.find('.slider').each ->
@@ -252,8 +252,8 @@ $ ->
     balance *= propertyAssessment() / assessment_period if questionnaire_mode is 'taxes'
     balance
 
-  # Updates within-category balance.
-  updateCategoryBalance = ($control) ->
+  # Updates section balance.
+  updateSectionBalance = ($control) ->
     $table = $control.parents 'table'
     $span  = $ '#' + $table.attr('id') + '_link span'
     if $span.parents('.dropdown-menu').length
@@ -262,7 +262,7 @@ $ ->
 
   # Updates global balance.
   updateBalance = ->
-    balance = starting_balance + calculateBalance $('table')
+    balance = starting_balance + calculateBalance $('table.simulator')
     current_maximum_difference = maximum_difference
 
     if questionnaire_mode is 'taxes'
@@ -445,7 +445,7 @@ $ ->
     # Update form element.
     $this.find('input').val ui.value
     # Updating balance during slide is too expensive.
-    updateCategoryBalance $this
+    updateSectionBalance $this
     updateBalance()
 
   # Slider widget
@@ -493,7 +493,7 @@ $ ->
       resizeHandle: false
       onChange: (input, checked) ->
         highlight input, +checked
-        updateCategoryBalance input
+        updateSectionBalance input
         updateBalance()
 
     if initial == 1
@@ -510,7 +510,7 @@ $ ->
   $('table .option').change ->
     $this = $ this
     highlight $this, $this.val()
-    updateCategoryBalance $this
+    updateSectionBalance $this
     updateBalance()
 
   $('#assessment input').blur ->
@@ -523,7 +523,7 @@ $ ->
     # In taxes mode, several figures change according to the assessment.
     if questionnaire_mode is 'taxes'
       $('table').find('input:first').each ->
-        updateCategoryBalance $(this)
+        updateSectionBalance $(this)
 
       $('.widget-scaler').each ->
         $widget = $ this
@@ -542,7 +542,7 @@ $ ->
   if disabled?
     updateBalance()
     $('table').find('input:first').each ->
-      updateCategoryBalance $(this)
+      updateSectionBalance $(this)
 
     $('table .slider').each ->
       $slider = $ this
