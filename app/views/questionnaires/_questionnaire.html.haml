@@ -1,6 +1,7 @@
-- content_for :head do
-  %style
-    = @questionnaire.stylesheet.html_safe
+- if @questionnaire.stylesheet?
+  - content_for :head do
+    %style
+      = @questionnaire.stylesheet.html_safe
 - @questionnaire.sections.budgetary.each do |section|
   %table(id="#{table_id(section)}" rel="#{section.group}" class="#{section.group}")
     %thead
