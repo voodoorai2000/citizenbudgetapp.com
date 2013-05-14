@@ -92,6 +92,7 @@ class Questionnaire
   validate :domain_must_be_active
   validate :domain_must_not_be_blacklisted
   validate :reply_to_must_be_valid
+  validate :mode_must_match_options
 
   before_validation :sanitize_domain
   before_save :add_domain
@@ -319,22 +320,22 @@ private
 
   def sanitize_domain
     if domain?
-      self.domain = self.class.sanitize_domain domain
+      self.domain = self.class.sanitize_domain(domain)
     end
   end
 
   def ends_at_must_be_greater_than_starts_at
     if starts_at? && ends_at? && starts_at > ends_at
-      errors.add :ends_at, I18n.t('errors.messages.ends_at_must_be_greater_than_starts_at')
+      errors.add(:ends_at, I18n.t('errors.messages.ends_at_must_be_greater_than_starts_at'))
     end
   end
 
   def domain_must_be_active
     if domain? && !domain[/\A[a-z]+\.(citizenbudget|budgetcitoyen)\.com\z/] # @todo Remove hardcode.
       begin
-        Socket.gethostbyname domain
+        Socket.gethostbyname(domain)
       rescue SocketError
-        errors.add :domain, I18n.t('errors.messages.domain_must_be_active')
+        errors.add(:domain, I18n.t('errors.messages.domain_must_be_active'))
       end
     end
   end
@@ -343,7 +344,7 @@ private
     if domain?
       Locale.available_locales.each do |locale|
         if [I18n.t('app.host', locale: locale), I18n.t('app.domain', locale: locale)].include? domain
-          errors.add :domain, I18n.t('errors.messages.domain_must_not_be_blacklisted')
+          errors.add(:domain, I18n.t('errors.messages.domain_must_not_be_blacklisted'))
         end
       end
     end
@@ -352,12 +353,22 @@ private
   def reply_to_must_be_valid
     if reply_to?
       begin
-        address = Mail::Address.new Mail::Address.new(reply_to).address
+        address = Mail::Address.new(Mail::Address.new(reply_to).address)
         unless (address.domain && address.__send__(:tree).domain.dot_atom_text.elements.size > 1 rescue false)
-          errors.add :reply_to, I18n.t('errors.messages.reply_to_must_be_valid')
+          errors.add(:reply_to, I18n.t('errors.messages.reply_to_must_be_valid'))
         end
       rescue Mail::Field::ParseError
-        errors.add :reply_to, I18n.t('errors.messages.reply_to_must_be_valid')
+        errors.add(:reply_to, I18n.t('errors.messages.reply_to_must_be_valid'))
+      end
+    end
+  end
+
+  def mode_must_match_options
+    if maximum_deviation?
+      if mode == 'taxes'
+        errors.add(:mode, I18n.t('errors.messages.maximum_deviation_must_not_be_set_in_taxes_mode'))
+      elsif tax_rate?
+        errors.add(:mode, I18n.t('errors.messages.maximum_deviation_and_tax_rate_must_not_both_be_set'))
       end
     end
   end
@@ -381,8 +392,8 @@ private
           queue << "www.#{domain_was}"
         end
         queue.each do |d|
-          if domains.include? d
-            HerokuClient.remove_domain d
+          if domains.include?(d)
+            HerokuClient.remove_domain(d)
           end
         end
       end
@@ -393,8 +404,8 @@ private
           queue << "www.#{domain}"
         end
         queue.each do |d|
-          unless domains.include? d
-            HerokuClient.add_domain d
+          unless domains.include?(d)
+            HerokuClient.add_domain(d)
           end
         end
       end

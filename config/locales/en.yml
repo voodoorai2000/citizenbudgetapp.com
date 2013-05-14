@@ -390,6 +390,8 @@ en:
       domain_must_be_active: The domain name must be active
       domain_must_not_be_blacklisted: The domain name is blacklisted
       reply_to_must_be_valid: The reply-to address must be valid
+      maximum_deviation_must_not_be_set_in_taxes_mode: Maximum deviation must not be set in "Taxes" mode
+      maximum_deviation_and_tax_rate_must_not_both_be_set: Maximum deviation and tax rate must not both be set
       response_must_change_at_least_one_value: The response must change at least one value
       response_must_balance: The response must balance
 

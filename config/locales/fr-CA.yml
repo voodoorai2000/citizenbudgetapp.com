@@ -81,7 +81,7 @@ fr-CA:
         starts_at: Utilisez l'heure UTC.
         ends_at: Utilisez l'heure UTC.
         domain: Vous devez pointer vos DNS sur nos serveurs.
-        mode: Dans le mode "Services", le participant ajoute, coupe ou modifie des services and activités. Dans le mode "Taxes", le participant fait des changements en points de pourcentage aux budgets des services et le simulateur l'informe de l'impact sur ses taxes.
+        mode: Dans le mode « Services », le participant ajoute, coupe ou modifie des services and activités. Dans le mode « Taxes », le participant fait des changements en points de pourcentage aux budgets des services et le simulateur l'informe de l'impact sur ses taxes.
         tax_rate: Exprimez le taux sous forme de fraction décimale.
         introduction: "Vous pouvez utiliser la syntaxe Markdown. Utilisez {{number_of_participants}} pour le nombre de participants."
         instructions: Ce texte doit tenir sur une ligne.
@@ -109,7 +109,7 @@ fr-CA:
         unit_amount: Omettez le signe monétaire.
         unit_name: Utilisez la forme plurielle en minuscule.
         options_as_list: Mettez chaque option sur une nouvelle ligne.
-        labels_as_list: Mettez les étiquettes "NON" et "OUI" sur différentes lignes et dans cette ordre.
+        labels_as_list: Mettez les étiquettes « NON » et « OUI » sur différentes lignes et dans cette ordre.
         step: Généralement vous pouvez utiliser une tranche de 1.
         default_value: Si le composant est une case à cocher, mettez 1 pour qu'elle soit cochée par défault ou 0 pour qu'elle ne le soit pas.
         maxlength: La longueur maximale du champ en nombre de caractères.
@@ -325,6 +325,8 @@ fr-CA:
       domain_must_be_active: Le nom de domaine doit être actif
       domain_must_not_be_blacklisted: Le nom de domaine est sur la liste noire
       reply_to_must_be_valid: L'adresse de courriel de correspondance doit être valide
+      maximum_deviation_must_not_be_set_in_taxes_mode: L'écart maximal ne doit pas être défini en mode « Taxes »
+      maximum_deviation_and_tax_rate_must_not_both_be_set: L'écart maximal et le taux d'imposition foncière ne doivent pas être définis tous les deux
       response_must_change_at_least_one_value: La réponse doit changer au moins une valeur
       response_must_balance: La réponse doit être balancée
 
@@ -383,7 +385,7 @@ fr-CA:
         remove_title_image: Supprimer image d'en-tête
         introduction: Texte de présentation
         instructions: Instructions
-        read_more: 'Texte des liens "En savoir plus"'
+        read_more: 'Texte des liens « En savoir plus »'
         description: Description
         description_before: Avant la consultation
         description_after: Après la consultation
