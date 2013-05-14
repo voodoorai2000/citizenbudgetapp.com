@@ -391,6 +391,7 @@ fr-CA:
         description_after: Après la consultation
         attribution: Attribution
         stylesheet: CSS personnalisé
+        javascript: JavaScript personnalisé
 
         reply_to: Adresse de courriel de correspondance
         thank_you_template: Modèle de courriel de remerciement

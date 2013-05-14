@@ -58,6 +58,10 @@ CitizenBudget::Application.configure do
     individual/jquery.validationEngine-en.js
     individual/jquery.validationEngine-fr.js
     individual/modernizr-2.5.3.min.js
+    simulators/default_simulator.js
+    simulators/deviation_simulator.js
+    simulators/impact_simulator.js
+    simulators/tax_simulator.js
     print.css
   )
 

@@ -45,6 +45,7 @@ class Questionnaire
   field :description, type: String
   field :attribution, type: String
   field :stylesheet, type: String
+  field :javascript, type: String
 
   # Thank-you email
   field :reply_to, type: String

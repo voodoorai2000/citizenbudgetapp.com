@@ -172,6 +172,13 @@ ActiveAdmin.register Questionnaire do
             end
           end
         end
+        row :javascript do |q|
+          if q.javascript?
+            pre do
+              q.javascript
+            end
+          end
+        end
       end
     end
 

@@ -56,18 +56,7 @@
     .alert.invitation
       =t('.invitation', url: root_path).html_safe
 
-  = render 'footer'
-
-:javascript
-  var questionnaire_mode = '#{@questionnaire.mode}';
-  var maximum_difference = #{@maximum_difference};
-  var starting_balance   = #{@questionnaire.starting_balance.to_i};
-  var maximum_deviation  = #{@questionnaire.maximum_deviation.to_i};
-  var default_assessment = #{@questionnaire.default_assessment.to_i};
-  var tax_rate = #{@questionnaire.tax_rate.to_f};
-  var tax_revenue = #{@questionnaire.tax_revenue.to_i};
-  var change_required = true;
-  var disabled = true;
+  = render 'footer', disabled: true
 
 - content_for :footer do
   = render partial: 'hidden'

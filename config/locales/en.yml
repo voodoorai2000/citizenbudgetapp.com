@@ -459,6 +459,7 @@ en:
         description_after: After consultation
         attribution: Attribution
         stylesheet: Custom CSS
+        javascript: Custom JavaScript
 
         # Thank-you email
         reply_to: Reply-to address

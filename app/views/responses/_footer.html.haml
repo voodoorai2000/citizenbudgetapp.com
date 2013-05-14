@@ -4,3 +4,41 @@
   - else
     =t '.attribution'
   = link_to t('app.product_name'), t('app.product_url')
+
+- content_for :footer do
+  - if @questionnaire.javascript?
+    :javascript
+      = @questionnaire.stylesheet
+
+- if @questionnaire.mode == 'taxes'
+  = javascript_include_tag 'simulators/tax_simulator'
+  :javascript
+    var klass = TaxSimulator;
+- elsif @questionnaire.maximum_deviation?
+  = javascript_include_tag 'simulators/deviation_simulator'
+  :javascript
+    var klass = DeviationSimulator;
+- elsif @questionnaire.tax_rate?
+  = javascript_include_tag 'simulators/impact_simulator'
+  :javascript
+    var klass = ImpactSimulator;
+- else
+  = javascript_include_tag 'simulators/default_simulator'
+  :javascript
+    var klass = DefaultSimulator;
+
+:javascript
+  if (typeof CustomSimulator !== 'undefined') {
+    klass = CustomSimulator;
+  }
+
+  new klass({
+    disabled: false,
+    change_required: #{!!@questionnaire.change_required},
+    maximum_difference: #{@maximum_difference},
+    starting_balance: #{@questionnaire.starting_balance.to_i},
+    maximum_deviation: #{@questionnaire.maximum_deviation.to_i},
+    default_assessment: #{@questionnaire.default_assessment.to_i},
+    tax_rate: #{@questionnaire.tax_rate.to_f},
+    tax_revenue: #{@questionnaire.tax_revenue.to_i}
+  })

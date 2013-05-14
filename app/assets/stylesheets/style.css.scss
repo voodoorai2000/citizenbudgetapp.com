@@ -460,6 +460,12 @@ footer {
   font-size: 1.08em;
   text-align: center;
 }
+#message a,
+#message a:hover {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: bold;
+}
 #reminder {
   font-weight: bold;
   margin-bottom: 1em;
