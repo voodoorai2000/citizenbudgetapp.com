@@ -53,11 +53,11 @@ CitizenBudget::Application.configure do
     active_admin.js
     active_admin/application.js
     active_admin/print.css
-    jquery.min.js
-    jquery.validationEngine-en.js
-    jquery.validationEngine-fr.js
-    jquery-ui.min.js
-    modernizr-2.5.3.min.js
+    individual/jquery.min.js
+    individual/jquery-ui.min.js
+    individual/jquery.validationEngine-en.js
+    individual/jquery.validationEngine-fr.js
+    individual/modernizr-2.5.3.min.js
     print.css
   )
 
