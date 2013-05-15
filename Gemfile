@@ -71,7 +71,6 @@ gem 'jquery-rails'
 # For maintenance scripts to run in development console.
 group :development do
   gem 'mechanize'
-  gem 'bullet'
 end
 
 group :development, :test do

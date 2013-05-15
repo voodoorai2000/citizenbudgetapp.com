@@ -145,7 +145,6 @@ en:
   # The translations in this section are only visible to administrators. If you
   # only want to translate the public-facing text, you may skip this section.
 
-  dashboard: Dashboard
   new_questionnaire: Add a new consultation
   new_section: Add a section to your consultation
   new_question: Add a question to this section

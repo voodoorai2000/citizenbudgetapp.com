@@ -110,13 +110,13 @@ ActiveAdmin.setup do |config|
   #   config.namespace :without_comments do |without_comments|
   #     without_comments.allow_comments = false
   #   end
-
+  config.allow_comments = false
 
   # == Batch Actions
   #
   # Enable and disable Batch Actions
   #
-  config.batch_actions = true
+  config.batch_actions = false
 
 
   # == Controller Filters
@@ -143,8 +143,6 @@ ActiveAdmin.setup do |config|
   #   config.register_javascript 'my_javascript.js'
   config.register_javascript 'https://www.google.com/jsapi'
   config.register_javascript 'https://apis.google.com/js/client.js'
-
-  config.filters = false
 
 
   # == CSV options
@@ -178,9 +176,9 @@ ActiveAdmin.setup do |config|
   #   end
   config.namespace :admin do |admin|
     admin.build_menu :default do |menu|
-      menu.add label: '⚐', url: '#', priority: 100 do |locales|
-        Locale::LOCALES.each do |k,v|
-          locales.add label: v, url: "?locale=#{k}"
+      menu.add(label: '⚐', url: '#', priority: 100) do |locales|
+        Locale::LOCALES.each do |key,value|
+          locales.add(label: value, url: "?locale=#{key}")
         end
       end
     end
@@ -202,9 +200,7 @@ ActiveAdmin.setup do |config|
   #     admin.download_links = [:xml, :pdf]
   #
   #   end
-  config.namespace :admin do |admin|
-    admin.download_links = false
-  end
+  config.download_links = false
 
   # == Pagination
   #
@@ -221,6 +217,10 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
+  config.filters = false
 
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
+
+  # Useful for debugging.
+  # config.on_unauthorized_access = :access_denied
 end

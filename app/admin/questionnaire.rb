@@ -58,12 +58,6 @@ ActiveAdmin.register Questionnaire do
     render nothing: true, status: 204
   end
 
-  controller do
-    def scoped_collection
-      super.includes(:organization)
-    end
-  end
-
   index do
     column :title
     column :organization do |q|

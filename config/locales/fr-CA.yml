@@ -123,7 +123,6 @@ fr-CA:
 
   # --- Administrative section -------------------------------------------------
 
-  dashboard: Tableau de bord
   new_questionnaire: Ajouter une consultation
   new_section: Ajouter une section à votre consultation
   new_question: Ajouter une  question à cette section

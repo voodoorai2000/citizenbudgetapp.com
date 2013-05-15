@@ -31,11 +31,13 @@ class Ability
       # questionnaires once the consultation has begun.
       can :manage, :all
     when 'administrator'
+      can :read, ActiveAdmin::Page
+
       # Can update future questionnaires that user owns.
-      can :update, Questionnaire, :_id.in => user.organization.questionnaire_ids, :starts_at.ne => nil, :starts_at.gt => Time.now
+      can :update, Questionnaire, organization_id: user.organization.id, :starts_at.ne => nil, :starts_at.gt => Time.now
 
       # Can always read questionnaires that user owns.
-      can :read, Questionnaire, :_id.in => user.organization.questionnaire_ids
+      can :read, Questionnaire, organization_id: user.organization.id
 
       # CanCan has trouble with embedded documents, so we may need to load and
       # authorize resources manually. In this case, we do not scope which

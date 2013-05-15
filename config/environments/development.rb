@@ -34,13 +34,4 @@ CitizenBudget::Application.configure do
   # https://github.com/rails/rails/issues/3583
   config.middleware.delete Rack::ConditionalGet
   config.middleware.delete Rack::ETag
-
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
-    #Bullet.growl = true
-    Bullet.rails_logger = true
-  end
 end

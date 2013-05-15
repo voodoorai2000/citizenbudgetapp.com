@@ -39,6 +39,10 @@ class ResponsesController < ApplicationController
 
 private
 
+  def set_locale
+    I18n.locale = locale_from_record(@questionnaire) || super
+  end
+
   def find_questionnaire
     @questionnaire = Questionnaire.where(authorization_token: params[:token]).first if params[:token]
     @questionnaire ||= Questionnaire.find_by_domain(request.host)
@@ -52,13 +56,10 @@ private
     end
   end
 
-  def set_locale
-    I18n.locale = locale_from_record(@questionnaire) || super
-  end
-
   def build_questionnaire
     @sections = @questionnaire.sections.budgetary
     @fields = @questionnaire.sections.nonbudgetary
+
     @maximum_difference = [
       @questionnaire.maximum_amount.abs,
       @questionnaire.minimum_amount.abs,
