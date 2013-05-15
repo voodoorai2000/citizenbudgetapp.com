@@ -1,7 +1,7 @@
 //= require active_admin/base
-//= require bootstrap
-//= require swfobject
-//= require jquery.clippy
+//= require libs/bootstrap
+//= require libs/swfobject
+//= require plugins/jquery.clippy
 //= require i18n
 
 $ ->
@@ -12,11 +12,11 @@ $ ->
     $(this).select()
 
   $('.clippy').each ->
-    $this = $ this
+    $this = $(this)
     $this.clippy
       clippy_path: '/assets/clippy.swf'
       flashvars:
-        args: $this.data 'tooltip'
+        args: $this.data('tooltip')
 
   window.clippyCopiedCallback = (args) ->
     $('#' + args).attr('data-original-title', t('copied_hint')).tooltip('show').attr('data-original-title', t('copy_hint'))
@@ -27,13 +27,13 @@ $ ->
     cursor: 'move'
     handle: 'i'
     update: (event, ui) ->
-      $target = $ event.target
+      $target = $(event.target)
       $.ajax
         type: 'POST'
-        url: location.href + '/sort'
-        data: $target.sortable 'serialize'
+        url: location.href.replace(/\?.+/, '') + '/sort'
+        data: $target.sortable('serialize')
       .done (request) ->
-        $target.effect 'highlight'
+        $target.effect('highlight')
 
   toggle_mode = ->
     value = $('input[name="questionnaire[mode]"]:checked').val()
@@ -42,7 +42,7 @@ $ ->
       "#questionnaire_tax_revenue_input"
     ).toggle(value != 'taxes')
 
-  $('input[name="questionnaire[mode]"]').change toggle_mode
+  $('input[name="questionnaire[mode]"]').change(toggle_mode)
   toggle_mode()
 
   # Display the appropriate options for the selected widget.
@@ -83,20 +83,20 @@ $ ->
          #section_questions_attributes_#{i}_cols_input"
       ).toggle(value == 'textarea')
 
-    widget.change toggle_options
+    widget.change(toggle_options)
     toggle_options()
 
   $('.has_many.questions .button:last').click ->
-    setup_fieldset $('.has_many.questions fieldset:last [id]').attr('id').match(/\d+/)[0]
+    setup_fieldset($('.has_many.questions fieldset:last [id]').attr('id').match(/\d+/)[0])
 
-  $('.has_many.questions fieldset').each setup_fieldset
+  $('.has_many.questions fieldset').each(setup_fieldset)
 
 # Dashboard charts.
 window.draw = (chart_type, id, headers, rows, options) ->
   # https://developers.google.com/chart/interactive/docs/drawing_charts
   google.setOnLoadCallback ->
     data = new google.visualization.DataTable()
-    data.addColumn if chart_type is 'LineChart' then 'date' else 'string'
+    data.addColumn(if chart_type is 'LineChart' then 'date' else 'string')
     data.addColumn('number', header) for header in headers
     data.addColumn({type: 'string', role: 'tooltip'}) if options.tooltip?
     data.addRows(rows)

@@ -1,4 +1,4 @@
-I18n =
+window.I18n =
   en_US:
     currency_delimiter: ','
     currency_format: '{{unit}}{{number}}'

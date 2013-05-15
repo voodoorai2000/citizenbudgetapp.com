@@ -1,4 +1,4 @@
-class TaxSimulator extends Simulator
+class window.TaxSimulator extends window.Simulator
   constructor: (@options = {}) ->
     super
 
@@ -21,17 +21,17 @@ class TaxSimulator extends Simulator
       # Need to update all numbers to match the new assessment.
       @update()
 
-      $('table').find('input:first').each ->
+      @scope.find('input:first').each ->
         @updateSection($(this))
 
       # So far, only scalers have been implemented in "Taxes" mode.
-      $('.widget-scaler').each ->
+      @scope.find('.widget-scaler').each ->
         $widget = $(this)
         $slider = $widget.find('.slider')
 
         # @see Simulator#updateQuestion
         difference = ($slider.slider('value') - $slider.data('initial')) * $slider.data('value')
-        $widget.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * scale(), strip_insignificant_zeros: true))
+        $widget.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * @scale(), strip_insignificant_zeros: true))
 
         # In case we display minimum and maximum values again:
         #$widget.find('.minimum.taxes').html(SimulatorHelper.number_to_currency(taxAmount($slider, $slider.data('minimum'))))
@@ -63,7 +63,7 @@ class TaxSimulator extends Simulator
 
   messageOptions: (net_balance) ->
     number: SimulatorHelper.number_to_currency(Math.abs(net_balance), strip_insignificant_zeros: true)
-    percentage: SimulatorHelper.number_to_percentage(Math.abs(net_balance) / @options.tax_rate / scale() * 100, strip_insignificant_zeros: true)
+    percentage: SimulatorHelper.number_to_percentage(Math.abs(net_balance) / @options.tax_rate / @scale() * 100, strip_insignificant_zeros: true)
 
   setMessage: (net_balance) ->
     super
@@ -79,7 +79,7 @@ class TaxSimulator extends Simulator
 
   # @return [Float] the impact of a single change to the budget
   taxAmount: ($slider, number) ->
-    parseFloat($slider.data('value')) * parseFloat(number) * scale()
+    parseFloat($slider.data('value')) * parseFloat(number) * @scale()
 
   # @return [String] content for the tip on a scaler
   tipScaler: ($slider, number) ->

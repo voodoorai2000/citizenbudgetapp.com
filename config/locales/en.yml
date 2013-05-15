@@ -157,8 +157,8 @@ en:
   # https://developers.google.com/chart/interactive/docs/reference#numberformatter
   percentage_format: "###%"
   language: Switch language
-  'yes': Yes
-  'no': No
+  yes: Yes
+  no: No
   untitled: Untitled
   default: Default
 

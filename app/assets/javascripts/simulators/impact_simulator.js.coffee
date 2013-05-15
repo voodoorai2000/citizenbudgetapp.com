@@ -1,6 +1,12 @@
 # Respondents can submit any budget. The simulator communicates the impact of
 # their budget choices on their tax rate.
-class ImpactSimulator extends Simulator
+class window.ImpactSimulator extends window.Simulator
+  # @note If this simulator were to collect the respondent's assessment and if
+  #   the reminder message were to mention personal tax impact, we would only
+  #   need to update the reminder message when the assessment changes.
+  #
+  # @example
+  #   @setReminder(@net_balance())
   constructor: (@options = {}) ->
     super
 
@@ -14,13 +20,6 @@ class ImpactSimulator extends Simulator
         surplus: 'Vos choix ont diminué le total des impôts fonciers requis pour équilibrer le budget de {{number}} ou {{percentage}}.'
         balanced: "Vous avez atteint l'équilibre."
         deficit: 'Vos choix ont augmenté le total des impôts fonciers requis pour équilibrer le budget de {{number}} ou {{percentage}}.'
-
-    $('#assessment input').blur ->
-      # Reset to default value if custom value is invalid.
-      $('#assessment input').val('') if customAssessment() <= 0
-
-      # In this mode, only the reminder mentions the tax impact.
-      @setReminder(@net_balance())
 
   # Display the default message in the navigation only.
   messageSelector: ->

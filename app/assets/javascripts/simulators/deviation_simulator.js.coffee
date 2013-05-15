@@ -1,10 +1,10 @@
 # Respondents can submit as long as the budget is close enough to balance.
-class DeviationSimulator extends Simulator
+class window.DeviationSimulator extends window.Simulator
   canSubmit: ->
     super and Math.abs(@net_balance()) <= @options.maximum_deviation
 
   messages: ->
-    if $('[data-revenue]').length
+    if @scope.find('[data-revenue]').length
       en_US:
         large_surplus: 'Your budget is off balance by {{number}}. <b>Add activities or cut revenues to balance the budget</b>.'
         surplus: """Your budget has a surplus of {{number}}. If you're finished, <a href="#identification">submit your choices</a>. Otherwise, <b>add activities or cut revenues to balance the budget</b>."""

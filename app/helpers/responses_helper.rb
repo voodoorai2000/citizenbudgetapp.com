@@ -135,6 +135,8 @@ module ResponsesHelper
   # Only strip zeroes if all are insignificant.
   def currency(number, options = {})
     escaped_separator = Regexp.escape t(:'number.currency.format.separator', default: [:'number.format.separator', '.'])
+    # Inexplicably, -0.0 renders as "-0" instead of 0 without this line.
+    number = 0 if number.zero?
     # This logic should be in number_with_precision, but as long as the
     # separator occurs only once, this is safe.
     number_to_currency(number, options).sub /#{escaped_separator}0+\b/, ''

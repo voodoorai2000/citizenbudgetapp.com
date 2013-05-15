@@ -1,4 +1,4 @@
-class Simulator
+class window.Simulator
   constructor: (@options = {}, @identifier = 'simulator') ->
     # The tables belonging to this simulator.
     @scope = $("table.#{@identifier}")
@@ -14,6 +14,7 @@ class Simulator
       for locale, messages of object
         for key, value of messages
           I18n[locale][key] = value
+    @colors = @colorSettings()
 
     @initializeRadioWidgets()
     @initializeOnOffWidgets()
@@ -48,7 +49,7 @@ class Simulator
     $table.find('.option').each ->
       $this = $ this
       balance += +$this.prop('checked') * ($this.val() - parseFloat($this.data('initial')))
-    balance * scale()
+    balance * @scale()
 
   # @return [Float] the simulator's net balance
   net_balance: ->
@@ -65,7 +66,7 @@ class Simulator
   # Colors and messages
 
   # The simulator's colors.
-  colors: ->
+  colorSettings: ->
     # XXX hack to read CSS rule.
     $element = $('<tr class="selected"><td></td></tr>').appendTo('body')
     change_background_color = $element.find('td').css('background-color')
@@ -182,7 +183,7 @@ class Simulator
         color = @colors.question.negative
 
       $tr.find('.key').html(key)
-      $tr.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * scale(), strip_insignificant_zeros: true))
+      $tr.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * @scale(), strip_insignificant_zeros: true))
       $tr.find('.impact').css('color', color).css('visibility', 'visible')
 
       unless $tr.hasClass('selected')
@@ -208,13 +209,15 @@ class Simulator
 
     # Enable or disable the identification form.
     if @canSubmit()
-      enableForm()
+      @enableForm()
     else
-      disableForm()
+      @disableForm()
 
   # Animation
 
-  animateBar: ->
+  animateBar: (net_balance) ->
+    self = this
+
     # Update graph and move bar and balance.
     $amount = $("##{@identifier} .amount")
     $bar = $("##{@identifier} .bar")
@@ -223,7 +226,7 @@ class Simulator
     $amount.html(amount).toggleClass('negative', net_balance < 0)
 
     # If pixels are less than zero, the bar moves right (increase).
-    pixels = -Math.round(SimulatorHelper.tanh(3 * net_balance / @options.maximum_difference / scale()) * 100)
+    pixels = -Math.round(SimulatorHelper.tanh(3 * net_balance / @options.maximum_difference / @scale()) * 100)
     width = Math.abs(pixels)
 
     # If at zero.
@@ -240,7 +243,7 @@ class Simulator
         width: 0
       ,
         complete: ->
-          $(this).css('background-color', @colors.bar.positive)
+          $(this).css('background-color', self.colors.bar.positive)
       .animate
         width: width
     # If going from positive to negative.
@@ -250,7 +253,7 @@ class Simulator
         width: 0
       ,
         complete: ->
-          $(this).css('background-color', @colors.bar.negative)
+          $(this).css('background-color', self.colors.bar.negative)
       .animate
         left: @bar_left - pixels
         width: width
@@ -285,22 +288,26 @@ class Simulator
 
   # Budgetary radio buttons.
   initializeRadioWidgets: ->
+    self = this
+
     @scope.find('.option').change ->
       $this = $(this)
-      @updateQuestion($this, $this.val())
-      @updateSection($this)
-      @update()
+      self.updateQuestion($this, $this.val())
+      self.updateSection($this)
+      self.update()
 
   # On/off widgets.
   initializeOnOffWidgets: ->
+    self = this
+
     @scope.find('.onoff').each ->
       options =
         resizeContainer: false
         resizeHandle: false
         onChange: (input, checked) ->
-          @updateQuestion(input, +checked)
-          @updateSection(input)
-          @update()
+          self.updateQuestion(input, +checked)
+          self.updateSection(input)
+          self.update()
 
       $this = $(this)
 
@@ -317,9 +324,11 @@ class Simulator
 
   # Slider widgets.
   initializeSliderWidgets: ->
+    self = this
+
     # Must be global for `loadAnwers` call.
     window.updateTip = ($slider, value) ->
-      content = @tipSlider($slider, value)
+      content = self.tipSlider($slider, value)
       $slider.find('.tip-content').html(content) if content
       $slider.find('.tip').toggle(value != parseFloat($slider.data('minimum')))
 
@@ -328,14 +337,14 @@ class Simulator
       $this = $(this)
       value = ui.value
       updateTip($this, value)
-      @updateQuestion($this, value)
+      self.updateQuestion($this, value)
 
     change = (event, ui) ->
       $this = $(this)
       slide.call(this, event, ui)
       $this.find('input').val(ui.value) # update the associated form element
-      @updateSection($this)
-      @update()
+      self.updateSection($this)
+      self.update()
 
     @scope.find('.slider').each ->
       $this   = $(this)
@@ -352,12 +361,12 @@ class Simulator
         step: parseFloat($this.data('step'))
         value: initial
         create: (event, ui) ->
-          content = @tipContent($this, initial)
+          content = self.tipSlider($this, initial)
           $(this).find('a').append('<div class="tip"><div class="tip-content">' + content + '</div><div class="tip-arrow"></div></div>') if content
           $(this).find('.tip').toggle(initial != minimum)
-        slide: not @options.disabled and slide
-        change: not @options.disabled and change
-        disabled: @options.disabled
+        slide: not self.options.disabled and slide
+        change: not self.options.disabled and change
+        disabled: self.options.disabled
 
       # Place the initial tick according to the handle's default position.
       if initial != maximum and initial != minimum
@@ -398,26 +407,28 @@ class Simulator
     SimulatorHelper.number_to_percentage(number * 100, strip_insignificant_zeros: true)
 
   loadAnswers: ->
+    self = this
+
     @update()
 
     @scope.find('input:first').each ->
-      @updateSection($(this))
+      self.updateSection($(this))
 
     @scope.find('.option:checked').each ->
       $this = $(this)
-      @updateQuestion($this, $this.val())
+      self.updateQuestion($this, $this.val())
 
     @scope.find('.onoff').each ->
       $this = $(this)
-      @updateQuestion($this, +$this.prop('checked'))
+      self.updateQuestion($this, +$this.prop('checked'))
 
     @scope.find('.slider').each ->
       $this = $(this)
       value = $this.slider('value')
       updateTip($this, value)
-      @updateQuestion($this, value)
+      self.updateQuestion($this, value)
 
   prepareForm: ->
     @initializeMinMaxLabels()
     $('#new_response').validationEngine()
-    disableForm() unless @canSubmit()
+    @disableForm() unless @canSubmit()
