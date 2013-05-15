@@ -15,7 +15,7 @@
 // For example, to change the default status-tag color:
 //
 //   body.active_admin {
-//      .status { background: #6090DB; }
+//      .status_tag { background: #6090DB; }
 //   }
 //
 // Notice that Active Admin CSS rules are nested within a
@@ -29,6 +29,12 @@
 // .other_namespace    applies to a custom namespace named other (eg: /other)
 
 $highlight-color: #33f;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
 
 /* Active Admin --------------------------------------------------------------*/
 
