@@ -25,8 +25,8 @@ gem 'mongoid', '~> 3.0.12'
 
 # Admin
 gem 'formtastic', '2.2.1'
-gem 'activeadmin', '~> 0.5.0'
-gem 'activeadmin-mongoid', '~> 0.0.2.jpmckinney.0'
+gem 'activeadmin', '~> 0.6.0'
+gem 'activeadmin-mongoid', git: 'git://github.com/elia/activeadmin-mongoid.git', ref: '83183a6a9daa4e2d4a62bb010025a50c4a10049a'
 gem 'cancan'
 gem 'devise', '~> 2.1.3'
 gem 'devise-i18n'
@@ -71,6 +71,7 @@ gem 'jquery-rails'
 # For maintenance scripts to run in development console.
 group :development do
   gem 'mechanize'
+  gem 'bullet'
 end
 
 group :development, :test do

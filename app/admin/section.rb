@@ -19,7 +19,7 @@ ActiveAdmin.register Section do
     end
   end
 
-  index download_links: false do
+  index do
     column :title
     column :group do |s|
       t(s.group, scope: :group) if s.group?
@@ -99,13 +99,13 @@ ActiveAdmin.register Section do
       end
       row :questions do |s|
         if s.questions.present?
-          ul(class: can?(:update, s) ? 'sortable' : '') do
+          ul(class: authorized?(:update, s) ? 'sortable' : '') do
             s.questions.each_with_index do |q,index|
               li(id: dom_id(q)) do
-                if can?(:update, q)
+                if authorized?(:update, q)
                   i(class: 'icon-move')
                 end
-                text_node link_to_if can?(:update, q), q.name, edit_admin_questionnaire_section_path(s.questionnaire, s, anchor: "section_questions_attributes_#{index}__destroy_input")
+                text_node link_to_if authorized?(:update, q), q.name, edit_admin_questionnaire_section_path(s.questionnaire, s, anchor: "section_questions_attributes_#{index}__destroy_input")
               end
             end
           end

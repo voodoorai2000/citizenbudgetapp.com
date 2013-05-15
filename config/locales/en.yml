@@ -313,7 +313,7 @@ en:
   unauthorized:
     # CanCan falls back to the 'manage.all' translation.
     manage:
-      all: You are not authorized to access this page.
+      all: &unauthorized You are not authorized to access this page.
 
   # https://github.com/plataformatec/responders/blob/master/lib/responders/locales/en.yml
   flash:
@@ -329,6 +329,8 @@ en:
         alert: '%{resource_name} could not be removed.'
 
   active_admin:
+    access_denied:
+      message: *unauthorized
     # Administrators can filter current, future and past consultations.
     scopes:
       current: Current

@@ -274,7 +274,7 @@ fr-CA:
 
   unauthorized:
     manage:
-      all: Vous n'êtes pas autorisé à effectuer cette action.
+      all: &unauthorized Vous n'êtes pas autorisé à effectuer cette action.
 
   # https://github.com/plataformatec/responders/blob/master/lib/responders/locales/en.yml
   flash:
@@ -290,6 +290,8 @@ fr-CA:
         alert: "%{resource_name} n'a pas pu être supprimé(e)."
 
   active_admin:
+    access_denied:
+      message: *unauthorized
     scopes:
       current: Actuelles
       future: Futures

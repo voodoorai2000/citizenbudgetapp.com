@@ -64,7 +64,7 @@ module ActiveAdmin
             no_route = true
           end
 
-          if (object && cannot?(:read, object)) || (model && cannot?(:read, model)) || no_route
+          if (object && !authorized?(:read, object)) || (model && !authorized?(:read, model)) || no_route
             name
           else
             link_to(name, url)

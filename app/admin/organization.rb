@@ -1,8 +1,8 @@
 ActiveAdmin.register Organization do
-  index download_links: false do
+  index do
     column :name
     column :questionnaires do |o|
-      link_to_if can?(:read, Questionnaire), o.questionnaires.count, [:admin, :questionnaires]
+      link_to_if authorized?(:read, Questionnaire), o.questionnaires.count, [:admin, :questionnaires]
     end
     default_actions
   end
@@ -20,10 +20,9 @@ ActiveAdmin.register Organization do
             end
           end
         end
-        if can? :create, Questionnaire
+        if authorized?(:create, Questionnaire)
           div link_to t(:new_questionnaire), new_admin_questionnaire_path(organization_id: resource.id), class: 'button'
         end
-        '@todo https://github.com/gregbell/active_admin/pull/1479'
       end
     end
   end

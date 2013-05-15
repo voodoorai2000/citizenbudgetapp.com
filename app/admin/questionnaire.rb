@@ -58,7 +58,13 @@ ActiveAdmin.register Questionnaire do
     render nothing: true, status: 204
   end
 
-  index download_links: false do
+  controller do
+    def scoped_collection
+      super.includes(:organization)
+    end
+  end
+
+  index do
     column :title
     column :organization do |q|
       auto_link q.organization
@@ -70,7 +76,7 @@ ActiveAdmin.register Questionnaire do
       l(q.ends_at.in_time_zone(q.time_zone), format: :short) if q.ends_at?
     end
     column :sections do |q|
-      link_to_if can?(:read, Section), q.sections.count, [:admin, q, :sections]
+      link_to_if authorized?(:read, Section), q.sections.count, [:admin, q, :sections]
     end
     default_actions
   end
@@ -112,7 +118,7 @@ ActiveAdmin.register Questionnaire do
       end
     end
 
-    panel  t('legend.mode') do
+    panel t('legend.mode') do
       attributes_table_for questionnaire do
         row :mode do |q|
           t(q.mode, scope: :mode) if q.mode?
@@ -222,21 +228,20 @@ ActiveAdmin.register Questionnaire do
       attributes_table_for questionnaire do
         row :sections do |q|
           if q.sections.present?
-            ul(class: can?(:update, q) ? 'sortable' : '') do
+            ul(class: authorized?(:update, q) ? 'sortable' : '') do
               q.sections.each do |s|
                 li(id: dom_id(s)) do
-                  if can?(:update, s)
+                  if authorized?(:update, s)
                     i(class: 'icon-move')
                   end
-                  text_node link_to_if can?(:read, s), s.name, [:admin, q, s]
+                  text_node link_to_if authorized?(:read, s), s.name, [:admin, q, s]
                 end
               end
             end
           end
-          if can? :create, Section
+          if authorized?(:create, Section)
             div link_to t(:new_section), [:new, :admin, q, :section], class: 'button'
           end
-          '@todo https://github.com/gregbell/active_admin/pull/1479'
         end
       end
     end

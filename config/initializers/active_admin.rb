@@ -1,3 +1,4 @@
+# coding: utf-8
 ActiveAdmin.setup do |config|
 
   # == Site Title
@@ -175,6 +176,15 @@ ActiveAdmin.setup do |config|
   #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
   #     end
   #   end
+  config.namespace :admin do |admin|
+    admin.build_menu :default do |menu|
+      menu.add label: '⚐', url: '#', priority: 100 do |locales|
+        Locale::LOCALES.each do |k,v|
+          locales.add label: v, url: "?locale=#{k}"
+        end
+      end
+    end
+  end
 
   # == Download Links
   #
@@ -192,7 +202,9 @@ ActiveAdmin.setup do |config|
   #     admin.download_links = [:xml, :pdf]
   #
   #   end
-
+  config.namespace :admin do |admin|
+    admin.download_links = false
+  end
 
   # == Pagination
   #
@@ -210,5 +222,5 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 
-
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
 end
