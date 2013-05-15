@@ -1,15 +1,11 @@
 module ActiveAdmin
   module ViewHelpers
     module BreadcrumbHelper
+      def breadcrumb_links(path = request.path)
+        parts = path[1..-1].split('/')                        # remove leading "/" and split up URL path
+        parts.pop unless params[:action] =~ /^create|update$/ # remove last if not create/update
 
-      def breadcrumb_links(path = nil)
-        path ||= request.fullpath
-        parts = path.gsub(/^\//, '').split('/')
-        # The last part of the path is usually rendered as the page title.
-        parts.pop unless %w{ create update }.include?(params[:action])
-        crumbs = []
-
-        parts.each_with_index do |part, index|
+        parts.each_with_index.map do |part, index|
           model = nil
           object = nil
           name = nil
@@ -68,13 +64,12 @@ module ActiveAdmin
             no_route = true
           end
 
-          crumbs << if (object && cannot?(:read, object)) || (model && cannot?(:read, model)) || no_route
+          if (object && cannot?(:read, object)) || (model && cannot?(:read, model)) || no_route
             name
           else
             link_to(name, url)
           end
         end
-        crumbs
       end
     end
   end
