@@ -14,7 +14,7 @@ class window.Simulator
       for locale, messages of object
         for key, value of messages
           I18n[locale][key] = value
-    @colors = @colorSettings()
+    @colors = @colorSetting()
 
     @initializeRadioWidgets()
     @initializeOnOffWidgets()
@@ -66,7 +66,7 @@ class window.Simulator
   # Colors and messages
 
   # The simulator's colors.
-  colorSettings: ->
+  colorSetting: ->
     # XXX hack to read CSS rule.
     $element = $('<tr class="selected"><td></td></tr>').appendTo('body')
     change_background_color = $element.find('td').css('background-color')

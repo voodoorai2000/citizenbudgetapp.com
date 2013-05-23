@@ -25,7 +25,9 @@ gem 'mongoid', '~> 3.0.12'
 
 # Admin
 gem 'formtastic', '2.2.1'
-gem 'activeadmin', '~> 0.6.0'
+# Waiting for 0.6.1
+gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git', ref: '9d6656316929cab7954aed0be0dbe7e91f5d8462'
+# Waiting for 0.0.2
 gem 'activeadmin-mongoid', git: 'git://github.com/elia/activeadmin-mongoid.git', ref: '83183a6a9daa4e2d4a62bb010025a50c4a10049a'
 gem 'cancan'
 gem 'devise', '~> 2.1.3'
