@@ -98,13 +98,13 @@ class Response
           end
         elsif question.multiple?
           invalid = value.reject do |v|
-            question.options.include? v
+            question.options.include?(v)
           end
           unless invalid.empty?
             errors[question.id.to_s] = I18n.t('errors.messages.inclusion')
           end
         elsif question.options?
-          unless question.options.include? cast_answer(question)
+          unless question.options.include?(cast_answer(question))
             errors[question.id.to_s] = I18n.t('errors.messages.inclusion')
           end
         end

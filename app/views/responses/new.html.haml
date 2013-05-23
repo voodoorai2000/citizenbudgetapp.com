@@ -58,7 +58,7 @@
               = f.input :name
             - section.questions.each do |q|
               .control-group
-                - unless %w(checkbox readonly).include? q.widget
+                - unless %w(checkbox readonly).include?(q.widget)
                   %label.control-label(for="#{q.id}")
                     = q.title
                     - if q.required?

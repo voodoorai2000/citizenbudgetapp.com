@@ -55,7 +55,7 @@
             -# @todo Figure out where ActiveAdmin puts its helpers.
             =t '.detail.widget.slider', minimum_units: number_with_precision(q.minimum_units), minimum_amount: number_to_currency(q.minimum_amount), maximum_units: number_with_precision(q.maximum_units), maximum_amount: number_to_currency(q.maximum_amount), default_value: q.default_value
             =t(".detail.choice_and_impact.#{q.section.revenue? ? 'revenue' : 'expense'}.#{@details[q.id.to_s][:mean_impact] >= 0 ? :positive : :negative}", choice: number_with_precision(@details[q.id.to_s][:mean_choice], precision: 1), impact: number_to_currency(@details[q.id.to_s][:mean_impact].abs)).html_safe
-            - unless [q.maximum_units, q.minimum_units].include? q.cast_default_value
+            - unless [q.maximum_units, q.minimum_units].include?(q.cast_default_value)
               =t '.detail.bidirectional', proportion_who_decrease: number_to_percentage(@details[q.id.to_s][:proportion_who_decrease] * 100, precision: 0), mean_decrease: number_with_precision(@details[q.id.to_s][:mean_decrease], precision: 1), proportion_who_increase: number_to_percentage(@details[q.id.to_s][:proportion_who_increase] * 100, precision: 0), mean_increase: number_with_precision(@details[q.id.to_s][:mean_increase], precision: 1)
           - elsif q.widget == 'onoff'
             =t(".detail.widget.onoff.#{q.section.revenue? ? 'revenue' : 'expense'}.#{@details[q.id.to_s][:mean_impact] >= 0 ? :positive : :negative}", minimum_amount: number_to_currency(q.minimum_amount.abs), maximum_amount: number_to_currency(q.maximum_amount.abs)).html_safe

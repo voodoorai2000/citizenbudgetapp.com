@@ -344,7 +344,7 @@ private
   def domain_must_not_be_blacklisted
     if domain?
       Locale.available_locales.each do |locale|
-        if [I18n.t('app.host', locale: locale), I18n.t('app.domain', locale: locale)].include? domain
+        if [I18n.t('app.host', locale: locale), I18n.t('app.domain', locale: locale)].include?(domain)
           errors.add(:domain, I18n.t('errors.messages.domain_must_not_be_blacklisted'))
         end
       end

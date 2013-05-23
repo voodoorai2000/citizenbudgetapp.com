@@ -37,7 +37,7 @@
                   :markdown
                     #{q.description}
                 - # @todo Implement checkbox, readonly, select widgets.
-                - if %w(checkboxes radio).include? q.widget
+                - if %w(checkboxes radio).include?(q.widget)
                   %fieldset
                     .control-group
                       .controls
@@ -57,7 +57,7 @@
                               - else
                                 = radio_button_tag q.id, option
                               = option
-                - elsif %w(text textarea).include? q.widget
+                - elsif %w(text textarea).include?(q.widget)
                   - if q.widget == 'text'
                     = text_field_tag q.id, nil, html_attributes(q)
                   - elsif q.widget == 'textarea'
@@ -89,7 +89,7 @@
                     #{q.description}
               %td.highlight
                 %div(class="widget widget-#{q.widget}")
-                  - if %w(scaler slider).include? q.widget
+                  - if %w(scaler slider).include?(q.widget)
                     .impact
                       %span.key
                       %span.value= number_to_currency 0

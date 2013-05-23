@@ -59,17 +59,17 @@ class Question
   validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'textarea'}
 
   # Budgetary widget validations.
-  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff option scaler slider).include? q.widget}
-  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff option scaler slider).include? q.widget}
-  validates_presence_of :options, if: ->(q){%w(checkboxes onoff option radio scaler select slider).include? q.widget}
+  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff option scaler slider).include?(q.widget)}
+  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff option scaler slider).include?(q.widget)}
+  validates_presence_of :options, if: ->(q){%w(checkboxes onoff option radio scaler select slider).include?(q.widget)}
   validates_presence_of :labels, if: ->(q){q.widget == 'option'}
 
   # Slider validations.
-  validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){%w(scaler slider).include? q.widget}
-  validates_numericality_of :minimum_units, :maximum_units, allow_blank: true, if: ->(q){%w(scaler slider).include? q.widget}
-  validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){%w(scaler slider).include? q.widget}
-  validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){%w(scaler slider).include? q.widget}
-  validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){%w(scaler slider).include? q.widget}
+  validates_presence_of :minimum_units, :maximum_units, :step, if: ->(q){%w(scaler slider).include?(q.widget)}
+  validates_numericality_of :minimum_units, :maximum_units, allow_blank: true, if: ->(q){%w(scaler slider).include?(q.widget)}
+  validates_numericality_of :step, greater_than: 0, allow_blank: true, if: ->(q){%w(scaler slider).include?(q.widget)}
+  validate :maximum_units_must_be_greater_than_minimum_units, if: ->(q){%w(scaler slider).include?(q.widget)}
+  validate :default_value_must_be_between_minimum_and_maximum, if: ->(q){%w(scaler slider).include?(q.widget)}
   validate :default_value_must_be_an_option, if: ->(q){q.widget == 'option'}
   validate :options_and_labels_must_agree, if: ->(q){q.widget == 'option'}
 

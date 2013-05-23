@@ -272,7 +272,7 @@ namespace :data do
         elsif ENV['MODE'] == 'interactive' && intersection.size.nonzero? && (1..3) === difference.size
           # Experience suggests 3 is an appropriate threshold. A threshold of 4
           # found no additional duplicates in a sample of nearly 600.
-          if difference.keys.all?{|key| Response::NON_PERSONAL_KEYS.include? key}
+          if difference.keys.all?{|key| Response::NON_PERSONAL_KEYS.include?(key)}
             b.destroy
             responses.delete_at i + j + 1
             puts "Deleted #{b.id} (duplicates #{a.id} except on #{difference.keys.to_sentence})\n"
