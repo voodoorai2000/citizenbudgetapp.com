@@ -41,13 +41,13 @@ class window.Simulator
   balance: ($table) ->
     balance = 0
     $table.find('.slider').each ->
-      $this = $ this
+      $this = $(this)
       balance += ($this.slider('value') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
     $table.find('.onoff').each ->
-      $this = $ this
+      $this = $(this)
       balance += (+$this.prop('checked') - parseFloat($this.data('initial'))) * parseFloat($this.data('value'))
     $table.find('.option').each ->
-      $this = $ this
+      $this = $(this)
       balance += +$this.prop('checked') * ($this.val() - parseFloat($this.data('initial')))
     balance * @scale()
 

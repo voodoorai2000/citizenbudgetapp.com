@@ -6,10 +6,6 @@
   = link_to t('app.product_name'), t('app.product_url')
 
 - content_for :footer do
-  - if @questionnaire.javascript?
-    :javascript
-      = @questionnaire.javascript
-
   - if @questionnaire.mode == 'taxes'
     = javascript_include_tag 'simulators/tax_simulator'
     :javascript
@@ -26,6 +22,10 @@
     = javascript_include_tag 'simulators/default_simulator'
     :javascript
       var klass = DefaultSimulator;
+  - if @questionnaire.javascript?
+    = @questionnaire.javascript.inspect
+    :coffeescript
+      #{@questionnaire.javascript}
 
   :javascript
     if (typeof CustomSimulator !== 'undefined') {
