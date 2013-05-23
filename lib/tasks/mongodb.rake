@@ -10,7 +10,7 @@ END
       if STDIN.gets == "nogoingback\n"
         uri = URI.parse `heroku config:get MONGOLAB_URI --app #{ENV['APP']}`.chomp
         puts `mongodump -h localhost -d citizen_budget_development -o dump-dir`.chomp
-        puts `mongorestore -h #{uri.host}:#{uri.port} -d #{uri.path.sub '/', ''} -u #{uri.user} -p #{uri.password} dump-dir/*`.chomp
+        puts `mongorestore -h #{uri.host}:#{uri.port} -d #{uri.path.sub '/', ''} -u #{uri.user} -p #{uri.password} dump-dir/citizen_budget_development`.chomp
       else
         puts 'Confirmation did not match "nogoingback". Aborted.'
       end
@@ -25,7 +25,7 @@ END
       uri = URI.parse `heroku config:get MONGOLAB_URI --app #{ENV['APP']}`.chomp
       puts `mongodump -h #{uri.host}:#{uri.port} -d #{uri.path.sub '/', ''} -u #{uri.user} -p #{uri.password} -o dump-dir`.chomp
       puts `rm -f dump-dir#{uri.path}/system.*`.chomp # MongoLab adds system collections, which we don't need.
-      puts `mongorestore -h localhost -d citizen_budget_development --drop dump-dir/*`.chomp
+      puts `mongorestore -h localhost -d citizen_budget_development --drop dump-dir#{uri.path}`.chomp
     else
       puts 'rake mongodb:pull can only be run in development'
     end
