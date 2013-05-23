@@ -182,13 +182,13 @@ $ ->
 
   # Converts a number to a currency.
   number_to_currency = (number, options = {}) ->
-    t 'currency_format'
+    t 'currency_format',
       number: number_with_precision number, options
       unit: t 'currency_unit'
 
   # Converts a number to a percentage.
   number_to_percentage = (number, options = {}) ->
-    t 'percentage_format'
+    t 'percentage_format',
       number: number_with_precision number, options
       symbol: t 'percentage_symbol'
 
