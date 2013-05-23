@@ -1,7 +1,7 @@
 class Section
   include Mongoid::Document
 
-  GROUPS = %w(simulator other)
+  GROUPS = %w(simulator custom other)
 
   embedded_in :questionnaire
   embeds_many :questions
@@ -21,6 +21,7 @@ class Section
 
   after_save :touch_questionnaire # @see https://github.com/mongoid/mongoid/pull/2195
 
+  scope :simulator, where(:group.in => %w(simulator custom))
   scope :budgetary, where(group: 'simulator')
   scope :nonbudgetary, where(group: 'other')
   default_scope asc(:position)

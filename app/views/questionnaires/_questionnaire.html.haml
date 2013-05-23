@@ -2,8 +2,8 @@
   - content_for :head do
     %style
       = @questionnaire.stylesheet.html_safe
-- @sections.each do |section|
-  %table.simulator(id="#{table_id(section)}")
+- @simulator.each do |section|
+  %table(id="#{table_id(section)}" class="#{section.group}")
     %thead
       - unless section.title.blank? && section.nonbudgetary?
         %tr

@@ -23,6 +23,8 @@ class window.Simulator
     if @options.disabled
       @loadAnswers()
     else
+      if @options.starting_balance
+        @animateBar(@net_balance())
       @prepareForm()
 
   # @return [Float] the factor by which to scale the budget balance
@@ -194,7 +196,13 @@ class window.Simulator
   # Updates a section after a change has been made to the budget.
   updateSection: ($control) ->
     $table = $control.parents('table')
-    $span  = $('#' + $table.attr('id') + '_link span')
+
+    $anchor = if $table.find('th.category').text().replace(/^\s+|\s+$/g, '') or $table.prev('table').find('tbody tr').length
+      $table
+    else
+      $table.prev('table')
+
+    $span = $('#' + $anchor.attr('id') + '_link span')
     if $span.parents('.dropdown-menu').length
       balance = @balance($table)
       $span.html(SimulatorHelper.number_to_currency(balance, strip_insignificant_zeros: true)).css('color', if balance >= 0 then @colors.section.positive else @colors.section.negative).toggle(balance != 0)

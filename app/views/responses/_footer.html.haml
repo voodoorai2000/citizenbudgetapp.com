@@ -22,18 +22,10 @@
     = javascript_include_tag 'simulators/default_simulator'
     :javascript
       var klass = DefaultSimulator;
-  - if @questionnaire.javascript?
-    = @questionnaire.javascript.inspect
-    :coffeescript
-      #{@questionnaire.javascript}
 
   :javascript
-    if (typeof CustomSimulator !== 'undefined') {
-      klass = CustomSimulator;
-    }
-
-    var main_simulator = new klass({
-      disabled: false,
+    var simulator_options = {
+      disabled: #{disabled},
       change_required: #{!!@questionnaire.change_required},
       maximum_difference: #{@maximum_difference},
       starting_balance: #{@questionnaire.starting_balance.to_i},
@@ -41,4 +33,14 @@
       default_assessment: #{@questionnaire.default_assessment.to_i},
       tax_rate: #{@questionnaire.tax_rate.to_f},
       tax_revenue: #{@questionnaire.tax_revenue.to_i}
-    })
+    };
+
+  - if @questionnaire.javascript?
+    :coffeescript
+      #{@questionnaire.javascript}
+
+  :javascript
+    if (typeof CustomSimulator !== 'undefined') {
+      klass = CustomSimulator;
+    }
+    var main_simulator = new klass(simulator_options)

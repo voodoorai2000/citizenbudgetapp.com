@@ -101,7 +101,7 @@
         %p=t '.submit_text'
         = f.action :submit, label: t('.submit')
 
-  = render 'footer', disabled: false
+  = render 'footer', disabled: 'false'
 
 - content_for :footer do
   = render partial: 'hidden'

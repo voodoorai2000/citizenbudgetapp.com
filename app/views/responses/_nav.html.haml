@@ -4,11 +4,13 @@
     %span.caret
   %ul.dropdown-menu
     = render @sections
-%li#simulator
-  .inner
-    .chart-container
-      .title=t '.balance'
-      .chart
-        .bar
-        .zero
-        .amount= number_to_currency 0
+- @groups.each do |group,sections|
+  - if sections.any?
+    %li(id="#{group}")
+      .inner
+        .chart-container
+          .title=t '.balance'
+          .chart
+            .bar
+            .zero
+            .amount= number_to_currency 0
