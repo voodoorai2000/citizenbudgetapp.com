@@ -1,6 +1,7 @@
-- content_for :head do
-  %style
-    = @questionnaire.stylesheet.html_safe
+- if @questionnaire.stylesheet?
+  - content_for :head do
+    %style
+      = @questionnaire.stylesheet.html_safe
 - @sections.each do |section|
   %table.simulator(id="#{table_id(section)}")
     %thead

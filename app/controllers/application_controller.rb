@@ -35,20 +35,4 @@ protected
       request.domain == t('app.domain', locale: locale)
     end
   end
-
-  # Useful for debugging.
-  def access_denied(exception)
-    flash[:error] = exception.message
-
-    if request.headers['Referer']
-      redirect_to :back
-    else
-      controller, action = active_admin_namespace.root_to.split('#')
-      if params[:controller].split('/').last == controller && params[:action] == action
-        raise [exception.user, exception.action, exception.subject].map(&:inspect).inspect
-      else
-        redirect_to controller: controller, action: action
-      end
-    end
-  end
 end
