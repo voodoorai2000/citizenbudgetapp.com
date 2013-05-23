@@ -13,6 +13,7 @@ group :production do
   gem 'heroku'
 
   # Performance
+  gem 'memcachier'
   gem 'dalli'
   gem 'newrelic_rpm', '3.5.3.25'
 end
