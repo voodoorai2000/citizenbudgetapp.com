@@ -113,7 +113,7 @@ class Question
 
   # @return [Boolean] whether to omit slider labels
   def omit_labels?
-    unit_name == '$' && unit_amount == 1
+    unit_name == '$' && Math.abs(unit_amount) == 1
   end
 
   # @return [Boolean] whether it is a yes-no question
