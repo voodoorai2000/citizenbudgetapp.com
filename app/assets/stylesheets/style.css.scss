@@ -583,6 +583,9 @@ nav {
     #simulator .inner {
       padding: 0 30px;
     }
+    #custom .inner {
+      padding: 0 30px;
+    }
 
     // @see https://gist.github.com/1275792 re: hover state
     & > .active {
@@ -691,6 +694,9 @@ nav {
   }
 
   #simulator .inner {
+    padding: 0 10px;
+  }
+  #custom .inner {
     padding: 0 10px;
   }
 
