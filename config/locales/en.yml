@@ -533,45 +533,63 @@ en:
 
   report:
     no_answer: No answer
-    graphs:
-      timeline:
-        title: "Submissions per day, from %{start_date} to %{end_date}"
-      priorities:
-        title: Participants' budget priorities
-        legend:
-          - Coupure
-          - Aucun changement
-          - Addition
-      single_distribution:
-        title: "Distribution of participants by %{factor}"
-        legend:
-          - Participants
-          - Population
-      double_distribution:
-        title: "Distribution of participants by %{a} and %{b}"
-      number_of_changes:
-        title: "Number of %{name} changed"
-      choices:
-        title: Options chosen by participants
-      magnitude_of_changes:
-        title: Average magnitude of changes per activity
-      balance:
-        title:
-          default: Change in budget balance
-          taxes: Change in tax dollars
-        legend:
-          default:
-            - Deficit
-            - No change
-            - Surplus
-          taxes:
-            - Lower taxes
-            - No change
-            - Higher taxes
-      average:
-        title: "Average %{metric} by %{factor}"
-      histogram:
-        title: "%{title} by %{factor}"
+    timeline:
+      title: "Submissions per day, from %{start_date} to %{end_date}"
+    priorities:
+      title: Participants' budget priorities
+      legend:
+        - Coupure
+        - Aucun changement
+        - Addition
+    single_distribution:
+      title: "Distribution of participants by %{factor}"
+      legend:
+        - Participants
+        - Population
+    double_distribution:
+      title: "Distribution of participants by %{a} and %{b}"
+    number_of_changes:
+      title: "Number of %{name} changed"
+      text: "Participants made %.1f changes on average (median %d, mode %s)."
+    choices:
+      title: Options chosen by participants
+    magnitude_of_changes:
+      title: Average magnitude of changes per activity
+      text:
+        default: "Participants made changes of %.1f on average (median %d, mode %s)."
+        taxes: "Participants made changes of %.1f%% on average (median %d%%, mode %s)."
+    balance:
+      title:
+        default: Change in budget balance
+        taxes: Change in tax dollars
+      legend:
+        default:
+          - Deficit
+          - No change
+          - Surplus
+        taxes:
+          - Lower taxes
+          - No change
+          - Higher taxes
+      text:
+        default: ""
+        taxes: "Participants would change taxes by %.2f%% on average (median %.2f%%, mode %s)."
+    average:
+      title: "Average %{metric} by %{factor}"
+    histogram:
+      title: "%{title} by %{factor}"
+    text:
+      popularity: "%.1f%% of participants changed its budget."
+      options: "Participants could select a value within the range of %d%{symbol} to %d%{symbol}, with a starting value of %d%{symbol}."
+      unidirectional: "Of those who changed this %{name}'s budget, the average choice was %.1f%{symbol}, the median %.1f%{symbol} and the mode %s%{symbol}."
+      bidirectional: "Of those who changed this %{name}'s budget, %d%% decreased the budget, with an average choice of %.1f%{symbol}, median %d%{symbol} and mode %s%{symbol}; %d%% increased the budget, with an average choice of %d%{symbol}, median %d%{symbol} and mode %s%{symbol}."
+      impact: "The %s the average choice is $%s."
+      savings: "savings for"
+      cost: "cost of"
+      average: "The average choice of all participants was %.1f%{symbol}, median %d%{symbol} and mode %s%{symbol}."
+      confidence: "The default value of %d%{symbol} lies outside the 95%% confidence interval; therefore, with 95%% confidence, the population average is %s than the default value."
+      less: less
+      greater: greater
 
   # --- Time zones -------------------------------------------------------------
   # Rails doesn't translate time zone names. Citizen Budget adds this feature.
