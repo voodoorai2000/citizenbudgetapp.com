@@ -439,6 +439,54 @@ fr-CA:
         assessment: L'évaluation foncière de votre propriété
         time_to_complete: Temps requis
 
+  # --- In-depth report --------------------------------------------------------
+
+  report:
+    no_answer: Pas de réponse
+    graphs:
+      timeline:
+        title: "Nombre de soumissions par jour, du %{start_date} au %{end_date}"
+      priorities:
+        title: Priorités budgétaires des participants
+        legend:
+          - Decrease
+          - No change
+          - Increase
+      single_distribution:
+        title: "Distribution des participants selon le %{factor}"
+        legend:
+          - Participants
+          - Population
+      double_distribution:
+        title: "Distribution des participants selon le %{a} et le %{b}"
+      number_of_changes:
+        title: "Nombre de %{name} changées"
+      choices:
+        title: Options choisies par les participants
+      magnitude_of_changes:
+        title: Largeur moyenne des changements par activité
+      balance:
+        title:
+          default: Changement dans l'équilibre budgétaire
+          taxes: Impact sur le contribuable
+        legend:
+          - Lower taxes
+          - No change
+          - Higher taxes
+        legend:
+          default:
+            - Déficit
+            - Aucun changement
+            - Surplus
+          taxes:
+            - Baisse
+            - Aucun changement
+            - Hausse
+      average:
+        title: "%{metric} moyenne par %{factor}"
+      histogram:
+        title: "%{title} par %{factor}"
+
   # --- Time zones -------------------------------------------------------------
 
   time_zone:
