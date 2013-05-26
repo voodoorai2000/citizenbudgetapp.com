@@ -175,6 +175,8 @@ class Question
       Integer value.to_s rescue value
     when 'scaler', 'slider'
       Float value.to_s rescue value
+    else
+      value
     end
   end
 

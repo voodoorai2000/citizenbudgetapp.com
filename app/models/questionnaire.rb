@@ -198,6 +198,11 @@ class Questionnaire
     domain? && "http://#{domain}"
   end
 
+  # @return [Boolean] whether the questionnaire has a maximum deviation
+  def maximum_deviation?
+    super && maximum_deviation.nonzero?
+  end
+
   # @return [Boolean] whether respondents must submit balanced budgets
   def balance?
     mode == 'services' && tax_rate.blank?
