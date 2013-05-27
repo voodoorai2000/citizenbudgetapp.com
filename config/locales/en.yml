@@ -530,6 +530,7 @@ en:
       google_analytics: UA-21866813-6 # citizenbudget.com
 
   # --- In-depth report --------------------------------------------------------
+  # Only change translations in this section if you are using the report authoring tools.
 
   report:
     no_answer: No answer
