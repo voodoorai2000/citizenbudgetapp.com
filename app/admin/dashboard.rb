@@ -145,9 +145,9 @@ ActiveAdmin.register_page 'Dashboard' do
       book = Spreadsheet::Workbook.new
       sheet = book.create_worksheet
       @questionnaire.rows.each_with_index do |row,i|
-        sheet.row(i).concat row
+        sheet.row(i).concat(row)
       end
-      book.write io
+      book.write(io)
 
       send_data io.string, filename: filename
 
@@ -156,7 +156,7 @@ ActiveAdmin.register_page 'Dashboard' do
         package.workbook.add_worksheet do |sheet|
           @questionnaire.rows.each do |row|
             begin
-              sheet.add_row row
+              sheet.add_row(row)
             rescue ArgumentError => e # non-UTF8 characters from spammers
               logger.error "#{e.inspect}: #{row.inspect}"
             end
