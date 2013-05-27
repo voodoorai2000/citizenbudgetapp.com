@@ -109,7 +109,7 @@ module ApplicationHelper
           'class' => 'speakerdeck-embed', 'data-id' => id, 'data-ratio' => ratio),
         'style' => properties.map{|k,v| "#{k}=#{v}px"}.join(';'))
     else
-      content_tag(:div, markdown(html), class: 'extra')
+      content_tag(:div, markdown(html), class: 'extra clearfix')
     end
   end
 end
