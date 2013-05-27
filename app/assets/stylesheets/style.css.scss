@@ -402,10 +402,17 @@ label.iOSCheckLabelOff.reverse {
 }
 
 .extra {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  padding: 1em;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   background-color: #fff;
+  text-align: left;
+
+  img {
+    float: right;
+    margin-left: 10px;
+  }
 }
 
 .embed { // Override .modal

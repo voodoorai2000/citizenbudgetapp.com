@@ -48,8 +48,8 @@ fr-CA:
     title:
       read_more: &read_more En savoir plus
       read_more_tip: Cliquez pour en savoir plus
-      view_media: Consultez le contenu média
-      view_media_tip: Cliquez pour consulter le contenu média
+      view_media: Consultez le contenu additionnel
+      view_media_tip: Cliquez pour consulter le contenu additionnel
     nav:
       sections: Sections
       balance: Solde
