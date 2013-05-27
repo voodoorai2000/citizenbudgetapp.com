@@ -496,7 +496,7 @@ fr-CA:
       symbol:
         default: ""
         taxes: " %%"
-      participation: "%.1f %% des participants ont changé cette activité."
+      participation_rate: "%.1f %% des participants ont changé cette activité."
       options: "Les participants pouvaient choisir une valeur allant de %d%{symbol} à %d%{symbol}, avec une valeur de départ de %d%{symbol}."
       unidirectional: "Pour ceux qui ont changé le budget de ce %{name}, le choix moyen était de %.1f%{symbol}, la médiane %.1f%{symbol} et le mode %s%{symbol}."
       bidirectional: "De ceux qui ont modifié cette %{name}, %d %%%% ont réduit le budget, avec un choix moyen de %.1f%{symbol}, une médiane de %d%{symbol} et un mode de %s%{symbol}; %d %%%% l’ont augmenté, avec un choix moyen de %d%{symbol}, une médiane de %d%{symbol} et un mode de %s%{symbol}."
@@ -508,13 +508,15 @@ fr-CA:
       less: inférieure
       greater: supérieure
     table:
-      percentage: "%.1f %%"
       mean: Moyenne
       median: Médiane
       mode: Mode(s)
       participation_rate: "% qui l'ont changé"
+      participants: "No. qui l'ont changé"
       decrease: "% qui l'ont réduit"
+      decrease_count: "No. qui l'ont réduit"
       increase: "% qui l'ont augmenté"
+      increase_count: "No. qui l'ont augmenté"
       minimum_units: Valeur minimale
       maximum_units: Valeur maximale
 

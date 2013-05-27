@@ -582,7 +582,7 @@ en:
       symbol:
         default: ""
         taxes: "%%"
-      participation: "%.1f%% of participants changed its budget."
+      participation_rate: "%.1f%% of participants changed its budget."
       options: "Participants could select a value within the range of %d%{symbol} to %d%{symbol}, with a starting value of %d%{symbol}."
       unidirectional: "Of those who changed this %{name}'s budget, the average choice was %.1f%{symbol}, the median %.1f%{symbol} and the mode %s%{symbol}."
       bidirectional: "Of those who changed this %{name}'s budget, %d%%%% decreased the budget, with an average choice of %.1f%{symbol}, median %d%{symbol} and mode %s%{symbol}; %d%%%% increased the budget, with an average choice of %d%{symbol}, median %d%{symbol} and mode %s%{symbol}."
@@ -594,13 +594,15 @@ en:
       less: less
       greater: greater
     table:
-      percentage: "%.1f%%"
       mean: Average
       median: Median
       mode: Mode(s)
       participation_rate: "% who changed it"
+      participants: "Number who changed it"
       decrease: "% who decreased it"
+      decrease_count: "Number who decreased it"
       increase: "% who increased it"
+      increase_count: "Number who increased it"
 
   # --- Time zones -------------------------------------------------------------
   # Rails doesn't translate time zone names. Citizen Budget adds this feature.
