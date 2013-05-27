@@ -274,7 +274,7 @@ class Questionnaire
 
     # Add headers
     row = headers.map do |column|
-      Response.human_attribute_name column
+      Response.human_attribute_name(column)
     end
     sections.each do |section|
       section.questions.each do |question|
