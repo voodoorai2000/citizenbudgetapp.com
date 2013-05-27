@@ -268,7 +268,7 @@ class window.Simulator
     # If not crossing zero.
     else
       $amount.animate(left: -pixels)
-      $bar.animate
+      $bar.css('background-color', if pixels < 0 then @colors.bar.positive else @colors.bar.negative).animate
         left: Math.min(@bar_left, @bar_left - pixels)
         width: width
 
