@@ -24,12 +24,6 @@ module ResponsesHelper
     "#{t(:left_quote)}#{string}#{t(:right_quote)}"
   end
 
-  # @param [String] string a Markdown string that may contain HTML
-  # @return [String] the HTML output
-  def markdown(string)
-    RDiscount.new(string).to_html.html_safe
-  end
-
   # @param [String] string a string
   # @return [String] the string with escaped double-quotes for use in HTML attributes
   def escape_attribute(string)

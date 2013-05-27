@@ -2,5 +2,5 @@
   = render partial: 'modal', locals: {object: object}
 - if object.embed?
   .modal.invisible.fade.embed(id="#{object.title.parameterize}_embed")
-    = speakerdeck object.embed
+    = speakerdeck_or_markdown object.embed
     = link_to t('.close'), '#', 'data-dismiss' => 'modal', 'class' => 'btn btn-primary'

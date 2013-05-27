@@ -82,8 +82,14 @@ module ApplicationHelper
 
   MAX_DIMENSION = 560 # As for Bootstrap's .modal
 
+  # @param [String] string a Markdown string that may contain HTML
+  # @return [String] the HTML output
+  def markdown(string)
+    RDiscount.new(string).to_html.html_safe
+  end
+
   # @see http://speakerdeck.com/assets/embed.js
-  def speakerdeck(html)
+  def speakerdeck_or_markdown(html)
     if html['speakerdeck.com/assets/embed.js']
       id = html[/data-id="([0-9a-f]+)"/, 1]
       ratio = html[/data-ratio="([0-9.]+)"/, 1].to_f
@@ -103,7 +109,7 @@ module ApplicationHelper
           'class' => 'speakerdeck-embed', 'data-id' => id, 'data-ratio' => ratio),
         'style' => properties.map{|k,v| "#{k}=#{v}px"}.join(';'))
     else
-      html.html_safe
+      content_tag(:div, markdown(html), class: 'extra')
     end
   end
 end
