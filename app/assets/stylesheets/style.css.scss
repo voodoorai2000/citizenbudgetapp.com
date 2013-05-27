@@ -389,12 +389,23 @@ label.iOSCheckLabelOff.reverse {
   display: none;
 }
 
+.popover-inner {
+  width: 560px;
+}
+
 .popover-content {
   p,
   ul,
   ol {
     margin-bottom: 1em;
   }
+}
+
+.extra {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: #fff;
 }
 
 .embed { // Override .modal
