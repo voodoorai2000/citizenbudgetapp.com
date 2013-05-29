@@ -112,8 +112,8 @@ class Question
   end
 
   # @return [Boolean] whether to omit slider labels
-  def omit_labels?
-    unit_name == '$' && unit_amount.abs == 1
+  def omit_amounts?
+    (unit_name == '$' && unit_amount.abs == 1) || (widget == 'scaler' && section.questionnaire.mode == 'taxes')
   end
 
   # @return [Boolean] whether it is a yes-no question

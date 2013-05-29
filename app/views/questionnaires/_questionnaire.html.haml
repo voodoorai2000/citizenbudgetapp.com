@@ -120,7 +120,7 @@
                         .tick.lowest
                         .tick.initial
                         .tick.highest
-                    - unless q.widget == 'scaler' && @questionnaire.mode == 'taxes'
+                    - unless q.omit_amounts?
                       .meta.maximum
                         = currency q.maximum_amount
                       .meta.minimum
