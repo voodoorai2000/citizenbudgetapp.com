@@ -102,9 +102,6 @@
                       - else
                         .meta.maximum= number_to_percentage(q.maximum_units * 100)
                         .meta.minimum= number_to_percentage(q.minimum_units * 100)
-                    - elsif q.omit_labels?
-                      .meta.maximum &nbsp;
-                      .meta.minimum &nbsp;
                     - elsif q.yes_no?
                       .meta.maximum=t :yes
                       .meta.minimum=t :no
