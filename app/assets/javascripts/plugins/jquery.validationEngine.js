@@ -344,7 +344,7 @@
 						});
 					} else {
 						$("html:not(:animated),body:not(:animated)").animate({
-							scrollTop: destination,
+							scrollTop: destination - 89, // @todo HACK
 							scrollLeft: fixleft
 						}, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
