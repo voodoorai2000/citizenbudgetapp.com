@@ -205,6 +205,11 @@ class Questionnaire
     mode == 'services' && tax_rate.blank?
   end
 
+  # @return [Boolean] whether to collect a property value assessment
+  def assessment?
+    default_assessment? && tax_rate?
+  end
+
   # @return [Boolean] whether the consultation is currently running
   def current?
     starts_at? && ends_at? && starts_at <= Time.now && Time.now <= ends_at
@@ -254,9 +259,13 @@ class Questionnaire
 
   # @return [Array] a list of headers for a spreadsheet
   def headers
-    # If the first two letters of a file are "ID", Microsoft Excel will try
-    # to open the file in the SYLK file format.
-    %w(ip id created_at time_to_complete email name assessment)
+    # If the first two letters of a file are "ID", Microsoft Excel will try to
+    # open the file in the SYLK file format.
+    headers = %w(ip id created_at time_to_complete email name)
+    if assessment?
+      headers << 'assessment'
+    end
+    headers
   end
 
   # @return [Array] rows for a spreadsheet
@@ -290,7 +299,7 @@ class Questionnaire
       row = headers.map do |column|
         if column == 'id'
           response.id.to_s # axlsx may error when trying to convert Moped::BSON::ObjectId
-        else
+        elsif column != 'assessment' || assessment?
           response.send column
         end
       end
