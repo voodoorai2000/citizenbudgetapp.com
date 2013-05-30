@@ -215,6 +215,8 @@ ActiveAdmin.register Questionnaire do
         row :twitter_text
         row :twitter_share_text
         row :facebook_app_id
+        row :open_graph_title
+        row :open_graph_description
       end
     end
 

@@ -34,6 +34,10 @@ class ResponsesController < ApplicationController
     redirect_to response_path(@response, params.slice(:token)), notice: @questionnaire.response_notice.present? ? @questionnaire.response_notice : t(:create_response)
   end
 
+  def count
+    render json: @questionnaire.responses.count
+  end
+
   def offline
   end
 

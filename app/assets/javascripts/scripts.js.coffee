@@ -95,3 +95,7 @@ $ ->
       easing: 'easeInOutExpo'
       offset: -50
     event.preventDefault()
+
+  if $('#response_count').length
+    $.ajax(url: '/resources/count.json').done (data) ->
+      $('#response_count').html(data)

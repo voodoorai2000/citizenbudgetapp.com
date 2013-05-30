@@ -39,11 +39,11 @@ module ApplicationHelper
   # Open Graph tags
 
   def og_title
-    title
+    @questionnaire && @questionnaire.open_graph_title || title
   end
 
   def og_description
-    meta_description
+    @questionnaire && @questionnaire.open_graph_description || meta_description
   end
 
   def og_site_name

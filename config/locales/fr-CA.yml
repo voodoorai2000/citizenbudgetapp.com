@@ -408,6 +408,8 @@ fr-CA:
         twitter_text: Texte du Tweet
         twitter_share_text: Texte du Tweet
         facebook_app_id: Facebook App ID
+        open_graph_title: Titre Open Graph
+        open_graph_description: Description Open Graph
         sections: Sections
       section:
         title: Titre

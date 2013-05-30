@@ -63,6 +63,8 @@ class Questionnaire
   field :twitter_text, type: String
   field :twitter_share_text, type: String
   field :facebook_app_id, type: String
+  field :open_graph_title, type: String
+  field :open_graph_description, type: String
   field :authorization_token, type: String
 
   # Image uploaders

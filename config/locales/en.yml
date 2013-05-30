@@ -479,6 +479,8 @@ en:
         twitter_text: Tweet text to share consultation
         twitter_share_text: Tweet text to share response
         facebook_app_id: Facebook App ID
+        open_graph_title: Open Graph Title
+        open_graph_description: Open Graph Description
         sections: Sections
       section:
         title: Title
