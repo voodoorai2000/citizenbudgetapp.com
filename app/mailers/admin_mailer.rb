@@ -13,7 +13,7 @@ class AdminMailer < Devise::Mailer
 
       @host = ActionMailer::Base.default_url_options[:host] || I18n.t('app.host')
       if record.organization
-        questionnaire = record.organization.questionnaires.first
+        questionnaire = record.organization.questionnaires.last
         if questionnaire && questionnaire.domain?
           @host = questionnaire.domain
         end
