@@ -1,6 +1,6 @@
 %header
-  - if @questionnaire.logo?
-    #logo
+  #logo
+    - if @questionnaire.logo?
       = logo
   %h1
     - if local_assigns[:header]
