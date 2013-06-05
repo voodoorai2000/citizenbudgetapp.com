@@ -8,19 +8,19 @@ class window.TaxSimulator extends window.Simulator
       $('#assessment input').val('') if self.customAssessment() <= 0
 
       # Need to update all numbers to match the new assessment.
-      @update()
+      self.update()
 
-      @scope.find('input:first').each ->
-        @updateSection($(this))
+      self.scope.find('input:first').each ->
+        self.updateSection($(this))
 
       # So far, only scalers have been implemented in "Taxes" mode.
-      @scope.find('.widget-scaler').each ->
+      self.scope.find('.widget-scaler').each ->
         $widget = $(this)
         $slider = $widget.find('.slider')
 
         # @see Simulator#updateQuestion
         difference = ($slider.slider('value') - $slider.data('initial')) * $slider.data('value')
-        $widget.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * @scale(), strip_insignificant_zeros: true))
+        $widget.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * self.scale(), strip_insignificant_zeros: true))
 
         # In case we display minimum and maximum values again:
         # $widget.find('.minimum.taxes').html(SimulatorHelper.number_to_currency(taxAmount($slider, $slider.data('minimum'))))
