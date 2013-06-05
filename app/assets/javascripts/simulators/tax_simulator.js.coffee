@@ -2,9 +2,10 @@ class window.TaxSimulator extends window.Simulator
   constructor: (@options = {}) ->
     super
 
+    self = this
     $('#assessment input').blur ->
       # Reset to default value if custom value is invalid.
-      $('#assessment input').val('') if @customAssessment() <= 0
+      $('#assessment input').val('') if self.customAssessment() <= 0
 
       # Need to update all numbers to match the new assessment.
       @update()

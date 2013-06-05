@@ -230,47 +230,48 @@ class window.Simulator
     $amount = $("##{@identifier} .amount")
     $bar = $("##{@identifier} .bar")
 
-    amount = SimulatorHelper.number_to_currency(net_balance, strip_insignificant_zeros: true)
-    $amount.html(amount).toggleClass('negative', net_balance < 0)
+    if $bar.length
+      amount = SimulatorHelper.number_to_currency(net_balance, strip_insignificant_zeros: true)
+      $amount.html(amount).toggleClass('negative', net_balance < 0)
 
-    # If pixels are less than zero, the bar moves right (increase).
-    pixels = -Math.round(SimulatorHelper.tanh(3 * net_balance / @options.maximum_difference / @scale()) * 100)
-    width = Math.abs(pixels)
+      # If pixels are less than zero, the bar moves right (increase).
+      pixels = -Math.round(SimulatorHelper.tanh(3 * net_balance / @options.maximum_difference / @scale()) * 100)
+      width = Math.abs(pixels)
 
-    # If at zero.
-    if $bar.width() == 0
-      $amount.animate(left: -pixels)
-      $bar.css('background-color', if pixels < 0 then @colors.bar.positive else @colors.bar.negative).animate
-        left: Math.min(@bar_left, @bar_left - pixels)
-        width: width
-    # If going from negative to positive.
-    else if pixels < 0 and $bar.position().left < @bar_left
-      $amount.animate(left: 0).animate(left: -pixels)
-      $bar.animate
-        left: @bar_left,
-        width: 0
-      ,
-        complete: ->
-          $(this).css('background-color', self.colors.bar.positive)
-      .animate
-        width: width
-    # If going from positive to negative.
-    else if pixels > 0 and $bar.position().left == @bar_left
-      $amount.animate(left: 0).animate(left: -pixels)
-      $bar.animate
-        width: 0
-      ,
-        complete: ->
-          $(this).css('background-color', self.colors.bar.negative)
-      .animate
-        left: @bar_left - pixels
-        width: width
-    # If not crossing zero.
-    else
-      $amount.animate(left: -pixels)
-      $bar.css('background-color', if pixels < 0 then @colors.bar.positive else @colors.bar.negative).animate
-        left: Math.min(@bar_left, @bar_left - pixels)
-        width: width
+      # If at zero.
+      if $bar.width() == 0
+        $amount.animate(left: -pixels)
+        $bar.css('background-color', if pixels < 0 then @colors.bar.positive else @colors.bar.negative).animate
+          left: Math.min(@bar_left, @bar_left - pixels)
+          width: width
+      # If going from negative to positive.
+      else if pixels < 0 and $bar.position().left < @bar_left
+        $amount.animate(left: 0).animate(left: -pixels)
+        $bar.animate
+          left: @bar_left,
+          width: 0
+        ,
+          complete: ->
+            $(this).css('background-color', self.colors.bar.positive)
+        .animate
+          width: width
+      # If going from positive to negative.
+      else if pixels > 0 and $bar.position().left == @bar_left
+        $amount.animate(left: 0).animate(left: -pixels)
+        $bar.animate
+          width: 0
+        ,
+          complete: ->
+            $(this).css('background-color', self.colors.bar.negative)
+        .animate
+          left: @bar_left - pixels
+          width: width
+      # If not crossing zero.
+      else
+        $amount.animate(left: -pixels)
+        $bar.css('background-color', if pixels < 0 then @colors.bar.positive else @colors.bar.negative).animate
+          left: Math.min(@bar_left, @bar_left - pixels)
+          width: width
 
   # Pulsates and changes the colors of the status message.
   animateMessage: (net_balance) ->
