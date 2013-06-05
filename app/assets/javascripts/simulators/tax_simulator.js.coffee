@@ -2,21 +2,9 @@ class window.TaxSimulator extends window.Simulator
   constructor: (@options = {}) ->
     super
 
-    @colors = @options.colors ||
-      message:
-        background:
-          negative: '#000'
-          positive: '#000'
-        foreground:
-          negative: '#fff'
-          positive: '#fff'
-      item:
-        positive: '#000'
-        negative: '#000'
-
     $('#assessment input').blur ->
       # Reset to default value if custom value is invalid.
-      $('#assessment input').val('') if customAssessment() <= 0
+      $('#assessment input').val('') if @customAssessment() <= 0
 
       # Need to update all numbers to match the new assessment.
       @update()
@@ -34,10 +22,42 @@ class window.TaxSimulator extends window.Simulator
         $widget.find('.value').html(SimulatorHelper.number_to_currency(Math.abs(difference) * @scale(), strip_insignificant_zeros: true))
 
         # In case we display minimum and maximum values again:
-        #$widget.find('.minimum.taxes').html(SimulatorHelper.number_to_currency(taxAmount($slider, $slider.data('minimum'))))
-        #$widget.find('.maximum.taxes').html(SimulatorHelper.number_to_currency(taxAmount($slider, $slider.data('maximum'))))
+        # $widget.find('.minimum.taxes').html(SimulatorHelper.number_to_currency(taxAmount($slider, $slider.data('minimum'))))
+        # $widget.find('.maximum.taxes').html(SimulatorHelper.number_to_currency(taxAmount($slider, $slider.data('maximum'))))
 
         updateTip($slider, $slider.slider('value'))
+
+  colorSetting: ->
+    # XXX hack to read CSS rule.
+    $element = $('<tr class="selected"><td></td></tr>').appendTo('body')
+    change_background_color = $element.find('td').css('background-color')
+    $element.remove()
+
+    # The colors of the single solid bar in the graph.
+    bar:
+      positive: '#000'
+      negative: '#f00'
+    # The colors of the status message in the navigation.
+    message:
+      background:
+        positive: '#000'
+        neutral: $('#message').css('background-color') # administrators can override the CSS
+        negative: '#000'
+      foreground:
+        positive: '#fff'
+        neutral: '#fff'
+        negative: '#fff'
+    # The colors of the budgetary values in the section navigation.
+    section:
+      positive: '#000'
+      negative: '#f00'
+    # The colors of the question and its budgetary values.
+    question:
+      positive: '#000'
+      negative: '#000'
+      description: '#fff'
+      highlight: '#ff9'
+      selected: change_background_color
 
   strings: ->
     en_US:
