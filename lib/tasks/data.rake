@@ -186,7 +186,7 @@ namespace :data do
       # @param [Response] other another response
       # @return [Hash] a hash of differences between this and another response
       def diff(other)
-        comparable.diff other.comparable
+        comparable.diff(other.comparable)
       end
 
       # @param [Response] other another response
@@ -216,7 +216,7 @@ namespace :data do
 
           unless old_test == new_test
             memo[key] = if Hash === old_value && Hash === new_value
-              old_value.diff new_value
+              old_value.diff(new_value)
             else
               [old_value, new_value]
             end
