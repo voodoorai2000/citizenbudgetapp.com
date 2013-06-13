@@ -202,6 +202,11 @@ class Questionnaire
     domain? && "http://#{domain}"
   end
 
+  # @return [Boolean] whether the questionnaire has a maximum deviation
+  def maximum_deviation?
+    super && maximum_deviation.nonzero?
+  end
+
   # @return [Boolean] whether respondents must submit balanced budgets
   def balance?
     mode == 'services' && tax_rate.blank?
@@ -276,7 +281,7 @@ class Questionnaire
 
     # Add headers
     row = headers.map do |column|
-      Response.human_attribute_name column
+      Response.human_attribute_name(column)
     end
     sections.each do |section|
       section.questions.each do |question|

@@ -538,6 +538,82 @@ en:
       facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
       google_analytics: UA-21866813-6 # citizenbudget.com
 
+  # --- In-depth report --------------------------------------------------------
+  # Only change translations in this section if you are using the report authoring tools.
+
+  report:
+    no_answer: No answer
+    timeline:
+      title: "Submissions per day, from %{start_date} to %{end_date}"
+    priorities:
+      title: Participants' budget priorities
+      legend:
+        - Coupure
+        - Aucun changement
+        - Addition
+    single_distribution:
+      title: "Distribution of participants by %{factor}"
+      legend:
+        - Participants
+        - Population
+    double_distribution:
+      title: "Distribution of participants by %{a} and %{b}"
+    number_of_changes:
+      title: "Number of %{name} changed"
+      text: "Participants made %.1f changes on average (median %d, mode %s)."
+    choices:
+      title: Options chosen by participants
+    magnitude_of_changes:
+      title: Average magnitude of changes per activity
+      text:
+        default: "Participants made changes of %.1f on average (median %d, mode %s)."
+        taxes: "Participants made changes of %.1f%%%% on average (median %d%%%%, mode %s)."
+    balance:
+      title:
+        default: Change in budget balance
+        taxes: Change in tax dollars
+      legend:
+        default:
+          - Deficit
+          - No change
+          - Surplus
+        taxes:
+          - Lower taxes
+          - No change
+          - Higher taxes
+      text:
+        default: ""
+        taxes: "Participants would change taxes by %.2f%%%% on average (median %.2f%%%%, mode %s)."
+    average:
+      title: "Average %{metric} by %{factor}"
+    histogram:
+      title: "%{title} by %{factor}"
+    text:
+      symbol:
+        default: ""
+        taxes: "%%"
+      participation_rate: "%.1f%% of participants changed its budget."
+      options: "Participants could select a value within the range of %d%{symbol} to %d%{symbol}, with a starting value of %d%{symbol}."
+      unidirectional: "Of those who changed this %{name}'s budget, the average choice was %.1f%{symbol}, the median %.1f%{symbol} and the mode %s%{symbol}."
+      bidirectional: "Of those who changed this %{name}'s budget, %d%%%% decreased the budget, with an average choice of %.1f%{symbol}, median %d%{symbol} and mode %s%{symbol}; %d%%%% increased the budget, with an average choice of %d%{symbol}, median %d%{symbol} and mode %s%{symbol}."
+      impact: "The %s the average choice is $%s."
+      savings: "savings for"
+      cost: "cost of"
+      central_tendencies: "The average choice of all participants was %.1f%{symbol}, median %d%{symbol} and mode %s%{symbol}."
+      confidence: "The default value of %d%{symbol} lies outside the 95%%%% confidence interval; therefore, with 95%%%% confidence, the population average is %s than the default value."
+      less: less
+      greater: greater
+    table:
+      mean: Average
+      median: Median
+      mode: Mode(s)
+      participation_rate: "% who changed it"
+      participants: "Number who changed it"
+      decrease: "% who decreased it"
+      decrease_count: "Number who decreased it"
+      increase: "% who increased it"
+      increase_count: "Number who increased it"
+
   # --- Time zones -------------------------------------------------------------
   # Rails doesn't translate time zone names. Citizen Budget adds this feature.
   # Note that time zone names are visible to administrators only.

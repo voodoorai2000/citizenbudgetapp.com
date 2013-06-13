@@ -34,7 +34,7 @@ class Response
   # @param [Question] question a question
   # @return the answer to the question, cast to an appropriate type
   def cast_answer(question)
-    question.cast_value answer(question)
+    question.cast_value(answer(question))
   end
 
   # @param [Question] question a question
@@ -85,7 +85,7 @@ class Response
     changed = false
     questionnaire.sections.each do |section|
       section.questions.each do |question|
-        value = answer question
+        value = answer(question)
 
         # We don't need to cast values here, as both are strings.
         unless changed || section.group == 'other' || value == question.default_value
@@ -115,7 +115,7 @@ class Response
     if questionnaire.change_required? && !changed
       base << I18n.t('errors.messages.response_must_change_at_least_one_value')
     end
-    if questionnaire.balance? && balance < 0
+    if questionnaire.balance? && (questionnaire.maximum_deviation? && balance.abs > questionnaire.maximum_deviation) || (!questionnaire.maximum_deviation? && balance < 0)
       base << I18n.t('errors.messages.response_must_balance')
     end
     errors[:base] = base unless base.empty?

@@ -428,7 +428,7 @@ fr-CA:
         minimum_units: Nombre d'unités minimal
         maximum_units: Nombre d'unités maximal
         step: Par tranche de
-        default_value: Valeur par défaut
+        default_value: Valeur de départ
         required: Requis
         widget: Composant d'interface graphique
         unit_amount: Montant unitaire
@@ -447,6 +447,87 @@ fr-CA:
         created_at: Soumise
         assessment: L'évaluation foncière de votre propriété
         time_to_complete: Temps requis
+
+  # --- In-depth report --------------------------------------------------------
+
+  report:
+    no_answer: Pas de réponse
+    timeline:
+      title: "Nombre de soumissions par jour, du %{start_date} au %{end_date}"
+    priorities:
+      title: Priorités budgétaires des participants
+      legend:
+        - Coupure
+        - Aucun changement
+        - Addition
+    single_distribution:
+      title: "Distribution des participants selon le %{factor}"
+      legend:
+        - Participants
+        - Population
+    double_distribution:
+      title: "Distribution des participants selon le %{a} et le %{b}"
+    number_of_changes:
+      title: "Nombre de %{name} changées"
+      text: "En moyenne, les participants ont changé le niveau de dépenses de %.1f activités ou services (median %d, mode %s)."
+    choices:
+      title: Options choisies par les participants
+    magnitude_of_changes:
+      title: Largeur moyenne des changements par activité
+      text:
+        default: "Les participants ont effectué %.1f changements en moyenne (median %d, mode %s)."
+        taxes: "Les participants ont effectué des changements de %.1f %%%% en moyenne (median %d %%%%, mode %s)."
+    balance:
+      title:
+        default: Changement dans l'équilibre budgétaire
+        taxes: Impact sur le contribuable
+      legend:
+        - Lower taxes
+        - No change
+        - Higher taxes
+      legend:
+        default:
+          - Déficit
+          - Aucun changement
+          - Surplus
+        taxes:
+          - Baisse
+          - Aucun changement
+          - Hausse
+      text:
+        default: ""
+        taxes: "Les participants changeraient le taux de taxation de %.2f %%%% en moyenne (median %.2f %%%%, mode %s)."
+    average:
+      title: "%{metric} moyenne par %{factor}"
+    histogram:
+      title: "%{title} par %{factor}"
+    text:
+      symbol:
+        default: ""
+        taxes: " %%"
+      participation_rate: "%.1f %% des participants ont changé cette activité."
+      options: "Les participants pouvaient choisir une valeur allant de %d%{symbol} à %d%{symbol}, avec une valeur de départ de %d%{symbol}."
+      unidirectional: "Pour ceux qui ont changé le budget de ce %{name}, le choix moyen était de %.1f%{symbol}, la médiane %.1f%{symbol} et le mode %s%{symbol}."
+      bidirectional: "De ceux qui ont modifié cette %{name}, %d %%%% ont réduit le budget, avec un choix moyen de %.1f%{symbol}, une médiane de %d%{symbol} et un mode de %s%{symbol}; %d %%%% l’ont augmenté, avec un choix moyen de %d%{symbol}, une médiane de %d%{symbol} et un mode de %s%{symbol}."
+      impact: "%s de ces choix était de $%s."
+      savings: "L'épargne moyenne"
+      cost: "Le coût moyen"
+      central_tendencies: "Le choix moyen de tous les participants était de %.1f%{symbol}, la médiane %d%{symbol} et le mode %s%{symbol}."
+      confidence: "La valeur de départ de %d%{symbol} est hors de l'intervalle de confiance à 95 %%%%; donc, avec une confiance de 95 %%%%, la moyenne de la population est %s à la valeur de départ."
+      less: inférieure
+      greater: supérieure
+    table:
+      mean: Moyenne
+      median: Médiane
+      mode: Mode(s)
+      participation_rate: "% qui l'ont changé"
+      participants: "No. qui l'ont changé"
+      decrease: "% qui l'ont réduit"
+      decrease_count: "No. qui l'ont réduit"
+      increase: "% qui l'ont augmenté"
+      increase_count: "No. qui l'ont augmenté"
+      minimum_units: Valeur minimale
+      maximum_units: Valeur maximale
 
   # --- Time zones -------------------------------------------------------------
 
