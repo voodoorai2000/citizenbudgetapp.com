@@ -12,7 +12,7 @@ ActiveAdmin.register_page 'Dashboard' do
   # @todo Changing language from here will lose the "id" query string parameter,
   #   causing a 404.
   page_action 'summary', title: 'foo' do
-    @questionnaire = current_admin_user.questionnaires.find params[:id]
+    @questionnaire = current_admin_user.questionnaires.find(params[:id])
 
     # Header
     @starts_on = @questionnaire.starts_on
@@ -122,7 +122,7 @@ ActiveAdmin.register_page 'Dashboard' do
   # mark (BOM) can be added to fix the problem, but Excel for Mac will still
   # have issues. XLS and XLSX are therefore offered.
   page_action 'raw' do
-    @questionnaire = current_admin_user.questionnaires.find params[:id]
+    @questionnaire = current_admin_user.questionnaires.find(params[:id])
     filename = "data-#{Time.now.strftime('%Y-%m-%d')}.#{params[:format]}"
 
     # http://www.rfc-editor.org/rfc/rfc4180.txt

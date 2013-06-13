@@ -5,27 +5,27 @@ class ResponsesController < ApplicationController
   # http://broadcastingadam.com/2012/07/advanced_caching_part_1-caching_strategies/
   caches_action :new, cache_path: ->(c) do
     record = @questionnaire.responses.build
-    cache_key record
+    cache_key(record)
   end
   caches_action :show, cache_path: ->(c) do
-    record = @questionnaire.responses.find params[:id]
-    cache_key record
+    record = @questionnaire.responses.find(params[:id])
+    cache_key(record)
   end
 
   def new
-    @response = @questionnaire.responses.build initialized_at: Time.now.utc
+    @response = @questionnaire.responses.build(initialized_at: Time.now.utc)
     build_questionnaire
-    fresh_when @questionnaire, public: true if Rails.env.production?
+    fresh_when(@questionnaire, public: true) if Rails.env.production?
   end
 
   def show
-    @response = @questionnaire.responses.find params[:id]
+    @response = @questionnaire.responses.find(params[:id])
     build_questionnaire
-    fresh_when @response, public: true if Rails.env.production?
+    fresh_when(@response, public: true) if Rails.env.production?
   end
 
   def create
-    @response = @questionnaire.responses.build params[:response]
+    @response = @questionnaire.responses.build(params[:response])
     @response.answers = params.select{|k,_| k[/\A[a-f0-9]{24}\z/]}
     @response.ip      = request.ip
     @response.save! # There shouldn't be errors.
