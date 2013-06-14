@@ -56,6 +56,8 @@ private
 
     if @questionnaire.nil?
       @questionnaire = Questionnaire.by_domain(request.host).first
+      # #render will cause #set_locale to not be run.
+      I18n.locale = locale_from_record(@questionnaire) || I18n.default_locale
       render 'offline'
     end
   end
