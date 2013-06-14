@@ -97,5 +97,5 @@ $ ->
     event.preventDefault()
 
   if $('#response_count').length
-    $.ajax(url: '/responses/count.json').done (data) ->
+    $.ajax(url: '/responses/count.json' + (location.href.match(/\?token=.+/) || '')).done (data) ->
       $('#response_count').html(data)
