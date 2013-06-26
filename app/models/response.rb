@@ -130,7 +130,7 @@ class Response
     # Scope "responses/new" by questionnaire, and expire the cache when the
     # questionnaire changes.
     parts = [super]
-    parts << questionnaire.updated_at.utc.to_s(:number) if questionnaire?
+    parts << questionnaire.updated_at.utc.to_s(:number) if questionnaire? && questionnaire.updated_at?
     # We can expire the cache when assets change by uncommenting the following
     # line, but we already expire it on each commit by setting RAILS_APP_VERSION
     # to the current Git revision in a pre-commit hook.
