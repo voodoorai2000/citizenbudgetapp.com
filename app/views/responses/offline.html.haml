@@ -1,9 +1,9 @@
 .container
   - if @questionnaire
-    - if @questionnaire.future? && @questionnaire.content_before
+    - if @questionnaire.future? && @questionnaire.content_before.present?
       :markdown
         #{@questionnaire.content_before}
-    - elsif @questionnaire.past? && @questionnaire.content_after
+    - elsif @questionnaire.past? && @questionnaire.content_after.present?
       :markdown
         #{@questionnaire.content_after}
     - else
