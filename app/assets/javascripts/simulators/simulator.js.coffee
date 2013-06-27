@@ -413,7 +413,7 @@ class window.Simulator
 
   # @return [String] content for the tip on a scaler
   tipScaler: ($slider, number) ->
-    SimulatorHelper.number_to_percentage(Math.abs(number) * 100, strip_insignificant_zeros: true)
+    SimulatorHelper.number_to_percentage(number * 100, strip_insignificant_zeros: true)
 
   loadAnswers: ->
     self = this

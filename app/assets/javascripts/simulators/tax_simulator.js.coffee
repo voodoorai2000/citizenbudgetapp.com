@@ -104,4 +104,4 @@ class window.TaxSimulator extends window.Simulator
 
   # @return [String] content for the tip on a scaler
   tipScaler: ($slider, number) ->
-    SimulatorHelper.number_to_currency(@taxAmount($slider, number), strip_insignificant_zeros: true)
+    SimulatorHelper.number_to_currency(Math.abs(@taxAmount($slider, number)), strip_insignificant_zeros: true)
