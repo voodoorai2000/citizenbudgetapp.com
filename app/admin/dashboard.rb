@@ -49,7 +49,7 @@ ActiveAdmin.register_page 'Dashboard' do
         magnitude_of_changes = 0
 
         changes.each do |response|
-          impact = response.impact question
+          impact = response.impact(question)
           choices << response.cast_answer(question)
           impacts << impact
           magnitude_of_changes += impact.abs
@@ -90,7 +90,7 @@ ActiveAdmin.register_page 'Dashboard' do
         end
 
         changes.each do |response|
-          answer = response.answer question
+          answer = response.answer(question)
           if question.multiple?
             answer.each do |a|
               details[:counts][a] += 1
