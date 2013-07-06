@@ -78,6 +78,24 @@ ActiveAdmin.register Questionnaire do
   form partial: 'form'
 
   show title: ->(q){truncate display_name(q), length: 35, separator: ' '} do
+    if questionnaire.started?
+      ul do
+        li do
+          link_to t('admin.dashboard.current.table.summary_report_header'), admin_dashboard_summary_path(id: questionnaire)
+        end
+        li do
+          span do
+            t('admin.dashboard.current.table.download_raw_header')
+          end
+          %w(csv tsv xls xlsx).each do |format|
+            span do
+              link_to format, admin_dashboard_raw_path(id: questionnaire, format: format)
+            end
+          end
+        end
+      end
+    end
+
     panel t('legend.basic') do
       attributes_table_for questionnaire do
         row :title

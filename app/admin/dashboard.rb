@@ -11,7 +11,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
   # @todo Changing language from here will lose the "id" query string parameter,
   #   causing a 404.
-  page_action 'summary', title: 'foo' do
+  page_action 'summary', title: '@todo' do
     @questionnaire = current_admin_user.questionnaires.find(params[:id])
 
     # Header
@@ -173,7 +173,6 @@ ActiveAdmin.register_page 'Dashboard' do
 
   controller do
     def index
-      @available_formats = %w(csv tsv xls xlsx)
       @questionnaires = current_admin_user.questionnaires
 
       @charts = {}

@@ -33,7 +33,7 @@
               %tr
                 %th=t '.table.download_raw_header'
                 %td
-                  - @available_formats.each do |format|
+                  - %w(csv tsv xls xlsx).each do |format|
                     = link_to format, admin_dashboard_raw_path(id: questionnaire, format: format)
       .column
         %div(id="#{dom_id(questionnaire)}_responses" style="width:600px;height:250px;")
