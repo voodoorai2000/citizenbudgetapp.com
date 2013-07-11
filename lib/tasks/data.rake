@@ -148,7 +148,7 @@ namespace :data do
     end
 
     if ENV['ID'].blank?
-      abort 'Usage: bundle exec rake data:ham ID=47cc67093475061e3d95369d # Questionnaire ID'
+      abort 'Usage: bundle exec rake data:ham [MODE=noninteractive] ID=47cc67093475061e3d95369d # Questionnaire ID'
     end
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a
@@ -162,8 +162,10 @@ namespace :data do
 
       unless spam.empty?
         puts puts_recursive_hash spam
-        puts "Is this spam? (y/n)"
-        if STDIN.gets == "y\n"
+        unless ENV['MODE'] == 'noninteractive'
+          puts "Is this spam? (y/n)"
+        end
+        if ENV['MODE'] == 'noninteractive' || STDIN.gets == "y\n"
           response.destroy
           puts "Deleted #{response.id}\n\n"
         end
