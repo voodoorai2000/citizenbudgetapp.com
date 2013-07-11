@@ -15,7 +15,7 @@ h1 img, // Images may not work in black and white
 section img,
 nav, // Hide interactive elements
 th span, // Hide "Learn more" and "View media" links
-h3 span,
+.header span, // Hide "Learn more" and "View media" links
 legend,
 footer, // Hide promotional material
 form abbr, // Hide "required" asterisks
@@ -272,7 +272,7 @@ td {
 td.description {
   padding: 15px 10px 15px 0;
 
-  h3 {
+  .header {
     margin: 0;
     font-size: 1.08em;
     font-weight: bold;

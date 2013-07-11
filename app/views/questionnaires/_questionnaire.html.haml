@@ -24,14 +24,14 @@
             - if q.readonly?
               %td.description(colspan="#{colspan(section)}")
                 - if q.title?
-                  %h3
+                  .header
                     = render partial: 'title', locals: {object: q, placement: 'bottom'}
                 - if q.description?
                   :markdown
                     #{q.description}
             - elsif q.nonbudgetary?
               %td.description(colspan="#{colspan(section)}")
-                %h3
+                .header
                   = render partial: 'title', locals: {object: q, placement: 'bottom'}
                 - if q.description?
                   :markdown
@@ -64,7 +64,7 @@
                     = text_area_tag q.id, nil, html_attributes(q)
             - elsif q.widget == 'option'
               %td.description(colspan="#{colspan(section)}")
-                %h3
+                .header
                   = render partial: 'title', locals: {object: q, placement: 'top'}
                 - if q.description?
                   :markdown
@@ -82,7 +82,7 @@
                             = q.labels[i]
             - else
               %td.description
-                %h3
+                .header
                   = render partial: 'title', locals: {object: q, placement: 'top'}
                 - if q.description?
                   :markdown
