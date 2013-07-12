@@ -64,10 +64,10 @@ ActiveAdmin.register Questionnaire do
       auto_link q.organization
     end
     column :starts_at do |q|
-      l(q.starts_at.in_time_zone(q.time_zone), format: :short) if q.starts_at?
+      l(q.local_starts_at, format: :short) if q.starts_at?
     end
     column :ends_at do |q|
-      l(q.ends_at.in_time_zone(q.time_zone), format: :short) if q.ends_at?
+      l(q.local_ends_at, format: :short) if q.ends_at?
     end
     column :sections do |q|
       link_to_if authorized?(:read, Section), q.sections.count, [:admin, q, :sections]
@@ -109,10 +109,10 @@ ActiveAdmin.register Questionnaire do
           Locale.locale_name(q.locale) if q.locale?
         end
         row :starts_at do |q|
-          l(q.starts_at.in_time_zone(q.time_zone), format: :long) if q.starts_at?
+          l(q.local_starts_at, format: :long) if q.starts_at?
         end
         row :ends_at do |q|
-          l(q.ends_at.in_time_zone(q.time_zone), format: :long) if q.ends_at?
+          l(q.local_ends_at, format: :long) if q.ends_at?
         end
         row :time_zone do |q|
           TimeZoneI18n[q.time_zone].human if q.time_zone?

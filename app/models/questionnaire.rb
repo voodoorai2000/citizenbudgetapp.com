@@ -167,14 +167,32 @@ class Questionnaire
     (ends_on - today).to_i
   end
 
+  # @return [Time] the consultation's start date in its time zone
+  def local_starts_at
+    if time_zone?
+      starts_at.in_time_zone(time_zone)
+    else
+      starts_at
+    end
+  end
+
+  # @return [Time] the consultation's end date in its time zone
+  def local_ends_at
+    if time_zone?
+      ends_at.in_time_zone(time_zone)
+    else
+      ends_at
+    end
+  end
+
   # @return [Date] the consultation's start date in its time zone
   def starts_on
-    starts_at.in_time_zone(time_zone).to_date
+    local_starts_at.to_date
   end
 
   # @return [Date] the consultation's end date in its time zone
   def ends_on
-    ends_at.in_time_zone(time_zone).to_date
+    local_ends_at.to_date
   end
 
   # @return [Date] the current date in the consultation's time zone

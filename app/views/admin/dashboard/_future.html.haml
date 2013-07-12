@@ -10,7 +10,7 @@
           - if questionnaire.starts_at?
             %tr
               %th=t '.table.starts_at'
-              %td=l questionnaire.starts_at.in_time_zone(questionnaire.time_zone), format: :short
+              %td=l questionnaire.local_starts_at, format: :short
           %tr
             %th=t '.table.url'
             %td
