@@ -149,7 +149,7 @@ ActiveAdmin.register_page 'Dashboard' do
       end
       book.write(io)
 
-      send_data io.string, filename: filename
+      send_data io.string, filename: filename, type: 'application/vnd.ms-excel'
 
     when 'xlsx'
       xlsx = Axlsx::Package.new do |package|
@@ -164,7 +164,7 @@ ActiveAdmin.register_page 'Dashboard' do
         end
       end
 
-      send_data xlsx.to_stream.string, filename: filename
+      send_data xlsx.to_stream.string, filename: filename, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
     else
       redirect_to admin_root_path, notice: t(:unknown_format)
