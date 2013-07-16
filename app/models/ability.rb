@@ -33,6 +33,10 @@ class Ability
     when 'administrator'
       can :read, ActiveAdmin::Page
 
+      # Dashboard actions.
+      can :raw, ActiveAdmin::Page
+      can :summary, ActiveAdmin::Page
+
       # Can update future questionnaires that user owns.
       can :update, Questionnaire, organization_id: user.organization.id, :starts_at.ne => nil, :starts_at.gt => Time.now
 

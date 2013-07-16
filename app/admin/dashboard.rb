@@ -13,6 +13,7 @@ ActiveAdmin.register_page 'Dashboard' do
   #   causing a 404.
   page_action 'summary', title: '@todo' do
     @questionnaire = current_admin_user.questionnaires.find(params[:id])
+    authorize! :read, @questionnaire
 
     # Header
     @starts_on = @questionnaire.starts_on
@@ -123,6 +124,8 @@ ActiveAdmin.register_page 'Dashboard' do
   # have issues. XLS and XLSX are therefore offered.
   page_action 'raw' do
     @questionnaire = current_admin_user.questionnaires.find(params[:id])
+    authorize! :read, @questionnaire
+
     filename = "data-#{Time.now.strftime('%Y-%m-%d')}.#{params[:format]}"
 
     # http://www.rfc-editor.org/rfc/rfc4180.txt
