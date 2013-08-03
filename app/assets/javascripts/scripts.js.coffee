@@ -38,6 +38,7 @@ $ ->
       event.preventDefault()
     $('[rel="tooltip"]').tooltip()
 
+  # Bootstrap hacks.
   $('.modal').bind 'shown', ->
     $(this).removeClass('invisible')
   $('.modal').bind 'hidden', ->
