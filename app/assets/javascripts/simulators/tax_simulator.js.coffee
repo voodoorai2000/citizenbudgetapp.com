@@ -3,6 +3,10 @@ class window.TaxSimulator extends window.Simulator
     super
 
     self = this
+    $('#assessment input').bind 'keydown keypress keyup', (event) ->
+      if event.keyCode == 13
+        event.preventDefault()
+        $(this).blur()
     $('#assessment input').blur ->
       # Reset to default value if custom value is invalid.
       $('#assessment input').val('') if self.customAssessment() <= 0
