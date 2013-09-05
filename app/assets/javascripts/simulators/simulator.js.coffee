@@ -96,7 +96,7 @@ class window.Simulator
     question:
       positive: '#000'
       negative: '#d00'
-      description: '#fff'
+      description: $('td.description').css('background-color') # administrators can override the CSS
       highlight: '#ff9'
       selected: change_background_color
 
