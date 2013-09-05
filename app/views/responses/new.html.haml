@@ -32,7 +32,9 @@
         #assessment.alert.alert-info
           %label(for="response_assessment")
             #{t '.assessment'}<!--[if lt IE 10]> #{t '.default_assessment', number: number_to_currency(@questionnaire.default_assessment)}<![endif]-->#{t :colon}
-          #{t '.currency_unit_pre'}#{f.text_field :assessment, placeholder: @questionnaire.default_assessment, class: 'span2'}#{t '.currency_unit_post'}
+          #{t '.currency_unit_pre'}
+          #{f.text_field :assessment, placeholder: @questionnaire.default_assessment, class: 'span2'}
+          #{t '.currency_unit_post'}
 
       = render @questionnaire
 
