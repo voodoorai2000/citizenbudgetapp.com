@@ -7,7 +7,6 @@ class Questionnaire
   include Mongoid::MultiParameterAttributes
 
   MODES = %w(services taxes)
-  ASSESSMENT_PERIOD = 12.0 # monthly
 
   belongs_to :organization, index: true
   embeds_many :sections

@@ -2,6 +2,11 @@ class window.TaxSimulator extends window.Simulator
   constructor: (@options = {}) ->
     super
 
+    # Override to not toggle tip at minimum value.
+    window.updateTip = ($slider, value) ->
+      content = self.tipSlider($slider, value)
+      $slider.find('.tip-content').html(content) if content
+
     self = this
     $('#assessment input').bind 'keydown keypress keyup', (event) ->
       if event.keyCode == 13
