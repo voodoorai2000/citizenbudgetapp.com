@@ -74,6 +74,9 @@ class window.Simulator
     change_background_color = $element.find('td').css('background-color')
     $element.remove()
 
+    description = $('td.description').css('background-color')
+    description = 'transparent' if description is 'rgba(0, 0, 0, 0)'
+
     # The colors of the single solid bar in the graph.
     bar:
       positive: '#000'
@@ -96,7 +99,7 @@ class window.Simulator
     question:
       positive: '#000'
       negative: '#d00'
-      description: $('td.description').css('background-color') # administrators can override the CSS
+      description: description # administrators can override the CSS
       highlight: '#ff9'
       selected: change_background_color
 
