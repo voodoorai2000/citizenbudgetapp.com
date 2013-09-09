@@ -5,8 +5,8 @@ class ParseJson < Faraday::Response::Middleware
   end
 
   def parse(body)
-    MultiJson.load body
+    MultiJson.load(body)
   end
 end
 
-Faraday::Response.register_middleware json: ParseJson
+Faraday::Response.register_middleware(json: ParseJson)

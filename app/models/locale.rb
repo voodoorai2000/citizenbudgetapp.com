@@ -1,8 +1,9 @@
 # coding: utf-8
 class Locale
   LOCALES = {
-    'fr-CA' => 'Français (Canada)',
     'en' => 'English (United States)',
+    'fr-CA' => 'Français (Canada)',
+    'nl' => 'Nederlands',
   }
 
   class << self
@@ -13,6 +14,15 @@ class Locale
 
     def locale_name(locale)
       LOCALES[locale]
+    end
+
+    def locales
+      keys = ENV['AVAILABLE_LOCALES'] && ENV['AVAILABLE_LOCALES'].split(',')
+      if keys
+        LOCALES.slice(*keys)
+      else
+        LOCALES
+      end
     end
   end
 end

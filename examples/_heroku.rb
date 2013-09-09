@@ -82,3 +82,9 @@ ENV['AWS_DIRECTORY'] = 'REPLACE_ME'
 # Used in:
 #   config/mongoid.yml
 ENV['MONGOLAB_URI'] = 'mongodb://127.0.0.1:27017/citizen_budget_development'
+
+# Uncomment the following line to limit the available locales in the admin.
+#
+# Used in:
+#   app/views/admin/admin_users/_form.html.haml
+# ENV['AVAILABLE_LOCALES'] = 'en,nl'

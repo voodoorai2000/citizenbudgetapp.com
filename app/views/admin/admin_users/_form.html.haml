@@ -3,7 +3,7 @@
     = f.input :email
     = f.input :organization
     = f.input :role, as: :radio, collection: AdminUser::ROLES.map{|r| [t(r, scope: :role), r]}
-    = f.input :locale, as: :radio, collection: Locale::LOCALES.map{|k,v| [v, k]} << [t('.automatic'), '']
+    = f.input :locale, as: :radio, collection: Locale.locales.map{|k,v| [v, k]} << [t('.automatic'), '']
   = f.actions do
     = f.action :submit
     %li.cancel
