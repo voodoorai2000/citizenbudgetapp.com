@@ -59,7 +59,7 @@
                 = f.input :email, input_html: {class: 'validate[custom[email]]'}
               = f.input :name
             - section.questions.each do |q|
-              .control-group
+              .control-group(id="#{q.id}-group")
                 - unless %w(checkbox readonly).include?(q.widget)
                   %label.control-label(for="#{q.id}")
                     = q.title
