@@ -93,10 +93,9 @@
                     .impact
                       %span.key
                       %span.value= number_to_currency 0
-                    - if @questionnaire.mode == 'taxes'
-                      .note=t '.assessment_period'
                     - if q.widget == 'scaler'
                       - if @questionnaire.mode == 'taxes'
+                        .note=t '.assessment_period'
                         .meta.maximum.taxes +
                         .meta.minimum.taxes -
                       - else
