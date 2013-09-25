@@ -258,7 +258,7 @@ private
 
   def default_value_must_be_an_option
     if %w(scaler slider option).include?(widget) && options.present? && default_value.present?
-      unless options.include?(default_value)
+      unless options.include?(default_value) || options.include?(default_value.to_f)
         errors.add :default_value, I18n.t('errors.messages.default_value_must_be_an_option')
       end
     end
