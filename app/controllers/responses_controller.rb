@@ -44,7 +44,7 @@ class ResponsesController < ApplicationController
 private
 
   def set_locale
-    I18n.locale = locale_from_record(@questionnaire) || super
+    I18n.locale = @questionnaire && locale_from_record(@questionnaire) || super
   end
 
   def find_questionnaire
