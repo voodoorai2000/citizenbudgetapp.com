@@ -172,9 +172,9 @@ class Question
   # @return the cast value
   def cast_value(value)
     case widget
-    when 'onoff', 'option'
+    when 'onoff'
       Integer value.to_s rescue value
-    when 'scaler', 'slider'
+    when 'scaler', 'slider', 'option'
       Float value.to_s rescue value
     else
       value
