@@ -79,7 +79,8 @@
                               = radio_button_tag q.id, option, @response.answer(q) == option, 'class' => 'option', 'data-initial' => q.default_value, 'data-revenue' => q.revenue?, 'data-actual' => @response.answer(q), 'disabled' => 'disabled'
                             - else
                               = radio_button_tag q.id, option, q.selected?(option), 'class' => 'option', 'data-initial' => q.default_value, 'data-revenue' => q.revenue?
-                            = q.labels[i]
+                            :markdown
+                              #{q.labels[i]}
             - else
               %td.description
                 .header
