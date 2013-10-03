@@ -336,6 +336,10 @@ en:
       current: Current
       future: Future
       past: Past
+    devise:
+      change_password:
+        title: "Choose your password"
+        submit: "Set my password"
 
     # In English, we override the following Active Admin translations to be more
     # concise. Check the Active Admin translations for your language in case you
