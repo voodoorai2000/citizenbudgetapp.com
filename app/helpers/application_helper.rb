@@ -105,7 +105,7 @@ module ApplicationHelper
       end
 
       content_tag(:div,
-        content_tag(:div,
+        content_tag(:div, nil,
           'class' => 'speakerdeck-embed', 'data-id' => id, 'data-ratio' => ratio),
         'style' => properties.map{|k,v| "#{k}=#{v}px"}.join(';'))
     else
