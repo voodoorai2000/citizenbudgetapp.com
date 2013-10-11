@@ -78,6 +78,29 @@ ActiveAdmin.register_page 'Dashboard' do
           details[:proportion_who_decrease] = decreases.size / number_of_changes.to_f
           details[:mean_decrease] = decreases.sum / decreases.size.to_f
         end
+
+        if question.widget == 'option'
+          details[:counts] = {}
+
+          question.options.each do |option|
+            details[:counts][option] = 0
+          end
+
+          changes.each do |response|
+            option = response.answer(question)
+            details[:counts][option] += 1
+          end
+
+          details[:counts].each do |option,count|
+            if changes.empty?
+              details[:counts][option] = 0
+            elsif option == question.default_value
+              details[:counts][option] = number_of_nonchanges / @statistics[:responses].to_f
+            else
+              details[:counts][option] /= @statistics[:responses].to_f
+            end
+          end
+        end
       # Multiple choice survey questions.
       elsif question.options?
         changes = @responses.where(:"answers.#{question.id}".ne => nil)

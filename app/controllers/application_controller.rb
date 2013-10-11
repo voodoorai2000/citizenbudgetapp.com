@@ -14,7 +14,7 @@ protected
   end
 
   def locale_from_record(record)
-    record.locale && (
+    record && record.locale && (
       Locale.available_locales.find{|locale|
         locale.to_s == record.locale
       } ||
