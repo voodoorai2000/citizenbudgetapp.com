@@ -1,6 +1,6 @@
 %header
-  #logo
-    - if @questionnaire.logo?
+  - if @questionnaire.logo?
+    #logo
       = logo
   %h1.clearfix
     - if local_assigns[:header]
