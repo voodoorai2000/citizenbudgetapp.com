@@ -5,3 +5,5 @@
   = render partial: 'future', collection: @questionnaires.future, as: :questionnaire
 - if @questionnaires.current.count.nonzero?
   = render partial: 'current', collection: @questionnaires.current, as: :questionnaire
+- unless authorized?(:manage, :all) || @questionnaires.past.count.zero?
+  = render partial: 'current', collection: @questionnaires.past, as: :questionnaire

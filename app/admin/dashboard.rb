@@ -207,6 +207,9 @@ ActiveAdmin.register_page 'Dashboard' do
       @questionnaires.current.each do |q|
         @charts[q.id.to_s], @statistics[q.id.to_s] = charts q
       end
+      @questionnaires.past.each do |q|
+        @charts[q.id.to_s], @statistics[q.id.to_s] = charts q
+      end
     end
 
   protected
