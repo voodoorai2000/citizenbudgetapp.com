@@ -37,6 +37,11 @@ class window.TaxSimulator extends window.Simulator
 
         updateTip($slider, $slider.slider('value'))
 
+      self.scope.find('.control-static').each ->
+        $widget = $(this)
+        content = t 'assessment_period', number: self.tipSlider($widget, 1.0)
+        $widget.html(content)
+
   colorSetting: ->
     # XXX hack to read CSS rule.
     $element = $('<tr class="selected"><td></td></tr>').appendTo('body')
@@ -108,9 +113,9 @@ class window.TaxSimulator extends window.Simulator
     parseFloat($('#assessment input').val().replace(/[^0-9.]/, '')) if $('#assessment input').length
 
   # @return [Float] the impact of a single change to the budget
-  taxAmount: ($slider, number) ->
-    parseFloat($slider.data('value')) * parseFloat(number) * @scale()
+  taxAmount: ($widget, number) ->
+    parseFloat($widget.data('value')) * parseFloat(number) * @scale()
 
   # @return [String] content for the tip on a scaler
-  tipScaler: ($slider, number) ->
-    SimulatorHelper.number_to_currency(Math.abs(@taxAmount($slider, number)), strip_insignificant_zeros: true)
+  tipScaler: ($widget, number) ->
+    SimulatorHelper.number_to_currency(Math.abs(@taxAmount($widget, number)), strip_insignificant_zeros: true)

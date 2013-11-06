@@ -19,6 +19,7 @@ class window.Simulator
     @initializeRadioWidgets()
     @initializeOnOffWidgets()
     @initializeSliderWidgets()
+    @initializeStaticWidgets()
 
     if @options.disabled
       @loadAnswers()
@@ -392,6 +393,15 @@ class window.Simulator
     # Keyboard input can be confusing if the slider is not visible.
     @scope.find('.ui-slider-handle').unbind('keydown')
 
+  # Slider widgets.
+  initializeStaticWidgets: ->
+    self = this
+
+    @scope.find('.control-static').each ->
+      $this = $(this)
+      content = t 'assessment_period', number: self.tipSlider($this, 1.0)
+      $this.html(content)
+
   initializeMinMaxLabels: ->
     $('.minimum').click ->
       $this = $(this)
@@ -408,14 +418,14 @@ class window.Simulator
       $slider.slider('value', $slider.data('maximum')) # triggers `change`
 
   # @return [String] content for the tip on a slider
-  tipSlider: ($slider, number) ->
-    if $slider.data('widget') is 'scaler'
-      @tipScaler($slider, number)
-    else if not $slider.data('yes-no')
+  tipSlider: ($widget, number) ->
+    if $widget.data('widget') in ['scaler', 'static']
+      @tipScaler($widget, number)
+    else if not $widget.data('yes-no')
       SimulatorHelper.number_to_human(number)
 
   # @return [String] content for the tip on a scaler
-  tipScaler: ($slider, number) ->
+  tipScaler: ($widget, number) ->
     SimulatorHelper.number_to_percentage(number * 100, strip_insignificant_zeros: true)
 
   loadAnswers: ->

@@ -192,7 +192,8 @@ $widget-margin: 45px;
 .widget {
   width: $column-width - $widget-margin * 2;
   margin: 0 $widget-margin;
-  .note {
+  .note,
+  .control-static {
     color: #000;
     font-weight: bold;
     text-align: center;

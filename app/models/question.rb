@@ -5,23 +5,9 @@
 class Question
   include Mongoid::Document
 
-  # Budgetary widgets
-  # * onoff
-  # * scaler
-  # * slider
-  # * option
-  #
-  # Non-budgetary widgets
-  # * checkbox
-  # * checkboxes
-  # * radio
-  # * readonly
-  # * select
-  # * text
-  # * textarea
-  WIDGETS = %w(checkbox checkboxes onoff radio option readonly scaler select slider text textarea)
+  WIDGETS = %w(checkbox checkboxes onoff radio option readonly scaler select slider static text textarea)
 
-  NONBUDGETARY_WIDGETS = %w(checkbox checkboxes radio readonly select text textarea)
+  NONBUDGETARY_WIDGETS = %w(checkbox checkboxes radio readonly select static text textarea)
 
   embedded_in :section
 
@@ -59,8 +45,10 @@ class Question
   validates_numericality_of :rows, :cols, greater_than: 0, only_integer: true, allow_blank: true, if: ->(q){q.widget == 'textarea'}
 
   # Budgetary widget validations.
-  validates_presence_of :unit_amount, :default_value, if: ->(q){%w(onoff option scaler slider).include?(q.widget)}
-  validates_numericality_of :unit_amount, :default_value, allow_blank: true, if: ->(q){%w(onoff option scaler slider).include?(q.widget)}
+  validates_presence_of :unit_amount, if: ->(q){%w(onoff option scaler slider static).include?(q.widget)}
+  validates_presence_of :default_value, if: ->(q){%w(onoff option scaler slider).include?(q.widget)}
+  validates_numericality_of :unit_amount, allow_blank: true, if: ->(q){%w(onoff option scaler slider static).include?(q.widget)}
+  validates_numericality_of :default_value, allow_blank: true, if: ->(q){%w(onoff option scaler slider).include?(q.widget)}
   validates_presence_of :options, if: ->(q){%w(checkboxes onoff option radio scaler select slider).include?(q.widget)}
   validates_presence_of :labels, if: ->(q){q.widget == 'option'}
 

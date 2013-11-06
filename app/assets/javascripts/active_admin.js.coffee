@@ -64,7 +64,7 @@ $ ->
       ).toggle(value in ['onoff', 'option', 'slider', 'scaler'])
 
       $("#section_questions_attributes_#{i}_unit_amount_input"
-      ).toggle(value in ['onoff', 'slider', 'scaler'])
+      ).toggle(value in ['onoff', 'slider', 'scaler', 'static'])
 
       $("#section_questions_attributes_#{i}_minimum_units_input,
          #section_questions_attributes_#{i}_maximum_units_input,

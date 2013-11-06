@@ -29,6 +29,16 @@
                 - if q.description?
                   :markdown
                     #{q.description}
+            - elsif q.widget == 'static'
+              %td.description
+                .header
+                  = render partial: 'title', locals: {object: q, placement: 'top'}
+                - if q.description?
+                  :markdown
+                    #{q.description}
+              %td.highlight
+                %div(class="widget widget-#{q.widget}")
+                  .control.control-static(data-widget="#{q.widget}" data-value="#{q.unit_amount}")
             - elsif q.nonbudgetary?
               %td.description(colspan="#{colspan(section)}")
                 .header
@@ -36,7 +46,7 @@
                 - if q.description?
                   :markdown
                     #{q.description}
-                - # @todo Implement checkbox, readonly, select widgets.
+                - # @todo Implement checkbox and select widgets.
                 - if %w(checkboxes radio).include?(q.widget)
                   %fieldset
                     .control-group
@@ -81,7 +91,7 @@
                               = radio_button_tag q.id, option, q.selected?(option), 'class' => 'option', 'data-initial' => q.default_value, 'data-revenue' => q.revenue?
                             :markdown
                               #{q.labels[i]}
-            - else
+            - else # budgetary
               %td.description
                 .header
                   = render partial: 'title', locals: {object: q, placement: 'top'}
@@ -96,7 +106,7 @@
                       %span.value= number_to_currency 0
                     - if q.widget == 'scaler'
                       - if @questionnaire.mode == 'taxes'
-                        .note=t '.assessment_period'
+                        .note=t '.assessment_unit'
                         .meta.maximum.taxes +
                         .meta.minimum.taxes -
                       - else

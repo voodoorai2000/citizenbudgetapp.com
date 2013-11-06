@@ -40,7 +40,7 @@ en:
   questionnaires:
     questionnaire:
       your_choice: Your choice
-      assessment_period: $/month
+      assessment_unit: $/month
 
   responses:
     new:
@@ -227,6 +227,7 @@ en:
     readonly: Read-only
     radio: Radio buttons (non-budgetary)
     select: Drop-down list
+    static: Static
     text: Text box
     textarea: Text area
 

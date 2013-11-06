@@ -23,7 +23,7 @@ fr-CA:
   questionnaires:
     questionnaire:
       your_choice: Votre choix
-      assessment_period: $ par mois
+      assessment_unit: $ par mois
 
   responses:
     new:
@@ -195,6 +195,7 @@ fr-CA:
     readonly: Lecture seule
     radio: Boutons radio (non budgétaire)
     select: Liste déroulante
+    static: Statique
     text: Champ de saisie
     textarea: Zone de saisie
 
