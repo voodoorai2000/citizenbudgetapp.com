@@ -20,7 +20,7 @@
     %tbody
       - section.questions.each do |q|
         - unless @response.persisted? && %w(text textarea).include?(q.widget)
-          %tr
+          %tr(id="question-#{q.id}")
             - if q.readonly?
               %td.description(colspan="#{colspan(section)}")
                 - if q.title?
