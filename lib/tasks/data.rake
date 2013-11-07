@@ -13,14 +13,14 @@ namespace :data do
     hash.each do |k,v|
       case v
       when Hash
-        append = puts_recursive_hash v, options.merge(offset: options[:offset] + 2)
+        append = puts_recursive_hash(v, options.merge(offset: options[:offset] + 2))
         if append.present?
           out << "#{' ' * options[:offset]}#{k}\n#{append}"
         elsif !options[:quiet] || options[:offset].zero?
           out << "#{' ' * options[:offset]}#{k}\n"
         end
       when Array
-        append = puts_recursive_array v, options.merge(offset: options[:offset] + 2)
+        append = puts_recursive_array(v, options.merge(offset: options[:offset] + 2))
         if append.present?
           out << "#{' ' * options[:offset]}#{k}\n#{append}"
         elsif !options[:quiet] || options[:offset].zero?
@@ -100,7 +100,7 @@ namespace :data do
         end
 
         errors.each do |id,error|
-          puts "- #{id} #{error}: #{response.answers[id]}"
+          puts "- #{id} #{error}: #{response.answers[id].inspect}"
         end
 
         puts "Delete? (y/n)"
@@ -161,7 +161,7 @@ namespace :data do
       spam = response.attributes.spam
 
       unless spam.empty?
-        puts puts_recursive_hash spam
+        puts puts_recursive_hash(spam)
         unless ENV['MODE'] == 'noninteractive'
           puts "Is this spam? (y/n)"
         end
@@ -177,7 +177,6 @@ namespace :data do
   task deduplicate: :environment do
     class Response
       DIFF_EXCLUDE_KEYS = %w(_id questionnaire_id initialized_at created_at updated_at)
-      NON_PERSONAL_KEYS = %w(answers)
 
       # @return [Hash] the attributes with which to calculate the difference
       #   between responses
@@ -255,42 +254,42 @@ namespace :data do
     end
 
     responses = Questionnaire.find(ENV['ID']).responses.to_a
-    progressbar = ProgressBar.create format: '%a |%B| %p%% %e', length: 80, smoothing: 0.5, total: responses.size.combinations(2)
+    progressbar = ProgressBar.create(format: '%a |%B| %p%% %e', length: 80, smoothing: 0.5, total: responses.size.combinations(2))
+    total = responses.last.answers.size
+    threshold = total / 4
+    maybes = 0
 
     (responses.size - 2).downto(0).each do |i|
       a = responses[i]
 
-      responses[i + 1..-1].each_with_index do |b,j|
+      responses.drop(i + 1).each_with_index do |b,j|
         progressbar.increment
-        difference = a.diff b
-        intersection = a.intersection b, difference
+        difference = a.diff(b)
+        intersection = a.intersection(b, difference)
 
         # If all values are shared:
         if difference.size.zero?
           b.destroy
-          responses.delete_at i + j + 1
+          responses.delete_at(i + j + 1)
           puts "Deleted #{b.id} (duplicates #{a.id})\n"
-        # If some values are shared:
-        elsif ENV['MODE'] == 'interactive' && intersection.size.nonzero? && (1..3) === difference.size
-          # Experience suggests 3 is an appropriate threshold. A threshold of 4
-          # found no additional duplicates in a sample of nearly 600.
-          if difference.keys.all?{|key| Response::NON_PERSONAL_KEYS.include?(key)}
-            b.destroy
-            responses.delete_at i + j + 1
-            puts "Deleted #{b.id} (duplicates #{a.id} except on #{difference.keys.to_sentence})\n"
-          else
+        elsif intersection.size.nonzero? && difference['answers'].size < threshold # && difference.size <= 3 intersection != ['ip'] && intersection.include?('email')
+          if ENV['MODE'] == 'interactive'
             puts
-            puts puts_recursive_hash difference, skip_numeric_children: true
+            puts puts_recursive_hash(difference, skip_numeric_children: true)
             puts "Are #{a.id} and #{b.id} duplicates (difference on #{difference.keys.to_sentence})? (y/n)"
-            puts "- Same and non-empty on #{intersection.to_sentence}"
+            puts "- Same and non-empty on #{intersection.to_sentence} (#{intersection.map{|key| a[key]}.to_sentence})"
             if STDIN.gets == "y\n"
               b.destroy
-              responses.delete_at i + j + 1
+              responses.delete_at(i + j + 1)
               puts "Deleted #{b.id}\n\n"
             end
+          else
+            maybes += 1
           end
         end
       end
     end
+
+    puts "#{maybes} comparisons require manual checking (less than #{threshold} of #{total} answers differ)"
   end
 end
