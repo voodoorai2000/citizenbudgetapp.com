@@ -256,7 +256,7 @@ namespace :data do
     responses = Questionnaire.find(ENV['ID']).responses.to_a
     progressbar = ProgressBar.create(format: '%a |%B| %p%% %e', length: 80, smoothing: 0.5, total: responses.size.combinations(2))
     total = responses.last.answers.size
-    threshold = total / 4
+    threshold = ENV['THRESHOLD'] ? ENV['THRESHOLD'].to_i : total / 4
     maybes = 0
 
     (responses.size - 2).downto(0).each do |i|

@@ -115,7 +115,7 @@ class Response
     if questionnaire.change_required? && !changed
       base << I18n.t('errors.messages.response_must_change_at_least_one_value')
     end
-    if questionnaire.balance? && (questionnaire.maximum_deviation? && balance.abs > questionnaire.maximum_deviation) || (!questionnaire.maximum_deviation? && balance < 0)
+    if questionnaire.balance? && ((questionnaire.maximum_deviation? && balance.abs > questionnaire.maximum_deviation) || (!questionnaire.maximum_deviation? && balance < 0))
       base << I18n.t('errors.messages.response_must_balance')
     end
     errors[:base] = base unless base.empty?
