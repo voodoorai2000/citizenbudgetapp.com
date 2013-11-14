@@ -7,7 +7,7 @@
 class AdminMailer < Devise::Mailer
   default from: ENV['ACTION_MAILER_FROM']
 
-  def reset_password_instructions(record)
+  def reset_password_instructions(record) # @see https://github.com/plataformatec/devise/wiki/How-To:-Upgrade-to-Devise-2.2
     I18n.with_locale(record.locale) do
       initialize_from_record(record)
 
