@@ -1,7 +1,7 @@
 .container.disabled
   %header
     - if @response.name?
-      = render partial: 'header', locals: {header: t('.header', name: @response.display_name)}
+      = render partial: 'header', locals: {header: t(@questionnaire.mode == 'taxes' ? :taxes : :default, scope: [:responses, :show, :header], name: @response.display_name)}
     - else
       = render partial: 'header'
 
