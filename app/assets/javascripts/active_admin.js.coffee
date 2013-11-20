@@ -59,7 +59,7 @@ $ ->
 
     toggle_options = ->
       value = widget.val()
-      current_widget = value
+      current_widget = value if value
 
       if value == 'scaler'
         $("#section_questions_attributes_#{i}_default_value").default(1)
