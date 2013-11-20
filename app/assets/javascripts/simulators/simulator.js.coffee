@@ -71,8 +71,11 @@ class window.Simulator
   # The simulator's colors.
   colorSetting: ->
     # XXX hack to read CSS rule.
-    $element = $('<tr class="selected"><td></td></tr>').appendTo('body')
-    change_background_color = $element.find('td').css('background-color')
+    $element = $('<tr class="selected"><td class="description"></td></tr>').appendTo('body')
+    change_description_background_color = $element.find('td').css('background-color')
+    $element.remove()
+    $element = $('<tr class="selected"><td class="highlight"></td></tr>').appendTo('body')
+    change_highlight_background_color = $element.find('td').css('background-color')
     $element.remove()
 
     description = $('td.description').css('background-color')
@@ -102,7 +105,8 @@ class window.Simulator
       negative: '#d00'
       description: description # administrators can override the CSS
       highlight: '#ff9'
-      selected: change_background_color
+      description_selected: change_description_background_color
+      highlight_selected: change_highlight_background_color
 
   strings: ->
     en_US:
@@ -195,7 +199,8 @@ class window.Simulator
       unless $tr.hasClass('selected')
         $tr.addClass('selected')
         # Update both the description and the widget background colors.
-        $tr.find('td.description,td.highlight').animate('background-color': @colors.question.selected, 'fast')
+        $tr.find('td.description').animate('background-color': @colors.question.description_selected, 'fast')
+        $tr.find('td.highlight').animate('background-color': @colors.question.highlight_selected, 'fast')
 
   # Updates a section after a change has been made to the budget.
   updateSection: ($control) ->
