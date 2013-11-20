@@ -49,12 +49,17 @@ $ ->
   $('input[name="questionnaire[mode]"]').change(toggle_mode)
   toggle_mode()
 
+  # Assume the next question will use the same widget.
+  current_widget = null
+
   # Display the appropriate options for the selected widget.
   setup_fieldset = (i) ->
     widget = $("#section_questions_attributes_#{i}_widget")
+    widget.default(current_widget)
 
     toggle_options = ->
       value = widget.val()
+      current_widget = value
 
       if value == 'scaler'
         $("#section_questions_attributes_#{i}_default_value").default(1)
