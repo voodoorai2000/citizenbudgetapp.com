@@ -195,7 +195,7 @@ class window.Simulator
       unless $tr.hasClass('selected')
         $tr.addClass('selected')
         # Update both the description and the widget background colors.
-        $tr.find('td').animate('background-color': @colors.question.selected, 'fast')
+        $tr.find('td.description,td.highlight').animate('background-color': @colors.question.selected, 'fast')
 
   # Updates a section after a change has been made to the budget.
   updateSection: ($control) ->

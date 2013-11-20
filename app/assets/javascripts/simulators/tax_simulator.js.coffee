@@ -105,7 +105,11 @@ class window.TaxSimulator extends window.Simulator
     $('#reminder').toggleClass('hide', not @isChanged())
 
   scale: ->
-    (@customAssessment() || @options.default_assessment) / 12.0 # monthly assessment period
+    @assessment / 12.0 # monthly assessment period
+
+  # @return [Integer] the participant's property assessment
+  assessment: ->
+    @customAssessment() || @options.default_assessment
 
   # @return [Integer] the participant's custom property assessment
   # @todo Non-English participants may enter a comma as the decimal mark.
