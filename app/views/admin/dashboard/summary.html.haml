@@ -84,20 +84,20 @@
           %strong= number_to_percentage @details[q.id.to_s][:percentage_of_population] * 100
           =t '.detail.widget.nonbudgetary'
         %table
-          - @details[q.id.to_s][:counts].sort_by{|_,count| -count}.each do |answer,count|
+          - @details[q.id.to_s][:counts].each do |answer,count| # .sort_by{|_,count| -count}
             %tr
               %td= number_to_percentage count * 100, precision: 0
               %th= answer
 
-.bars.clearfix
-  .bar
-    .number
-      = @statistics[:mean_number_of_changes].round
-    .title
-      =t 'statistics.mean_number_of_changes', count: @number_of_budgetary_questions
-  - unless @questionnaire.mode == 'taxes'
-    .bar
-      .number
-        = number_to_currency @statistics[:mean_magnitude_of_changes]
-      .title
-        =t 'statistics.mean_magnitude_of_changes'
+/ .bars.clearfix
+/   .bar
+/     .number
+/       = @statistics[:mean_number_of_changes].round
+/     .title
+/       =t 'statistics.mean_number_of_changes', count: @number_of_budgetary_questions
+/   - unless @questionnaire.mode == 'taxes'
+/     .bar
+/       .number
+/         = number_to_currency @statistics[:mean_magnitude_of_changes]
+/       .title
+/         =t 'statistics.mean_magnitude_of_changes'

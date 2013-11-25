@@ -101,11 +101,11 @@ class Response
             question.options.include?(v)
           end
           unless invalid.empty?
-            errors[question.id.to_s] = "#{I18n.t('errors.messages.inclusion')} (#{question.options.map(&:inspect).to_sentence})"
+            errors[question.id.to_s] = "#{I18n.t('errors.messages.inclusion')} (invalid: #{invalid.to_sentence}) (valid: #{question.options.map(&:inspect).to_sentence})"
           end
         elsif question.options?
           unless question.options.include?(cast_answer(question)) || question.options.include?(answer(question))
-            errors[question.id.to_s] = "#{I18n.t('errors.messages.inclusion')} (#{question.options.map(&:inspect).to_sentence})"
+            errors[question.id.to_s] = "#{I18n.t('errors.messages.inclusion')} (invalid: #{cast_answer(question)}) (valid: #{question.options.map(&:inspect).to_sentence})"
           end
         end
       end
