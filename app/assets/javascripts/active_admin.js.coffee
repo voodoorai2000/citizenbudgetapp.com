@@ -65,7 +65,7 @@ $ ->
         $("#section_questions_attributes_#{i}_default_value").default(1)
         $("#section_questions_attributes_#{i}_minimum_units").default(0.8)
         $("#section_questions_attributes_#{i}_maximum_units").default(1.2)
-        $("#section_questions_attributes_#{i}_step").default(0.5)
+        $("#section_questions_attributes_#{i}_step").default(0.05)
 
       $("#section_questions_attributes_#{i}_options_as_list_input"
       ).toggle(value in ['checkboxes', 'option', 'radio', 'select'])
