@@ -343,6 +343,16 @@ class Questionnaire
     rows
   end
 
+  def cache_key
+    if new_record?
+      "#{model_key}/new"
+    elsif current?
+      "#{model_key}/#{id}-#{updated_at.utc.to_s(:number)}-current"
+    else
+      "#{model_key}/#{id}-#{updated_at.utc.to_s(:number)}"
+    end
+  end
+
 private
 
   # Removes the protocol, "www" and trailing slash, if present.
