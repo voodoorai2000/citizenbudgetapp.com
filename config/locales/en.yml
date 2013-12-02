@@ -589,7 +589,7 @@ en:
           - No change
           - Higher taxes
       text:
-        default: ""
+        default: "Participants would change the balance by %.2f on average (median %.2f, mode %s)."
         taxes: "Participants would change taxes by %.2f%%%% on average (median %.2f%%%%, mode %s)."
     average:
       title: "Average %{metric} by %{factor}"
