@@ -498,8 +498,8 @@ fr-CA:
           - Aucun changement
           - Hausse
       text:
-        default: ""
-        taxes: "Les participants changeraient le taux de taxation de %.2f %%%% en moyenne (median %.2f %%%%, mode %s)."
+        default: "Les participants changeraient le solde de %.2f en moyenne (médiane %.2f, mode %s)."
+        taxes: "Les participants changeraient le taux de taxation de %.2f %%%% en moyenne (médiane %.2f %%%%, mode %s)."
     average:
       title: "%{metric} moyenne par %{factor}"
     histogram:
