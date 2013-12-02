@@ -54,10 +54,10 @@
                     :markdown
                       #{section.description}
               - if @questionnaire.email_required?
-                = f.input :email, wrapper_html: {class: 'identification-email'}, required: true, input_html: {class: 'validate[required,custom[email]]'}
+                = f.input :email, wrapper_html: {id: 'group-email'}, required: true, input_html: {class: 'validate[required,custom[email]]'}
               - else
-                = f.input :email, wrapper_html: {class: 'identification-email'}, input_html: {class: 'validate[custom[email]]'}
-              = f.input :name, wrapper_html: {class: 'identification-name'}
+                = f.input :email, wrapper_html: {id: 'group-email'}, input_html: {class: 'validate[custom[email]]'}
+              = f.input :name, wrapper_html: {id: 'group-name'}
             - section.questions.each do |q|
               .control-group(id="group-#{q.id}")
                 - unless %w(checkbox readonly).include?(q.widget)

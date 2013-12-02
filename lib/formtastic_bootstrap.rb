@@ -174,7 +174,10 @@ module FormtasticBootstrap
       def wrapper_html_options
         classes = ['control-group']
         classes << 'error' if errors?
-        {:class => classes.join(' ')}
+        options_from_options = options[:wrapper_html] || {}
+        classes_from_options = options_from_options[:class] || []
+        classes += classes_from_options.is_a?(String) ? classes_from_options.split(' ') : classes_from_options
+        options_from_options.merge(:class => classes.join(' '))
       end
 
       # Change class.
