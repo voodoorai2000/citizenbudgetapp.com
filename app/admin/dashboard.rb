@@ -21,7 +21,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
     # Collections
     @responses = @questionnaire.responses
-    @questions = @questionnaire.sections.budgetary.map(&:questions).flatten
+    @questions = @questionnaire.sections.simulator.map(&:questions).flatten
     @fields    = @questionnaire.sections.nonbudgetary
     @number_of_budgetary_questions = @questions.count(&:budgetary?)
 

@@ -38,7 +38,7 @@ module ResponsesHelper
 
   # @return [Boolean] whether there is a single section
   def simple_navigation?
-    @sections.one?
+    @simulator.one?
   end
 
   # @param [Section] section a questionnaire section

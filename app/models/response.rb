@@ -53,7 +53,7 @@ class Response
     balance = questionnaire.starting_balance || 0
     questionnaire.sections.each do |section|
       section.questions.budgetary.each do |question|
-        balance += impact question
+        balance += impact(question)
       end
     end
     balance
