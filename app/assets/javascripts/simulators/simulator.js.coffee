@@ -198,7 +198,6 @@ class window.Simulator
 
       unless $tr.hasClass('selected')
         $tr.addClass('selected')
-        # Update both the description and the widget background colors.
         $tr.find('td.description').animate('background-color': @colors.question.description_selected, 'fast')
         $tr.find('td.highlight').animate('background-color': @colors.question.highlight_selected, 'fast')
 
