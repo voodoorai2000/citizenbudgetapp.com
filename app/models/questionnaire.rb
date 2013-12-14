@@ -48,6 +48,7 @@ class Questionnaire
 
   # Thank-you email
   field :reply_to, type: String
+  field :thank_you_subject, type: String
   field :thank_you_template, type: String
 
   # Individual response

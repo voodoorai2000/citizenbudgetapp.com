@@ -21,7 +21,7 @@ en:
   create_response: &response_notice Thank you for your participation! Your opinion is important to us.
 
   # The subject of the thank-you email that is sent to participants.
-  thank_you_subject: "%{organization}: Thank you for participating in our consultation !"
+  thank_you_subject: &thank_you_subject "%{organization}: Thank you for participating in our consultation !"
 
   # The message to display if a questionnaire is offline.
   offline_header: This website is offline.
@@ -94,6 +94,7 @@ en:
         instructions: *instructions
         read_more: *read_more
         attribution: *attribution
+        thank_you_subject: *thank_you_subject
         response_notice: *response_notice
         response_preamble: *response_preamble
     hints:
@@ -472,6 +473,7 @@ en:
 
         # Thank-you email
         reply_to: Reply-to address
+        thank_you_subject: Message subject
         thank_you_template: Thank-you email template
 
         # Individual response

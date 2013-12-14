@@ -3,34 +3,33 @@ class Notifier < ActionMailer::Base
 
   def thank_you(response)
     questionnaire = response.questionnaire
-    organization = questionnaire.organization
 
-    from = Mail::Address.new default_params[:from]
-    from.display_name = organization.name
+    from = Mail::Address.new(default_params[:from])
+    from.display_name = questionnaire.organization.name
 
-    to = Mail::Address.new response.email
+    to = Mail::Address.new(response.email)
     to.display_name = response.name if response.name?
 
     headers = {
       from: from.format,
       to: to.format,
-      subject: t(:thank_you_subject, organization: organization.name, locale: questionnaire.locale),
+      reply_to: questionnaire.reply_to,
     }
 
-    if questionnaire.reply_to?
-      headers[:reply_to] = questionnaire.reply_to
+    headers[:subject] = if questionnaire.thank_you_subject?
+      questionnaire.thank_you_subject
+    else
+      t(:thank_you_subject, organization: questionnaire.organization.name, locale: questionnaire.locale)
     end
 
     mail(headers) do |format|
       format.text do
-        if questionnaire.thank_you_template?
-          options = ActionMailer::Base.default_url_options
-          options = options.merge(host: questionnaire.domain) if questionnaire.domain?
-          render text: Mustache.render(questionnaire.thank_you_template, {
-            name: response.name,
-            url: Bitly.shorten(response_url(response, options)),
-          })
-        end
+        options = ActionMailer::Base.default_url_options
+        options = options.merge(host: questionnaire.domain) if questionnaire.domain?
+        render text: Mustache.render(questionnaire.thank_you_template, {
+          name: response.name,
+          url: Bitly.shorten(response_url(response, options)),
+        })
       end
     end
   end
