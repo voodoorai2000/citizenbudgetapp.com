@@ -16,9 +16,9 @@ fr-CA:
     yes_label: "OUI"
 
   group:
-    simulator: Simulateur
-    custom: Sur mesure
-    other: Autre
+    simulator: Simulateur (défaut)
+    custom: Section sur mesure
+    other: Coordonnées
 
   questionnaires:
     questionnaire:
@@ -81,14 +81,18 @@ fr-CA:
     hints:
       response:
         email: Nous ne diffuserons pas votre adresse courriel ou toute autres données personnelles à une tierce personne.
+      organization:
+        name: e.g. "Ville de St-Endroit"
       questionnaire:
         starts_at: Utilisez l'heure UTC.
         ends_at: Utilisez l'heure UTC.
         domain: Vous devez pointer vos DNS sur nos serveurs.
         mode: Dans le mode « Services », le participant ajoute, coupe ou modifie des services and activités. Dans le mode « Taxes », le participant fait des changements en points de pourcentage aux budgets des services et le simulateur l'informe de l'impact sur ses taxes.
         tax_rate: Exprimez le taux sous forme de fraction décimale.
+        header_image: Cet image sera affiché à la gauche de l'en-tête.
         introduction: "Vous pouvez utiliser la syntaxe Markdown. Utilisez {{number_of_participants}} pour le nombre de participants."
         instructions: Ce texte doit tenir sur une ligne.
+        read_more: e.g. "Plus d'info".
         content_before: Personnaliser la page affiché avant la date de début.
         content_after: Personnaliser la page affiché après la date de fin.
         description: Ce texte sera affiché dans les résultats des moteurs de recherche.
@@ -104,6 +108,8 @@ fr-CA:
         twitter_share_text: Le texte du Tweet pour partager les responses d'un participant.
         facebook_app_id: Le numéro d'identification (ID) de l'application Facebook associée à votre nom de domaine
       section:
+        title: e.g. "Services municipaux"
+        group: La section Coordonnées ajoutera automatiquement les champs Courriel et Nom.
         description: Vous pouvez utiliser la syntaxe Markdown.
         extra: Ce texte apparaîtra dans une bulle quand l'utilisateur clique pour savoir plus. Vous pouvez utiliser la syntaxe Markdown.
         embed: Ce contenu apparaîtra dans une fenêtre modale. Collez le code embed de Speaker Deck, etc.
