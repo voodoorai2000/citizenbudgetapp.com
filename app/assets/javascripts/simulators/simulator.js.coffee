@@ -177,6 +177,8 @@ class window.Simulator
     revenue = $control.data('revenue')
 
     if current == initial
+      $tr.find('.key').html('')
+      $tr.find('.value').html(SimulatorHelper.number_to_currency(0, strip_insignificant_zeros: true))
       $tr.find('.impact').css('visibility', 'hidden')
 
       if $tr.hasClass('selected')
