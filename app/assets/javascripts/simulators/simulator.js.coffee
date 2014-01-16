@@ -119,6 +119,11 @@ class window.Simulator
       losses: 'Pertes :'
       savings: 'Épargnes :'
       costs: 'Coûts :'
+    es_ES:
+      gains: 'Ganancias :'
+      losses: 'Pérdidas :'
+      savings: 'Ahorros :'
+      costs: 'Costes :'
 
   messages: ->
     if @scope.find('[data-revenue]').length
@@ -132,8 +137,8 @@ class window.Simulator
         deficit: 'Votre budget est en déficit ({{number}}). <b>Renoncez à des activités ou augmentez les revenus pour équilibrer le budget.</b>'
       es_ES:
         surplus: """Su presupuesto tiene un superávit de {{number}}. Si ha terminado, <a href="#identification">envie sus respuestas</a>. De lo contrario, <b>añada actividades o reduzca ingresos para equilibrar el presupuesto</b>."""
-	      balanced: """<b>¡Su presupuesto está equilibrado!</b> Si ha terminado, <a href="#identification">envie sus respuestas</a>."""
-	      deficit: 'Su presupuesto está en déficit ({{number}}). <b>Reduzca actividades o añada ingresos para equilibrar el presupuesto.</b>'
+        balanced: """<b>¡Su presupuesto está equilibrado!</b> Si ha terminado, <a href="#identification">envie sus respuestas</a>."""
+        deficit: 'Su presupuesto está en déficit ({{number}}). <b>Reduzca actividades o añada ingresos para equilibrar el presupuesto.</b>'
     else
       en_US:
         surplus: """Your budget has a surplus of {{number}}. If you're finished, <a href="#identification">submit your choices</a>. Otherwise, <b>add activities to balance the budget</b>."""

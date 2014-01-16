@@ -85,7 +85,11 @@ class window.TaxSimulator extends window.Simulator
       losses: 'Diminution :'
       savings: 'Diminution :'
       costs: 'Augmentation :'
-
+    es_ES:
+      gains: 'Subir:'
+      losses: 'Bajar:'
+      savings: 'Bajar:'
+      costs: 'Subir:'
   messages: ->
     en_US:
       surplus: 'You have decreased your tax dollars by {{number}}/month or {{percentage}}. This could result in a service level reduction.'
@@ -95,6 +99,10 @@ class window.TaxSimulator extends window.Simulator
       surplus: 'Vos impôts diminueraient de {{number}} par mois, donc {{percentage}}. Il peut en résulter une réduction du niveau de service.'
       balanced: "Vous avez atteint l'équilibre."
       deficit: 'Vos impôts augmenteraient de {{number}} par mois, donc {{percentage}}. Cette augmentation peut se traduire par un niveau de service amélioré.'
+    es_ES:
+      surplus: 'Ha bajado sus impuestos a {{number}}/month o {{percentage}}. Esto podría resultar en una reducción de nivel de servicios.'
+      balanced: 'Su presupuesto está equilibrado.'
+      deficit: 'Ha subido sus impuestos a {{number}}/month o {{percentage}}. Esto podría resultar en una mejora de nivel de servicios.'
 
   messageOptions: (net_balance) ->
     number: SimulatorHelper.number_to_currency(Math.abs(net_balance), strip_insignificant_zeros: true)
