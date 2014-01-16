@@ -21,6 +21,17 @@ window.I18n =
     instructions: 'Modifiez une activité pour commencer'
     copy_hint: 'copier dans le presse papier'
     copied_hint: 'copié!'
+  es_ES:
+    currency_delimiter: ' '
+    currency_format: '{{number}} {{unit}}'
+    currency_separator: ','
+    currency_unit: '€'
+    percentage_format: '{{number}} {{symbol}}'
+    percentage_symbol: '%'
+    assessment_period: '{{number}}/mes'
+    instructions: 'Cambia una actividad para empezar'
+    copy_hint: 'copiar al portapapeles'
+    copied_hint: '¡copiado!'
 
 window.t = (string, args = {}, dict = I18n) ->
   current_locale = args.locale or window.locale or 'en'

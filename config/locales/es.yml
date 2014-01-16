@@ -1,0 +1,786 @@
+# Fragments like %{example} are placeholders and should not be changed. You may,
+# however, move them within the translation text.
+
+es:
+  # --- Public section ---------------------------------------------------------
+
+  # http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks
+  left_quote: "“"
+  right_quote: "”"
+  colon: ":"
+
+  # Button text to set a variable.
+  set: Actualizar
+
+  # The width of the Facebook button in pixels. In English, the button will
+  # have the short words "Like" and "Send", whereas in French it will have
+  # "J'aime" and "Envoyer", which require 20 more pixels.
+  facebook_width: 155
+
+  # This message appears after the participant submits their response.
+  create_response: &response_notice Gracias por tu participación! Tu opinión es importante para nosotros.
+
+  # The subject of the thank-you email that is sent to participants.
+  thank_you_subject: &thank_you_subject "%{organization}: Gracias por participar en nuestra consulta!"
+
+  # The message to display if a questionnaire is offline.
+  offline_header: La aplicación esta fuera de servicio.
+  offline_body: Por favor prueba otra vez más tarde.
+
+  labels:
+    # YAML doesn't like "no" and "yes" keys and values. Lame!
+    no_label: "NO"
+    yes_label: "SÍ"
+
+  group:
+    simulator: Simulador (estándar)
+    custom: Configuración Avanzada
+    other: Invormación de contacto
+
+  questionnaires:
+    questionnaire:
+      your_choice: Tu elección
+      assessment_unit: $/mes
+
+  responses:
+    new:
+      instructions: &instructions Cambia una actividad para empezar
+      positive_balance_instructions: "Tienes %{starting_balance} para gastar. Cambia una actividad para empezar."
+      negative_balance_instructions: "El presupuesto está %{starting_balance} en deficit. Cambia una actividad para empezar."
+      assessment: Introduce tu apreciación del valor actual de la propiedad o usa el valor predeterminado
+      default_assessment: "(%{number})"
+      # If the currency unit should appear before the number, populate
+      # +currency_unit_pre+. Otherwise, populate +currency_unit_post+.
+      currency_unit_pre: $
+      currency_unit_post: ""
+      required: obligatorio
+      submit: Enviar
+      submit_text: Si estás satisfecho con tus decisiones, haz click en "Enviar".
+    show:
+      header:
+        default: "%{name} reequilibró el presupuesto!"
+        taxes: "%{name} envió un presupuesto!"
+      share: &response_preamble Le animamos a compartir y discutir sus opciones presupuestarias con sus amigos y familiares.
+      share_link: "Copia el enlace y comparte tus decisiones presupuestarias:"
+      copy_hint: copiar al portapapeles
+      tweet: Tweetear
+      invitation: ¿Ya ha presentado su propio proyecto de presupuesto? sino, <b><a href="%{url}">haga click aquí para participar.</a></b>
+      comments: Comentarios
+    title:
+      read_more: &read_more Learn more
+      read_more_tip: Click para más información
+      view_media: Ver videos
+      view_media_tip: Click para ver videos
+    nav:
+      sections: Secciones
+      balance: Balance
+    modals:
+      close: Cerrar
+    modal:
+      close: Cerrar
+    footer:
+      attribution: &attribution Esta consulta de presupuesto online es posible gracias a 
+
+  # --- Both public and administrative sections --------------------------------
+
+  formtastic:
+    required: obligatorio
+    placeholders:
+      # @todo Placeholders need to be customizable.
+      response:
+        email: nombre@ejemplo.com
+        postal_code: H0H 0H0
+      questionnaire:
+        instructions: *instructions
+        read_more: *read_more
+        attribution: *attribution
+        thank_you_subject: *thank_you_subject
+        response_notice: *response_notice
+        response_preamble: *response_preamble
+    hints:
+      response:
+        email: No compartiremos su dirección de correo electrónico u otra información de contacto con terceros.
+      # The remaining translations in this section are administrative only.
+      organization:
+        name: por ejemplo "Ciudad de Burgos"
+      questionnaire:
+        starts_at: Ajuste la hora en UTC.
+        ends_at: Ajuste la hora en UTC.
+        domain: Debe configurar los DNS de tu dominio para que apunte a nuestros servidores.
+        mode: En el modo de "Servicios", los participantes agregan, cortar o modificar los servicios y actividades, al igual que el aumento de las tarifas de estacionamiento. En el modo "Impuestos", los participantes hacen porcentualmente cambios en los presupuestos de los paquetes de servicios, como la asistencia sanitaria, y el simulador reporta el impacto en sus impuestos.
+        tax_rate: Introduzca la tasa de impuesto como una fracción decimal, no en porcentaje.
+        header_image: Esto se mostrará a la izquierda de la cabecera.
+        introduction: "Puede utilizar la sintaxis de Markdown. Use {{number_of_participants}} para el número de participantes."
+        instructions: Este texto debe caber dentro de una línea. (Por lo general, se deja en blanco para utilizar el valor predeterminado.)
+        read_more: por ejemplo "Más información". (Por lo general, se deja en blanco para utilizar el valor predeterminado.)
+        content_before: Personalizar la página que se muestra antes de la fecha de inicio. (Por lo general, se deja en blanco.)
+        content_after: Personalizar la página que se muestra después de la fecha de finalización. (Por lo general, se deja en blanco.)
+        description: Esto se mostrará en los resultados del motor de páginas. (Por lo general, se deja en blanco.)
+        attribution: Esto se mostrará en el pie de página antes de un link con el producto. (Por lo general, se deja en blanco para utilizar el valor predeterminado.)
+        thank_you_template: "Use {{name}} para el nombre del que responde y {{url}} para la URL de respuesta."
+        response_notice: Breve mensaje de agradecimiento se muestra después de cada presentación.
+        response_preamble: Puede utilizar la sintaxis de Markdown.
+        response_body: Puede utilizar la sintaxis de Markdown.
+        google_analytics: Si utiliza Google Analytics.
+        google_analytics_profile: Si utiliza Google Analytics.
+        twitter_screen_name: Si utiliza Twitter. No incluya el símbolo "@".
+        twitter_text: El tweet predeterminado para compartir la consulta de presupuesto.
+        twitter_share_text: El tweet predeterminado para compartir las respuestas de un participante.
+        facebook_app_id: Si tiene una aplicación de Facebook para el nombre de dominio.
+      section:
+        title: por ejemplo "Servicios de la ciudad"
+        group: La sección de información de contacto se sumará automáticamente a los campos de correo electrónico y nombre.
+        description: Puede utilizar la sintaxis de Markdown.
+        extra: Este texto aparecerá en una pequeña superposición cuando la gente haga clic para obtener más información. Puede utilizar la sintaxis de Markdown.
+        embed: Este contenido aparecerá en una ventana modal. Pegue el código de inserción desde la cubierta del altavoz, etc
+      question:
+        description: Puede utilizar la sintaxis de Markdown.
+        extra: Este texto aparecerá en una pequeña superposición cuando la gente haga clic para obtener más información. Puede utilizar la sintaxis de Markdown.
+        unit_amount: Omita los signos de moneda.
+        unit_name: Utilice la forma plural en minúsculas.
+        options_as_list: Ponga cada opción en una línea separada.
+        labels_as_list: Ponga las etiquetas "NO" y "SI" en líneas separadas en ese orden.
+        step: Normalmente se puede establecer en 1.
+        default_value: Si se trata de una casilla de verificación, 1 si está marcada, 0 si está desmarcada.
+        maxlength: La longitud máxima del campo en caracteres.
+    labels:
+      question:
+        _destroy: Borrar pregunta
+    actions:
+      create: "Guardar %{model}"
+      update: "Guardar %{model}"
+      cancel: Cancelar
+
+  # --- Administrative section -------------------------------------------------
+  # The translations in this section are only visible to administrators. If you
+  # only want to translate the public-facing text, you may skip this section.
+
+  new_questionnaire: Añadir una nueva consulta
+  new_section: Añadir una sección de consulta
+  new_question: Añadir una pregunta a esta sección
+  example_name: Jose García
+  unknown_format: Los datos no están disponibles en el formato solicitado.
+  # Express the date format to be used in graphs in ICU format:
+  # http://userguide.icu-project.org/formatparse/datetime
+  icu_date_format: MMM d
+  # https://developers.google.com/chart/interactive/docs/reference#numberformatter
+  percentage_format: "###%"
+  language: Cambiar idioma
+  yes: Sí
+  no: No
+  untitled: Sin título
+  default: Predeterminado
+
+  breadcrumb:
+    admin: Admin
+    dashboard: Tablero
+
+  # These strings appear when editing a questionnaire, a section or its questions.
+  legend:
+    basic: Basico
+    email: email de agradecimiento
+    response: Página personal
+    mode: Modo
+    appearance: Apariencia
+    integration: Integración con terceros
+    question: Pregunta
+    widget: Parametros del artilugio
+    fiscal: Parametros fiscales
+    html: HTML
+
+  # Google API errors.
+  google_api:
+    authentication_error: No se pudo autenticar con la API de Google.
+    code_exchange_error: No se ha podido obtener un token de acceso de la API de Google.
+    no_authorization_code: No se recibió el código de autorización de la API de Google.
+    no_state: No se recibió ninguna parámetro de estado de la API Google.
+    not_authorized: El acceso a su cuenta de Google Analytics no ha sido autorizado.
+    not_configured: Este sistema no está configurado para Google Analytics. Por favor, póngase en contacto con su administrador.
+    access_revoked: Por favor, vuelva a autorizar a Google Analytics y vuelva a intentarlo.
+    api_error: Se ha producido un error de la API de Google. Por favor, inténtelo de nuevo.
+
+  # Google API actions.
+  authorize_google_api: Autorizar Google Analytics
+  deauthorize_google_api: Retirar autorización de Google Analytics
+  deauthorize_google_api_success: El acceso a su cuenta de Google Analytics ha sido revocada con éxito.
+
+  # Google Analytics actions.
+  link_google_analytics: Enlace de Google Analytics
+  link_google_analytics_success: "El perfil de Google Analytics %{property} ahora está vinculado a su consulta."
+  link_google_analytics_failure: "No se pudo encontrar el dominio en la cuenta de Google Analytics del usuario %{nombre de usuario}."
+
+  questionnaire:
+    period: "%{starts_at} hasta %{ends_at}"
+    starting: "empezando %{date}"
+    ending: "acabando %{date}"
+
+  mode:
+    services: Servicios
+    taxes: Impuestos
+
+  # An administrator's role limits what actions they are authorized to perform.
+  role:
+    superuser: Superusuario
+    administrator: Administrador
+
+  # Participants answers questions by using one of the following widgets.
+  widget:
+    # Budgetary.
+    slider: Deslizador
+    scaler: Escala de porcentaje
+    onoff: Interruptor encendido/apagado
+    option: Botones radio (presupuestario)
+    # Non-budgetary.
+    checkbox: Checkbox
+    checkboxes: Multiples checkbox
+    readonly: Sólo lectura
+    radio: Botones radio (no presupuestario)
+    select: Lista desplegable
+    static: Stático
+    text: Cuadro de texto
+    textarea: Área de texto
+
+  statistics:
+    participation_rate: "%{percentage} participación"
+    time_to_complete: La mediana de tiempo para completar
+    responses_title: Respuestas por día
+    # Traffic to example.com (UA-XXXXXXXXX-X)
+    visits_title: "Tráfico a %{name} (%{property})"
+    responses: Respuestas
+    mean_number_of_changes: "Promedio del número de servicios ha cambiado, de los %{count}"
+    mean_magnitude_of_changes: Magnitud media de un cambio
+    visitors: Visitantes
+    visits: Visitas
+    pageviews: Páginas Vistas
+    other: otro
+
+  admin:
+    dashboard:
+      summary:
+        header: Resumen del Informe de Presupuesto Consulta
+        period: "Para el período desde %{starts_on} hasta %{ends_on}"
+        by: "Preparado por %{author} para: %{organization}"
+
+        summary: Tendencias
+
+        detail:
+          header: Respuestas para cada pregunta
+          widget:
+            onoff:
+              revenue:
+                positive: Elegir para una ganancia de <strong class="positive">%{maximum_amount}</strong>.
+                negative: Elegir para una pérdida de <strong class="negative">%{minimum_amount}</strong>.
+              expense:
+                positive: Elegir para un ahorro de <strong class="positive">%{minimum_amount}</strong>.
+                negative: Elegir para un coste de <strong class="negative">%{maximum_amount}</strong>.
+            scaler: modificado. Los participantes eligieron un valor entre %{minimum_units} y %{maximum_units}, con un valor inicial de %{default_value}.
+            slider: modificado. Los participantes eligieron un valor entre %{minimum_units} (%{minimum_amount}) y %{maximum_units} (%{maximum_amount}), con un valor inicial de %{default_value}.
+            nonbudgetary: respondieron a esta pregunta.
+          choice: La elección promedio, incluyendo los participantes que no modifican esta actividad, fue <strong>%{choice}</strong>.
+          choice_and_impact:
+            revenue:
+              positive: La elección promedio, incluyendo los participantes que no modifican esta actividad, fue  <strong>%{choice}</strong>, una ganancia de <strong class="positive">%{impact}</strong>.
+              negative: La elección promedio, incluyendo los participantes que no modifican esta actividad, fue  <strong>%{choice}</strong>, una pérdida de <strong class="negative">%{impact}</strong>.
+            expense:
+              positive: La elección promedio, incluyendo los participantes que no modifican esta actividad, fue <strong>%{choice}</strong>, un ahorro de <strong class="positive">%{impact}</strong>.
+              negative: La elección promedio, incluyendo los participantes que no modifican esta actividad, fue <strong>%{choice}</strong>, un coste de <strong class="negative">%{impact}</strong>.
+          bidirectional: "Los que lo modificaron, %{proportion_who_decrease} lo disminuyeron por una cantidad media de %{mean_decrease}, y %{proportion_who_increase} lo incrementaron de media en %{mean_increase}."
+
+        demography: Demografía, etc
+        response_rates: Velocidad de respuesta
+      future:
+        copy_hint: copiar al portapapeles
+        table:
+          # The consultations starts on...
+          starts_at: Comienza el
+          url: URL
+      current:
+        table:
+          days_elapsed_header: Días transcurridos
+          days_left_header: Días que quedan
+          responses_header: Número de participantes
+          time_to_complete_header: Mediana de tiempo para completar
+          participation_rate_header: Porcentaje de participación
+          visitors_header: Visitantes
+          visits_header: Visitas
+          pageviews_header: Páginas Vistas
+          summary_report_header: Resumen del informe
+          download_raw_header: Descarga de datos en bruto
+          view: Ver
+          # If your language has more or fewer plural forms than English, you
+          # may need to add keys for :zero, :two, :few and/or :many.
+          days:
+            one: "%{count} día"
+            other: "%{count} días"
+          responses:
+            one: "%{count} respuesta"
+            other: "%{count} respuestas"
+    admin_users:
+      form:
+        automatic: Automático
+
+  # https://github.com/ryanb/cancan/wiki/Translating-your-app
+  unauthorized:
+    # CanCan falls back to the 'manage.all' translation.
+    manage:
+      all: &unauthorized No tiene permisos para acceder a esta página.
+
+  # https://github.com/plataformatec/responders/blob/master/lib/responders/locales/en.yml
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} se creó.'
+        alert: '%{resource_name} no pudo ser creado. Consulte los errores abajo.'
+      update:
+        notice: '%{resource_name} se actualizó.'
+        alert: '%{resource_name} no pudo ser actualizado. Consulte los errores abajo.'
+      destroy:
+        notice: '%{resource_name} se borró.'
+        alert: '%{resource_name} no pudo ser borrado.'
+
+  active_admin:
+    access_denied:
+      message: *unauthorized
+    # Administrators can filter current, future and past consultations.
+    scopes:
+      current: Actual
+      future: Futuro
+      past: Pasado
+    devise:
+      change_password:
+        title: "Elija su contraseña"
+        submit: "Establecer contraseña"
+
+    # In English, we override the following Active Admin translations to be more
+    # concise. Check the Active Admin translations for your language in case you
+    # want to make changes, too. The original English translations are given in
+    # the comments below.
+    edit_model: Editar # "Editar %{model}"
+    update_model: Editar # "Editar %{model}"
+    delete_model: Borrar # "Borrar %{model}"
+    pagination:
+      one: "" # Mostrando <b>1</b> %{model}"
+      one_page: "" # "Mostrando <b>all %{n}</b> %{model}"
+      multiple: "Mostrando %{model} <b>%{from}-%{to}</b> de <b>%{total}</b>" # "Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> en total"
+    has_many_delete: Borrar # "Borrar"
+
+  # We use Devise's "reset password" functionality to invite new administrators
+  # to access the app and set their password.
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: Establezca su contraseña para Presupuesto Ciudadano
+
+  # In English, we override the following default Rails translations. Check the
+  # Rails translations for your language in case you need to change them, too.
+  # The original English translations are given in the comments below.
+  number:
+    currency:
+      format:
+        precision: 0
+        strip_insignificant_zeros: true
+    percentage:
+      format:
+        precision: 1
+        strip_insignificant_zeros: true
+    precision:
+      format:
+        delimiter: ','
+        strip_insignificant_zeros: true
+  date:
+    formats:
+      short: "%B %e" # ! '%b %e'
+  time:
+    formats:
+      long: "%B %e, %Y at %H:%M" # ! '%B %d, %Y %H:%M'
+      short: "%B %e, %Y" # ! '%d %b %H:%M'
+
+  # Validation errors.
+  errors:
+    messages:
+      ends_at_must_be_greater_than_starts_at: La hora de finalización debe ser después de la hora de inicio
+      maximum_units_must_be_greater_than_minimum_units: El máximo de unidades debe ser mayor que el mínimas de unidades
+      default_value_must_be_between_minimum_and_maximum: El valor por defecto debe estar entre el mínimo y el máximo
+      default_value_must_be_an_option: El valor por defecto debe ser una opción válida
+      options_and_labels_must_agree: El número de opciones y etiquetas debe ser la misma
+      domain_must_be_active: El nombre de dominio debe estar activo
+      domain_must_not_be_blacklisted: El nombre de dominio esta en lista negra
+      reply_to_must_be_valid: La dirección de respuesta debe ser válida
+      maximum_deviation_must_not_be_set_in_taxes_mode: La desviación máxima no se debe establecer en el modo de "Impuestos"
+      maximum_deviation_and_tax_rate_must_not_both_be_set: Ambas, desviación máxima y la tasa de impuestos, no deben ser fijadas
+      response_must_change_at_least_one_value: La respuesta debe cambiar al menos en un valor
+      response_must_balance: La respuesta debe equilibrar
+
+  activerecord:
+    models: &models
+      dashboard: Tablero
+      admin_user:
+        one: User admin
+        other: Usarios admin
+      organization:
+        one: Organización
+        other: Organizaciónes
+      questionnaire:
+        one: Consulta
+        other: Consultas
+      section:
+        one: Sección
+        other: Sección
+      question:
+        one: Pregunta
+        other: Pregunta
+      response:
+        one: Respuesta
+        other: Respuesta
+    attributes: &attributes
+      admin_user:
+        email: Email
+        locale: Idioma
+        password: Contraseña
+        password_confirmation: Confirmación contraseña
+      organization:
+        name: Nombre
+        questionnaires: Consultas
+      questionnaire:
+        # Basic
+        title: Título
+        organization: Organización
+        locale: Idimoa
+        starts_at: Fecha comienzo
+        ends_at: Fecha fin
+        time_zone: Zona horaria
+        domain: Nombre del dominio
+        email_required: Los encuestados deben proporcionar una dirección de correo electrónico
+        authorization_token: URL privada
+
+        # Mode
+        mode: Modo
+        starting_balance: Saldo inicial
+        maximum_deviation: Desequilibrio máximo
+        default_assessment: Evaluación de la propiedad predeterminada
+        tax_rate: Tasa de Impuesto
+        tax_revenue: Ingresos fiscales
+        change_required: Los encuestados deben cambiar el presupuesto
+
+        # Appearance
+        logo: Logo
+        remove_logo: Borrar logo
+        title_image: Imagen de cabecera
+        remove_title_image: Borrar Imagen de cabecera
+        introduction: Texto introductorio
+        instructions: Instrucciones
+        read_more: 'texto del enlace "Más información"'
+        description: Meta descripción
+        description_before: Antes de la consulta
+        description_after: Después de la consulta
+        attribution: Atribución
+        stylesheet: CSS personalizado
+        javascript: JavaScript personalizado
+
+        # Thank-you email
+        reply_to: Responder a dirección
+        thank_you_subject: Asunto del mensaje
+        thank_you_template: Gracias, plantilla de correo electrónico
+
+        # Individual response
+        response_notice: Gracias, mensaje
+        response_preamble: Texto antes de las opciones de compartir
+        response_body: Texto antes decisiones presupuestarias
+
+        # Third-party integration
+        google_analytics: Código de seguimiento de Google Analytics 
+        google_analytics_profile: ID de perfil de Google Analytics
+        twitter_screen_name: Nombre de usuario de Twitter 
+        twitter_text: Texto para compartir la consulta en Twitter 
+        twitter_share_text: Texto para compartir la respuesta en Twitter 
+        facebook_app_id: App ID para Facebook 
+        open_graph_title: Título para Open Graph
+        open_graph_description: Descripción para Open Graph 
+        sections: Secciones
+      section:
+        title: Título
+        description: Descripción
+        extra: Información adicional
+        embed: Incrustar
+        questions: Preguntas
+      question:
+        title: Título
+        description: Descripción
+        extra: Información adicional
+        options: Opciones
+        labels: Etiquetas
+        options_as_list: Opciones como la lista
+        labels_as_list: Etiquetas como lista
+        minimum_units: Mínimo de unidades
+        maximum_units: Máximo de unidades 
+        step: Paso
+        default_value: Valor predeterminado
+        required: Obligatorio
+        widget: Artilugio
+        unit_amount: Importe de la unidad
+        unit_name: Nombre de la unidad
+        size: Tamaño del campo de texto
+        maxlength: Longitud máxima
+        placeholder: Ejemplo
+        rows: Filas
+        cols: Columnas
+        revenue: Ingresos?
+      response:
+        id: ID
+        ip: Dirección IP
+        assessment: Evaluación de la propiedad
+        created_at: Enviado
+        time_to_complete: Tiempo para completar
+
+  # --- Application branding ---------------------------------------------------
+  # Only change translations in this section if you are rebranding the app.
+
+  # This site title appears in the administrative section only.
+  site_title: Presupuesto Ciudadano
+
+  app:
+    # The full default hostname of the app.
+    host: app.citizenbudget.com
+    # The default second-level domain (SLD) of the app.
+    domain: citizenbudget.com
+    product_name: Citizen Budget
+    product_url: http://www.citizenbudget.com/
+    author_name: Open North
+    author_url: http://opennorth.ca/
+
+  layouts:
+    application:
+      facebook_admins: "100002666906486" # http://www.facebook.com/mckinneyjamesp
+      google_analytics: UA-21866813-6 # citizenbudget.com
+
+  # --- In-depth report --------------------------------------------------------
+  # Only change translations in this section if you are using the report authoring tools.
+
+  report:
+    no_answer: Sin respuesta
+    timeline:
+      title: "Respuestas por día, a partir de %{start_date} hasta %{end_date}"
+    priorities:
+      title: Prioridades presupuestarias de los participantes
+      legend:
+        - Coupure
+        - Aucun changement
+        - Addition
+    single_distribution:
+      title: "Distribución de los participantes por %{factor}"
+      legend:
+        - Participantes
+        - Población
+    double_distribution:
+      title: "Distribución de participantes por %{a} y %{b}"
+    number_of_changes:
+      title: "Número de %{name} cambiados"
+      text: "Los participantes hicieron %.1f cambios de media (mediana %d, modo %s)."
+    choices:
+      title: Opciones elegidas por los participantes
+    magnitude_of_changes:
+      title: Magnitud media de los cambios por actividad
+      text:
+        default: "Los participantes hicieron %.1f cambios de media (mediana %d, modo %s)."
+        taxes: "Los participantes hicieron %.1f%%%% cambios de media (mediana %d%%%%, modo %s)."
+    balance:
+      title:
+        default: Cambio en el saldo presupuestario
+        taxes: Cambio en euros de los impuestos
+      legend:
+        default:
+          - Déficit
+          - Sin cambios
+          - Superávit
+        taxes:
+          - Impuestos más bajos
+          - Sin cambios
+          - Impuestos más altos
+      text:
+        default: "Los participantes cambiaría el presupuesto %.2f de media (mediana %.2f, modo %s)."
+        taxes: "Los participantes cambiaría los impuestos %.2f%%%% de media (mediana %.2f%%%%, modo %s)."
+    average:
+      title: "Media %{metric} por %{factor}"
+    histogram:
+      title: "%{title} por %{factor}"
+    text:
+      symbol:
+        default: ""
+        taxes: "%%"
+      participation_rate: "%.1f%% de los participantes cambió el presupuesto."
+      options: "Los participantes podían seleccionar un valor dentro del rango de %d%{symbol} hasta %d%{symbol}, con un valor inicial de %d%{symbol}."
+      unidirectional: "De los que cambió el presupuesto de %{name}, la elección media fue %.1f%{symbol}, la mediana %.1f%{symbol} y el modo %s%{symbol}."
+      bidirectional: "De los que cambió el presupuesto de %{name}, %d%%%% bajaron el prespuesto, con una media de %.1f%{symbol}, mediana %d%{symbol} y modo %s%{symbol}; %d%%%% aumentaron el presupuesto, en una media de %d%{symbol}, mediana %d%{symbol} y modo %s%{symbol}."
+      impact: "La %s opcion de media es $%s."
+      savings: "ahorro para"
+      cost: "coste de"
+      central_tendencies: "La elección media de todos los participantes fue %.1f%{symbol}, mediana %d%{symbol} and modo %s%{symbol}."
+      confidence: "El valor predeterminado de %d%{symbol} está fuera del intervalo de confianza del 95%%%%; por lo tanto, con 95%%%% de confianza, el promedio de la población es %s que el valor por defecto."
+      less: menos
+      greater: más
+    table:
+      mean: Media
+      median: Mediana
+      mode: Modo(s)
+      participation_rate: "% que cambió"
+      participants: "Número que cambió"
+      decrease: "% que la disminuyó fue"
+      decrease_count: "Número que lo disminuyó"
+      increase: "% que lo incrementó"
+      increase_count: "Número que lo incrementó"
+
+  # --- Time zones -------------------------------------------------------------
+  # Rails doesn't translate time zone names. Citizen Budget adds this feature.
+  # Note that time zone names are visible to administrators only.
+
+  time_zone:
+    "American Samoa": "American Samoa"
+    "International Date Line West": "International Date Line West"
+    "Midway Island": "Midway Island"
+    "Hawaii": "Hawaii"
+    "Alaska": "Alaska"
+    "Pacific Time (US & Canada)": "Pacific Time (US & Canada)"
+    "Tijuana": "Tijuana"
+    "Arizona": "Arizona"
+    "Chihuahua": "Chihuahua"
+    "Mazatlan": "Mazatlan"
+    "Mountain Time (US & Canada)": "Mountain Time (US & Canada)"
+    "Central America": "Central America"
+    "Central Time (US & Canada)": "Central Time (US & Canada)"
+    "Guadalajara": "Guadalajara"
+    "Mexico City": "Mexico City"
+    "Monterrey": "Monterrey"
+    "Saskatchewan": "Saskatchewan"
+    "Bogota": "Bogota"
+    "Eastern Time (US & Canada)": "Eastern Time (US & Canada)"
+    "Indiana (East)": "Indiana (East)"
+    "Lima": "Lima"
+    "Quito": "Quito"
+    "Caracas": "Caracas"
+    "Atlantic Time (Canada)": "Atlantic Time (Canada)"
+    "Georgetown": "Georgetown"
+    "La Paz": "La Paz"
+    "Santiago": "Santiago"
+    "Newfoundland": "Newfoundland"
+    "Brasilia": "Brasilia"
+    "Buenos Aires": "Buenos Aires"
+    "Greenland": "Greenland"
+    "Mid-Atlantic": "Mid-Atlantic"
+    "Azores": "Azores"
+    "Cape Verde Is.": "Cape Verde Is."
+    "Casablanca": "Casablanca"
+    "Dublin": "Dublin"
+    "Edinburgh": "Edinburgh"
+    "Lisbon": "Lisbon"
+    "London": "London"
+    "Monrovia": "Monrovia"
+    "UTC": "UTC"
+    "Amsterdam": "Amsterdam"
+    "Belgrade": "Belgrade"
+    "Berlin": "Berlin"
+    "Bern": "Bern"
+    "Bratislava": "Bratislava"
+    "Brussels": "Brussels"
+    "Budapest": "Budapest"
+    "Copenhagen": "Copenhagen"
+    "Ljubljana": "Ljubljana"
+    "Madrid": "Madrid"
+    "Paris": "Paris"
+    "Prague": "Prague"
+    "Rome": "Rome"
+    "Sarajevo": "Sarajevo"
+    "Skopje": "Skopje"
+    "Stockholm": "Stockholm"
+    "Vienna": "Vienna"
+    "Warsaw": "Warsaw"
+    "West Central Africa": "West Central Africa"
+    "Zagreb": "Zagreb"
+    "Athens": "Athens"
+    "Bucharest": "Bucharest"
+    "Cairo": "Cairo"
+    "Harare": "Harare"
+    "Helsinki": "Helsinki"
+    "Istanbul": "Istanbul"
+    "Jerusalem": "Jerusalem"
+    "Kyiv": "Kyiv"
+    "Pretoria": "Pretoria"
+    "Riga": "Riga"
+    "Sofia": "Sofia"
+    "Tallinn": "Tallinn"
+    "Vilnius": "Vilnius"
+    "Baghdad": "Baghdad"
+    "Kuwait": "Kuwait"
+    "Minsk": "Minsk"
+    "Nairobi": "Nairobi"
+    "Riyadh": "Riyadh"
+    "Tehran": "Tehran"
+    "Abu Dhabi": "Abu Dhabi"
+    "Baku": "Baku"
+    "Moscow": "Moscow"
+    "Muscat": "Muscat"
+    "St. Petersburg": "St. Petersburg"
+    "Tbilisi": "Tbilisi"
+    "Volgograd": "Volgograd"
+    "Yerevan": "Yerevan"
+    "Kabul": "Kabul"
+    "Islamabad": "Islamabad"
+    "Karachi": "Karachi"
+    "Tashkent": "Tashkent"
+    "Chennai": "Chennai"
+    "Kolkata": "Kolkata"
+    "Mumbai": "Mumbai"
+    "New Delhi": "New Delhi"
+    "Sri Jayawardenepura": "Sri Jayawardenepura"
+    "Kathmandu": "Kathmandu"
+    "Almaty": "Almaty"
+    "Astana": "Astana"
+    "Dhaka": "Dhaka"
+    "Ekaterinburg": "Ekaterinburg"
+    "Rangoon": "Rangoon"
+    "Bangkok": "Bangkok"
+    "Hanoi": "Hanoi"
+    "Jakarta": "Jakarta"
+    "Novosibirsk": "Novosibirsk"
+    "Beijing": "Beijing"
+    "Chongqing": "Chongqing"
+    "Hong Kong": "Hong Kong"
+    "Krasnoyarsk": "Krasnoyarsk"
+    "Kuala Lumpur": "Kuala Lumpur"
+    "Perth": "Perth"
+    "Singapore": "Singapore"
+    "Taipei": "Taipei"
+    "Ulaan Bataar": "Ulaan Bataar"
+    "Urumqi": "Urumqi"
+    "Irkutsk": "Irkutsk"
+    "Osaka": "Osaka"
+    "Sapporo": "Sapporo"
+    "Seoul": "Seoul"
+    "Tokyo": "Tokyo"
+    "Adelaide": "Adelaide"
+    "Darwin": "Darwin"
+    "Brisbane": "Brisbane"
+    "Canberra": "Canberra"
+    "Guam": "Guam"
+    "Hobart": "Hobart"
+    "Melbourne": "Melbourne"
+    "Port Moresby": "Port Moresby"
+    "Sydney": "Sydney"
+    "Yakutsk": "Yakutsk"
+    "New Caledonia": "New Caledonia"
+    "Vladivostok": "Vladivostok"
+    "Auckland": "Auckland"
+    "Fiji": "Fiji"
+    "Kamchatka": "Kamchatka"
+    "Magadan": "Magadan"
+    "Marshall Is.": "Marshall Is."
+    "Solomon Is.": "Solomon Is."
+    "Wellington": "Wellington"
+    "Nuku'alofa": "Nuku'alofa"
+    "Samoa": "Samoa"
+    "Tokelau Is.": "Tokelau Is."
+
+  # --- MAKE NO CHANGES PAST THIS POINT ----------------------------------------
+
+  mongoid:
+    models: *models
+    attributes: *attributes
