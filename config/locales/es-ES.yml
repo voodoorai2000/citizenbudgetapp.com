@@ -779,6 +779,15 @@ es-ES:
     "Samoa": "Samoa"
     "Tokelau Is.": "Tokelau Is."
 
+  datetime:
+    prompts:
+      day: Día
+      hour: Hora
+      minute: Minutos
+      month: Mes
+      second: Segundos
+      year: Año
+          
   # --- MAKE NO CHANGES PAST THIS POINT ----------------------------------------
 
   mongoid:
