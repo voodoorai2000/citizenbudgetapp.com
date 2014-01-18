@@ -445,7 +445,7 @@ es-ES:
         # Basic
         title: Título
         organization: Organización
-        locale: Idimoa
+        locale: Idioma
         starts_at: Fecha comienzo
         ends_at: Fecha fin
         time_zone: Zona horaria
