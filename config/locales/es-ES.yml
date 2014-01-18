@@ -416,7 +416,7 @@ es-ES:
       dashboard: Tablero
       admin_user:
         one: User admin
-        other: Usarios admin
+        other: Usuarios admin
       organization:
         one: Organización
         other: Organizaciónes
