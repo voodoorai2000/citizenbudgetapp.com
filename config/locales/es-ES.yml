@@ -40,7 +40,7 @@ es-ES:
   questionnaires:
     questionnaire:
       your_choice: Tu elección
-      assessment_unit: $/mes
+      assessment_unit: €/mes
 
   responses:
     new:
@@ -51,7 +51,7 @@ es-ES:
       default_assessment: "(%{number})"
       # If the currency unit should appear before the number, populate
       # +currency_unit_pre+. Otherwise, populate +currency_unit_post+.
-      currency_unit_pre: $
+      currency_unit_pre: €
       currency_unit_post: ""
       required: obligatorio
       submit: Enviar
@@ -611,7 +611,7 @@ es-ES:
       options: "Los participantes podían seleccionar un valor dentro del rango de %d%{symbol} hasta %d%{symbol}, con un valor inicial de %d%{symbol}."
       unidirectional: "De los que cambió el presupuesto de %{name}, la elección media fue %.1f%{symbol}, la mediana %.1f%{symbol} y el modo %s%{symbol}."
       bidirectional: "De los que cambió el presupuesto de %{name}, %d%%%% bajaron el prespuesto, con una media de %.1f%{symbol}, mediana %d%{symbol} y modo %s%{symbol}; %d%%%% aumentaron el presupuesto, en una media de %d%{symbol}, mediana %d%{symbol} y modo %s%{symbol}."
-      impact: "La %s opcion de media es $%s."
+      impact: "La %s opcion de media es €%s."
       savings: "ahorro para"
       cost: "coste de"
       central_tendencies: "La elección media de todos los participantes fue %.1f%{symbol}, mediana %d%{symbol} and modo %s%{symbol}."
