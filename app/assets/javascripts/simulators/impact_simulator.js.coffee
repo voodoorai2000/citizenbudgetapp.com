@@ -20,6 +20,10 @@ class window.ImpactSimulator extends window.Simulator
         surplus: 'Vos choix ont diminué le total des impôts fonciers requis pour équilibrer le budget de {{number}} ou {{percentage}}.'
         balanced: "Vous avez atteint l'équilibre."
         deficit: 'Vos choix ont augmenté le total des impôts fonciers requis pour équilibrer le budget de {{number}} ou {{percentage}}.'
+      es_ES:
+        surplus: 'Sus opciones han disminuido la cantidad necesarias de impuestos para equilibrar el presupuesto por {{number}} o {{percentage}}.'
+        balanced: 'Su presupuesto está equilibrado.'
+        deficit: 'Sus opciones han aumentado la cantidad necesaria de impuestos para equilibrar el presupuesto por {{number}} o {{percentage}}.'
 
   # Display the default message in the navigation only.
   messageSelector: ->
